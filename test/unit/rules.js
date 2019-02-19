@@ -1,4 +1,4 @@
-describe('htmllint.rules', function () {
+describe('linthtml.rules', function () {
     var rules = require('../../').rules;
 
     rules.forEach(function (rule) {

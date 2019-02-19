@@ -1,7 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     lodash = require('lodash'),
-    htmllint = require('../../lib'),
+    linthtml = require('../../lib'),
     presets = require('../../lib/presets');
 
 // find all files in this directory that are .js files
@@ -20,7 +20,7 @@ var testFiles = fs.readdirSync(__dirname)
     });
 
 function createLinter(names) {
-    return new htmllint.Linter(htmllint.rules);
+    return new linthtml.Linter(linthtml.rules);
 }
 
 function doTest(funcTest, testFile) {

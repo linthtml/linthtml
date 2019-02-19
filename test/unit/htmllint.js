@@ -1,18 +1,18 @@
-describe('htmllint', function () {
-    var htmllint = require('../../');
+describe('linthtml', function () {
+    var linthtml = require('../../');
 
     it('should be a function', function () {
-        expect(htmllint).to.be.an.instanceOf(Function);
+        expect(linthtml).to.be.an.instanceOf(Function);
     });
 
     it('should return a thenable', function () {
-        var thenable = htmllint('');
+        var thenable = linthtml('');
 
         expect(thenable).to.have.property('then');
     });
 
     it('should eventually return an array', function () {
-        var result = htmllint('');
+        var result = linthtml('');
 
         return result.then(function (output) {
             expect(output).to.be.an.instanceOf(Array);
@@ -25,7 +25,7 @@ describe('htmllint', function () {
             sanityHtml = fs.readFileSync(filePath, {encoding: 'utf8'});
 
         expect(function () {
-            htmllint(sanityHtml);
+            linthtml(sanityHtml);
         }).to.not.throw(Error);
     });
 
@@ -38,9 +38,9 @@ describe('htmllint', function () {
                 { rules: [rule] }
             ];
 
-            htmllint.use(plugins);
+            linthtml.use(plugins);
 
-            expect(htmllint.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
+            expect(linthtml.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
         });
     });
 });

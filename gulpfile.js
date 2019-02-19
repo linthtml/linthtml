@@ -74,15 +74,15 @@ gulp.task('jsdoc', function () {
             ],
             markdown: {
                 parser: 'gfm',
-                githubRepoOwner: 'htmllint',
-                githubRepoName: 'htmllint'
+                githubRepoOwner: 'linthtml',
+                githubRepoName: 'linthtml'
             }
         }))
         .pipe(jsdoc.generator('./site/api', {
             // template
             path: 'ink-docstrap',
             theme: 'cerulean',
-            systemName: 'htmllint',
+            systemName: 'linthtml',
             navType: 'vertical',
             linenums: true,
             inverseNav: true,

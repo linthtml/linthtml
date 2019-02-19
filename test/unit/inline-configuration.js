@@ -90,103 +90,103 @@ describe('inline-configuration', function () {
     });
 
     it('should not do anything on an empty tag', function () {
-        original.splice(3, 0, '<!-- htmllint -->');
+        original.splice(3, 0, '<!-- linthtml -->');
         return expectOutput(original, expshift);
     });
 
     it('should change options to turn off rules', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="false" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="false" -->');
         return expectOutput(original, expfalse);
     });
 
     it('should accept $preset notation', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="$none" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="$none" -->');
         return expectOutput(original, expfalse);
     });
 
     it('should work when used multiple times in a line', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="cr" -->'
-                            + '<!-- htmllint line-end-style="false" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="cr" -->'
+                            + '<!-- linthtml line-end-style="false" -->');
         return expectOutput(original, expfalse);
     });
 
     it('should use allow $previous to revert value', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="false" -->'
-                            + '<!-- htmllint line-end-style="$previous" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="false" -->'
+                            + '<!-- linthtml line-end-style="$previous" -->');
         return expectOutput(original, expshift);
     });
 
     it('should output an issue on invalid $preset', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="$invalid" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="$invalid" -->');
         return expectConfigIssue(original, 'E051');
     });
 
     it('should work without quotes', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style=false -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style=false -->');
         return expectOutput(original, expfalse);
     });
 
     it('should work for strings without quotes', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style=lf -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style=lf -->');
         return expectOutput(original, expshift);
     });
 
     it('should output an issue on bad config formatting', function () {
-        original.splice(4, 0, '<!-- htmllint line-end-style="false" id-no-dup-"false" id-class-no-ad="false" -->');
+        original.splice(4, 0, '<!-- linthtml line-end-style="false" id-no-dup-"false" id-class-no-ad="false" -->');
         return expectConfigIssue(original, 'E050');
     });
 
     it('should throw an error on bad options', function () {
-        original.splice(4, 0, '<!-- htmllint line-end-style="false" id-no-dup="false" id-no-no-ad="false" -->');
+        original.splice(4, 0, '<!-- linthtml line-end-style="false" id-no-dup="false" id-no-no-ad="false" -->');
         return expectConfigIssue(original, 'E054');
     });
 
     it('should output an issue on invalid option value', function () {
-        original.splice(4, 0, '<!-- htmllint line-end-style="fal#se" -->');
+        original.splice(4, 0, '<!-- linthtml line-end-style="fal#se" -->');
         return expectConfigIssue(original, 'E053');
     });
 
     it('should throw on nonexistent rule name', function () {
-        original.splice(4, 0, '<!-- htmllint not-rule="false" -->');
+        original.splice(4, 0, '<!-- linthtml not-rule="false" -->');
         return expectConfigIssue(original, 'E054');
     });
 
     it('should output an issue on invalid rule name', function () {
-        original.splice(3, 0, '<!-- htmllint pre#set="none" -->');
+        original.splice(3, 0, '<!-- linthtml pre#set="none" -->');
         return expectConfigIssue(original, 'E051');
     });
 
     it('should change multiple rules', function () {
-        original.splice(4, 0, '<!-- htmllint line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->');
+        original.splice(4, 0, '<!-- linthtml line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->');
         return expectOutput(original, [{ code: 'E015', line: 3 }]);
     });
 
     it('should take in presets', function () {
-        original.splice(1, 0, '<!-- htmllint preset="none" -->');
+        original.splice(1, 0, '<!-- linthtml preset="none" -->');
         return expectOutput(original, []);
     });
 
     it('should restore values with $previous after using presets', function () {
-        original.splice(3, 0, '<!-- htmllint preset="none" -->'
-                            + '<!-- htmllint line-end-style="$previous" -->');
+        original.splice(3, 0, '<!-- linthtml preset="none" -->'
+                            + '<!-- linthtml line-end-style="$previous" -->');
         return expectOutput(original, expfalse);
     });
 
     it('should revert last setting preset=$previous', function () {
-        original.splice(3, 0, '<!-- htmllint line-end-style="false" -->'
-                            + '<!-- htmllint id-no-dup="false" id-class-no-ad="false" -->'
-                            + '<!-- htmllint preset="$previous" -->');
+        original.splice(3, 0, '<!-- linthtml line-end-style="false" -->'
+                            + '<!-- linthtml id-no-dup="false" id-class-no-ad="false" -->'
+                            + '<!-- linthtml preset="$previous" -->');
         return expectOutput(original, expfalse);
     });
 
     it('should revert an entire preset with preset=$previous', function () {
-        original.splice(3, 0, '<!-- htmllint preset="none" -->'
-                            + '<!-- htmllint preset="$previous" -->');
+        original.splice(3, 0, '<!-- linthtml preset="none" -->'
+                            + '<!-- linthtml preset="$previous" -->');
         return expectOutput(original, expshift);
     });
 
     it('should output an issue on invalid preset option', function () {
-        original.splice(3, 0, '<!-- htmllint preset="invalid" -->');
+        original.splice(3, 0, '<!-- linthtml preset="invalid" -->');
         return expectConfigIssue(original, 'E052');
     });
 });

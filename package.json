@@ -1,16 +1,16 @@
 {
-  "name": "htmllint",
+  "name": "linthtml",
   "version": "0.7.3",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
-    "url": "http://github.com/htmllint/htmllint"
+    "url": "http://github.com/KamiKillertO/linthtml"
   },
   "keywords": [
     "html",
     "lint",
     "hint",
-    "htmllint"
+    "linthtml"
   ],
   "main": "lib/index.js",
   "scripts": {
@@ -51,6 +51,6 @@
     "node": ">=6"
   },
   "contributors": [
-    "Yannick Van Avermaet <yvanavermaet+npm@gmail.com> (https://twitter.com/yvanavermaet)"
+    "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"
   ]
 }
