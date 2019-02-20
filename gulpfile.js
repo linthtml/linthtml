@@ -45,15 +45,15 @@ function genJSDoc() {
       ],
       markdown: {
         parser: 'gfm',
-        githubRepoOwner: 'linthtml',
-        githubRepoName: 'linthtml'
+        githubRepoOwner: 'lintHTML',
+        githubRepoName: 'lintHTML'
       }
     }))
     .pipe(jsdoc.generator('./site/api', {
       // template
       path: 'ink-docstrap',
       theme: 'cerulean',
-      systemName: 'linthtml',
+      systemName: 'lintHTML',
       navType: 'vertical',
       linenums: true,
       inverseNav: true,

@@ -1,7 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     lodash = require('lodash'),
-    linthtml = require('../../lib'),
+    lintHTML = require('../../lib'),
     presets = require('../../lib/presets');
 const { expect } = require('chai');
 
@@ -21,7 +21,7 @@ var testFiles = fs.readdirSync(__dirname)
     });
 
 function createLinter(names) {
-    return new linthtml.Linter(linthtml.rules);
+    return new lintHTML.Linter(lintHTML.rules);
 }
 
 function doTest(funcTest, testFile) {

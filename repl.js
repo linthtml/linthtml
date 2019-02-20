@@ -3,13 +3,13 @@
 var repl = require('repl');
 var ctx = repl.start('>> ').context;
 
-var linthtml = require('./');
+var lintHTML = require('./');
 
 // export stuff to use in the repl
-ctx.linthtml = linthtml;
+ctx.lintHTML = lintHTML;
 
 ctx.lint = function () {
-    var promise = ctx.linthtml.apply(ctx.linthtml, arguments);
+    var promise = ctx.lintHTML.apply(ctx.lintHTML, arguments);
 
     function handler(result) {
         ctx['_'] = result;
@@ -22,5 +22,5 @@ ctx.lint = function () {
 };
 
 
-var parser = ctx.linthtml.defaultLinter.parser;
+var parser = ctx.lintHTML.defaultLinter.parser;
 ctx.parse = parser.parse.bind(parser);

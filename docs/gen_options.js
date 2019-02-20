@@ -2,10 +2,10 @@
 
 // Generate the wiki Options.md page and send to stdout.
 
-var linthtml = require('../lib'),
+var lintHTML = require('../lib'),
     presets = require('../lib/presets');
 
-var options = linthtml.defaultLinter.rules.options,
+var options = lintHTML.defaultLinter.rules.options,
     def = presets.presets.default;
 
 var preamble = [

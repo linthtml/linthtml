@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-describe('linthtml.rules', function () {
+describe('lintHTML.rules', function () {
     var rules = require('../../').rules;
 
     rules.forEach(function (rule) {
