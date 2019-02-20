@@ -5,7 +5,6 @@ const eslint = require('gulp-eslint');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
 const publish = require('gulp-gh-pages');
-const plato = require('plato');
 const jsdoc = require('gulp-jsdoc');
 
 const { series, parallel }= gulp;
@@ -54,13 +53,6 @@ exports["tests:unit"] = unitTest;
 
 const tests = series(istanbulAnalysis, unitTest);
 exports.tests = tests;
-
-function platoAnalysis() {
-  return gulp.src(paths.src)
-    .pipe(plato('report', {}));
-}
-platoAnalysis.description = "Generate a plato report";
-exports.plato = platoAnalysis;
 
 // jsdoc generation
 function genJSDoc() {
