@@ -1,12 +1,16 @@
-var gulp = require('gulp'),
-    coveralls = require('gulp-coveralls'),
-    eslint = require('gulp-eslint'),
-    jscs = require('gulp-jscs'),
-    istanbul = require('gulp-istanbul'),
-    mocha = require('gulp-mocha'),
-    publish = require('gulp-gh-pages');
+/* eslint-env node */
+const gulp = require('gulp');
+const coveralls = require('gulp-coveralls');
+const eslint = require('gulp-eslint');
+const istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
+const publish = require('gulp-gh-pages');
+const plato = require('plato');
+const jsdoc = require('gulp-jsdoc');
 
-var paths = {
+const { series, parallel }= gulp;
+
+let paths = {
     src: ['./lib/**/*.js'],
     testUnit: './test/unit/*.js',
     testFunc: './test/functional/*.js',
@@ -14,98 +18,89 @@ var paths = {
 };
 paths.test = [].concat(paths.testUnit, paths.testFunc);
 
-gulp.task('jscs', function () {
-    return gulp.src(paths.src
-             .concat(paths.test))
-        .pipe(jscs())
-        .pipe(jscs.reporter());
-});
+function lint() {
+  return gulp.src([
+      paths.src,
+      paths.test,
+      './gulpfile.js'
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format());
+}
+lint.description = "Lints javascript files with eslint";
+exports.lint = lint;
 
-// lints javascript files with eslint
-// edit .eslintrc for configuration
-gulp.task('lint', gulp.series('jscs', function () {
-    return gulp.src(paths.src
-             .concat(paths.test)
-             .concat('./gulpfile.js'))
-        .pipe(eslint())
-        .pipe(eslint.format());
-}));
+function istanbulAnalysis() {
+  return gulp.src(paths.src)
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+}
+istanbulAnalysis.description = "Instruments js source code for coverage reporting";
+exports.istanbul = istanbulAnalysis;
 
-// instruments js source code for coverage reporting
-gulp.task('istanbul', function (done) {
-    return gulp.src(paths.src)
-        .pipe(istanbul())
-        .pipe(istanbul.hookRequire())
-        .on('finish', done);
-});
+function unitTest() {
+  global.chai = require('chai');
+  global.chai.use(require('chai-as-promised'));
+  global.expect = global.chai.expect;
 
-// runs mocha tests
-gulp.task('test', gulp.series('istanbul', function (done) {
-    // expose globals here for now
-    // move these into their own file if they grow
-    global.chai = require('chai');
-    global.chai.use(require('chai-as-promised'));
-    global.expect = global.chai.expect;
+  return gulp.src(paths.test, { read:false })
+    .pipe(mocha({
+        reporter: 'list'
+    }))
+    .pipe(istanbul.writeReports())
+}
+unitTest.description = "Run unit tests using mocha+chai";
+exports["tests:unit"] = unitTest;
 
-    return gulp.src(paths.test, {read:false})
-        .pipe(mocha({
-            reporter: 'list'
-        }))
-        .pipe(istanbul.writeReports())
-        .on('end', done);
-}));
+const tests = series(istanbulAnalysis, unitTest);
+exports.tests = tests;
 
-// plato report
-// TODO: think bout this a bit more
-gulp.task('plato', function () {
-    var plato = require('plato');
-    gulp.src(paths.src)
-        .pipe(plato('report', {}));
-});
+function platoAnalysis() {
+  return gulp.src(paths.src)
+    .pipe(plato('report', {}));
+}
+platoAnalysis.description = "Generate a plato report";
+exports.plato = platoAnalysis;
 
 // jsdoc generation
-gulp.task('jsdoc', function () {
-    var jsdoc = require('gulp-jsdoc');
-    gulp.src(paths.src.concat('README.md'))
-        .pipe(jsdoc.parser({
-            plugins: [
-                'plugins/escapeHtml',
-                'plugins/markdown'
-            ],
-            markdown: {
-                parser: 'gfm',
-                githubRepoOwner: 'linthtml',
-                githubRepoName: 'linthtml'
-            }
-        }))
-        .pipe(jsdoc.generator('./site/api', {
-            // template
-            path: 'ink-docstrap',
-            theme: 'cerulean',
-            systemName: 'linthtml',
-            navType: 'vertical',
-            linenums: true,
-            inverseNav: true,
-            outputSourceFiles: true
-        }));
+function genJSDoc() {
+  return gulp.src([paths.src, 'README.md'])
+    .pipe(jsdoc.parser({
+      plugins: [
+        'plugins/escapeHtml',
+        'plugins/markdown'
+      ],
+      markdown: {
+        parser: 'gfm',
+        githubRepoOwner: 'linthtml',
+        githubRepoName: 'linthtml'
+      }
+    }))
+    .pipe(jsdoc.generator('./site/api', {
+      // template
+      path: 'ink-docstrap',
+      theme: 'cerulean',
+      systemName: 'linthtml',
+      navType: 'vertical',
+      linenums: true,
+      inverseNav: true,
+      outputSourceFiles: true
+    }));
+};
+
+genJSDoc.description = "Generate code doc using jsdoc";
+exports['docs:generate'] = genJSDoc;
+exports['docs:publich'] = series(genJSDoc, function () {
+  return gulp.src(paths.site)
+    .pipe(publish({
+        cacheDir: '.tmp'
+    }));
 });
 
-gulp.task('doc:gen', gulp.series('jsdoc'));
-
-gulp.task('doc:pub', gulp.series('jsdoc', function () {
-    gulp.src(paths.site)
-        .pipe(publish({
-            cacheDir: '.tmp'
-        }));
-}));
-
 // runs on travis ci (lints, tests, and uploads to coveralls)
-gulp.task('travis', gulp.series(gulp.parallel('lint', 'test'), function () {
-    return gulp.src('coverage/**/lcov.info')
-        .pipe(coveralls());
-}));
+exports.travis = series(parallel(lint, tests), function () {
+  return gulp.src('coverage/**/lcov.info')
+      .pipe(coveralls());
+});
 
-gulp.task('default', gulp.parallel(
-    'lint',
-    'test'
-));
+exports.default = parallel(lint, tests);
