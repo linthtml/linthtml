@@ -3,10 +3,10 @@
 const gulp = require('gulp');
 const coveralls = require('gulp-coveralls');
 const eslint = require('gulp-eslint');
-const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
 const publish = require('gulp-gh-pages');
 const jsdoc = require('gulp-jsdoc');
+const cp = require('child_process');
 
 const { series, parallel }= gulp;
 
@@ -28,29 +28,11 @@ function lint() {
 lint.description = "Lints javascript files with eslint";
 exports.lint = lint;
 
-function istanbulAnalysis() {
-  return gulp.src(paths.src)
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire())
-}
-istanbulAnalysis.description = "Instruments js source code for coverage reporting";
-exports.istanbul = istanbulAnalysis;
-
-function unitTest() {
-  global.chai = require('chai');
-  global.chai.use(require('chai-as-promised'));
-  global.expect = global.chai.expect;
-
+function tests() {
   return gulp.src(paths.tests, { read:false })
-    .pipe(mocha({
-        reporter: 'list'
-    }))
-    .pipe(istanbul.writeReports())
+    .pipe(mocha())
 }
-unitTest.description = "Run unit tests using mocha+chai";
-exports["tests:unit"] = unitTest;
-
-const tests = series(istanbulAnalysis, unitTest);
+tests.description = "Run unit tests using mocha+chai";
 exports.tests = tests;
 
 // jsdoc generation
@@ -88,9 +70,13 @@ exports['docs:publich'] = series(genJSDoc, function () {
     }));
 });
 
+function coverage() {
+  return cp.execFile('npm run coverage');
+}
+
 // runs on travis ci (lints, tests, and uploads to coveralls)
-exports.travis = series(parallel(lint, tests), function () {
-  return gulp.src('coverage/**/lcov.info')
+exports.travis = series(parallel(lint, coverage), function () {
+  return gulp.src('coverage/lcov.info')
       .pipe(coveralls());
 });
 

@@ -14,8 +14,9 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/gulp/bin/gulp.js travis",
-    "testlocal": "gulp test"
+    "test": "gulp tests",
+    "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
+    "coverage:report": "npm run coverage; nyc report --reporter=lcov"
   },
   "license": "ISC",
   "devDependencies": {
@@ -29,7 +30,8 @@
     "gulp-istanbul": "1.1.3",
     "gulp-jsdoc": "0.1.5",
     "gulp-mocha": "6.0.0",
-    "mocha": "6.0.0"
+    "mocha": "6.0.0",
+    "nyc": "13.3.0"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
