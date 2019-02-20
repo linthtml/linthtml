@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('messages', function () {
     var messages = require('../../lib/messages');
 

@@ -1,6 +1,7 @@
 var lint = require('../../'),
     InlineConfig = require('../../lib/inline_config.js'),
     lodash = require('lodash');
+const { expect } = require("chai");
 
 var textSplit = [
     '<!DOCTYPE html>', // 15

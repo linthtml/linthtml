@@ -1,5 +1,7 @@
+const linthtml = require('../../');
+const { expect } = require("chai");
+
 describe('linthtml', function () {
-    var linthtml = require('../../');
 
     it('should be a function', function () {
         expect(linthtml).to.be.an.instanceOf(Function);

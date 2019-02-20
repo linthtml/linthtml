@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('rules.doctype-first', function () {
     var rule = require('../../lib/rules/doctype-first');
 

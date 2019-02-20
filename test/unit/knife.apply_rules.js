@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('knife.apply_rules', function () {
     var knife = require('../../lib/knife');
 

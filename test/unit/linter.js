@@ -1,4 +1,5 @@
 var knife = require('../../lib/knife');
+const { expect } = require("chai");
 
 describe('linter', function () {
     var Linter = require('../../lib/linter');

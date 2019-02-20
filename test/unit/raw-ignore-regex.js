@@ -1,6 +1,8 @@
 var lodash = require('lodash'),
     Linter = require('../../lib/linter'),
     Issue = require('../../lib/issue');
+const { expect } = require("chai");
+
 
 // Each E will trigger an error. Lowercase letters are targets for
 // raw-ignore-regex.

@@ -1,4 +1,5 @@
 /* eslint-env node */
+
 const gulp = require('gulp');
 const coveralls = require('gulp-coveralls');
 const eslint = require('gulp-eslint');
@@ -10,17 +11,15 @@ const jsdoc = require('gulp-jsdoc');
 const { series, parallel }= gulp;
 
 let paths = {
-    src: ['./lib/**/*.js'],
-    testUnit: './test/unit/*.js',
-    testFunc: './test/functional/*.js',
-    site: ['./site/**/*']
+    src: './lib/**/*.js',
+    tests: './test/**/*.js',
+    site: './site/**/*'
 };
-paths.test = [].concat(paths.testUnit, paths.testFunc);
 
 function lint() {
   return gulp.src([
       paths.src,
-      paths.test,
+      paths.tests,
       './gulpfile.js'
     ])
     .pipe(eslint())
@@ -42,7 +41,7 @@ function unitTest() {
   global.chai.use(require('chai-as-promised'));
   global.expect = global.chai.expect;
 
-  return gulp.src(paths.test, { read:false })
+  return gulp.src(paths.tests, { read:false })
     .pipe(mocha({
         reporter: 'list'
     }))

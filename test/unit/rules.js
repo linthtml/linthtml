@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('linthtml.rules', function () {
     var rules = require('../../').rules;
 

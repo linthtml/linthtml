@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('knife.is_labeable', function () {
     var knife = require('../../lib/knife');
 

@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('Config', function () {
     var Config = require('../../lib/config');
     var config = null,

@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('knife.relative_line_col', function () {
     var knife = require('../../lib/knife');
 

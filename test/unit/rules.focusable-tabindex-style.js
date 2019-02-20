@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('rules.focusable-tabindex-style', function () {
     var rule = require('../../lib/rules/focusable-tabindex-style');
 

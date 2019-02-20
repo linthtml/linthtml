@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 describe('linter', function () {
     var Parser = require('../../lib/parser');
 

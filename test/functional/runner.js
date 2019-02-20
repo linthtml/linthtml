@@ -3,6 +3,7 @@ var fs = require('fs'),
     lodash = require('lodash'),
     linthtml = require('../../lib'),
     presets = require('../../lib/presets');
+const { expect } = require('chai');
 
 // find all files in this directory that are .js files
 var testFiles = fs.readdirSync(__dirname)
