@@ -30,7 +30,7 @@ exports.lint = lint;
 
 function tests() {
   return gulp.src(paths.tests, { read:false })
-    .pipe(mocha())
+    .pipe(mocha());
 }
 tests.description = "Run unit tests using mocha+chai";
 exports.tests = tests;
@@ -59,7 +59,7 @@ function genJSDoc() {
       inverseNav: true,
       outputSourceFiles: true
     }));
-};
+}
 
 genJSDoc.description = "Generate code doc using jsdoc";
 exports['docs:generate'] = genJSDoc;
