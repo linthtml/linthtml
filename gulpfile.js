@@ -5,7 +5,7 @@ const coveralls = require('gulp-coveralls');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const publish = require('gulp-gh-pages');
-const jsdoc = require('gulp-jsdoc');
+const jsdoc = require('gulp-jsdoc3');
 const cp = require('child_process');
 
 const { series, parallel }= gulp;
@@ -36,29 +36,31 @@ tests.description = "Run unit tests using mocha+chai";
 exports.tests = tests;
 
 // jsdoc generation
-function genJSDoc() {
-  return gulp.src([paths.src, 'README.md'])
-    .pipe(jsdoc.parser({
-      plugins: [
-        'plugins/escapeHtml',
-        'plugins/markdown'
-      ],
-      markdown: {
-        parser: 'gfm',
-        githubRepoOwner: 'lintHTML',
-        githubRepoName: 'lintHTML'
-      }
-    }))
-    .pipe(jsdoc.generator('./site/api', {
-      // template
-      path: 'ink-docstrap',
-      theme: 'cerulean',
-      systemName: 'lintHTML',
-      navType: 'vertical',
-      linenums: true,
-      inverseNav: true,
-      outputSourceFiles: true
-    }));
+function genJSDoc(cb) {
+  const config = require('./jsdoc.json');
+  return gulp.src([paths.src, 'README.md'], { read: false })
+    // .pipe(jsdoc.parser({
+    //   plugins: [
+    //     'plugins/escapeHtml',
+    //     'plugins/markdown'
+    //   ],
+    //   markdown: {
+    //     parser: 'gfm',
+    //     githubRepoOwner: 'lintHTML',
+    //     githubRepoName: 'lintHTML'
+    //   }
+    // }))
+    // .pipe(jsdoc.generator('./site/api', {
+    //   // template
+    //   path: 'ink-docstrap',
+    //   theme: 'lumen',
+    //   systemName: 'lintHTML',
+    //   navType: 'vertical',
+    //   linenums: true,
+    //   inverseNav: true,
+    //   outputSourceFiles: true
+    // }));
+    .pipe(jsdoc(config, cb));
 }
 
 genJSDoc.description = "Generate code doc using jsdoc";
