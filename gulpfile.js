@@ -39,27 +39,6 @@ exports.tests = tests;
 function genJSDoc(cb) {
   const config = require('./jsdoc.json');
   return gulp.src([paths.src, 'README.md'], { read: false })
-    // .pipe(jsdoc.parser({
-    //   plugins: [
-    //     'plugins/escapeHtml',
-    //     'plugins/markdown'
-    //   ],
-    //   markdown: {
-    //     parser: 'gfm',
-    //     githubRepoOwner: 'lintHTML',
-    //     githubRepoName: 'lintHTML'
-    //   }
-    // }))
-    // .pipe(jsdoc.generator('./site/api', {
-    //   // template
-    //   path: 'ink-docstrap',
-    //   theme: 'lumen',
-    //   systemName: 'lintHTML',
-    //   navType: 'vertical',
-    //   linenums: true,
-    //   inverseNav: true,
-    //   outputSourceFiles: true
-    // }));
     .pipe(jsdoc(config, cb));
 }
 
