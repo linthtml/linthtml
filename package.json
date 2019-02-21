@@ -16,13 +16,16 @@
   "scripts": {
     "test": "gulp tests",
     "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage; nyc report --reporter=lcov"
+    "coverage:report": "npm run coverage; nyc report --reporter=lcov",
+    "commit": "npx git-cz"
   },
   "license": "ISC",
   "devDependencies": {
     "bulkify": "1.4.2",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
+    "commitizen": "3.0.5",
+    "cz-conventional-changelog": "2.1.0",
     "gulp": "4.0.0",
     "gulp-coveralls": "0.1.4",
     "gulp-eslint": "5.0.0",
@@ -49,5 +52,10 @@
   },
   "contributors": [
     "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
