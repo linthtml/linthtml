@@ -17,7 +17,9 @@
     "test": "gulp tests",
     "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
     "coverage:report": "npm run coverage; nyc report --reporter=lcov",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
   },
   "license": "ISC",
   "devDependencies": {
@@ -25,6 +27,7 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "commitizen": "3.0.5",
+    "conventional-changelog-cli": "2.0.12",
     "cz-conventional-changelog": "2.1.0",
     "gulp": "4.0.0",
     "gulp-coveralls": "0.1.4",
