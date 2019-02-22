@@ -54,6 +54,12 @@ module.exports = [
     output: 0
   },
   {
+    desc: "should pass for boolean attributes [hidden]",
+    input: '<input type="checkbox" hidden name=test>',
+    opts: { "attr-req-value": true },
+    output: 0
+  },
+  {
     desc: "should fail for boolean attributes with = but no value",
     input: '<input type="checkbox" checked= name=test>',
     opts: { "attr-req-value": true },
