@@ -27,7 +27,6 @@
     "@commitlint/cli": "7.5.2",
     "@commitlint/config-angular": "7.5.0",
     "@commitlint/config-conventional": "7.5.0",
-    "bulkify": "1.4.2",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chalk": "2.4.2",
@@ -48,10 +47,15 @@
     "ora": "3.1.0"
   },
   "dependencies": {
+    "bulkify": "1.4.2",
     "bulk-require": "1.0.1",
+    "chalk": "2.4.2",
     "htmlparser2": "3.10.1",
     "lodash": "4.17.11",
-    "promise": "8.0.2"
+    "meow": "5.0.0",
+    "ora": "3.1.0",
+    "promise": "8.0.2",
+    "resolve-from": "4.0.0"
   },
   "browserify": {
     "transform": [
