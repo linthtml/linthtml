@@ -6,7 +6,7 @@
     "type": "git",
     "url": "http://github.com/KamiKillertO/lintHTML"
   },
-  "bin": "bin/lintHTML.js",
+  "bin": "bin/linthtml.js",
   "keywords": [
     "html",
     "lint",
