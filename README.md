@@ -6,6 +6,7 @@
 [![dependencies](http://img.shields.io/david/KamiKillertO/lintHTML.svg?style=flat-square)](https://david-dm.org/KamiKillertO/lintHTML)
 [![devDependencies](http://img.shields.io/david/dev/KamiKillertO/lintHTML.svg?style=flat-square)](https://david-dm.org/KamiKillertO/lintHTML)
 [![npm](https://nodei.co/npm/lintHTML.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/lintHTML)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML?ref=badge_shield)
 
 > An unofficial html5 linter and validator.
 
@@ -42,3 +43,7 @@ npm install lintHTML
 
 To learn more about the options and usage of lintHTML, check out the
 [user manual](https://github.com/KamiKillertO/lintHTML/wiki/lintHTML-manual).
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML?ref=badge_large)
