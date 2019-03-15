@@ -7,27 +7,36 @@
 
 > An unofficial html5 linter and validator.
 
-_LintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html._
+<!-- _LintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html._ -->
 
 ## Installation and Usage
 
-Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.14), npm version 3+.
+Prerequisites:
+
+* [Node.js](https://nodejs.org/en/) 6+
+* [npm](https://npmjs.com) version 3+.
 
 There are two ways to install LintHTML: globally and locally.
 
 ### Local Installation and Usage
 
-If you want to include LintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm:
+If you want to include LintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm or yarn:
 
 ```shell
 npm install linthtml --save-dev
+
+# or
+
+yarn add linthtml --dev
 ```
 
-You should then set up a configuration file:
+You should then init a configuration file:
 
 ```shell
 ./node_modules/.bin/linthtml --init
 ```
+
+This will generate a file `.htmllintrc` in the current directory.
 
 After that, you can run LintHTML on any file or directory like this:
 
@@ -37,13 +46,16 @@ After that, you can run LintHTML on any file or directory like this:
 
 ### Global Installation and Usage
 
-If you want to make LintHTML available to tools that run across all of your projects, we recommend installing LintHTML globally. You can do so using npm:
+If you want to make LintHTML available to tools that run across all of your projects, we recommend installing LintHTML globally. You can do so using npm or yarn:
 
 ```shell
 npm install -g linthtml
+# or
+
+yarn global add linthtml
 ```
 
-You should then set up a configuration file:
+You should then init a configuration file:
 
 ```shell
 linthtml --init
@@ -61,7 +73,7 @@ linthtml yourfile.html
 
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
-Rules can be configured using e a JavaScript, JSON or YAML file. This can be in the form of an .linthtml.* file or an , `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
+Rules can be configured using a JavaScript, JSON or YAML file. This can be in the form of an `.linthtmlrc.*` file or an , `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
 
 ### Inline Configuration
 
