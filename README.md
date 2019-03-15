@@ -7,7 +7,7 @@
 
 > An unofficial html5 linter and validator.
 
-lintHTML uses [htmlparser2] to parse your html. It then uses the provided rules (and default rules) to lint both the DOM and then individual lines. [Take a look at the supported options](https://github.com/KamiKillertO/lintHTML/wiki/Options).
+lintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html. It then uses the provided rules (and default rules) to lint both the DOM and then individual lines. [Take a look at the supported options](https://github.com/KamiKillertO/lintHTML/wiki/Options).
 
 ## Installation and Usage
 
@@ -68,21 +68,13 @@ you use one of the following modules to run the linter:
 * [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): lintHTML loader for webpack (Coming soon 🚧)
 * [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with lintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
 
-## Getting Started with Contributing
+## Contributing
 
-You can use lintHTML in Node.JS by using
+Contribution are welcome, please make sure to use the proper github tag on your issue/PR.
 
-```js
-require('lintHTML')  
-```
-
-in your code, and doing an install with  
-
-```shell
-npm install lintHTML
-```
-
-(Remember `--save-dev` if this is just for your development).  
+* `cli` : For anything that is related to the cli interface of linthml
+* `rule` : For anything that is related the rules (bugs, improvement, docs, new rule...)
+* `core` : For anything that is related to the core of linthml (file parsing, plugin system...)
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML?ref=badge_large)
