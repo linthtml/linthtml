@@ -1,4 +1,4 @@
-# lintHTML
+# LintHTML
 
 [![npm version](http://img.shields.io/npm/v/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
 [![license](http://img.shields.io/npm/l/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
@@ -7,17 +7,17 @@
 
 > An unofficial html5 linter and validator.
 
-lintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html. It then uses the provided rules (and default rules) to lint both the DOM and then individual lines. [Take a look at the supported options](https://github.com/KamiKillertO/lintHTML/wiki/Options).
+_LintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html._
 
 ## Installation and Usage
 
 Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.14), npm version 3+.
 
-There are two ways to install lintHTML: globally and locally.
+There are two ways to install LintHTML: globally and locally.
 
 ### Local Installation and Usage
 
-If you want to include lintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm:
+If you want to include LintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm:
 
 ```shell
 npm install linthtml --save-dev
@@ -29,7 +29,7 @@ You should then set up a configuration file:
 ./node_modules/.bin/linthtml --init
 ```
 
-After that, you can run lintHTML on any file or directory like this:
+After that, you can run LintHTML on any file or directory like this:
 
 ```shell
 ./node_modules/.bin/linthtml yourfile.html
@@ -37,7 +37,7 @@ After that, you can run lintHTML on any file or directory like this:
 
 ### Global Installation and Usage
 
-If you want to make lintHTML available to tools that run across all of your projects, we recommend installing lintHTML globally. You can do so using npm:
+If you want to make LintHTML available to tools that run across all of your projects, we recommend installing LintHTML globally. You can do so using npm:
 
 ```shell
 npm install -g linthtml
@@ -49,13 +49,19 @@ You should then set up a configuration file:
 linthtml --init
 ```
 
-After that, you can run lintHTML on any file or directory like this:
+After that, you can run LintHTML on any file or directory like this:
 
 ```shell
-linthtml yourfile.js
+linthtml yourfile.html
 ```
 
 <!-- Note: `linthtml --init` is intended for setting up and configuring linthtml on a per-project basis and will perform a local installation of ESLint and its plugins in the directory in which it is run. If you prefer using a global installation of ESLint, any plugins used in your configuration must also be installed globally. -->
+
+## Rules
+
+Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
+
+Rules can be configured using e a JavaScript, JSON or YAML file. This can be in the form of an .linthtml.* file or an , `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
 
 ### Other
 
