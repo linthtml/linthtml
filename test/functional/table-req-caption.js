@@ -36,5 +36,11 @@ module.exports = [
       "<table><p>Hey</p><p>Hey</p><p>Hey</p><p>Hey</p><p>Hey</p><caption>Hello</caption></table>",
     opts: { "table-req-caption": true },
     output: 0
+  },
+  {
+    desc: "should not fail",
+    input: "<table><caption>Caption</caption><td></td></table>",
+    opts: { "table-req-caption": true },
+    output: 0
   }
 ];

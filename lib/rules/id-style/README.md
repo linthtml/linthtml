@@ -1,6 +1,6 @@
-# class-style
+# id-style
 
-Specify a format for the classnames inside the `class` attribute, when set all classnames must fit the format
+Specify a format for the value inside the `id` attribute, when all set all ids must fit the format
 
 ## Options
 
@@ -15,21 +15,21 @@ Possible values :
 Given:
 
 ```
-  "class-style": "underscore"
+  "id-style": "underscore"
 ```
 
 The following patterns are considered violations:
 
 ```html
-  <button class="buttonBlue"></button>
+  <button id="buttonBlue"></button>
 ```
 
 ```html
-  <button class="button--blue"></button>
+  <button id="button--blue"></button>
 ```
 
 The following patterns are not considerd violations:
 
 ```html
-  <button class="button_blue"></button>
+  <button id="button_blue"></button>
 ```

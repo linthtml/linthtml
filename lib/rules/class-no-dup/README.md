@@ -1,6 +1,6 @@
 # class-no-dup
 
-Disallow the duplication of a classname inside the `class` tag.
+Disallow the duplication of a classname inside the `class` attribute.
 
 The following patterns are considered violations:
 
