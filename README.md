@@ -14,7 +14,7 @@
 Prerequisites:
 
 * [Node.js](https://nodejs.org/en/) 6+
-* [npm](https://npmjs.com) version 3+.
+* [npm](https://npmjs.com) version 3+
 
 There are two ways to install LintHTML: globally and locally.
 
@@ -73,11 +73,11 @@ linthtml yourfile.html
 
 Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
-Rules can be configured using a JavaScript, JSON or YAML file. This can be in the form of an `.linthtmlrc.*` file or an , `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
+Rules can be configured using a JavaScript, JSON or YAML file. This can be in the form of an `.linthtmlrc.*` file or an `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
 
 ### Inline Configuration
 
-Sometimes it is necessary to use different option values for different parts of an html document. Maybe there is an unavoidable break in style at some point, or two different teams wrote different sections of the document, or part of the page is written in an html-like language like svg that has different linting standards. Inline configurations allow a user to turn on or off certain rules (or pull in entire presets) at any line while linting.
+Sometimes it is necessary to use use a different rules configuragatin for different parts of an html document. For exemple a part of the page is written in an html-like language like svg that has different linting standards. Inline configurations allows you to turn on or off certain rules for any line while linting.
 
 ### Format of Inline Configurations
 
@@ -87,7 +87,7 @@ Inline configurations are html comments, but are formatted like self-closing htm
 <!-- linthtml-configure [key]="[value]" -->
 ```
 
-In order for an inline configuration to be recognized, it must be an html comment enclosed with `<!-- and -->` and begin with the keyword 'linthtml'.
+In order for an inline configuration to be recognized, it must be an html comment enclosed with `<!-- and -->` and begin with the keyword `linthtml-configure`.
 
 Configurations must also use valid html attribute formatting. An unlimited number of attributes are allowed in an inline configuration and each rules will be applied in order. Inline configurations only apply to the file they are located in, and will not roll over to other files.
 
