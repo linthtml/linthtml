@@ -1,4 +1,4 @@
-# lintHTML
+# LintHTML
 
 [![npm version](http://img.shields.io/npm/v/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
 [![license](http://img.shields.io/npm/l/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
@@ -7,29 +7,38 @@
 
 > An unofficial html5 linter and validator.
 
-lintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html. It then uses the provided rules (and default rules) to lint both the DOM and then individual lines. [Take a look at the supported options](https://github.com/KamiKillertO/lintHTML/wiki/Options).
+<!-- _LintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html._ -->
 
 ## Installation and Usage
 
-Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.14), npm version 3+.
+Prerequisites:
 
-There are two ways to install lintHTML: globally and locally.
+* [Node.js](https://nodejs.org/en/) 6+
+* [npm](https://npmjs.com) version 3+
+
+There are two ways to install LintHTML: globally and locally.
 
 ### Local Installation and Usage
 
-If you want to include lintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm:
+If you want to include LintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm or yarn:
 
 ```shell
 npm install linthtml --save-dev
+
+# or
+
+yarn add linthtml --dev
 ```
 
-You should then set up a configuration file:
+You should then init a configuration file:
 
 ```shell
 ./node_modules/.bin/linthtml --init
 ```
 
-After that, you can run lintHTML on any file or directory like this:
+This will generate a file `.htmllintrc` in the current directory.
+
+After that, you can run LintHTML on any file or directory like this:
 
 ```shell
 ./node_modules/.bin/linthtml yourfile.html
@@ -37,25 +46,86 @@ After that, you can run lintHTML on any file or directory like this:
 
 ### Global Installation and Usage
 
-If you want to make lintHTML available to tools that run across all of your projects, we recommend installing lintHTML globally. You can do so using npm:
+If you want to make LintHTML available to tools that run across all of your projects, we recommend installing LintHTML globally. You can do so using npm or yarn:
 
 ```shell
 npm install -g linthtml
+# or
+
+yarn global add linthtml
 ```
 
-You should then set up a configuration file:
+You should then init a configuration file:
 
 ```shell
 linthtml --init
 ```
 
-After that, you can run lintHTML on any file or directory like this:
+After that, you can run LintHTML on any file or directory like this:
 
 ```shell
-linthtml yourfile.js
+linthtml yourfile.html
 ```
 
 <!-- Note: `linthtml --init` is intended for setting up and configuring linthtml on a per-project basis and will perform a local installation of ESLint and its plugins in the directory in which it is run. If you prefer using a global installation of ESLint, any plugins used in your configuration must also be installed globally. -->
+
+## Rules
+
+Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
+
+Rules can be configured using a JavaScript, JSON or YAML file. This can be in the form of an `.linthtmlrc.*` file or an `linthtmlConfig` field in a `package.json` file, both of which LintHTML will look for and read automatically, or you can specify a configuration file on the command line using the `--config` option.
+
+### Inline Configuration
+
+Sometimes it is necessary to use use a different rules configuragatin for different parts of an html document. For exemple a part of the page is written in an html-like language like svg that has different linting standards. Inline configurations allows you to turn on or off certain rules for any line while linting.
+
+### Format of Inline Configurations
+
+Inline configurations are html comments, but are formatted like self-closing html tags:
+
+```html
+<!-- linthtml-configure [key]="[value]" -->
+```
+
+In order for an inline configuration to be recognized, it must be an html comment enclosed with `<!-- and -->` and begin with the keyword `linthtml-configure`.
+
+Configurations must also use valid html attribute formatting. An unlimited number of attributes are allowed in an inline configuration and each rules will be applied in order. Inline configurations only apply to the file they are located in, and will not roll over to other files.
+
+Values may be quoted using either double or single quotes, or may be left without quotes if they contain no spaces. In any case, we will refer to the string, ignoring surrounding quotes, as the "value" to be assigned to the option.
+
+To specify an inline configuration for a rule, use one of this two thing :
+
+* A value for the rule, encoded in pretty-much-JSON.
+* The string $previous.
+
+### Rule value
+
+To modify a single rule, use an attribute with that rule's name and the value you wish to assign to it.
+
+```html
+<!-- turn off rule `tag-bans` -->
+<!-- linthtml-configure tag-bans="false" -->
+
+<!-- Specify a config for the  `tag-bans` rule -->
+<!-- linthtml-configure tag-bans="['p','style']" -->
+```
+
+<!-- 
+The attribute name must be an existing rule name, using [a-zA-Z0-9] and/or the characters - and _ (which are treated interchangeably). The attribute value must be a JSON object (for instance ["style", "b", "i"], or false), with two exceptions: single quotes are allowed and will be treated like double quotes, and string values (such as "crlf"), do not need to be quoted. -->
+
+### $previous
+
+Each rule's previous value (if any) is stored, and may be recalled using `$previous`. This is useful if an option should be temporarily disabled or changed, since the value it was at before being changed is not always easy to determine.
+
+```html
+<!-- turn off rule `tag-bans` -->
+<!-- linthtml-configure tag-bans="false" -->
+
+<!-- turn on rule `tag-bans` -->
+<!-- linthtml-configure tag-bans="$previous" -->
+```
+
+<!-- As a one-level undo, this option is inherently quite limited. Our team discussed the possibility of a heirarchical undo, and we believe that the feature would be very rarely needed and difficult to use correctly. In particular, a group of people working on a large html document would need to be aware of all of the option resets in the document to ensure that two do not overlap (thus causing unexpected behavior when the settings and resettings are mismatched). The $previous feature is intended only for small sections when there is not very much space between an option value and the reversion. -->
 
 ### Other
 

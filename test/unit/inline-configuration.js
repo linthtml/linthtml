@@ -98,17 +98,17 @@ describe("inline-configuration", function() {
   });
 
   it("should not do anything on an empty tag", function() {
-    original.splice(3, 0, "<!-- lintHTML -->");
+    original.splice(3, 0, "<!-- linthtml-configure -->");
     return expectOutput(original, expshift);
   });
 
   it("should change options to turn off rules", function() {
-    original.splice(3, 0, '<!-- lintHTML line-end-style="false" -->');
+    original.splice(3, 0, '<!-- linthtml-configure line-end-style="false" -->');
     return expectOutput(original, expfalse);
   });
 
   it("should accept $preset notation", function() {
-    original.splice(3, 0, '<!-- lintHTML line-end-style="$none" -->');
+    original.splice(3, 0, '<!-- linthtml-configure line-end-style="$none" -->');
     return expectOutput(original, expfalse);
   });
 
@@ -116,8 +116,8 @@ describe("inline-configuration", function() {
     original.splice(
       3,
       0,
-      '<!-- lintHTML line-end-style="cr" -->' +
-        '<!-- lintHTML line-end-style="false" -->'
+      '<!-- linthtml-configure line-end-style="cr" -->' +
+        '<!-- linthtml-configure line-end-style="false" -->'
     );
     return expectOutput(original, expfalse);
   });
@@ -126,24 +126,24 @@ describe("inline-configuration", function() {
     original.splice(
       3,
       0,
-      '<!-- lintHTML line-end-style="false" -->' +
-        '<!-- lintHTML line-end-style="$previous" -->'
+      '<!-- linthtml-configure line-end-style="false" -->' +
+        '<!-- linthtml-configure line-end-style="$previous" -->'
     );
     return expectOutput(original, expshift);
   });
 
   it("should output an issue on invalid $preset", function() {
-    original.splice(3, 0, '<!-- lintHTML line-end-style="$invalid" -->');
+    original.splice(3, 0, '<!-- linthtml-configure line-end-style="$invalid" -->');
     return expectConfigIssue(original, "E051");
   });
 
   it("should work without quotes", function() {
-    original.splice(3, 0, "<!-- lintHTML line-end-style=false -->");
+    original.splice(3, 0, "<!-- linthtml-configure line-end-style=false -->");
     return expectOutput(original, expfalse);
   });
 
   it("should work for strings without quotes", function() {
-    original.splice(3, 0, "<!-- lintHTML line-end-style=lf -->");
+    original.splice(3, 0, "<!-- linthtml-configure line-end-style=lf -->");
     return expectOutput(original, expshift);
   });
 
@@ -151,7 +151,7 @@ describe("inline-configuration", function() {
     original.splice(
       4,
       0,
-      '<!-- lintHTML line-end-style="false" id-no-dup-"false" id-class-no-ad="false" -->'
+      '<!-- linthtml-configure line-end-style="false" id-no-dup-"false" id-class-no-ad="false" -->'
     );
     return expectConfigIssue(original, "E050");
   });
@@ -160,23 +160,23 @@ describe("inline-configuration", function() {
     original.splice(
       4,
       0,
-      '<!-- lintHTML line-end-style="false" id-no-dup="false" id-no-no-ad="false" -->'
+      '<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-no-no-ad="false" -->'
     );
     return expectConfigIssue(original, "E054");
   });
 
   it("should output an issue on invalid option value", function() {
-    original.splice(4, 0, '<!-- lintHTML line-end-style="fal#se" -->');
+    original.splice(4, 0, '<!-- linthtml-configure line-end-style="fal#se" -->');
     return expectConfigIssue(original, "E053");
   });
 
   it("should throw on nonexistent rule name", function() {
-    original.splice(4, 0, '<!-- lintHTML not-rule="false" -->');
+    original.splice(4, 0, '<!-- linthtml-configure not-rule="false" -->');
     return expectConfigIssue(original, "E054");
   });
 
   it("should output an issue on invalid rule name", function() {
-    original.splice(3, 0, '<!-- lintHTML pre#set="none" -->');
+    original.splice(3, 0, '<!-- linthtml-configure pre#set="none" -->');
     return expectConfigIssue(original, "E051");
   });
 
@@ -184,13 +184,13 @@ describe("inline-configuration", function() {
     original.splice(
       4,
       0,
-      '<!-- lintHTML line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->'
+      '<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->'
     );
     return expectOutput(original, [{ code: "E015", line: 3 }]);
   });
 
   it("should take in presets", function() {
-    original.splice(1, 0, '<!-- lintHTML preset="none" -->');
+    original.splice(1, 0, '<!-- linthtml-configure preset="none" -->');
     return expectOutput(original, []);
   });
 
@@ -198,8 +198,8 @@ describe("inline-configuration", function() {
     original.splice(
       3,
       0,
-      '<!-- lintHTML preset="none" -->' +
-        '<!-- lintHTML line-end-style="$previous" -->'
+      '<!-- linthtml-configure preset="none" -->' +
+        '<!-- linthtml-configure line-end-style="$previous" -->'
     );
     return expectOutput(original, expfalse);
   });
@@ -208,9 +208,9 @@ describe("inline-configuration", function() {
     original.splice(
       3,
       0,
-      '<!-- lintHTML line-end-style="false" -->' +
-        '<!-- lintHTML id-no-dup="false" id-class-no-ad="false" -->' +
-        '<!-- lintHTML preset="$previous" -->'
+      '<!-- linthtml-configure line-end-style="false" -->' +
+        '<!-- linthtml-configure id-no-dup="false" id-class-no-ad="false" -->' +
+        '<!-- linthtml-configure preset="$previous" -->'
     );
     return expectOutput(original, expfalse);
   });
@@ -219,13 +219,13 @@ describe("inline-configuration", function() {
     original.splice(
       3,
       0,
-      '<!-- lintHTML preset="none" -->' + '<!-- lintHTML preset="$previous" -->'
+      '<!-- linthtml-configure preset="none" -->' + '<!-- linthtml-configure preset="$previous" -->'
     );
     return expectOutput(original, expshift);
   });
 
   it("should output an issue on invalid preset option", function() {
-    original.splice(3, 0, '<!-- lintHTML preset="invalid" -->');
+    original.splice(3, 0, '<!-- linthtml-configure preset="invalid" -->');
     return expectConfigIssue(original, "E052");
   });
 });
