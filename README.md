@@ -7,6 +7,8 @@
 
 > An unofficial html5 linter and validator.
 
+LintHTML is a fork of [htmllint](https://github.com/htmllint/htmllint) with an integrated CLI, all htmllint's rules can be used with LintHTML.
+The migration from htmllint to LintHTML is easy, just follow this [guide](htmllint-migration).
 <!-- _LintHTML uses [htmlparser2](https://www.npmjs.com/package/htmlparser2) to parse your html._ -->
 
 ## Installation and Usage
@@ -137,6 +139,24 @@ you use one of the following modules to run the linter:
 * [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML (Coming soon 🚧)
 * [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): LintHTML loader for webpack (Coming soon 🚧)
 * [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with LintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
+
+## HTMLLint migration
+
+You can migrate from [htmllint](https://github.com/htmllint/htmllint) to LintHTML by running the following commands :
+
+First, uninstall htmllint 
+
+```shell
+npm uninstall htmllint --save-dev
+
+#or
+
+yarn remove htmllint
+```
+
+Then install `linthtml` detailled instructions available [here](installation-and-usage)
+
+Finally rename your `.htmlintrc` in `.linthtmlrc` (or run linthtml with the config option).
 
 ## Contributing
 
