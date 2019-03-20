@@ -1,0 +1,27 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  },
+  "opts": {
+    "destination": "./docs/gen"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "plugins/escapeHtml"
+  ],
+  "templates": {
+    "systemName": "LintHTML",
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "path": "ink-docstrap",
+    "theme": "lumen",
+    "navType": "inline",
+    "linenums": true,
+    "dateFormat": "MMMM Do YYYY, h:mm:ss a",
+    "inverseNav": true
+  }
+}
