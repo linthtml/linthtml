@@ -26,7 +26,7 @@ There are two ways to install LintHTML: globally and locally.
 If you want to include LintHTML as part of your project's build system, we recommend installing it locally. You can do so using npm or yarn:
 
 ```shell
-npm install linthtml --save-dev
+npm install @linthtml/linthtml --save-dev
 
 # or
 
@@ -52,7 +52,7 @@ After that, you can run LintHTML on any file or directory like this:
 If you want to make LintHTML available to tools that run across all of your projects, we recommend installing LintHTML globally. You can do so using npm or yarn:
 
 ```shell
-npm install -g linthtml
+npm install -g @linthtml/linthtml
 # or
 
 yarn global add linthtml

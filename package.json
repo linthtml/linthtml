@@ -1,12 +1,14 @@
 {
-  "name": "linthtml",
+  "name": "@linthtml/linthtml",
   "version": "0.1.0",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
-    "url": "http://github.com/KamiKillertO/linthtml"
+    "url": "git+ssh://git@github.com/KamiKillertO/linthtml.git"
   },
-  "bin": "bin/linthtml.js",
+  "bin": {
+    "linthtml": "bin/linthtml.js"
+  },
   "keywords": [
     "html",
     "lint",
@@ -76,5 +78,15 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/KamiKillertO/linthtml/issues"
+  },
+  "homepage": "https://github.com/KamiKillertO/linthtml#readme",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "author": "Benjamin JEGARD <kamikillerto@gmail.com>"
 }
