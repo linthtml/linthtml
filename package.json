@@ -1,17 +1,17 @@
 {
-  "name": "lintHTML",
+  "name": "linthtml",
   "version": "0.7.3",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
-    "url": "http://github.com/KamiKillertO/lintHTML"
+    "url": "http://github.com/KamiKillertO/linthtml"
   },
   "bin": "bin/linthtml.js",
   "keywords": [
     "html",
     "lint",
     "hint",
-    "lintHTML"
+    "linthtml"
   ],
   "main": "lib/index.js",
   "scripts": {

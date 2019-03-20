@@ -1,9 +1,9 @@
 # LintHTML
 
-[![npm version](http://img.shields.io/npm/v/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
-[![license](http://img.shields.io/npm/l/lintHTML.svg?style=flat-square)](https://npmjs.org/package/lintHTML)
-[![Build Status](https://travis-ci.org/linthtml/lintHTML.svg?branch=develop)](https://travis-ci.org/linthtml/lintHTML)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML?ref=badge_shield)
+[![npm version](http://img.shields.io/npm/v/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
+[![license](http://img.shields.io/npm/l/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
+[![Build Status](https://travis-ci.org/linthtml/linthtml.svg?branch=develop)](https://travis-ci.org/linthtml/linthtml)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_shield)
 
 > An unofficial html5 linter and validator.
 
@@ -134,17 +134,17 @@ We have a some other solutions to run linthtml
 This module doesn't provide any interface on its own. It is highly recommended that
 you use one of the following modules to run the linter:
 
-* [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for lintHTML (Coming soon 🚧)
-* [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): lintHTML loader for webpack (Coming soon 🚧)
-* [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with lintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
+* [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML (Coming soon 🚧)
+* [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): LintHTML loader for webpack (Coming soon 🚧)
+* [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with LintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
 
 ## Contributing
 
 Contribution are welcome, please make sure to use the proper github tag on your issue/PR.
 
-* `cli` : For anything that is related to the cli interface of linthml
+* `cli` : For anything that is related to the LintHTML's cli
 * `rule` : For anything that is related the rules (bugs, improvement, docs, new rule...)
-* `core` : For anything that is related to the core of linthml (file parsing, plugin system...)
+* `core` : For anything that is related to LintHTML's core (file parsing, plugin system...)
 
 ## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2FlintHTML?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_large)

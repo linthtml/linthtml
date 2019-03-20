@@ -1,19 +1,19 @@
-const lintHTML = require("../../");
+const linthtml = require("../../");
 const { expect } = require("chai");
 
-describe("lintHTML", function() {
+describe("linthtml", function() {
   it("should be a function", function() {
-    expect(lintHTML).to.be.an.instanceOf(Function);
+    expect(linthtml).to.be.an.instanceOf(Function);
   });
 
   it("should return a thenable", function() {
-    var thenable = lintHTML("");
+    var thenable = linthtml("");
 
     expect(thenable).to.have.property("then");
   });
 
   it("should eventually return an array", function() {
-    var result = lintHTML("");
+    var result = linthtml("");
 
     return result.then(function(output) {
       expect(output).to.be.an.instanceOf(Array);
@@ -26,7 +26,7 @@ describe("lintHTML", function() {
       sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
 
     expect(function() {
-      lintHTML(sanityHtml);
+      linthtml(sanityHtml);
     }).to.not.throw(Error);
   });
 
@@ -37,9 +37,9 @@ describe("lintHTML", function() {
         },
         plugins = ["chai", { rules: [rule] }];
 
-      lintHTML.use(plugins);
+      linthtml.use(plugins);
 
-      expect(lintHTML.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
+      expect(linthtml.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
     });
   });
 });

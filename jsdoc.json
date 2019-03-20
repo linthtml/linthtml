@@ -11,7 +11,7 @@
     "plugins/escapeHtml"
   ],
   "templates": {
-    "systemName": "lintHTML",
+    "systemName": "LintHTML",
     "cleverLinks": false,
     "monospaceLinks": false,
     "default": {
