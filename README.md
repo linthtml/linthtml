@@ -3,7 +3,8 @@
 [![npm version](http://img.shields.io/npm/v/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
 [![license](http://img.shields.io/npm/l/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
 [![Build Status](https://travis-ci.org/linthtml/linthtml.svg?branch=develop)](https://travis-ci.org/linthtml/linthtml)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_shield)
+[![codebeat badge](https://codebeat.co/badges/b16712c0-c863-4fda-8ea2-75dacd0faf1a)](https://codebeat.co/projects/github-com-linthtml-linthtml-develop)
+<!-- [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_shield) -->
 
 > An unofficial html5 linter and validator.
 
@@ -166,5 +167,5 @@ Contribution are welcome, please make sure to use the proper github tag on your 
 * `rule` : For anything that is related the rules (bugs, improvement, docs, new rule...)
 * `core` : For anything that is related to LintHTML's core (file parsing, plugin system...)
 
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_large)
+<!-- ## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_large) -->
