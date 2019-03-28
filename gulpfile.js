@@ -12,7 +12,7 @@ const { series, parallel }= gulp;
 
 let paths = {
     src: './lib/**/*.js',
-    tests: './test/**/*.js',
+    tests: ['./test/**/*.js', './lib/rules/**/__tests__/*.js'],
     site: './site/**/*'
 };
 
