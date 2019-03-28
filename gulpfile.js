@@ -31,7 +31,7 @@ exports.lint = lint;
 
 function tests() {
   return gulp.src(paths.tests, { read:false })
-    .pipe(mocha());
+    .pipe(mocha({bail: true}));
 }
 tests.description = "Run unit tests using mocha+chai";
 exports.tests = tests;
