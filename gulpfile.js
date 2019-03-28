@@ -19,7 +19,7 @@ let paths = {
 function lint() {
   return gulp.src([
       paths.src,
-      paths.tests,
+      ...paths.tests,
       './gulpfile.js'
     ])
     .pipe(eslint())

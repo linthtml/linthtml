@@ -1,7 +1,8 @@
----
-  globals:
-    beforeEach: true
-    describe: true
-    it: true
-    expect: true
-    xit: true
+{
+  "globals": {
+    "beforeEach": true,
+    "describe": true,
+    "it": true,
+    "expect": true
+  }
+}
