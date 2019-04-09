@@ -39,7 +39,7 @@ You should then init a configuration file:
 ./node_modules/.bin/linthtml --init
 ```
 
-This will generate a file `.htmllintrc` in the current directory.
+This will generate a file `.linthtmlrc` in the current directory.
 
 After that, you can run LintHTML on any file or directory like this:
 
