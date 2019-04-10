@@ -39,7 +39,7 @@ You should then init a configuration file:
 ./node_modules/.bin/linthtml --init
 ```
 
-This will generate a file `.htmllintrc` in the current directory.
+This will generate a file `.linthtmlrc` in the current directory.
 
 After that, you can run LintHTML on any file or directory like this:
 
@@ -137,7 +137,7 @@ We have a some other solutions to run linthtml
 This module doesn't provide any interface on its own. It is highly recommended that
 you use one of the following modules to run the linter:
 
-* [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML (Coming soon 🚧)
+* [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML
 * [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): LintHTML loader for webpack (Coming soon 🚧)
 * [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with LintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
 
