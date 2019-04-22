@@ -7,7 +7,7 @@ An `<img>` without an alt attribute is essentially invisible to assistive/access
 Possible values :
 
 * `true`: Each `img` tag must have a non-empty `alt` property.
-* `"allownull"`: Each `img` tag must have an `alt` property with a value, but value may be null (equal to `""`).
+* `"allownull"`: Each `img` tag must have an `alt` property with a value, but value may be null (equal to `""`). _⚠️ consider not using this setting as it's bad for accessibility, use `role="presentation" instead`_
 * `false`: No restriction
 
 The following patterns are considered violations:
