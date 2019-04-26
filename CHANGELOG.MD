@@ -1,10 +1,13 @@
 # Changelog
 
+## v0.1.7
+
+* [BUILD] Security upgrade for dependencies
+
 ## v0.1.3
 
 * [FIX] #14 correct doc replace `.htmllintrc` with `.linthtmlrc`
 * [FIX] #13 Fix import of `checkInvalidCliOptions`
-
 
 ## v0.1.2
 
