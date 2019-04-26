@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.8
+
+* [FIX] Correct tarball generation
+
 ## v0.1.7
 
 * [BUILD] Security upgrade for dependencies
