@@ -1,12 +1,12 @@
 /* eslint-env node */
 
 const gulp = require('gulp');
-const coveralls = require('gulp-coveralls');
+// const coveralls = require('gulp-coveralls');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const publish = require('gulp-gh-pages');
 const jsdoc = require('gulp-jsdoc3');
-const cp = require('child_process');
+// const cp = require('child_process');
 
 const { series, parallel }= gulp;
 
@@ -51,14 +51,14 @@ exports['docs:publich'] = series(genJSDoc, function () {
     }));
 });
 
-function coverage() {
-  return cp.execFile('npm run coverage');
-}
+// function coverage() {
+//   return cp.execFile('npm run coverage');
+// }
 
-// runs on travis ci (lints, tests, and uploads to coveralls)
-exports.travis = series(parallel(lint, coverage), function () {
-  return gulp.src('coverage/lcov.info')
-      .pipe(coveralls());
-});
+// // runs on travis ci (lints, tests, and uploads to coveralls)
+// exports.travis = series(parallel(lint, coverage), function () {
+//   return gulp.src('coverage/lcov.info')
+//       .pipe(coveralls());
+// });
 
 exports.default = parallel(lint, tests);
