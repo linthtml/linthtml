@@ -90,5 +90,10 @@
     "lib"
   ],
   "author": "Benjamin JEGARD <kamikillerto@gmail.com>",
-  "private": false
+  "private": false,
+  "nyc": {
+    "exclude": [
+      "gulpfile.js"
+    ]
+  }
 }
