@@ -9,11 +9,13 @@ node_js:
 
 cache: npm
 
+repo_token: yaETwUmumfZQU9ZJjJhqsfCrtLg9mQVdf
+
 before_script:
   - npm install -g gulp-cli
 script:
   - gulp lint
-  - npm test
+  - npm run coverage:report
 
 notifications:
   email: false
