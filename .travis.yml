@@ -15,7 +15,7 @@ before_script:
   - npm install -g gulp-cli
 script:
   - gulp lint
-  - npm test
+  - npm run coverage:report
 
 notifications:
   email: false
