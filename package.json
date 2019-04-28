@@ -19,7 +19,7 @@
   "scripts": {
     "test": "gulp tests",
     "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage && nyc report --reporter=lcov | coveralls",
+    "coverage:report": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
