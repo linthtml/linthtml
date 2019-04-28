@@ -18,12 +18,14 @@ module.exports = [
     opts: { "spec-char-escape": true },
     output: 1
   },
+  /* eslint-disable no-useless-escape */
   {
     desc: "should not report an error",
     input: '<div><p id="mine\&ours"></p></div>',
     opts: { "spec-char-escape": true },
     output: 0
   },
+  /* eslint-enable no-useless-escape */
   {
     desc: "should return an error for each invalid escape",
     input: '<div><p id="john&*;paul&;ringo&george^"></p></div>',

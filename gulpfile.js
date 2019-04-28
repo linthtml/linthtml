@@ -23,7 +23,8 @@ function lint() {
       './gulpfile.js'
     ])
     .pipe(eslint())
-    .pipe(eslint.format());
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
 }
 lint.description = "Lints javascript files with eslint";
 exports.lint = lint;
