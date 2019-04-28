@@ -1,13 +1,20 @@
 language: node_js
+
 node_js:
   - "6"
   - "8"
   - "9"
   - "10"
   - "node"
+
+cache: npm
+
 before_script:
   - npm install -g gulp-cli
-cache: npm
+script:
+  - gulp lint
+  - npm test
+
 notifications:
   email: false
 # after_script:
