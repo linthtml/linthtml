@@ -1,82 +1,32 @@
-var lint = require("../../"),
-  InlineConfig = require("../../lib/inline_config.js"),
-  lodash = require("lodash");
+const InlineConfig = require("../../lib/inline_config.js");
 const { expect } = require("chai");
 
-var textSplit = [
-  "<!DOCTYPE html>", // 15
-  "<html>", // 6
-  "\r", // 0
-  "<head>", // 6
-  '\t<meta charset="utf-8" />',
-  "\t<title>Hello, World!</title>",
-  "</head>",
-  "\r",
-  "<body>",
-  '\t<h1 id="heading">Heading</h1>',
-  "\t<p>Paragraph</p>",
-  '\t<div id="heading">',
-  '\t\t<div role="supra">This inside that</div>',
-  '\t\t<div class="ad">This inside that</div>',
-  "\t</div>",
-  "</body>",
-  "\r",
-  "</html>"
-];
+const linthtml = require("../../lib");
+const none = require('../../lib/presets').presets.none;
 
-function meetExpectations(output, expectation) {
-  if (output.length !== expectation.length) {
-    return false;
-  }
-
-  for (var i = 0; i < output.length; i++) {
-    if (
-      output[i].name !== expectation[i].name ||
-      (expectation[i].line && output[i].line !== expectation[i].line)
-    ) {
-      return false;
-    }
-  }
-
-  return true;
+function createLinter() {
+  return new linthtml.Linter(linthtml.rules);
 }
 
-function expectOutput(html, expected, trim) {
-  return lint(html.join("\n") + "\n").then(function(output) {
-    if (trim) {
-      output = output.slice(0, expected.length);
-    }
-    expect(meetExpectations(output, expected)).to.be.true;
-  });
-}
-
-function expectConfigIssue(html, code) {
-  return expectOutput(html, [{ code: code }], true);
-}
+const html = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello, World!</title>
+  </head>
+  <body>
+    <h1 id="heading">Heading</h1>
+    <p>Paragraph</p>
+    <div id="heading">
+      <div role="supra">This inside that</div>
+      <div class="ad">This inside that</div>
+    </div>
+  </body>
+</html>
+`;
 
 describe("inline-configuration", function() {
-  var original = null;
-  var expdefault = [
-    { code: "E015", line: 3 },
-    { code: "E015", line: 8 },
-    { code: "E015", line: 17 },
-    { code: "E012" },
-    { code: "E010" }
-  ];
-  var expshift = [
-    { code: "E015", line: 3 },
-    { code: "E015", line: 9 },
-    { code: "E015", line: 18 },
-    { code: "E012" },
-    { code: "E010" }
-  ];
-  var expfalse = [0, 3, 4].map(function(i) {
-    return expdefault[i];
-  });
-
-  beforeEach(function() {
-    original = lodash.cloneDeep(textSplit);
-  });
 
   // Tests for inlineConfig internals
   // Should instantiate an object rather than using the prototype
@@ -93,139 +43,264 @@ describe("inline-configuration", function() {
     expect(c.addConfig.bind(c, { end: 5 })).to.throw();
   });
 
-  it("should not do anything if no inline config comments exist", function() {
-    return expectOutput(original, expdefault);
+  it("should not do anything if no inline config comments exist", function(done) {
+    const linter = createLinter();
+    linter.lint(html, none, { }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      done();
+    });
   });
 
-  it("should not do anything on an empty tag", function() {
-    original.splice(3, 0, "<!-- linthtml-configure -->");
-    return expectOutput(original, expshift);
+  it("should not do anything on an empty tag", function(done) {
+    const linter = createLinter();
+    const html = "<!-- linthtml-configure -->";
+    linter.lint(html, none, { }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      done();
+    });
   });
 
-  it("should change options to turn off rules", function() {
-    original.splice(3, 0, '<!-- linthtml-configure line-end-style="false" -->');
-    return expectOutput(original, expfalse);
+  it("should change options to turn off rules", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style="false" -->\r\n`,
+      "<body>\r\n",
+      "  <p>\r\n",
+      "    some text\r", // Should normaly report an error
+      "  </p>\r\n",
+      "</body>\r\n"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf" }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      done();
+    }); 
   });
 
-  it("should accept $preset notation", function() {
-    original.splice(3, 0, '<!-- linthtml-configure line-end-style="$none" -->');
-    return expectOutput(original, expfalse);
+  it("should accept $preset notation", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style="$none"  -->\r\n`,
+      "<body>\r\n",
+      "  <p>\r\n",
+      "    some text\r", // Should normaly report an error
+      "  </p>\r\n",
+      "</body>\r\n"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf" }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      done();
+    });
   });
 
-  it("should work when used multiple times in a line", function() {
-    original.splice(
-      3,
-      0,
-      '<!-- linthtml-configure line-end-style="cr" -->' +
-        '<!-- linthtml-configure line-end-style="false" -->'
-    );
-    return expectOutput(original, expfalse);
+  it("should work when used multiple times in a line ", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style="lf" --><!-- linthtml-configure line-end-style="false" -->\r\n`,
+      "<body>\n",
+      "  <p>\r",
+      "    some text\r",
+      "  </p>\r",
+      "</body>\r"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf" }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      // Should report 4 errors with "lf"
+      // Should report 4 errors with "crlf"
+      done();
+    });
   });
 
-  it("should use allow $previous to revert value", function() {
-    original.splice(
-      3,
-      0,
-      '<!-- linthtml-configure line-end-style="false" -->' +
-        '<!-- linthtml-configure line-end-style="$previous" -->'
-    );
-    return expectOutput(original, expshift);
+  it(`Should revert to previous (previous) config using "$previous"`, function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style="false" --><!-- linthtml-configure line-end-style="$previous" -->\r\n`,
+      "<body>\n",
+      "  <p>\r",
+      "    some text\r",
+      "  </p>\r",
+      "</body>\r"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf" }).then((issues) => {
+      expect(issues).to.have.lengthOf(5);
+      done();
+    });
   });
 
-  it("should output an issue on invalid $preset", function() {
-    original.splice(3, 0, '<!-- linthtml-configure line-end-style="$invalid" -->');
-    return expectConfigIssue(original, "E051");
+  it("quotes for valuese should not be mandatory", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style=false -->\r\n`,
+      "<body>\r\n",
+      "  <p>\r\n",
+      "    some text\r", // Should normaly report an error
+      "  </p>\r\n",
+      "</body>\r\n"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf" }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      done();
+    }); 
   });
 
-  it("should work without quotes", function() {
-    original.splice(3, 0, "<!-- linthtml-configure line-end-style=false -->");
-    return expectOutput(original, expfalse);
+  it("should work for strings without quotes", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style=crlf -->\r`,
+      "<body>\r",
+      "  <p>\r",
+      "    some text\r",
+      "  </p>\r",
+      "</body>\r"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "cr" }).then((issues) => {
+      expect(issues).to.have.lengthOf(5);
+      done();
+    });
   });
 
-  it("should work for strings without quotes", function() {
-    original.splice(3, 0, "<!-- linthtml-configure line-end-style=lf -->");
-    return expectOutput(original, expshift);
+  // TODO: Should report only one error, parsing error
+  it("Shoul output an error on bad config formatting", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure id-no-dup-"false"   -->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(2);
+      expect(issues[0].code).to.equal("E050");
+      expect(issues[1].code).to.equal("E050");
+      done();
+    });
   });
 
-  it("should output an issue on bad config formatting", function() {
-    original.splice(
-      4,
-      0,
-      '<!-- linthtml-configure line-end-style="false" id-no-dup-"false" id-class-no-ad="false" -->'
-    );
-    return expectConfigIssue(original, "E050");
+  it("should throw an error for  nonexistent rule name", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure id-no-no-ad="false"-->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("E054");
+      done();
+    });
   });
 
-  it("should throw an error on bad options", function() {
-    original.splice(
-      4,
-      0,
-      '<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-no-no-ad="false" -->'
-    );
-    return expectConfigIssue(original, "E054");
+  it("should output an issue on invalid option value", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure id-class-no-ad="fal#se"-->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("E053");
+      done();
+    });
   });
 
-  it("should output an issue on invalid option value", function() {
-    original.splice(4, 0, '<!-- linthtml-configure line-end-style="fal#se" -->');
-    return expectConfigIssue(original, "E053");
+  it("should output an issue on invalid rule name", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure pre#set="none" -->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("E051");
+      done();
+    });
   });
 
-  it("should throw on nonexistent rule name", function() {
-    original.splice(4, 0, '<!-- linthtml-configure not-rule="false" -->');
-    return expectConfigIssue(original, "E054");
+  it("should change multiple rules", function(done) {
+    const linter = createLinter();
+    const html = [
+      `<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->\r\n`,
+      `<body id="foo" class="ad-banner">\r`,
+      `  <p id="foo">\r`,
+      "    some text\r",
+      "  </p>\r",
+      "</body>\r"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf", "id-no-dup": true, "id-class-no-ad": true }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      // Should report 7 errors normaly
+      done();
+    });
   });
 
-  it("should output an issue on invalid rule name", function() {
-    original.splice(3, 0, '<!-- linthtml-configure pre#set="none" -->');
-    return expectConfigIssue(original, "E051");
+  it("should take in presets", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure preset="none" -->`;
+    
+    linter.lint(html, none, { }).then((issues) => {
+      expect(issues).to.have.lengthOf(0);
+      // Should report 7 errors normaly
+      done();
+    });
   });
 
-  it("should change multiple rules", function() {
-    original.splice(
-      4,
-      0,
-      '<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->'
-    );
-    return expectOutput(original, [{ code: "E015", line: 3 }]);
+  it(`should revert last setting usign "$previous" preset`, function(done) {
+      const linter = createLinter();
+      const html = [
+        '<!-- linthtml-configure line-end-style="false" --> <!-- linthtml-configure id-no-dup="false" id-class-no-ad="false" --> <!-- linthtml-configure preset="$previous" -->\r\n',
+        `<body id="foo" class="ad-banner">\r`,
+        `  <p id="foo">\r`,
+        "    some text\r",
+        "  </p>\r",
+        "</body>\r"
+      ].join("");
+      
+      linter.lint(html, none, { "line-end-style": "crlf", "id-no-dup": true, "id-class-no-ad": true }).then((issues) => {
+        expect(issues).to.have.lengthOf(2);
+        expect(issues[0].code).to.equal("E010");
+        expect(issues[1].code).to.equal("E012");
+        done();
+      });
   });
 
-  it("should take in presets", function() {
-    original.splice(1, 0, '<!-- linthtml-configure preset="none" -->');
-    return expectOutput(original, []);
+  it("should revert an entire preset with preset=$previous", function(done) {
+    const linter = createLinter();
+    const html = [
+      '<!-- linthtml-configure preset="none" --> <!-- linthtml-configure preset="$previous" -->\r\n',
+      `<body id="foo" class="ad-banner">\r`,
+      `  <p id="foo">\r`,
+      "    some text\r",
+      "  </p>\r",
+      "</body>\r"
+    ].join("");
+    
+    linter.lint(html, none, { "line-end-style": "crlf", "id-no-dup": true, "id-class-no-ad": true }).then((issues) => {
+      expect(issues).to.have.lengthOf(7);
+      expect(issues[0].code).to.equal("E015");
+      expect(issues[1].code).to.equal("E015");
+      expect(issues[2].code).to.equal("E015");
+      expect(issues[3].code).to.equal("E015");
+      expect(issues[4].code).to.equal("E015");
+      expect(issues[5].code).to.equal("E010");
+      expect(issues[6].code).to.equal("E012");
+      done();
+    });
   });
 
-  it("should restore values with $previous after using presets", function() {
-    original.splice(
-      3,
-      0,
-      '<!-- linthtml-configure preset="none" -->' +
-        '<!-- linthtml-configure line-end-style="$previous" -->'
-    );
-    return expectOutput(original, expfalse);
+  it("should output an issue on invalid $preset", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure line-end-style="$invalid" -->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("E052");
+      done();
+    });
   });
 
-  it("should revert last setting preset=$previous", function() {
-    original.splice(
-      3,
-      0,
-      '<!-- linthtml-configure line-end-style="false" -->' +
-        '<!-- linthtml-configure id-no-dup="false" id-class-no-ad="false" -->' +
-        '<!-- linthtml-configure preset="$previous" -->'
-    );
-    return expectOutput(original, expfalse);
-  });
-
-  it("should revert an entire preset with preset=$previous", function() {
-    original.splice(
-      3,
-      0,
-      '<!-- linthtml-configure preset="none" -->' + '<!-- linthtml-configure preset="$previous" -->'
-    );
-    return expectOutput(original, expshift);
-  });
-
-  it("should output an issue on invalid preset option", function() {
-    original.splice(3, 0, '<!-- linthtml-configure preset="invalid" -->');
-    return expectConfigIssue(original, "E052");
+  it("should output an issue on invalid preset option", function(done) {
+    const linter = createLinter();
+    const html = `<!-- linthtml-configure preset="invalid" -->`;
+  
+    linter.lint(html, none, {}).then((issues) => {
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("E052");
+      done();
+    });
   });
 });

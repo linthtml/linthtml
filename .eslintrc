@@ -9,6 +9,11 @@
   "parserOptions": {
       "ecmaVersion": 2017
   },
+  "globals": {
+    "beforeEach": true,
+    "describe": true,
+    "it": true
+  },
   "rules": {
     "semi": "error"
   }

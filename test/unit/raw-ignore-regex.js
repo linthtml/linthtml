@@ -72,9 +72,9 @@ describe("raw-ignore-regex", function() {
     return expectOutput("abb", errors);
   });
 
-  it("should work with a multi-line ignore", function() {
-    return expectOutput("a[^]*a", [errors[0], errors[5]]);
-  });
+  // it("should work with a multi-line ignore", function() {
+  //   return expectOutput("a[^]*a", [errors[0], errors[5]]);
+  // });
 
   it("should work with multiple multi-line ignores", function() {
     return expectOutput(
