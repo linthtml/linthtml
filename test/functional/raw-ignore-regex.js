@@ -8,33 +8,27 @@ function createLinter() {
 describe("raw-ignore-regex", function() {
 
   
-  it("should remove matching text", function(done) {
+  it("should remove matching text", async function() {
     const linter = createLinter();
     const html = `\r\r\r\r[[\r\n\t fjq\r\n\r]]\r\r\n`;
 
-    linter.lint(html, none, { "raw-ignore-regex": /\r/ }).then((issues) => {
-      expect(issues).to.have.lengthOf(0);
-      done();
-    });
+    const issues = await linter.lint(html, none, { "raw-ignore-regex": /\r/ });
+    expect(issues).to.have.lengthOf(0);
   });
 
-  it("should work across line breaks", function(done) {
+  it("should work across line breaks", async function() {
     const linter = createLinter();
     const html = `\r\r\r\r[[\r\n\t fjq\r\n\r]]\r\r`;
 
-    linter.lint(html, none, { "raw-ignore-regex": /\[\[[^]*?\]\]/ }).then((issues) => {
-      expect(issues).to.have.lengthOf(0);
-      done();
-    });
+    const issues = await linter.lint(html, none, { "raw-ignore-regex": /\[\[[^]*?\]\]/ });
+    expect(issues).to.have.lengthOf(0);
   });
   
-  it("should work across line breaks", function(done) {
+  it("should work across line breaks", async function() {
     const linter = createLinter();
     const html = `\r{\r\r}\r[[\r\n\t fjq\r\n\r]]\r\r`;
 
-    linter.lint(html, none, { "raw-ignore-regex": /(\{[^]*?\}|\[\[[^]*?\]\])/  }).then((issues) => {
-      expect(issues).to.have.lengthOf(0);
-      done();
-    });
+    const issues = await linter.lint(html, none, { "raw-ignore-regex": /(\{[^]*?\}|\[\[[^]*?\]\])/  });
+    expect(issues).to.have.lengthOf(0);
   });
 });
