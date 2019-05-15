@@ -12,12 +12,10 @@ describe("linthtml", function() {
     expect(thenable).to.have.property("then");
   });
 
-  it("should eventually return an array", function() {
-    var result = linthtml("");
+  it("should eventually return an array", async function() {
+    var result = await linthtml("");
 
-    return result.then(function(output) {
-      expect(output).to.be.an.instanceOf(Array);
-    });
+    expect(result).to.be.an.instanceOf(Array);
   });
 
   it("should not throw on sanity.html", function() {
