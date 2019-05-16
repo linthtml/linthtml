@@ -50,7 +50,7 @@
     "globby": "9.1.0",
     "htmlparser2": "3.10.1",
     "lodash": "4.17.11",
-    "cosmiconfig": "5.2.0",
+    "cosmiconfig": "5.2.1",
     "meow": "5.0.0",
     "ora": "3.4.0"
   },
