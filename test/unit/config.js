@@ -16,10 +16,7 @@ describe("Config", function() {
     };
     option = {
       name: "theoption",
-      rules: ["therule"],
-      process: function(val) {
-        return val;
-      }
+      rules: ["therule"]
     };
   });
 
@@ -156,8 +153,7 @@ describe("Config", function() {
       config.addRule(rule);
       var option2 = {
         name: option.name,
-        rules: [baseRule.name],
-        process: option.process
+        rules: [baseRule.name]
       };
       config.addOption(option2);
       config.setOption(option.name, true);
@@ -190,8 +186,7 @@ describe("Config", function() {
 
       var option2 = {
         name: "option2",
-        rules: option.rules,
-        process: option.process
+        rules: option.rules
       };
       config.addOption(option2);
       config.setOption(option.name, true);

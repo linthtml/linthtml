@@ -70,7 +70,7 @@ describe("linter", function() {
     it("Should throw an error for non-integer config for maxerr", function() {
       expect(() => linter.lint("", { maxerr: "five" }, "nodefault"))
         .to
-        .throw('Configuration for rule "maxerr" is invalid: Expected number got string')
+        .throw('Configuration for rule "maxerr" is invalid: Expected number got string');
     });
   });
 
