@@ -43,9 +43,10 @@ describe("linter", function() {
       }
     ]);
 
-    it("should output an issue when given a nonexistent option", async function() {
-      const issues = await linter.lint("f\nfff", { nonopt: 7 }, "nodefault");
-      expect(issues).to.have.length(1);
+    it("Should throw an error when given a nonexistent option", function() {
+      expect(() => linter.lint("f\nfff", { nonopt: 7 }, "nodefault"))
+        .to
+        .throw(`Rule "nonopt" does not exist`);
     });
 
     it("should return correct line and column numbers", async function() {
