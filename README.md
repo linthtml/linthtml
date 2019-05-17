@@ -1,7 +1,7 @@
 # LintHTML
 
-[![npm version](http://img.shields.io/npm/v/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
-[![license](http://img.shields.io/npm/l/linthtml.svg?style=flat-square)](https://npmjs.org/package/linthtml)
+[![npm version](https://img.shields.io/npm/v/@linthtml/linthtml.svg?style=flat-square)](https://npmjs.org/package/@linthtml/linthtml)
+[![license](https://img.shields.io/npm/l/@linthtml/linthtml.svg?style=flat-square)](https://npmjs.org/package/@linthtml/linthtml)
 [![Build Status](https://travis-ci.org/linthtml/linthtml.svg?branch=develop)](https://travis-ci.org/linthtml/linthtml)
 [![codebeat badge](https://codebeat.co/badges/b16712c0-c863-4fda-8ea2-75dacd0faf1a)](https://codebeat.co/projects/github-com-linthtml-linthtml-develop)
 <!-- [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_shield) -->
