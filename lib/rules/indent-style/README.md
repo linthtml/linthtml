@@ -46,10 +46,48 @@ The following patterns are considered violations:
 /*space*/<button id="buttonBlue"></button>
 ```
 
+```html
+<div><p>foo</p>
+</div>
+```
+
+```html
+<div>
+ </div>
+```
+
+```html
+<div><p>foo</p>
+  <p>foo</p>
+</div>
+```
+
 The following patterns are not considered violations:
 
 ```html
 /*space*//*space*/<button id="buttonBlue"></button>
+```
+
+```html
+<div><p>foo</p></div>
+```
+
+```html
+<div>
+</div>
+```
+
+```html
+<div>
+  <p>foo</p>
+</div>
+```
+
+```html
+<div>
+  <p>foo</p><p>foo</p>
+  <p>foo</p>
+</div>
 ```
 
 # indent-width-cont
