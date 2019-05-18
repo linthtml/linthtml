@@ -4,7 +4,10 @@ Specify a blacklist of disallowed HTML attributes.
 
 ## Options
 
-`array`: `["array", "of", "unwanted", "attributes"]
+`attr-bans`: `["array", "of", "unwanted", "attributes"]`
+`attr-bans`: `"attributes"`
+`attr-bans`: `/regex/`
+`attr-bans`: `[/regex/]`
 
 Default:
 
