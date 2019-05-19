@@ -40,3 +40,46 @@ The following patterns are not considerd violations:
   <boby>
 </html>
 ```
+
+## Options
+
+You can pass the "smart" as value for the rule. This value allow the none presence of a `<!DOCTYPE ... >` but only if the tag `<head>` is not present.
+
+Given :
+
+```
+  "doctype-first": "smart"
+```
+
+The following patterns are considered violations:
+
+```html
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    ...
+  <boby>
+</html>
+```
+
+```html
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    ...
+  <boby>
+<html>
+<!DOCTYPE html>
+```
+
+The following patterns are not considerd violations:
+
+```html
+<section>
+  ...
+</section>
+```

@@ -43,53 +43,35 @@ describe("linter", function() {
       }
     ]);
 
-    it("should output an issue when given a nonexistent option", function(cb) {
-      linter
-        .lint("f\nfff", { nonopt: 7 }, "nodefault")
-        .then(function(output) {
-          expect(output).to.have.length(1);
-        })
-        .then(cb, cb);
+    it("Should throw an error when given a nonexistent option", function() {
+      expect(() => linter.lint("f\nfff", { nonopt: 7 }, "nodefault"))
+        .to
+        .throw(`Rule "nonopt" does not exist`);
     });
 
-    it("should return correct line and column numbers", function(cb) {
+    it("should return correct line and column numbers", async function() {
       linter.rules.addRule(rule);
-      linter
-        .lint("f\nfff", "nodefault")
-        .then(function(output) {
-          expect(output[0].line).to.be.eql(2);
-          expect(output[0].column).to.be.eql(3);
-        })
-        .then(cb, cb);
+      const issues = await linter.lint("f\nfff", "nodefault");
+      expect(issues[0].line).to.be.eql(2);
+      expect(issues[0].column).to.be.eql(3);
     });
 
-    it("should not truncate output if maxerr is -1", function(cb) {
+    it("should not truncate output if maxerr is false", async function() {
       linter.rules.addRule(rule);
-      linter
-        .lint("f\nfff", { maxerr: -1 }, "nodefault")
-        .then(function(output) {
-          expect(output).to.have.length(2);
-        })
-        .then(cb, cb);
+      const issues = await linter.lint("f\nfff", { maxerr: false }, "nodefault");
+      expect(issues).to.have.length(2);
     });
 
-    it("should not return more than the maxerr", function(cb) {
+    it("should not return more than the limit fixed by maxerr", async function() {
       linter.rules.addRule(rule);
-      linter
-        .lint("f\nfff", { maxerr: 1 }, "nodefault")
-        .then(function(output) {
-          expect(output).to.have.length(1);
-        })
-        .then(cb, cb);
+      const issues = await linter.lint("f\nfff", { maxerr: 1 }, "nodefault");
+      expect(issues).to.have.length(1);
     });
 
-    it("should output an issue for non-integer maxerr", function(cb) {
-      linter
-        .lint("", { maxerr: "five" }, "nodefault")
-        .then(function(output) {
-          expect(output).to.have.length(1);
-        })
-        .then(cb, cb);
+    it("Should throw an error for non-integer config for maxerr", function() {
+      expect(() => linter.lint("", { maxerr: "five" }, "nodefault"))
+        .to
+        .throw('Configuration for rule "maxerr" is invalid: Expected number got string');
     });
   });
 

@@ -1,13 +1,22 @@
 language: node_js
+
 node_js:
-  - "6"
   - "8"
   - "9"
   - "10"
+  - "11"
   - "node"
+
+cache: npm
+
+repo_token: yaETwUmumfZQU9ZJjJhqsfCrtLg9mQVdf
+
 before_script:
   - npm install -g gulp-cli
-cache: npm
+script:
+  - gulp lint
+  - npm run coverage:report
+
 notifications:
   email: false
 # after_script:
