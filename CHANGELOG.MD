@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1
+
+* [FIX] Add missing `await` preventing the display of lint errors
+
 ## v0.2.0
 
 * [REMOVED] Support for node@6
