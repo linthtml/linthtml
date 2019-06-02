@@ -133,7 +133,7 @@ Each rule's previous value (if any) is stored, and may be recalled using `$previ
 
 ### Other
 
-We have a some other solutions to run linthtml
+We have a some other solutions you can use to run linthtml
 
 This module doesn't provide any interface on its own. It is highly recommended that
 you use one of the following modules to run the linter:
@@ -141,6 +141,10 @@ you use one of the following modules to run the linter:
 * [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML
 * [`linthtml-loader`](https://github.com/linthtml/linthtml-loader): LintHTML loader for webpack (Coming soon 🚧)
 * [`broccoli-linthtml`](https://github.com/linthtml/broccoli-linthtml): Integrates HTML linting with LintHTML as part of your Broccoli build pipeline. (Coming soon 🚧)
+
+## IDE
+
+* [`VSCode extention`](https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-linthtml)
 
 ## HTMLLint migration
 
@@ -156,9 +160,21 @@ npm uninstall htmllint --save-dev
 yarn remove htmllint
 ```
 
-Then install `linthtml` detailled instructions available [here](installation-and-usage)
+Then install `linthtml`. Detailled instructions can be found [here](installation-and-usage)
 
 Finally rename your `.htmlintrc` in `.linthtmlrc` (or run linthtml with the config option).
+
+## Coming "soon"
+
+- Tests for the `cli`.
+- Nice/cute logo (because every projects should have one)
+- A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
+- Translated `cli`. Like the website the `cli` should be available in as many language as possible
+- Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
+- Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
+- warning level for rules.
+- Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+- More to come 🤷‍♀️
 
 ## Contributing
 
