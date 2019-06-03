@@ -19,8 +19,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "gulp tests",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
+    "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
+    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov | coveralls",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
@@ -41,8 +41,7 @@
     "gulp-jsdoc3": "2.0.0",
     "gulp-mocha": "6.0.0",
     "husky": "2.3.0",
-    "mocha": "6.1.4",
-    "nyc": "14.1.1"
+    "mocha": "6.1.4"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
@@ -50,7 +49,6 @@
     "chalk": "2.4.2",
     "globby": "9.1.0",
     "htmlparser2": "3.10.1",
-    "lodash": "4.17.11",
     "cosmiconfig": "5.2.1",
     "meow": "5.0.0",
     "ora": "3.4.0"
