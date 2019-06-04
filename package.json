@@ -47,9 +47,10 @@
     "bulk-require": "1.0.1",
     "bulkify": "1.4.2",
     "chalk": "2.4.2",
+    "cosmiconfig": "5.2.1",
     "globby": "9.1.0",
     "htmlparser2": "3.10.1",
-    "cosmiconfig": "5.2.1",
+    "kebabcase": "1.0.1",
     "meow": "5.0.0",
     "ora": "3.4.0"
   },
