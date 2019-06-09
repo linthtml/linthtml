@@ -37,7 +37,7 @@ The value of this option is either `false` or a positive integer. If it is a num
 Given:
 
 ```
-  "indent-width": "2"
+  "indent-width": 2
 ```
 
 The following patterns are considered violations:
