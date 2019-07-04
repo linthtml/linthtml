@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.3
+
+* [FIX] Correct an issue with rules errors messages generation
+
 ## v0.2.2
 
 * [FIX] `indent-width` stop reporting error for this html
