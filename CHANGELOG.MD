@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.2
+
+* [FIX] `indent-width` stop reporting error for this html
+
+```html
+<p>
+  foo<span>bar</span>
+</p>
+```
+
+* [FIX] `attr-no-unsafe-char` Allow new line, spaces, tabs... in attributes
+
+_close #55_
+
 ## v0.2.1
 
 * [FIX] Add missing `await` preventing the display of lint errors
