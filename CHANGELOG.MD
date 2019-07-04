@@ -14,6 +14,8 @@
 
 _close #55_
 
+* [REFACTOR] Get rid of lodash
+
 ## v0.2.1
 
 * [FIX] Add missing `await` preventing the display of lint errors
