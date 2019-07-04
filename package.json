@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
@@ -19,8 +19,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "gulp tests",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
+    "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
+    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov | coveralls",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
@@ -33,25 +33,25 @@
     "chai": "4.2.0",
     "commitizen": "3.1.1",
     "conventional-changelog-cli": "2.0.17",
-    "coveralls": "3.0.3",
+    "coveralls": "3.0.4",
     "cz-conventional-changelog": "2.1.0",
-    "gulp": "4.0.1",
+    "gulp": "4.0.2",
     "gulp-eslint": "5.0.0",
     "gulp-gh-pages": "0.5.4",
     "gulp-jsdoc3": "2.0.0",
     "gulp-mocha": "6.0.0",
-    "husky": "2.3.0",
-    "mocha": "6.1.4",
-    "nyc": "14.1.1"
+    "husky": "2.7.0",
+    "mocha": "6.1.4"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
     "bulkify": "1.4.2",
     "chalk": "2.4.2",
+    "cosmiconfig": "5.2.1",
     "globby": "9.1.0",
     "htmlparser2": "3.10.1",
-    "lodash": "4.17.11",
-    "cosmiconfig": "5.2.1",
+    "kebabcase": "1.0.1",
+    "lodash.pull": "4.1.0",
     "meow": "5.0.0",
     "ora": "3.4.0"
   },
