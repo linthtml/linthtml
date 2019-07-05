@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.4
+
+* [FIX] #58 `indent-width` stop reporting error for this html
+
+```html
+<p>
+  foo
+  <span>bar</span>
+</p>
+```
+
 ## v0.2.3
 
 * [FIX] Correct an issue with rules errors messages generation
