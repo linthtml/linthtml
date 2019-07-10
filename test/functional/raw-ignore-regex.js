@@ -62,7 +62,6 @@ describe("raw-ignore-regex", function() {
       "</p>"
     ].join("\n");
     const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{(.*[\n\r].*)+}}/, "line-end-style": false  });
-    console.log(issues)
     expect(issues).to.have.lengthOf(0);
   });
 });
