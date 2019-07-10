@@ -1,5 +1,6 @@
 ## refactor
 
+* `raw-ignore-text` Find a better solution than the current one
 * Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
   This funciton should be changed for a validation function that raise errors if config is not valid
 * No rules by default
