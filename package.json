@@ -32,7 +32,7 @@
     "@commitlint/config-conventional": "7.5.0",
     "chai": "4.2.0",
     "commitizen": "3.1.1",
-    "conventional-changelog-cli": "2.0.17",
+    "conventional-changelog-cli": "2.0.21",
     "coveralls": "3.0.4",
     "cz-conventional-changelog": "2.1.0",
     "gulp": "4.0.2",
