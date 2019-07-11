@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.5
+
+* [FIX] #61 Exit shell process with an error code when there's lint errors
+* [FIX] #64 Change `raw-ignore-text` behaviour to stop reporting unexisting lint errors
+
 ## v0.2.4
 
 * [FIX] #58 `indent-width` stop reporting error for this html
