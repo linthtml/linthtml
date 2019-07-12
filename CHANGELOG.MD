@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.6
+
+* [FIX] #68, #69, #70 and #71
+
 ## v0.2.5
 
 * [FIX] #61 Exit shell process with an error code when there's lint errors
