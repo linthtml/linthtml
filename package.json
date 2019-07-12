@@ -27,7 +27,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "7.5.2",
+    "@commitlint/cli": "8.0.0",
     "@commitlint/config-angular": "7.5.0",
     "@commitlint/config-conventional": "7.5.0",
     "chai": "4.2.0",
