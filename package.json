@@ -41,7 +41,7 @@
     "gulp-jsdoc3": "2.0.0",
     "gulp-mocha": "6.0.0",
     "husky": "2.7.0",
-    "mocha": "6.1.4"
+    "mocha": "6.2.0"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
