@@ -75,3 +75,15 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 `linthtml-configure` should accept only one rule, something like
 
 `linthtml-configure [rule] [value]`
+
+## Coming "soon"
+
+- Tests for the `cli`.
+- Nice/cute logo (because every projects should have one)
+- A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
+- Translated `cli`. Like the website the `cli` should be available in as many language as possible
+- Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
+- Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
+- Warning level for rules.
+- Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+- More to come 🤷‍♀️
