@@ -99,31 +99,17 @@ describe("linter", function() {
     });
 
     it("should return the proper number of lines", function() {
-      var lines = [
-        "Line1Line1Line1Line1",
-        "Line2Line2Line2Line2",
-        "Line3Line3Line3Line3"
-      ];
-      var output = knife.shred(lines.join("\n").concat("\n"));
+      const lines = [
+        "Line1",
+        "Line2",
+        "Line3"
+      ].join("\n");
+      const output = knife.shred(lines);
 
-      expect(output.length - 1).to.be.eql(lines.length);
-    });
-
-    it("should return the full line at the right index", function() {
-      var lines = [
-        "Line1Line1Line1Line1",
-        "Line2Line2Line2Line2",
-        "Line3Line3Line3Line3"
-      ];
-      var concatted = lines.join("\n").concat("\n");
-      var output = knife.shred(concatted);
-
-      expect(output[lines.length].line).to.be.eql(
-        lines[lines.length - 1].concat("\n")
-      );
-      expect(output[lines.length].index).to.be.eql(
-        concatted.indexOf(lines[lines.length - 1].concat("\n"))
-      );
+      expect(output.length).to.be.eql(3);
+      expect(output[0].text).to.equal('Line1\n');
+      expect(output[1].text).to.equal('Line2\n');
+      expect(output[2].text).to.equal('Line3');
     });
   });
 });
