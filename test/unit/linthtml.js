@@ -28,16 +28,16 @@ describe("linthtml", function() {
     }).to.not.throw(Error);
   });
 
-  describe("use", function() {
-    it("should register a plugin on the defaultLinter", function() {
-      var rule = {
-          name: "testrule"
-        },
-        plugins = ["chai", { rules: [rule] }];
+  // describe("use", function() {
+  //   it("should register a plugin on the defaultLinter", function() {
+  //     var rule = {
+  //         name: "testrule"
+  //       },
+  //       plugins = ["chai", { rules: [rule] }];
 
-      linthtml.use(plugins);
+  //     linthtml.use(plugins);
 
-      expect(linthtml.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
-    });
-  });
+  //     expect(linthtml.defaultLinter.rules.getRule(rule.name)).to.be.eql(rule);
+  //   });
+  // });
 });
