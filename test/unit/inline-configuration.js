@@ -1,4 +1,4 @@
-const InlineConfig = require("../../lib/inline_config.js");
+const InlineConfig = require("../../lib/inline_config_legacy");
 const { expect } = require("chai");
 
 const linthtml = require("../../lib");
