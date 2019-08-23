@@ -1,8 +1,8 @@
 var knife = require("../../lib/knife");
 const { expect } = require("chai");
+var Linter = require("../../lib/legacy/linter");
 
-describe("linter", function() {
-  var Linter = require("../../lib/linter");
+describe("LegacyLinter", function() {
   var linter = null;
 
   it("should be a function", function() {

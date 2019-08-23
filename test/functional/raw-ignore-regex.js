@@ -4,7 +4,7 @@ const base = require('../../lib/presets').presets.default;
 const { expect } = require("chai");
 
 function createLinter() {
-  return new linthtml.Linter(linthtml.rules);
+  return new linthtml.LegacyLinter(linthtml.rules);
 }
 describe("raw-ignore-regex", function() {
 
