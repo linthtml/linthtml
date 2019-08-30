@@ -185,223 +185,112 @@ describe("Config", function() {
     });
   });
 
-        const config = new Config(rules);
-        const rule = config.getRule("attr-bans");
+  describe("Rules config", function() {
+    it("Should throw an error when rule config is a string", function() {
+      const config = new Config(rules);
+      const rule = config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": [
+          "error",
+          "foo"
+        ]
+      };
+      expect(() => config.setRuleConfig(rule, rule_config))
+        .to
+        .throw("Invalid Config for rule \"attr-bans\"");
+    });
+    it("Should throw an error when rule config is a number", function() {
+      const config = new Config(rules);
+      const rule = config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": [
+          "error",
+          2
+        ]
+      };
+      expect(() => config.setRuleConfig(rule, rule_config))
+        .to
+        .throw("Invalid Config for rule \"attr-bans\"");
+    });
+    it("Should throw an error when rule config is a array", function() {
+      const config = new Config(rules);
+      const rule = config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": [
+          "error",
+          []
+        ]
+      };
+      expect(() => config.setRuleConfig(rule, rule_config))
+        .to
+        .throw("Invalid Config for rule \"attr-bans\"");
+    });
+    it("Should not throw and error if no config is provided", function() {
+
+      const config = new Config(rules);
+      const rule = config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": [
+          "error"
+        ]
+      };
+      expect(() => config.setRuleConfig(rule, rule_config))
+        .to
+        .not
+        .throw();
+    });
+    describe("Rule validation", function() {
+      it("Should call \"validateConfig\" if rule declare the function", function(done) {
+        const foo = {
+          name: "foo",
+          lint() {},
+          validateConfig(config) {
+            expect(config).to.not.be.undefined;
+            expect(config.bar).to.equal("bar");
+            done();
+          }
+        };
+
+        const config = new Config({foo});
+        const rule = config.getRule("foo");
         const rule_config = {
-          "attr-bans": [{}]
+          "foo": [
+            "error",
+            {
+              bar: "bar"
+            }
+          ]
         };
         config.setRuleConfig(rule, rule_config);
-        expect(config.activatedRules).to.not.have.any.keys("attr-bans");
       });
-      it("should not activate rule", function() {
-        const config = new Config(rules);
-        const rule = config.getRule("attr-bans");
+
+      it("Should call \"configTransform\" if rule declare the function", function(done) {
+        const foo = {
+          name: "foo",
+          lint() {},
+          configTransform(config) {
+            return config.bar;
+          },
+          validateConfig(config) {
+            expect(config).to.not.be.undefined;
+            expect(config).to.equal("bar");
+            done();
+          }
+        };
+
+        const config = new Config({foo});
+        const rule = config.getRule("foo");
         const rule_config = {
-          "attr-bans": [1]
+          "foo": [
+            "error",
+            {
+              bar: "bar"
+            }
+          ]
         };
         config.setRuleConfig(rule, rule_config);
-        expect(config.activatedRules).to.not.have.any.keys("attr-bans");
-      });
-      it("should not activate rule", function() {
-        const config = new Config(rules);
-        const rule = config.getRule("attr-bans");
-        const rule_config = {
-          "attr-bans": 1
-        };
-        config.setRuleConfig(rule, rule_config);
-        expect(config.activatedRules).to.not.have.any.keys("attr-bans");
       });
     });
   });
 
-  // describe("initialize", function() {
-  //   it("should initialize rules", function() {
-  //     config = new Config([baseRule, rule]);
-
-  //     expect(config.getRule(rule.name)).to.be.eql(rule);
-  //     expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
-  //   });
-
-  //   it("should initialize both rules and options", function() {
-  //     config = new Config([baseRule, rule], [option]);
-
-  //     expect(config.getRule(rule.name)).to.be.eql(rule);
-  //     expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
-  //     expect(config.options[option.name]).to.be.eql(option);
-  //   });
-
-  //   it("should get options from a rule", function() {
-  //     rule.options = [option];
-  //     config = new Config([baseRule, rule]);
-
-  //     expect(config.options[option.name]).to.be.eql(option);
-  //   });
-  // });
-
-  // describe("addRule", function() {
-  //   it("should add a rule", function() {
-  //     config.addRule(rule);
-
-  //     var addedRule = config.getRule(rule.name);
-
-  //     expect(addedRule).to.be.equal(rule);
-  //   });
-
-  //   it("should initialize the rule", function() {
-  //     config.addRule({ name: "test" });
-
-  //     var addedRule = config.getRule("test");
-
-  //     expect(addedRule.name).to.be.eql("test");
-  //     expect(addedRule.on).to.be.eql([]);
-  //     expect(addedRule.subscribers).to.be.eql([]);
-  //   });
-
-  //   it("should not initialize the same rule twice", function() {
-  //     config.addRule(rule);
-  //     rule.subscribers = ["test"];
-  //     config.addRule(rule);
-  //     expect(rule.subscribers).to.be.eql(["test"]);
-  //   });
-
-  //   it("should remove a previous rule", function() {
-  //     var oldRule = {};
-  //     oldRule.name = rule.name;
-
-  //     config.addRule(oldRule);
-  //     config.addRule(rule);
-
-  //     var addedRule = config.getRule(rule.name);
-
-  //     expect(addedRule).to.be.equal(rule);
-  //   });
-
-  //   it("should remove a previous rule's subcriptions", function() {
-  //     config.addRule(baseRule);
-  //     config.addRule(rule);
-  //     config.addOption(option);
-  //     config.setOption(option.name, true);
-
-  //     var newRule = { name: rule.name, on: [] };
-  //     config.addRule(newRule);
-
-  //     expect(newRule.subscribers).to.be.eql([option]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-  //   });
-  // });
-
-  // describe("removeRule", function() {
-  //   it("should remove a rule", function() {
-  //     config.addRule(rule);
-  //     config.removeRule(rule.name);
-
-  //     var addedRule = config.getRule(rule.name);
-
-  //     expect(addedRule).to.be.a("undefined");
-  //   });
-
-  //   it("should not throw when removing a nonregistered rule", function() {
-  //     config.removeRule("nonexistent");
-  //   });
-  // });
-
-  // describe("addOption", function() {
-  //   it("should add an option", function() {
-  //     config.addOption(option);
-
-  //     var addedOption = config.options[option.name];
-
-  //     expect(addedOption).to.be.equal(option);
-  //   });
-
-  //   it("should initialize the option", function() {
-  //     config.addOption({ name: "test" });
-
-  //     var addedOption = config.options.test;
-
-  //     expect(addedOption.name).to.be.eql("test");
-  //     expect(addedOption.rules).to.be.eql(["test"]);
-  //   });
-
-  //   it("should not initialize the same option twice", function() {
-  //     config.addOption(option);
-  //     option.active = true;
-  //     config.addOption(option);
-  //     expect(option.active).to.be.eql(true);
-  //   });
-
-  //   it("should maintain active and update subscriptions", function() {
-  //     config.addRule(baseRule);
-  //     config.addRule(rule);
-  //     var option2 = {
-  //       name: option.name,
-  //       rules: [baseRule.name]
-  //     };
-  //     config.addOption(option2);
-  //     config.setOption(option.name, true);
-
-  //     config.addOption(option);
-  //     expect(option.active).to.be.eql(true);
-  //     expect(baseRule.subscribers).to.be.eql([rule]);
-  //     expect(rule.subscribers).to.be.eql([option]);
-
-  //     config.addOption(option2);
-  //     expect(option2.active).to.be.eql(true);
-  //     expect(baseRule.subscribers).to.be.eql([option2]);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //   });
-  // });
-
-  // describe("setOption", function() {
-  //   it("should subscribe and unsubscribe the rule", function() {
-  //     config.addRule(baseRule);
-  //     config.addRule(rule);
-  //     config.addOption(option);
-
-  //     config.setOption(option.name, true);
-  //     expect(rule.subscribers).to.be.eql([option]);
-  //     expect(baseRule.subscribers).to.be.eql([rule]);
-
-  //     config.setOption(option.name, false);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-
-  //     var option2 = {
-  //       name: "option2",
-  //       rules: option.rules
-  //     };
-  //     config.addOption(option2);
-  //     config.setOption(option.name, true);
-  //     config.setOption(option2.name, true);
-  //     config.setOption(option.name, false);
-  //     expect(rule.subscribers).to.be.eql([option2]);
-  //     expect(baseRule.subscribers).to.be.eql([rule]);
-
-  //     config.setOption(option2.name, false);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-  //   });
-  // });
-
-  // describe("removeOption", function() {
-  //   it("should remove the option", function() {
-  //     config.addOption(option);
-  //     config.removeOption(option.name);
-  //     expect(config.options[option.name]).to.be.undefined;
-  //   });
-
-  //   it("should remove the option's subcriptions", function() {
-  //     config.addRule(baseRule);
-  //     config.addRule(rule);
-  //     config.addOption(option);
-  //     config.setOption(option.name, true);
-  //     config.removeOption(option.name);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-  //   });
-
-  //   it("should not fail on nonexistent option", function() {
-  //     config.removeOption("nonexistent");
-  //   });
-  // });
 });
