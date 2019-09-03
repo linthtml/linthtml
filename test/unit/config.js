@@ -186,45 +186,7 @@ describe("Config", function() {
   });
 
   describe("Rules config", function() {
-    it("Should throw an error when rule config is a string", function() {
-      const config = new Config(rules);
-      const rule = config.getRule("attr-bans");
-      const rule_config = {
-        "attr-bans": [
-          "error",
-          "foo"
-        ]
-      };
-      expect(() => config.setRuleConfig(rule, rule_config))
-        .to
-        .throw("Invalid Config for rule \"attr-bans\"");
-    });
-    it("Should throw an error when rule config is a number", function() {
-      const config = new Config(rules);
-      const rule = config.getRule("attr-bans");
-      const rule_config = {
-        "attr-bans": [
-          "error",
-          2
-        ]
-      };
-      expect(() => config.setRuleConfig(rule, rule_config))
-        .to
-        .throw("Invalid Config for rule \"attr-bans\"");
-    });
-    it("Should throw an error when rule config is a array", function() {
-      const config = new Config(rules);
-      const rule = config.getRule("attr-bans");
-      const rule_config = {
-        "attr-bans": [
-          "error",
-          []
-        ]
-      };
-      expect(() => config.setRuleConfig(rule, rule_config))
-        .to
-        .throw("Invalid Config for rule \"attr-bans\"");
-    });
+  
     it("Should not throw and error if no config is provided", function() {
 
       const config = new Config(rules);
