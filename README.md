@@ -36,6 +36,8 @@ npx linthtml 'yourfile.html'
 npx linthtml 'src/**/*.html'
 ```
 
+If you want to read about alternative installation and usage methods, have a look at the extended section in [docs/installation_and_usage.md](docs/installation_and_usage.md).
+
 ## Migrate from htmllint
 
 To migrate from [htmllint](https://github.com/htmllint/htmllint) to LintHTML, first remove all the htmllint-related packages you were using:
