@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
@@ -27,25 +27,24 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "7.5.2",
-    "@commitlint/config-angular": "7.5.0",
-    "@commitlint/config-conventional": "7.5.0",
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-angular": "8.1.0",
+    "@commitlint/config-conventional": "8.1.0",
     "chai": "4.2.0",
     "commitizen": "3.1.1",
-    "conventional-changelog-cli": "2.0.21",
-    "coveralls": "3.0.4",
+    "conventional-changelog-cli": "2.0.23",
+    "coveralls": "3.0.6",
     "cz-conventional-changelog": "2.1.0",
     "gulp": "4.0.2",
     "gulp-eslint": "5.0.0",
     "gulp-gh-pages": "0.5.4",
     "gulp-jsdoc3": "2.0.0",
-    "gulp-mocha": "6.0.0",
-    "husky": "2.7.0",
-    "mocha": "6.1.4"
+    "gulp-mocha": "7.0.1",
+    "husky": "3.0.5",
+    "mocha": "6.2.0"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
-    "bulkify": "1.4.2",
     "chalk": "2.4.2",
     "cosmiconfig": "5.2.1",
     "globby": "9.1.0",
@@ -54,11 +53,6 @@
     "lodash.pull": "4.1.0",
     "meow": "5.0.0",
     "ora": "3.4.0"
-  },
-  "browserify": {
-    "transform": [
-      "bulkify"
-    ]
   },
   "engines": {
     "node": ">6"
