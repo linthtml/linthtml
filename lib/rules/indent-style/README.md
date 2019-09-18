@@ -89,35 +89,3 @@ The following patterns are not considered violations:
   <p>foo</p>
 </div>
 ```
-
-# indent-width-cont
-
-If set, ignore `indent-width` for lines whose first non-whitespace character is not `<`. This is known as continuation indent because it enables the user to continue tags onto multiple lines while aligning the attribute names.
-
-Given:
-
-```
-  "indent-width-cont": false
-```
-
-The following patterns are considered violations:
-
-```html
-    <div>spaces
-      spaces
-  spaces</div>
-```
-
-The following patterns are not considered violations:
-
-```html
-    <div>
-      spaces
-      spaces
-      spaces
-    </div>
-```
-
-<!-- # indent-delta
-
-If set, check wether or not two consecutive lines have an indentation delta in the range [-1, 1]. -->
