@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.7
+
+* [SECURITY] Remove bulkify dependencie
+
 ## v0.2.6
 
 * [FIX] #68, #69, #70 and #71

@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "An unofficial html5 linter.",
   "repository": {
     "type": "git",
@@ -45,7 +45,6 @@
   },
   "dependencies": {
     "bulk-require": "1.0.1",
-    "bulkify": "1.4.2",
     "chalk": "2.4.2",
     "cosmiconfig": "5.2.1",
     "globby": "9.1.0",
@@ -54,11 +53,6 @@
     "lodash.pull": "4.1.0",
     "meow": "5.0.0",
     "ora": "3.4.0"
-  },
-  "browserify": {
-    "transform": [
-      "bulkify"
-    ]
   },
   "engines": {
     "node": ">6"
