@@ -1,11 +1,11 @@
-const InlineConfig = require("../../lib/inline_config.js");
+const InlineConfig = require("../../lib/legacy/inline_config");
 const { expect } = require("chai");
 
 const linthtml = require("../../lib");
 const none = require('../../lib/presets').presets.none;
 
 function createLinter() {
-  return new linthtml.Linter(linthtml.rules);
+  return new linthtml.LegacyLinter(linthtml.rules);
 }
 
 const html = `

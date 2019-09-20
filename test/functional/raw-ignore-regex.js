@@ -4,7 +4,7 @@ const base = require('../../lib/presets').presets.default;
 const { expect } = require("chai");
 
 function createLinter() {
-  return new linthtml.Linter(linthtml.rules);
+  return new linthtml.LegacyLinter(linthtml.rules);
 }
 describe("raw-ignore-regex", function() {
 
@@ -41,14 +41,14 @@ describe("raw-ignore-regex", function() {
       "</p>"
     ].join("\n");
 
-    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{.*}}/, "line-end-style": false  });
+    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{.*}}/ });
     expect(issues).to.have.lengthOf(0);
   });
   
   it("should not cause any error inside attributes work across line break", async function() {
     const linter = createLinter();
     const html = `<p class="a {{ if $bar "bar" . }} c {{else}} b{{ /if }}">foo</p>`;
-    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{.*}}/, "line-end-style": false  });
+    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{.*}}/ });
     expect(issues).to.have.lengthOf(0);
   });
   
@@ -61,7 +61,7 @@ describe("raw-ignore-regex", function() {
       "\t }}",
       "</p>"
     ].join("\n");
-    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{(.*[\n\r].*)+}}/, "line-end-style": false  });
+    const issues = await linter.lint(html, base, { "raw-ignore-regex": /{{(.*[\n\r].*)+}}/ });
     expect(issues).to.have.lengthOf(0);
   });
 });
