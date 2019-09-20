@@ -1,7 +1,7 @@
 # Migration guide
 
-- [](Migrate from HTMLLint)
-- Migrate to LintHTML 0.3.0
+- [#htmllint-migration](Migrate from HTMLLint)
+- [#030-upgrade-guide](Migrate to LintHTML 0.3.0)
 
 ## HTMLLint migration
 
