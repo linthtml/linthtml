@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.0-beta.1
+
+* [FEATURE] New config format (more details [here](./docs/migrations#030-upgrade-guide))
+* [FEATURE][CLI] Warning message when running beta version
+
+* [REFACTOR] Get rid of some meta rules.
+
 ## v0.2.7
 
 * [SECURITY] Remove bulkify dependencie
