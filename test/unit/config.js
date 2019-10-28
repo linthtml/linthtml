@@ -183,6 +183,33 @@ describe("Config", function() {
         expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
       });
     });
+
+    it("Should set rule severity to 'error' by default", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": true
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(this.config.activatedRules["attr-bans"].severity).to.equal("error");
+    });
+
+    it("Should set rule severity to 'error' when specified", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": "error"
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(this.config.activatedRules["attr-bans"].severity).to.equal("error");
+    });
+
+    it("Should set rule severity to 'warning' when specified", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": "warning"
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(this.config.activatedRules["attr-bans"].severity).to.equal("warning");
+    });
   });
 
   describe("Rules config", function() {
