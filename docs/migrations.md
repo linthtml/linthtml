@@ -72,3 +72,15 @@ Here's an example:
 +    "space"
 + ]
 ```
+
+Some rules does not accept configurations, for those rules you can use a simple string or boolean value in your config file:
+
+```
+  "attr-validate": true
+  // or
+  "attr-validate": false
+  // or 
+  "attr-validate": "error"
+  // or
+  "attr-validate": "warning"
+```
