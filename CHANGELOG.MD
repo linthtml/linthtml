@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.0-beta.2
+
+* [FEATURE] Add warning level for rules/issues.
+
 ## v0.3.0-beta.1
 
 * [FEATURE] New config format (more details [here](./docs/migrations.md#030-upgrade-guide))
