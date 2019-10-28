@@ -51,14 +51,14 @@ To migrate from the legacy format to the new one you need to do 2 things:
 With the legacy config format, rules are configured like this: `"rule name": "rule config"`.
 With the new config format, rules are configured like this :
 
-```
+```json
 "ruleName": [
   true,
   "rule config"
 ]
 ```
 
-The first value can be `true`, `false`, `"error"` or `"off"`.
+The first value can be `true`, `false`, `"error"`, `"warning"` or `"off"`.
 The second value can be anything, have a look to the rule's documentation if you want to know.
 
 Here's an example:
@@ -71,4 +71,16 @@ Here's an example:
 +    "error",
 +    "space"
 + ]
+```
+
+Some rules does not accept configurations, for those rules you can use a simple string or boolean value in your config file:
+
+```
+  "attr-validate": true
+  // or
+  "attr-validate": false
+  // or 
+  "attr-validate": "error"
+  // or
+  "attr-validate": "warning"
 ```
