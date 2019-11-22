@@ -52,7 +52,8 @@
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
     "meow": "5.0.0",
-    "ora": "3.4.0"
+    "ora": "3.4.0",
+    "table-layout": "1.0.0"
   },
   "engines": {
     "node": ">6"
