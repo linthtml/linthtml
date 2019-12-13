@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.0-beta.3
+
+### CLI
+
+* [IMPROVMENT] Improve issues display in terminal
+
+### chore
+
+* [FEAT] Add missing HTMLLint's rules (added in v0.8.0)
+
 ## v0.3.0-beta.2
 
 * [FEATURE] Add warning level for rules/issues.
