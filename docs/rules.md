@@ -54,6 +54,11 @@
 * [table-req-caption](./../lib/rules/table-req-caption/README.md)
 * [table-req-header](./../lib/rules/table-req-header/README.md)
 * [tag-req-attr](./../lib/rules/tag-req-attr/README.md)
+* [link-min-length-4](./../lib/rules/tag-req-attr/README.md)
+* [label-no-enc-textarea-or-select](./../lib/rules/label-no-enc-textarea-or-select/README.md)
+* [input-btn-req-value-or-title](./../lib/rules/input-btn-req-value-or-title/README.md)
+* [fieldset-contains-legend](./../lib/rules/fieldset-contains-legend/README.md)
+* [button-req-content](./../lib/rules/button-req-content/README.md)
 
 <!-- ## Other rules (not real rules yet) -->
 <!-- * [maxerr](./../lib/rules/maxerr/README.md) //not-found, not a rule -->
