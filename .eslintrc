@@ -16,6 +16,20 @@
     "it": true
   },
   "rules": {
-    "semi": "error"
+    "camelcase": "off",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "array-element-newline": [
+      "error",
+      "consistent"
+    ],
+    "no-var": "error",
+    "newline-per-chained-call": "error"
   }
 }
