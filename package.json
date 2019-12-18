@@ -67,11 +67,6 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "bugs": {
     "url": "https://github.com/KamiKillertO/linthtml/issues"
   },
