@@ -1,4 +1,14 @@
+pre-commit:
+  commands:
+    fix_js:
+      glob: "*.js"
+      run: (eslint {staged_files} --fix || true) | git add {staged_files}
 commit-msg:
   commands:
     commitlint:
       run: commitlint -e
+pre-push:
+  commands:
+    eslint:
+      glob: "*.js"
+      run: eslint {staged_files}
