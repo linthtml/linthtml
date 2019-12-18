@@ -1,5 +1,5 @@
 module.exports = {
-  "maxerr": false,
+  maxerr: false,
   "raw-ignore-regex": false,
   "spec-char-escape": false,
   "text-ignore-regex": false,

@@ -1,13 +1,13 @@
 const { expect } = require("chai");
 const Config = require("../../lib/legacy/config");
 
-describe("Legcay Config", function() {
-  var config = null,
-    rule = null,
-    baseRule = null,
-    option = null;
+describe("Legcay Config", function () {
+  let config = null;
+  let rule = null;
+  let baseRule = null;
+  let option = null;
 
-  beforeEach(function() {
+  beforeEach(function () {
     config = new Config();
     baseRule = { name: "base" };
     rule = {
@@ -20,27 +20,27 @@ describe("Legcay Config", function() {
     };
   });
 
-  it("should be a function", function() {
+  it("should be a function", function () {
     expect(Config).to.be.an.instanceOf(Function);
   });
 
-  describe("getRule", function() {
-    it("should return undefined for nonexistent rule", function() {
-      var rule = config.getRule("nonexistent");
+  describe("getRule", function () {
+    it("should return undefined for nonexistent rule", function () {
+      const rule = config.getRule("nonexistent");
 
       expect(rule).to.be.a("undefined");
     });
   });
 
-  describe("initialize", function() {
-    it("should initialize rules", function() {
+  describe("initialize", function () {
+    it("should initialize rules", function () {
       config = new Config([baseRule, rule]);
 
       expect(config.getRule(rule.name)).to.be.eql(rule);
       expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
     });
 
-    it("should initialize both rules and options", function() {
+    it("should initialize both rules and options", function () {
       config = new Config([baseRule, rule], [option]);
 
       expect(config.getRule(rule.name)).to.be.eql(rule);
@@ -48,7 +48,7 @@ describe("Legcay Config", function() {
       expect(config.options[option.name]).to.be.eql(option);
     });
 
-    it("should get options from a rule", function() {
+    it("should get options from a rule", function () {
       rule.options = [option];
       config = new Config([baseRule, rule]);
 
@@ -56,51 +56,51 @@ describe("Legcay Config", function() {
     });
   });
 
-  describe("addRule", function() {
-    it("should add a rule", function() {
+  describe("addRule", function () {
+    it("should add a rule", function () {
       config.addRule(rule);
 
-      var addedRule = config.getRule(rule.name);
+      const addedRule = config.getRule(rule.name);
 
       expect(addedRule).to.be.equal(rule);
     });
 
-    it("should initialize the rule", function() {
+    it("should initialize the rule", function () {
       config.addRule({ name: "test" });
 
-      var addedRule = config.getRule("test");
+      const addedRule = config.getRule("test");
 
       expect(addedRule.name).to.be.eql("test");
       expect(addedRule.on).to.be.eql([]);
       expect(addedRule.subscribers).to.be.eql([]);
     });
 
-    it("should not initialize the same rule twice", function() {
+    it("should not initialize the same rule twice", function () {
       config.addRule(rule);
       rule.subscribers = ["test"];
       config.addRule(rule);
       expect(rule.subscribers).to.be.eql(["test"]);
     });
 
-    it("should remove a previous rule", function() {
-      var oldRule = {};
+    it("should remove a previous rule", function () {
+      const oldRule = {};
       oldRule.name = rule.name;
 
       config.addRule(oldRule);
       config.addRule(rule);
 
-      var addedRule = config.getRule(rule.name);
+      const addedRule = config.getRule(rule.name);
 
       expect(addedRule).to.be.equal(rule);
     });
 
-    it("should remove a previous rule's subcriptions", function() {
+    it("should remove a previous rule's subcriptions", function () {
       config.addRule(baseRule);
       config.addRule(rule);
       config.addOption(option);
       config.setOption(option.name, true);
 
-      var newRule = { name: rule.name, on: [] };
+      const newRule = { name: rule.name, on: [] };
       config.addRule(newRule);
 
       expect(newRule.subscribers).to.be.eql([option]);
@@ -108,50 +108,50 @@ describe("Legcay Config", function() {
     });
   });
 
-  describe("removeRule", function() {
-    it("should remove a rule", function() {
+  describe("removeRule", function () {
+    it("should remove a rule", function () {
       config.addRule(rule);
       config.removeRule(rule.name);
 
-      var addedRule = config.getRule(rule.name);
+      const addedRule = config.getRule(rule.name);
 
       expect(addedRule).to.be.a("undefined");
     });
 
-    it("should not throw when removing a nonregistered rule", function() {
+    it("should not throw when removing a nonregistered rule", function () {
       config.removeRule("nonexistent");
     });
   });
 
-  describe("addOption", function() {
-    it("should add an option", function() {
+  describe("addOption", function () {
+    it("should add an option", function () {
       config.addOption(option);
 
-      var addedOption = config.options[option.name];
+      const addedOption = config.options[option.name];
 
       expect(addedOption).to.be.equal(option);
     });
 
-    it("should initialize the option", function() {
+    it("should initialize the option", function () {
       config.addOption({ name: "test" });
 
-      var addedOption = config.options.test;
+      const addedOption = config.options.test;
 
       expect(addedOption.name).to.be.eql("test");
       expect(addedOption.rules).to.be.eql(["test"]);
     });
 
-    it("should not initialize the same option twice", function() {
+    it("should not initialize the same option twice", function () {
       config.addOption(option);
       option.active = true;
       config.addOption(option);
       expect(option.active).to.be.eql(true);
     });
 
-    it("should maintain active and update subscriptions", function() {
+    it("should maintain active and update subscriptions", function () {
       config.addRule(baseRule);
       config.addRule(rule);
-      var option2 = {
+      const option2 = {
         name: option.name,
         rules: [baseRule.name]
       };
@@ -170,8 +170,8 @@ describe("Legcay Config", function() {
     });
   });
 
-  describe("setOption", function() {
-    it("should subscribe and unsubscribe the rule", function() {
+  describe("setOption", function () {
+    it("should subscribe and unsubscribe the rule", function () {
       config.addRule(baseRule);
       config.addRule(rule);
       config.addOption(option);
@@ -184,7 +184,7 @@ describe("Legcay Config", function() {
       expect(rule.subscribers).to.be.eql([]);
       expect(baseRule.subscribers).to.be.eql([]);
 
-      var option2 = {
+      const option2 = {
         name: "option2",
         rules: option.rules
       };
@@ -201,14 +201,15 @@ describe("Legcay Config", function() {
     });
   });
 
-  describe("removeOption", function() {
-    it("should remove the option", function() {
+  describe("removeOption", function () {
+    it("should remove the option", function () {
       config.addOption(option);
       config.removeOption(option.name);
+      /* eslint-disable-next-line no-unused-expressions */
       expect(config.options[option.name]).to.be.undefined;
     });
 
-    it("should remove the option's subcriptions", function() {
+    it("should remove the option's subcriptions", function () {
       config.addRule(baseRule);
       config.addRule(rule);
       config.addOption(option);
@@ -218,7 +219,7 @@ describe("Legcay Config", function() {
       expect(baseRule.subscribers).to.be.eql([]);
     });
 
-    it("should not fail on nonexistent option", function() {
+    it("should not fail on nonexistent option", function () {
       config.removeOption("nonexistent");
     });
   });

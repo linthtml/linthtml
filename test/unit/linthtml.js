@@ -1,29 +1,29 @@
 const linthtml = require("../../");
 const { expect } = require("chai");
 
-describe("linthtml", function() {
-  it("should be a function", function() {
+describe("linthtml", function () {
+  it("should be a function", function () {
     expect(linthtml).to.be.an.instanceOf(Function);
   });
 
-  it("should return a thenable", function() {
-    var thenable = linthtml("");
+  it("should return a thenable", function () {
+    const thenable = linthtml("");
 
     expect(thenable).to.have.property("then");
   });
 
-  it("should eventually return an array", async function() {
-    var result = await linthtml("");
+  it("should eventually return an array", async function () {
+    const result = await linthtml("");
 
     expect(result).to.be.an.instanceOf(Array);
   });
 
-  it("should not throw on sanity.html", function() {
-    var fs = require("fs");
-    var filePath = "./test/fixtures/sanity.html",
-      sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
+  it("should not throw on sanity.html", function () {
+    const fs = require("fs");
+    const filePath = "./test/fixtures/sanity.html";
+    const sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
 
-    expect(function() {
+    expect(function () {
       linthtml(sanityHtml);
     }).to.not.throw(Error);
   });
