@@ -30,6 +30,10 @@
       "consistent"
     ],
     "no-var": "error",
-    "newline-per-chained-call": "error"
+    "newline-per-chained-call": "error",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ]
   }
 }
