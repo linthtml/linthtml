@@ -1,10 +1,10 @@
 const { expect } = require("chai");
 
-describe("messages", function () {
+describe("messages", function() {
   const messages = require("../../lib/messages");
 
-  describe("renderMsg", function () {
-    it("should return a string", function () {
+  describe("renderMsg", function() {
+    it("should return a string", function() {
       const code = "E000";
       const data = {};
 
@@ -14,8 +14,8 @@ describe("messages", function () {
     });
   });
 
-  describe("renderIssue", function () {
-    it("should return a string", function () {
+  describe("renderIssue", function() {
+    it("should return a string", function() {
       const issue = { code: "E000", data: {} };
 
       const output = messages.renderIssue(issue);

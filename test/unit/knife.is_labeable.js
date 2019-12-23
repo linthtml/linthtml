@@ -1,9 +1,9 @@
 const { expect } = require("chai");
 
-describe("knife.is_labeable", function () {
+describe("knife.is_labeable", function() {
   const knife = require("../../lib/knife");
 
-  it("should return false for hidden input element", function () {
+  it("should return false for hidden input element", function() {
     const ele = {
       type: "tag",
       name: "input",

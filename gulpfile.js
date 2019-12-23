@@ -16,7 +16,7 @@ const paths = {
   site: "./site/**/*"
 };
 
-function lint () {
+function lint() {
   return gulp.src([
     paths.src,
     ...paths.tests,
@@ -29,7 +29,7 @@ function lint () {
 lint.description = "Lints javascript files with eslint";
 exports.lint = lint;
 
-function tests () {
+function tests() {
   return gulp.src(paths.tests, { read: false })
     .pipe(mocha({ bail: true }));
 }
@@ -37,7 +37,7 @@ tests.description = "Run unit tests using mocha+chai";
 exports.tests = tests;
 
 // jsdoc generation
-function genJSDoc (cb) {
+function genJSDoc(cb) {
   const config = require("./jsdoc.json");
   return gulp.src([paths.src, "README.md"], { read: false })
     .pipe(jsdoc(config, cb));
@@ -45,7 +45,7 @@ function genJSDoc (cb) {
 
 genJSDoc.description = "Generate code doc using jsdoc";
 exports["docs:generate"] = genJSDoc;
-exports["docs:publich"] = series(genJSDoc, function () {
+exports["docs:publich"] = series(genJSDoc, function() {
   return gulp.src(paths.site)
     .pipe(publish({
       cacheDir: ".tmp"
