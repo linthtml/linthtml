@@ -1,12 +1,12 @@
 module.exports = {
-  "maxerr": false,
+  maxerr: false,
   "raw-ignore-regex": false,
   "spec-char-escape": false,
   "text-ignore-regex": false,
   "attr-name-ignore-regex": /^[0-9a-o]+$/,
   "id-class-ignore-regex": false,
   "line-max-len-ignore-regex": false,
-  "rules": {
+  rules: {
     "attr-bans": [
       true,
       [
@@ -64,8 +64,7 @@ module.exports = {
       true,
       "relative"
     ],
- 
-    
+
     "id-class-no-ad": true,
     "id-class-style": [
       true,

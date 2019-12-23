@@ -27,6 +27,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@arkweid/lefthook": "^0.6.7",
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-angular": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
@@ -35,12 +36,16 @@
     "conventional-changelog-cli": "2.0.23",
     "coveralls": "3.0.9",
     "cz-conventional-changelog": "2.1.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "gulp": "4.0.2",
     "gulp-eslint": "6.0.0",
     "gulp-gh-pages": "0.5.4",
     "gulp-jsdoc3": "2.0.0",
     "gulp-mocha": "7.0.2",
-    "husky": "3.1.0",
     "mocha": "6.2.2"
   },
   "dependencies": {
@@ -64,11 +69,6 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "bugs": {

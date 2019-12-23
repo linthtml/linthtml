@@ -1,30 +1,30 @@
 const { expect } = require("chai");
 const Config = require("../../lib/config");
 const rules = require("../../lib/rules");
-describe("Config", function() {
+describe("Config", function () {
   // let config = new Config(rules);
-  
-  describe("getRule", function() {
-    it("Should throw an error when trying to get an unexisting rule", function() {
+
+  describe("getRule", function () {
+    it("Should throw an error when trying to get an unexisting rule", function () {
       const config = new Config();
       expect(() => config.getRule("foo")).to.throw("Rule \"foo\" does not exist.");
     });
-    it("Should return existing rules", function() {
+    it("Should return existing rules", function () {
       const config = new Config(rules);
       const rule = config.getRule("attr-bans");
       // config.setRuleConfig()
-      
+
       expect(rule.name).to.equal("attr-bans");
+      /* eslint-disable-next-line no-unused-expressions */
       expect(rule.lint).to.not.be.undefined;
     });
   });
 
-  describe("Rule activation", function() {
+  describe("Rule activation", function () {
     this.beforeEach(function () {
       this.config = new Config(rules);
     });
-    describe("Boolean config", function() {
-
+    describe("Boolean config", function () {
       it("Should activate rule if \"true\" is provided", function () {
         const rule = this.config.getRule("attr-bans");
         const rule_config = {
@@ -43,7 +43,6 @@ describe("Config", function() {
       });
     });
     describe("String config", function () {
-
       it("Should activate rule if \"error\" is provided", function () {
         const rule = this.config.getRule("attr-bans");
         const rule_config = {
@@ -82,7 +81,7 @@ describe("Config", function() {
         const rule = this.config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": {
-            "foo": "bar"
+            foo: "bar"
           }
         };
         this.config.setRuleConfig(rule, rule_config);
@@ -132,7 +131,6 @@ describe("Config", function() {
         expect(this.config.activatedRules).to.have.any.keys("attr-bans");
       });
 
-
       it("Should not activate rule is first value of array is \"off\"", function () {
         const rule = this.config.getRule("attr-bans");
         const rule_config = {
@@ -142,7 +140,6 @@ describe("Config", function() {
         expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
       });
 
-
       it("Should not activate rule is first value of array is a dummy string", function () {
         const rule = this.config.getRule("attr-bans");
         const rule_config = {
@@ -151,7 +148,6 @@ describe("Config", function() {
         this.config.setRuleConfig(rule, rule_config);
         expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
       });
-
     });
 
     describe("Dummy configs", function () {
@@ -184,7 +180,7 @@ describe("Config", function() {
       });
     });
 
-    it("Should set rule severity to 'error' by default", function() {
+    it("Should set rule severity to 'error' by default", function () {
       const rule = this.config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": true
@@ -193,7 +189,7 @@ describe("Config", function() {
       expect(this.config.activatedRules["attr-bans"].severity).to.equal("error");
     });
 
-    it("Should set rule severity to 'error' when specified", function() {
+    it("Should set rule severity to 'error' when specified", function () {
       const rule = this.config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "error"
@@ -202,7 +198,7 @@ describe("Config", function() {
       expect(this.config.activatedRules["attr-bans"].severity).to.equal("error");
     });
 
-    it("Should set rule severity to 'warning' when specified", function() {
+    it("Should set rule severity to 'warning' when specified", function () {
       const rule = this.config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "warning"
@@ -212,10 +208,8 @@ describe("Config", function() {
     });
   });
 
-  describe("Rules config", function() {
-  
-    it("Should not throw and error if no config is provided", function() {
-
+  describe("Rules config", function () {
+    it("Should not throw and error if no config is provided", function () {
       const config = new Config(rules);
       const rule = config.getRule("attr-bans");
       const rule_config = {
@@ -228,22 +222,23 @@ describe("Config", function() {
         .not
         .throw();
     });
-    describe("Rule validation", function() {
-      it("Should call \"validateConfig\" if rule declare the function", function(done) {
+    describe("Rule validation", function () {
+      it("Should call \"validateConfig\" if rule declare the function", function (done) {
         const foo = {
           name: "foo",
-          lint() {},
-          validateConfig(config) {
+          lint () {},
+          validateConfig (config) {
+            /* eslint-disable-next-line no-unused-expressions */
             expect(config).to.not.be.undefined;
             expect(config.bar).to.equal("bar");
             done();
           }
         };
 
-        const config = new Config({foo});
+        const config = new Config({ foo });
         const rule = config.getRule("foo");
         const rule_config = {
-          "foo": [
+          foo: [
             "error",
             {
               bar: "bar"
@@ -253,24 +248,25 @@ describe("Config", function() {
         config.setRuleConfig(rule, rule_config);
       });
 
-      it("Should call \"configTransform\" if rule declare the function", function(done) {
+      it("Should call \"configTransform\" if rule declare the function", function (done) {
         const foo = {
           name: "foo",
-          lint() {},
-          configTransform(config) {
+          lint () {},
+          configTransform (config) {
             return config.bar;
           },
-          validateConfig(config) {
+          validateConfig (config) {
+            /* eslint-disable-next-line no-unused-expressions */
             expect(config).to.not.be.undefined;
             expect(config).to.equal("bar");
             done();
           }
         };
 
-        const config = new Config({foo});
+        const config = new Config({ foo });
         const rule = config.getRule("foo");
         const rule_config = {
-          "foo": [
+          foo: [
             "error",
             {
               bar: "bar"
@@ -281,5 +277,4 @@ describe("Config", function() {
       });
     });
   });
-
 });
