@@ -2,24 +2,24 @@ const knife = require("../../lib/knife");
 const { expect } = require("chai");
 const Linter = require("../../lib/legacy/linter");
 
-describe("LegacyLinter", function () {
+describe("LegacyLinter", function() {
   let linter = null;
 
-  it("should be a function", function () {
+  it("should be a function", function() {
     expect(Linter).to.be.an.instanceOf(Function);
   });
 
-  beforeEach(function () {
+  beforeEach(function() {
     linter = new Linter([
       {
         name: "dom",
-        lint: function () {
+        lint: function() {
           return [];
         }
       },
       {
         name: "line",
-        lint: function () {
+        lint: function() {
           return [];
         }
       },
@@ -27,7 +27,7 @@ describe("LegacyLinter", function () {
     ]);
   });
 
-  describe("lint", function () {
+  describe("lint", function() {
     const ConstRule = require("../fixtures/const_rule");
 
     const rule = new ConstRule([
@@ -43,44 +43,44 @@ describe("LegacyLinter", function () {
       }
     ]);
 
-    it("Should throw an error when given a nonexistent option", function () {
+    it("Should throw an error when given a nonexistent option", function() {
       expect(() => linter.lint("f\nfff", { nonopt: 7 }, "nodefault"))
         .to
         .throw("Rule \"nonopt\" does not exist");
     });
 
-    it("should return correct line and column numbers", async function () {
+    it("should return correct line and column numbers", async function() {
       linter.rules.addRule(rule);
       const issues = await linter.lint("f\nfff", "nodefault");
       expect(issues[0].line).to.be.eql(2);
       expect(issues[0].column).to.be.eql(3);
     });
 
-    it("should not truncate output if maxerr is false", async function () {
+    it("should not truncate output if maxerr is false", async function() {
       linter.rules.addRule(rule);
       const issues = await linter.lint("f\nfff", { maxerr: false }, "nodefault");
       expect(issues).to.have.length(2);
     });
 
-    it("should not return more than the limit fixed by maxerr", async function () {
+    it("should not return more than the limit fixed by maxerr", async function() {
       linter.rules.addRule(rule);
       const issues = await linter.lint("f\nfff", { maxerr: 1 }, "nodefault");
       expect(issues).to.have.length(1);
     });
 
-    it("Should throw an error for non-integer config for maxerr", function () {
+    it("Should throw an error for non-integer config for maxerr", function() {
       expect(() => linter.lint("", { maxerr: "five" }, "nodefault"))
         .to
         .throw("Configuration for rule \"maxerr\" is invalid: Expected number got string");
     });
   });
 
-  describe("resetRules", function () {
-    it("should return an array of issues", function () {
+  describe("resetRules", function() {
+    it("should return an array of issues", function() {
       const issue = { msg: "hit" };
 
       linter.rules.addRule({
-        end: function () {
+        end: function() {
           return issue;
         }
       });
@@ -92,13 +92,13 @@ describe("LegacyLinter", function () {
   });
 
   // TODO: move these out of this file...
-  describe("shred", function () {
-    it("should return an array", function () {
+  describe("shred", function() {
+    it("should return an array", function() {
       const output = knife.shred("");
       expect(output).to.be.an.instanceOf(Array);
     });
 
-    it("should return the proper number of lines", function () {
+    it("should return the proper number of lines", function() {
       const lines = [
         "Line1",
         "Line2",

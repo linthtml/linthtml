@@ -1,4 +1,4 @@
-const ConstRule = function (issues) {
+const ConstRule = function(issues) {
   this.issues = issues;
   this.name = "dom"; // Override normal dom rule
   this.description = "returns a constant issue array for all inputs";
@@ -6,6 +6,6 @@ const ConstRule = function (issues) {
 
 module.exports = ConstRule;
 
-ConstRule.prototype.lint = function () {
+ConstRule.prototype.lint = function() {
   return this.issues;
 };

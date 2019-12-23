@@ -1,20 +1,20 @@
 const { expect } = require("chai");
 
-describe("linter", function () {
+describe("linter", function() {
   const Parser = require("../../lib/parser");
 
-  it("should be a function", function () {
+  it("should be a function", function() {
     expect(Parser).to.be.an.instanceOf(Function);
   });
 
-  describe("parse", function () {
+  describe("parse", function() {
     let parser = null;
 
-    beforeEach(function () {
+    beforeEach(function() {
       parser = new Parser();
     });
 
-    it("should return correct line and column numbers", function () {
+    it("should return correct line and column numbers", function() {
       const output = parser.parse(
         [
           "<body>\n",
@@ -32,14 +32,14 @@ describe("linter", function () {
     });
   });
 
-  describe("onattribute", function () {
+  describe("onattribute", function() {
     let parser = null;
 
-    beforeEach(function () {
+    beforeEach(function() {
       parser = new Parser();
     });
 
-    it("should correctly return an array of duplicates", function () {
+    it("should correctly return an array of duplicates", function() {
       const output = parser.parse(
         [
           "<body>\n",
