@@ -35,7 +35,7 @@
     "commitizen": "3.1.1",
     "conventional-changelog-cli": "2.0.31",
     "coveralls": "3.0.9",
-    "cz-conventional-changelog": "2.1.0",
+    "cz-conventional-changelog": "3.0.2",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^10.0.0",
