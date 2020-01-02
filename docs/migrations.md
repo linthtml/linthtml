@@ -26,10 +26,10 @@ You might want to remove the rules `indent-delta` and `indent-width-cont` from t
 ## 0.3.0 Upgrade guide
 
 LintHTML v0.3.0 is the first version to add a new feature that are not compatible with [HTMLLint](https://github.com/htmllint/htmllint).
-This version add a new format for the configuration file that should be easier to use. The new format should be farmiliar to anyone already using other linter like ESlint and Stylelint.
-⚠️ it's not an obligation to use this new format, you can stick withe the legacy one. However the legacy format won't be supported after LintHTML v1.
+This version adds a new format for the configuration file that should be easier to use. The new format should be familiar to anyone already using other linter like ESlint and Stylelint.
+⚠️ it's not an obligation to use this new format, you can stick with the legacy one. However, the legacy format won't be supported after LintHTML v1.
 
-To migrate from the legacy format to the new one you need to do 2 things:
+To migrate from the legacy format to the new one you need to do two things:
 
 - Nest all rules under `rules`, except `spec-char-escape`, `text-ignore-regex`, `raw-ignore-regex`, `attr-name-ignore-regex`, `id-class-ignore-regex` and `line-max-len-ignore-regex`.
 
@@ -47,7 +47,7 @@ To migrate from the legacy format to the new one you need to do 2 things:
 }
 ```
 
-- Update every rule configuration.
+- Update every rules configuration.
 With the legacy config format, rules are configured like this: `"rule name": "rule config"`.
 With the new config format, rules are configured like this :
 
