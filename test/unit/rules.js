@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 
 describe("linthtml.rules", function() {
-  var rules = require("../../").rules;
+  const rules = require("../../").rules;
 
   rules.forEach(function(rule) {
     describe(rule.name, function() {

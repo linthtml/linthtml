@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 
 describe("parser.dom_builder", function() {
-  var DomBuilder = require("../../lib/parser/dom_builder"),
-    DomHandler = require("htmlparser2").DomHandler;
+  const DomBuilder = require("../../lib/parser/dom_builder");
+  const DomHandler = require("htmlparser2").DomHandler;
 
   it("should be a constructor", function() {
     expect(DomBuilder).to.be.an.instanceOf(Function);
@@ -13,16 +13,16 @@ describe("parser.dom_builder", function() {
   });
 
   it("should throw on addDomElement if not initialized with a parser", function() {
-    var builder = new DomBuilder();
+    const builder = new DomBuilder();
 
-    /*eslint-disable no-underscore-dangle*/
+    /* eslint-disable no-underscore-dangle */
     expect(builder._addDomElement.bind(builder)).to.throw(Error);
-    /*eslint-enable no-underscore-dangle*/
+    /* eslint-enable no-underscore-dangle */
   });
 
   describe("onerror", function() {
     it("should throw the error", function() {
-      var builder = new DomBuilder();
+      const builder = new DomBuilder();
 
       expect(function() {
         builder.onerror("error");

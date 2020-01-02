@@ -1,7 +1,7 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.2.7",
-  "description": "An unofficial html5 linter.",
+  "version": "0.3.0",
+  "description": "The html5 linter and validator.",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/KamiKillertO/linthtml.git"
@@ -27,21 +27,26 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
-    "@commitlint/config-angular": "8.1.0",
-    "@commitlint/config-conventional": "8.1.0",
+    "@arkweid/lefthook": "^0.6.7",
+    "@commitlint/cli": "8.2.0",
+    "@commitlint/config-angular": "8.2.0",
+    "@commitlint/config-conventional": "8.2.0",
     "chai": "4.2.0",
-    "commitizen": "3.1.1",
-    "conventional-changelog-cli": "2.0.23",
-    "coveralls": "3.0.6",
-    "cz-conventional-changelog": "2.1.0",
+    "commitizen": "4.0.3",
+    "conventional-changelog-cli": "2.0.31",
+    "coveralls": "3.0.9",
+    "cz-conventional-changelog": "3.0.2",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "gulp": "4.0.2",
-    "gulp-eslint": "5.0.0",
+    "gulp-eslint": "6.0.0",
     "gulp-gh-pages": "0.5.4",
     "gulp-jsdoc3": "2.0.0",
-    "gulp-mocha": "7.0.1",
-    "husky": "3.0.5",
-    "mocha": "6.2.0"
+    "gulp-mocha": "7.0.2",
+    "mocha": "6.2.2"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
@@ -51,8 +56,10 @@
     "htmlparser2": "3.10.1",
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
+    "lodash.template": ">=4.5.0",
     "meow": "5.0.0",
-    "ora": "3.4.0"
+    "ora": "3.4.0",
+    "table-layout": "1.0.0"
   },
   "engines": {
     "node": ">6"
@@ -63,11 +70,6 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "bugs": {

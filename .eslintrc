@@ -1,6 +1,7 @@
 {
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "standard"
   ],
   "env": {
     "node": true,
@@ -15,6 +16,24 @@
     "it": true
   },
   "rules": {
-    "semi": "error"
+    "camelcase": "off",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "array-element-newline": [
+      "error",
+      "consistent"
+    ],
+    "no-var": "error",
+    "newline-per-chained-call": "error",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ]
   }
 }

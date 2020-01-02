@@ -1,5 +1,7 @@
 ## refactor
 
+* add a rule to enforce href on links
+* rename rule `link-min-length-4` in `link-min-length` and add a length option
 * `raw-ignore-text` Find a better solution than the current one
 * Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
   This funciton should be changed for a validation function that raise errors if config is not valid
@@ -53,6 +55,8 @@
 
 ## Correct rules
 
+* `button-req-content` should check for aria-labelledby too
+* Rename `input-btn-req-value-or-title` (message from axe "Input buttons must have discernible text")
 * Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
 * `attr-req-value` should report an error for empty values (`''` or `""`). Can be an option like `strict`
 * `attr-req-value` should permit to whitelist attributes that can have no value (default should be boolean attributes like `disable`)
@@ -75,3 +79,15 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 `linthtml-configure` should accept only one rule, something like
 
 `linthtml-configure [rule] [value]`
+
+## Coming "soon"
+
+- Tests for the `cli`.
+- Nice/cute logo (because every projects should have one)
+- A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
+- Translated `cli`. Like the website the `cli` should be available in as many language as possible
+- Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
+- Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
+- Warning level for rules.
+- Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+- More to come 🤷‍♀️
