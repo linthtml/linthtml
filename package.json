@@ -62,7 +62,7 @@
     "table-layout": "1.0.0"
   },
   "engines": {
-    "node": ">6"
+    "node": ">8"
   },
   "contributors": [
     "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"
