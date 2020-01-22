@@ -6,7 +6,7 @@
 
 #### New config file format
 
-You can more details about this new format in the [migration docs](./docs/migrations).
+You can more details about this new format in the [migration docs](./docs/migrations.md#030-upgrade-guide).
 
 #### Warning level
 
