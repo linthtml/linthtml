@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.1
+
+### Fix
+
+`id-class-style` rule now report errors even rules `id-style` and `class-style` are disabled
+
 ## v0.3.0
 
 ### Feature 🚀
