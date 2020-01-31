@@ -1,12 +1,25 @@
 # Changelog
 
+## v0.3.2
+
+### Fix
+
+- [#142] `link-min-length-4` - Search for text content in child nodes
+- [#140] `button-req-content` - Ignore html comments when searching for button's textcontent.
+
+## v0.3.1
+
+### Fix
+
+`id-class-style` rule now report errors even rules `id-style` and `class-style` are disabled
+
 ## v0.3.0
 
 ### Feature 🚀
 
 #### New config file format
 
-You can more details about this new format in the [migration docs](./docs/migrations).
+You can more details about this new format in the [migration docs](./docs/migrations.md#030-upgrade-guide).
 
 #### Warning level
 

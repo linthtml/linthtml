@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "The html5 linter and validator.",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@arkweid/lefthook": "^0.6.7",
+    "@arkweid/lefthook": "^0.7.0",
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-angular": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
@@ -38,7 +38,7 @@
     "cz-conventional-changelog": "3.0.2",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "gulp": "4.0.2",
@@ -50,19 +50,19 @@
   },
   "dependencies": {
     "bulk-require": "1.0.1",
-    "chalk": "2.4.2",
-    "cosmiconfig": "5.2.1",
-    "globby": "9.1.0",
+    "chalk": "3.0.0",
+    "cosmiconfig": "6.0.0",
+    "globby": "10.0.1",
     "htmlparser2": "3.10.1",
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
     "lodash.template": ">=4.5.0",
-    "meow": "5.0.0",
-    "ora": "3.4.0",
+    "meow": "6.0.0",
+    "ora": "4.0.3",
     "table-layout": "1.0.0"
   },
   "engines": {
-    "node": ">6"
+    "node": ">8"
   },
   "contributors": [
     "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"

@@ -277,4 +277,34 @@ describe("Config", function() {
       });
     });
   });
+
+  describe("Rules severity", function() {
+    this.beforeEach(function() {
+      this.config = new Config(rules);
+    });
+    it("Rules severity should be set as \"error\" by default", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": true
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(rule.severity).to.equal("error");
+    });
+    it("Rules severity should be set as \"error\" if \"error\" is provided", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": "error"
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(rule.severity).to.equal("error");
+    });
+    it("Rules severity should be set as \"warning\" if \"warning\" is provided", function() {
+      const rule = this.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": "warning"
+      };
+      this.config.setRuleConfig(rule, rule_config);
+      expect(rule.severity).to.equal("warning");
+    });
+  });
 });
