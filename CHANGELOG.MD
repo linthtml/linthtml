@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.2
+
+### Fix
+
+- [#142] `link-min-length-4` - Search for text content in child nodes
+- [#140] `button-req-content` - Ignore html comments when searching for button's textcontent.
+
 ## v0.3.1
 
 ### Fix
