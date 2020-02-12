@@ -29,7 +29,7 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
     "@commitlint/cli": "8.3.5",
-    "@commitlint/config-angular": "8.2.0",
+    "@commitlint/config-angular": "8.3.4",
     "@commitlint/config-conventional": "8.3.4",
     "chai": "4.2.0",
     "commitizen": "4.0.3",
