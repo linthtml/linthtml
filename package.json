@@ -54,12 +54,12 @@
     "cosmiconfig": "6.0.0",
     "globby": "10.0.1",
     "htmlparser2": "3.10.1",
+    "inquirer": "^7.0.4",
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
     "lodash.template": ">=4.5.0",
     "meow": "6.0.0",
     "ora": "4.0.3",
-    "prompts": "^2.3.0",
     "table-layout": "1.0.0",
     "yaml": "^1.7.2"
   },
