@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.0-beta.1
+
+### Feature 🚀
+
+#### [CLI] Improve the `init` command
+
+Give the possiblitie to selet the output format between `JS`, `JSON` and `YAML` and to generate a config file in the 
+legacy format (like HTMLLint) or in the new format (introduced in the [v0.3.0](#v0.3.0))
+
 ## v0.3.2
 
 ### Fix
