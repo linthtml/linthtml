@@ -58,7 +58,7 @@
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
     "lodash.template": ">=4.5.0",
-    "meow": "6.0.0",
+    "meow": "6.0.1",
     "ora": "4.0.3",
     "table-layout": "1.0.0",
     "yaml": "^1.7.2"
