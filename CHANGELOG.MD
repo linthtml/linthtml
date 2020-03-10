@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.4.0-beta.2
+
+### Feature 🚀
+
+List files to ignore using `.linthtmlignore` file or `ignoreFiles` property in config object. ([Documentation page](./docs/ignore-code.md))
+
+### Improvement 🔧
+
+Improve error message for rules `indent-size` and `indent-style`
+
 ## v0.4.0-beta.1
 
 ### Feature 🚀
