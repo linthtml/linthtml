@@ -1,6 +1,11 @@
 # focusable-tabindex-style
 
-If set, all focusable elements (`a`, `area`, `button`, `input`, `img`, `select`, `textarea`) must have a positive `tabindex` attribute, if any.
+If set, all focusable elements must have a positive `tabindex` attribute, if any.
+Focusable elements are :
+
+- natively focusable elements (`button`, `input`, `select`, `textarea`)
+- `a`, `area` elements with an href value
+- any elements with a tabindex
 
 _Reasoning: [IITAA, 10.3 and 10.4](http://www.dhs.state.il.us/IITAA/IITAAWebImplementationGuidelines.html)_
 
