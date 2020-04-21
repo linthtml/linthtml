@@ -6,7 +6,7 @@ Focusable elements are :
 - natively focusable elements (`button`, `input`, `select`, `textarea`)
 - `a`, `area` elements with an href value
 
-_Reasoning: [IITAA, 10.3 and 10.4](http://www.dhs.state.il.us/IITAA/IITAAWebImplementationGuidelines.html)_
+_Reasoning: [W3C, WCAG 2.0](w3.org/wiki/HTML/Usage/tabindex)_
 
 The following patterns are considered violations:
 
