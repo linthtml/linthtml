@@ -46,7 +46,7 @@
     "gulp-gh-pages": "0.5.4",
     "gulp-jsdoc3": "2.0.0",
     "gulp-mocha": "7.0.2",
-    "mocha": "6.2.2"
+    "mocha": "7.1.1"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
