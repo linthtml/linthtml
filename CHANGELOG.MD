@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.0-beta.3
+
+### Improvement 🔧
+
+Change `focusable-tabindex-style` rule behavior, now this rules report errors if a node has a tabindex greater than 0.
+`frame` tag are now listed as self closing elements.
+
+### Fix
+
+- The rule `id-class-style` is now correctly called when `id-style` or `class-style` are not activated.n
+- `tag-bans` is now case insensitive, when config is only a single string (same behavior as array config)
+- Correctly extract config that are just numbers.
+
+### Refactor 🧰
+
+Remove the speudo rule "tag" and use "dom" instead.
+Test all the rules with the new linter and the new config.
+
 ## v0.4.0-beta.2
 
 ### Feature 🚀
