@@ -157,22 +157,24 @@ describe("inline-configuration", function() {
       .throw("Cannot parse inline configuration.");
   });
 
-  it("should throw an error for  nonexistent rule name", async function() {
+  it("should report an error for  nonexistent rule name", async function() {
     const linter = createLinter();
     const html = "<!-- linthtml-configure id-no-no-ad=\"false\"-->";
 
     const issues = await linter.lint(html, none, {});
     expect(issues).to.have.lengthOf(1);
-    expect(issues[0].code).to.equal("E054");
+    expect(issues[0].code).to.equal("INLINE_02");
+    expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
   });
 
-  it("Should throw an error on invalid option value", function() {
+  it("Should report an error on invalid option value", async function() {
     const linter = createLinter();
     const html = "<!-- linthtml-configure id-class-no-ad=\"fal#se\"-->";
 
-    expect(() => linter.lint(html, none, {}))
-      .to
-      .throw("Inline configuration for rule \"id-class-no-ad\" cannot be parsed.");
+    // Should not report an error as it's a valid string
+    const issues = await linter.lint(html, none, {});
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].code).to.equal("INLINE_03");
   });
 
   it("should output an issue on invalid rule name", async function() {
