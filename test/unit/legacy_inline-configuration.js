@@ -150,7 +150,7 @@ describe("inline-configuration", function() {
   // TODO: Should report only one error, parsing error
   it("Should throw an error on bad config formatting", function() {
     const linter = createLinter();
-    const html = "<!-- linthtml-configure id-no-dup-\"false\"   -->";
+    const html = "<!-- linthtml-configure id-no-dup-\"false\" -->";
 
     expect(() => linter.lint(html, none, {}))
       .to
@@ -252,7 +252,7 @@ describe("inline-configuration", function() {
 
   it("should output an issue on invalid $preset", async function() {
     const linter = createLinter();
-    const html = "<!-- linthtml-configure line-end-style=\"$invalid\" -->";
+    const html = "<!-- linthtml-configure line-end-=\"$invalid\" -->";
 
     const issues = await linter.lint(html, none, {});
     expect(issues).to.have.lengthOf(1);
