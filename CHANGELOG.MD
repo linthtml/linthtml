@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.0-beta.4
+
+### Feature 🚀
+
+Inline config now work with the new config format.
+
 ## v0.4.0-beta.3
 
 ### Improvement 🔧
