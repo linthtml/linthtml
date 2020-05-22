@@ -1,5 +1,13 @@
 ## refactor
 
+* [0.5.0][inline-config] Remove `preset=`, `${preset}` and `$previous`
+* [0.5.0] Remove speudo `line` rule
+* [0.5.0?] Activate rule using string "on"
+* [0.5.0] Improve inline_config extraction
+  _ (rule1 rule2=config) (extract rule1 and rule2) 
+  _ (rule1= rule2=config) (extract rule1 and rule2) 
+  _ (rule1=config rule1) (extract rule1 and rule2)
+  Use parser ?
 * add a rule to enforce href on links
 * rename rule `link-min-length-4` in `link-min-length` and add a length option
 * `raw-ignore-text` Find a better solution than the current one
@@ -7,32 +15,6 @@
   This funciton should be changed for a validation function that raise errors if config is not valid
 * No rules by default
 * Tests should assert issues too (code, position...)
-* Improve creation of the linter
-  This
-  ```javascript
-    const linthtml = require("../../../index");
-    const none = require('../../../presets').presets.none;
-    function createLinter() {
-      return new linthtml.Linter(linthtml.rules);
-    }
-    const linter = createLinter();
-    const html = "<body><style>hello</style></body>";
-    linter.lint(html, none, { "attr-bans": ["style"] })
-  ```
-
-  Should be:
-
-  ```javascript
-    const linthtml = require("../../../index");
-    
-    function createLinter(rules) {
-      return new linthtml.Linter(rules);
-      // or // return new linthtml(rules);
-    }
-    const linter = createLinter({ "attr-bans": ["style"] });
-    const html = "<body><style>hello</style></body>";
-    linter.lint(html)
-  ```
 
 * move rules tests in the rule folder
   
@@ -91,3 +73,22 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 - Warning level for rules.
 - Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
 - More to come 🤷‍♀️
+
+
+## inline config
+
+`linthtml-enable, linthtml-disable, linthtml-configure` cannot be use to activate new rules
+only affect configured rules (already defined before)
+
+
+<div>
+  <div>
+    foo // not ignored
+    {{!-- linthtml-disable rule=config --}}
+    <div>
+      foo // ignored
+    </div>
+    foo // ignored
+  </div>
+  foo // not ignored
+</div>
