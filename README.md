@@ -85,12 +85,24 @@ Some examples:
 
 ```html
 <!-- linthtml-configure attr-bans="false" -->
+<!-- linthtml-configure attr-bans=false -->
+<!-- linthtml-configure attr-bans="off" -->
 ```
+
+* turn on the `attr-bans` rule
+
+```html
+<!-- linthtml-configure attr-bans="true" -->
+<!-- linthtml-configure attr-bans=true -->
+```
+
+_⚠️ you can only turn on rules that have being deactivated by an inline config_
 
 * change the `tag-bans` rule value
 
 ```html
 <!-- linthtml-configure tag-bans="['p','style']" -->
+<!-- linthtml-configure tag-bans=['p','style'] -->
 ```
 
 * restore the previous value of the `tag-bans` rule
@@ -99,7 +111,7 @@ Some examples:
 <!-- linthtml-configure tag-bans="$previous" -->
 ```
 
-
+_⚠️ works only with the legacy config at the moment_
 
 It's worth noting that inline configurations only affect the file they're on, so if they are not explicitly reversed with the `$previous` value, they will just apply until the end of the file.
 
