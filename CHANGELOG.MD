@@ -1,5 +1,77 @@
 # Changelog
 
+## v0.4.0
+
+### Features 🚀
+
+#### [CLI] Improved `init` command
+
+Give the possiblity to select the output format between `JS`, `JSON` and `YAML`. It's also possible to generate a config file in the legacy format (like HTMLLint) or in the new format (introduced in the [v0.3.0](#v0.3.0)).
+
+#### Inline config with new config
+
+Inline configs are now working with the new config format introduced in the [v0.3.0](#v0.3.0).
+Inline config can be used to change a rule config or enable/disable a rule, see the [documentation](./README.md#inline-configuration) for more informations about inline config usages.
+
+#### Ignore files
+
+It's now possible to specify a list of list files to ignore using `.linthtmlignore` file or `ignoreFiles` property in the config file ([Documentation page](./docs/ignore-code.md)).
+
+### Improvements 🔧
+
+- Change `focusable-tabindex-style` rule behavior, now this rules report errors if a node has a tabindex greater than 0.
+`frame` tag are now listed as self closing elements.
+- Improve error message for rules `indent-size` and `indent-style`.
+
+### Fix 🛠️
+
+- The rule `id-class-style` is now correctly called when `id-style` or `class-style` are not activated.
+- `tag-bans` is now case insensitive, when config is only a single string (same behavior as array config)
+- Correctly extract config that are just numbers.
+
+## v0.4.0-beta.4
+
+### Feature 🚀
+
+Inline config now work with the new config format.
+
+## v0.4.0-beta.3
+
+### Improvement 🔧
+
+Change `focusable-tabindex-style` rule behavior, now this rules report errors if a node has a tabindex greater than 0.
+`frame` tag are now listed as self closing elements.
+
+### Fix
+
+- The rule `id-class-style` is now correctly called when `id-style` or `class-style` are not activated.n
+- `tag-bans` is now case insensitive, when config is only a single string (same behavior as array config)
+- Correctly extract config that are just numbers.
+
+### Refactor 🧰
+
+Remove the speudo rule "tag" and use "dom" instead.
+Test all the rules with the new linter and the new config.
+
+## v0.4.0-beta.2
+
+### Feature 🚀
+
+List files to ignore using `.linthtmlignore` file or `ignoreFiles` property in config object. ([Documentation page](./docs/ignore-code.md))
+
+### Improvement 🔧
+
+Improve error message for rules `indent-size` and `indent-style`
+
+## v0.4.0-beta.1
+
+### Feature 🚀
+
+#### [CLI] Improve the `init` command
+
+Give the possiblitie to selet the output format between `JS`, `JSON` and `YAML` and to generate a config file in the 
+legacy format (like HTMLLint) or in the new format (introduced in the [v0.3.0](#v0.3.0))
+
 ## v0.3.2
 
 ### Fix
