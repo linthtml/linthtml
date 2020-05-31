@@ -50,7 +50,7 @@
     "bulk-require": "1.0.1",
     "chalk": "3.0.0",
     "cosmiconfig": "6.0.0",
-    "globby": "10.0.1",
+    "globby": "11.0.0",
     "htmlparser2": "3.10.1",
     "ignore": "^5.1.4",
     "inquirer": "^7.0.4",
