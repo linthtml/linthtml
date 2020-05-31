@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.1
+
+## Fix 🛠️
+
+Correct classes extractions to avoid reporting `class-style` errors for empty class.
+
 ## v0.4.0
 
 ### Features 🚀
