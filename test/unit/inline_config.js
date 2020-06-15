@@ -13,7 +13,7 @@ describe("inline_config extraction", function() {
   it("report an error when instruction does not exist", function(done) {
     function report(issue) {
       expect(issue.code).to.equal("INLINE_01", "Issue with code `INLINE_01` is reported");
-      expect(issue.position).to.deep.equal([1, 1]);
+      expect(issue.position).to.deep.equal({ line: 1, column: 1 });
       expect(issue.meta).to.deep.equal({ data: { instruction: "foo" } });
       done();
     }
@@ -25,7 +25,7 @@ describe("inline_config extraction", function() {
     const config = new Config({});
     function report(issue) {
       expect(issue.code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
-      expect(issue.position).to.deep.equal([1, 1]);
+      expect(issue.position).to.deep.equal({ line: 1, column: 1 });
       expect(issue.meta).to.deep.equal({ data: { rule_name: "foo" } });
       done();
     }
@@ -164,7 +164,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "bar" } });
         done();
       }
@@ -176,7 +176,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "" } });
         done();
       }
@@ -188,7 +188,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar:x}" } });
         done();
       }
@@ -200,7 +200,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[bar]" } });
         done();
       }
@@ -212,7 +212,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar: 'x'}" } });
         done();
       }
@@ -224,7 +224,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ fooRule });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[{'foo': 'bar'}}]" } });
         done();
       }
@@ -243,7 +243,7 @@ describe("inline_config extraction", function() {
       const config = new Config({ foo });
       function report(issue) {
         expect(issue.code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
+        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
         expect(issue.meta).to.deep.equal({ data: { rule_name: "foo", error: "not valid" } });
         done();
       }

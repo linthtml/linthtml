@@ -17,10 +17,10 @@ describe("linter", function() {
           "</body>\n"
         ].join("")
       );
-      expect(output[0].openLineCol).to.be.eql([1, 1]);
-      expect(output[0].closeLineCol).to.be.eql([5, 1]);
-      expect(output[0].children[1].openLineCol).to.be.eql([2, 3]);
-      expect(output[0].children[1].closeLineCol).to.be.eql([4, 3]);
+      expect(output[0].openLineCol).to.deep.equal({ line: 1, column: 1 });
+      expect(output[0].closeLineCol).to.deep.equal({ line: 5, column: 1 });
+      expect(output[0].children[1].openLineCol).to.deep.equal({ line: 2, column: 3 });
+      expect(output[0].children[1].closeLineCol).to.deep.equal({ line: 4, column: 3 });
     });
   });
 
