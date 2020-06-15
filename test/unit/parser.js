@@ -17,7 +17,6 @@ describe("linter", function() {
           "</body>\n"
         ].join("")
       );
-
       expect(output[0].openLineCol).to.be.eql([1, 1]);
       expect(output[0].closeLineCol).to.be.eql([5, 1]);
       expect(output[0].children[1].openLineCol).to.be.eql([2, 3]);
@@ -26,7 +25,7 @@ describe("linter", function() {
   });
 
   describe("onattribute", function() {
-    it("should correctly return an array of duplicates", function() {
+    it("should correctly extract all attributes", function() {
       const output = parse(
         [
           "<body>\n",
@@ -36,7 +35,7 @@ describe("linter", function() {
         ].join("")
       );
 
-      expect(output[0].children[1].dupes).to.be.eql(["class"]);
+      expect(output[0].children[1].attributes).to.have.lengthOf(3);
     });
   });
 });
