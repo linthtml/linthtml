@@ -17,7 +17,19 @@ describe("linter", function() {
           "</body>\n"
         ].join("")
       );
-      expect(output[0].openLineCol).to.deep.equal({ line: 1, column: 1 });
+      expect(output[0].open.loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 7
+          }
+        });
       expect(output[0].close.loc)
         .to
         .deep
@@ -31,7 +43,19 @@ describe("linter", function() {
             column: 8
           }
         });
-      expect(output[0].children[1].openLineCol).to.deep.equal({ line: 2, column: 3 });
+      expect(output[0].children[1].open.loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 2,
+            column: 3
+          },
+          end: {
+            line: 2,
+            column: 19
+          }
+        });
       expect(output[0].children[1].close.loc)
         .to
         .deep
