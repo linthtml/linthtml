@@ -18,9 +18,33 @@ describe("linter", function() {
         ].join("")
       );
       expect(output[0].openLineCol).to.deep.equal({ line: 1, column: 1 });
-      expect(output[0].closeLineCol).to.deep.equal({ line: 5, column: 1 });
+      expect(output[0].close.loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 5,
+            column: 1
+          },
+          end: {
+            line: 5,
+            column: 8
+          }
+        });
       expect(output[0].children[1].openLineCol).to.deep.equal({ line: 2, column: 3 });
-      expect(output[0].children[1].closeLineCol).to.deep.equal({ line: 4, column: 3 });
+      expect(output[0].children[1].close.loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 4,
+            column: 3
+          },
+          end: {
+            line: 4,
+            column: 9
+          }
+        });
     });
   });
 
