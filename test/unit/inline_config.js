@@ -11,10 +11,22 @@ const fooRule = {
 
 describe("inline_config extraction", function() {
   it("report an error when instruction does not exist", function(done) {
-    function report(issue) {
-      expect(issue.code).to.equal("INLINE_01", "Issue with code `INLINE_01` is reported");
-      expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-      expect(issue.meta).to.deep.equal({ data: { instruction: "foo" } });
+    function report({ code, position, meta }) {
+      expect(code).to.equal("INLINE_01", "Issue with code `INLINE_01` is reported");
+      expect(position)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 22
+          }
+        });
+      expect(meta).to.deep.equal({ data: { instruction: "foo" } });
       done();
     }
     const comment = parse("<!-- linthtml-foo -->")[0];
@@ -23,10 +35,22 @@ describe("inline_config extraction", function() {
 
   it("report an error when configuration target a nonexistent rule ", function(done) {
     const config = new Config({});
-    function report(issue) {
-      expect(issue.code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
-      expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-      expect(issue.meta).to.deep.equal({ data: { rule_name: "foo" } });
+    function report({ code, position, meta }) {
+      expect(code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
+      expect(position)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 38
+          }
+        });
+      expect(meta).to.deep.equal({ data: { rule_name: "foo" } });
       done();
     }
     const comment = parse("<!-- linthtml-configure foo=false -->")[0];
@@ -162,10 +186,22 @@ describe("inline_config extraction", function() {
   describe("configuration format", function() {
     it("report an error for invalid string (no quotes)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "bar" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 36
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "bar" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo=bar -->")[0];
@@ -174,10 +210,22 @@ describe("inline_config extraction", function() {
 
     it("report an error for empty config (nothing after =)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 33
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo= -->")[0];
@@ -186,10 +234,22 @@ describe("inline_config extraction", function() {
 
     it("report an error for invalid object config", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar:x}" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 40
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "{bar:x}" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo={bar:x} -->")[0];
@@ -198,10 +258,22 @@ describe("inline_config extraction", function() {
 
     it("report an error for invalid array config", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[bar]" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 38
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "[bar]" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo=[bar] -->")[0];
@@ -210,10 +282,22 @@ describe("inline_config extraction", function() {
 
     it("report an error for invalid json object (no quotes on keys)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar: 'x'}" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 43
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "{bar: 'x'}" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo={bar: 'x'} -->")[0];
@@ -222,10 +306,22 @@ describe("inline_config extraction", function() {
 
     it("report an error for invalid json", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[{'foo': 'bar'}}]" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 50
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "[{'foo': 'bar'}}]" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo=[{'foo': 'bar'}}] -->")[0];
@@ -241,10 +337,22 @@ describe("inline_config extraction", function() {
         }
       };
       const config = new Config({ foo });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal({ line: 1, column: 1 });
-        expect(issue.meta).to.deep.equal({ data: { rule_name: "foo", error: "not valid" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 38
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_name: "foo", error: "not valid" } });
         done();
       }
       const comment = parse("<!-- linthtml-configure foo='bar' -->")[0];
