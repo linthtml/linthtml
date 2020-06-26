@@ -1,8 +1,7 @@
 const { expect } = require("chai");
+const { is_labelable } = require("../../lib/knife");
 
 describe("knife.is_labeable", function() {
-  const knife = require("../../lib/knife");
-
   it("should return false for hidden input element", function() {
     const ele = {
       type: "tag",
@@ -14,7 +13,7 @@ describe("knife.is_labeable", function() {
       }
     };
 
-    const output = knife.isLabeable(ele);
+    const output = is_labelable(ele);
 
     expect(output).to.be.eql(false);
   });

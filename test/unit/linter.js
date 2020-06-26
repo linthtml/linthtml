@@ -9,7 +9,10 @@ describe("Config", function() {
       lint(node, options, { report }) {
         return report({
           code: "CUSTOM",
-          position: [0, 0]
+          position: {
+            line: 0,
+            column: 0
+          }
         });
       }
     };
