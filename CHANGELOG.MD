@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.5.0-beta.1
+
+### Features 🚀
+
+Upgrade [htmlparser2](https://github.com/fb55/htmlparser2) and improve outputed AST.
+Now a node element:
+
+- contains duplicated attributes and has the start and end location for each.
+- has more informations about open/close tags
+
+All nodes now include a property `loc` containing start and end position (line/column).
+
 ### v0.4.2
 
 ## Features 🚀
