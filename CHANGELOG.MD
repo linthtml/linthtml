@@ -1,5 +1,15 @@
 # Changelog
 
+### v0.4.2
+
+## Features 🚀
+
+Rule [`lang`](./lib/rules/lang/README.md) now support simplified Chinese and traditional Chinese.
+
+Use the following codes in your `linthtmlrc` file.
+- `zh-cmn-Hans`: simplified Chinese
+- `zh-cmn-Hant`: traditional Chinese
+
 ## v0.4.1
 
 ## Fix 🛠️
