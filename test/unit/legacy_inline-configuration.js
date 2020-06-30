@@ -144,7 +144,7 @@ describe("inline-configuration", function() {
     ].join("");
 
     const issues = await linter.lint(html, none, { "line-end-style": "cr" });
-    expect(issues).to.have.lengthOf(5);
+    expect(issues).to.have.lengthOf(6);
   });
 
   // TODO: Should report only one error, parsing error
@@ -241,13 +241,13 @@ describe("inline-configuration", function() {
 
     const issues = await linter.lint(html, none, { "line-end-style": "crlf", "id-no-dup": true, "id-class-no-ad": true });
     expect(issues).to.have.lengthOf(7);
-    expect(issues[0].code).to.equal("E015");
+    expect(issues[0].code).to.equal("E010");
     expect(issues[1].code).to.equal("E015");
-    expect(issues[2].code).to.equal("E015");
+    expect(issues[2].code).to.equal("E012");
     expect(issues[3].code).to.equal("E015");
     expect(issues[4].code).to.equal("E015");
-    expect(issues[5].code).to.equal("E010");
-    expect(issues[6].code).to.equal("E012");
+    expect(issues[5].code).to.equal("E015");
+    expect(issues[6].code).to.equal("E015");
   });
 
   it("should output an issue on invalid $preset", async function() {
