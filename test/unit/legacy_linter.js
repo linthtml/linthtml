@@ -1,4 +1,3 @@
-const knife = require("../../lib/knife");
 const { expect } = require("chai");
 const Linter = require("../../lib/legacy/linter");
 
@@ -13,12 +12,6 @@ describe("LegacyLinter", function() {
     linter = new Linter([
       {
         name: "dom",
-        lint: function() {
-          return [];
-        }
-      },
-      {
-        name: "line",
         lint: function() {
           return [];
         }
@@ -88,28 +81,6 @@ describe("LegacyLinter", function() {
       const output = linter.resetRules();
 
       expect(output[0]).to.be.eql(issue);
-    });
-  });
-
-  // TODO: move these out of this file...
-  describe("shred", function() {
-    it("should return an array", function() {
-      const output = knife.shred("");
-      expect(output).to.be.an.instanceOf(Array);
-    });
-
-    it("should return the proper number of lines", function() {
-      const lines = [
-        "Line1",
-        "Line2",
-        "Line3"
-      ].join("\n");
-      const output = knife.shred(lines);
-
-      expect(output.length).to.be.eql(3);
-      expect(output[0].text).to.equal("Line1\n");
-      expect(output[1].text).to.equal("Line2\n");
-      expect(output[2].text).to.equal("Line3");
     });
   });
 });
