@@ -44,7 +44,7 @@
     "gulp": "4.0.2",
     "gulp-eslint": "6.0.0",
     "gulp-mocha": "7.0.2",
-    "mocha": "7.1.2"
+    "mocha": "8.0.1"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
