@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.5.0-beta.2
+
+### Improvements 🔧
+
+Improve issues locations for a bunch rules.
+
+### Internal
+
+Get rig of the peudo rules line to only use the AST tree in all rules.
+
 ## v0.5.0-beta.1
 
 ### Features 🚀
