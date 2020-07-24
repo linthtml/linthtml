@@ -40,14 +40,6 @@ describe("Legcay Config", function() {
       expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
     });
 
-    it("should initialize both rules and options", function() {
-      config = new Config([baseRule, rule], [option]);
-
-      expect(config.getRule(rule.name)).to.be.eql(rule);
-      expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
-      expect(config.options[option.name]).to.be.eql(option);
-    });
-
     it("should get options from a rule", function() {
       rule.options = [option];
       config = new Config([baseRule, rule]);
