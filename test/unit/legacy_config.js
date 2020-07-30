@@ -197,7 +197,7 @@ describe("Legcay Config", function() {
     it("should remove the option", function() {
       config.addOption(option);
       config.removeOption(option.name);
-      /* eslint-disable-next-line no-unused-expressions */
+
       expect(config.options[option.name]).to.be.undefined;
     });
 

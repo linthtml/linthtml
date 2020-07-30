@@ -15,7 +15,6 @@ describe("Config", function() {
       // config.setRuleConfig()
 
       expect(rule.name).to.equal("attr-bans");
-      /* eslint-disable-next-line no-unused-expressions */
       expect(rule.lint).to.not.be.undefined;
     });
   });
@@ -228,7 +227,6 @@ describe("Config", function() {
           name: "foo",
           lint() {},
           validateConfig(config) {
-            /* eslint-disable-next-line no-unused-expressions */
             expect(config).to.not.be.undefined;
             expect(config.bar).to.equal("bar");
             done();
@@ -256,7 +254,6 @@ describe("Config", function() {
             return config.bar;
           },
           validateConfig(config) {
-            /* eslint-disable-next-line no-unused-expressions */
             expect(config).to.not.be.undefined;
             expect(config).to.equal("bar");
             done();

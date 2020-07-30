@@ -65,7 +65,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo='bar' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: "bar" }, "String value is extracted inside a config object");
   });
@@ -78,7 +77,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo=2 -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: 2 }, "Number value is extracted inside a config object");
   });
@@ -91,7 +89,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo={\"bar\": \"fix\"} -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: { bar: "fix" } }, "JSON object is extracted inside a config object");
   });
@@ -104,7 +101,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo=[\"bar\"] -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: ["bar"] }, "JSON object is extracted inside a config object");
   });
@@ -117,7 +113,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo=true -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: false }, "JSON object is extracted inside a config object");
   });
@@ -130,7 +125,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo=false -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -143,7 +137,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo='false' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -156,7 +149,6 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo='off' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -175,9 +167,7 @@ describe("inline_config extraction", function() {
     const comment = parse("<!-- linthtml-configure foo='fix' bar='buz' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.bar).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: "fix" });
     expect(inline_config.bar).to.deep.equal({ config: "buz" });
