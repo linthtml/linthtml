@@ -1,5 +1,17 @@
 # Changelog
 
+### Features 🚀
+
+### Improve config file search
+
+Now, for each file linted, LintHTML will look for a config file in the file local folder. If there's a config file LintHTML will use it, if there's no config file LintHTML will check each parent and stop once it find a config file or reach the `HOME` folder.
+
+### Refactor 🧰
+
+### Config validations utils function
+
+Create some utils functions to check rules config and have unified error messages.
+
 ## v0.5.0-beta.2
 
 ### Improvements 🔧
