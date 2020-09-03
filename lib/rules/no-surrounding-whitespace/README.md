@@ -1,4 +1,4 @@
-# no-surrounding-space
+# no-surrounding-whitespace
 
 Disallow extra spacing just after a tag is opened and just before a tag is closed.
 

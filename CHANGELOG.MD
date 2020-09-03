@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-beta.4
+
+### Features 🚀
+
+Added new rule `no-surrounding-whitespace` disallowing the presence of encapsulating whitespace, [see rule doc](./lib/rules/no-surrounding-whitespace/README.md).
+
+## v0.5.0-beta.3
+
 ### Features 🚀
 
 ### Improve config file search
