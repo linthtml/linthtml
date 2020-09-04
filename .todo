@@ -53,7 +53,7 @@
 
 ## Improve inline config
 
-* The `preset` thing is totally overkill, hard to understand >< and not documented very well.
+✔️ The `preset` thing is totally overkill, hard to understand >< and not documented very well.
 * The `$previous` thing  is totally overkill and hard to understand >< , Maybe we can keep this one).
 
 Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
