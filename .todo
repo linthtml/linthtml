@@ -3,7 +3,7 @@
 ✔️ [0.5.0][inline-config] Remove `preset=`, `${preset}`
 * [0.5.0][inline-config] Remove `$previous`
 ✔️ [0.5.0] Remove speudo `line` rule
-* [0.5.0?] Activate rule using string "on"
+✔️ [0.5.0?] Activate rule using string "on"
 * [0.5.0] Improve inline_config extraction
   _ (rule1 rule2=config) (extract rule1 and rule2) 
   _ (rule1= rule2=config) (extract rule1 and rule2) 
