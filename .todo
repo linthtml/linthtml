@@ -1,7 +1,8 @@
 ## refactor
 
-* [0.5.0][inline-config] Remove `preset=`, `${preset}` and `$previous`
-* [0.5.0] Remove speudo `line` rule
+✔️ [0.5.0][inline-config] Remove `preset=`, `${preset}`
+* [0.5.0][inline-config] Remove `$previous`
+✔️ [0.5.0] Remove speudo `line` rule
 * [0.5.0?] Activate rule using string "on"
 * [0.5.0] Improve inline_config extraction
   _ (rule1 rule2=config) (extract rule1 and rule2) 
@@ -13,10 +14,9 @@
 * `raw-ignore-text` Find a better solution than the current one
 * Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
   This funciton should be changed for a validation function that raise errors if config is not valid
-* No rules by default
+✔️ No rules by default
 * Tests should assert issues too (code, position...)
-
-* move rules tests in the rule folder
+✔️ move rules tests in the rule folder
   
 
 ## deprecate rules
@@ -68,9 +68,9 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 - Nice/cute logo (because every projects should have one)
 - A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
 - Translated `cli`. Like the website the `cli` should be available in as many language as possible
-- Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
+✔️ Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
 - Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
-- Warning level for rules.
+✔️ Warning level for rules.
 - Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
 - More to come 🤷‍♀️
 

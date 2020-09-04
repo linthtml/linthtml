@@ -70,21 +70,6 @@ describe("inline-configuration", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("should accept $preset notation", async function() {
-    const linter = createLinter({ "line-end-style": "crlf" });
-    const html = [
-      "<!-- linthtml-configure line-end-style=\"$none\"  -->\r\n",
-      "<body>\r\n",
-      "  <p>\r\n",
-      "    some text\r", // Should normaly report an error
-      "  </p>\r\n",
-      "</body>\r\n"
-    ].join("");
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
-
   it("should work when used multiple times in a line ", async function() {
     const linter = createLinter({ "line-end-style": "crlf" });
     const html = [
@@ -204,79 +189,5 @@ describe("inline-configuration", function() {
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
     // Should report 7 errors normaly
-  });
-
-  it("should take in presets", async function() {
-    const linter = createLinter({});
-    const html = "<!-- linthtml-configure preset=\"none\" -->";
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-    // Should report 7 errors normaly
-  });
-
-  it("should revert last setting usign \"$previous\" preset", async function() {
-    const linter = createLinter({
-      "line-end-style": "crlf",
-      "id-no-dup": true,
-      "id-class-no-ad": true
-    });
-    const html = [
-      "<!-- linthtml-configure line-end-style=\"false\" --> <!-- linthtml-configure id-no-dup=\"false\" id-class-no-ad=\"false\" --> <!-- linthtml-configure preset=\"$previous\" -->\r\n",
-      "<body id=\"foo\" class=\"ad-banner\">\r",
-      "  <p id=\"foo\">\r",
-      "    some text\r",
-      "  </p>\r",
-      "</body>\r"
-    ].join("");
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
-    expect(issues[0].code).to.equal("E010");
-    expect(issues[1].code).to.equal("E012");
-  });
-
-  it("should revert an entire preset with preset=$previous", async function() {
-    const linter = createLinter({
-      "line-end-style": "crlf",
-      "id-no-dup": true,
-      "id-class-no-ad": true
-    });
-    const html = [
-      "<!-- linthtml-configure preset=\"none\" --> <!-- linthtml-configure preset=\"$previous\" -->\r\n",
-      "<body id=\"foo\" class=\"ad-banner\">\r",
-      "  <p id=\"foo\">\r",
-      "    some text\r",
-      "  </p>\r",
-      "</body>\r"
-    ].join("");
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(7);
-    expect(issues[0].code).to.equal("E010");
-    expect(issues[1].code).to.equal("E015");
-    expect(issues[2].code).to.equal("E012");
-    expect(issues[3].code).to.equal("E015");
-    expect(issues[4].code).to.equal("E015");
-    expect(issues[5].code).to.equal("E015");
-    expect(issues[6].code).to.equal("E015");
-  });
-
-  it("should output an issue on invalid $preset", async function() {
-    const linter = createLinter({});
-    const html = "<!-- linthtml-configure line-end-=\"$invalid\" -->";
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-    expect(issues[0].code).to.equal("E052");
-  });
-
-  it("should output an issue on invalid preset option", async function() {
-    const linter = createLinter({});
-    const html = "<!-- linthtml-configure preset=\"invalid\" -->";
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-    expect(issues[0].code).to.equal("E052");
   });
 });
