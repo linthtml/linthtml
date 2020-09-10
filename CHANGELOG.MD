@@ -1,5 +1,68 @@
 # Changelog
 
+## v0.5.0
+
+### Features 🚀
+
+#### New rule
+
+Add the rule `no-surrounding-whitespace` disallowing the presence of encapsulating whitespace.
+For example the following code will report an error:
+
+```html
+<p>  A simple text with whitespaces before</p>
+```
+
+You can find more informations in the [rule doc](./lib/rules/no-surrounding-whitespace/README.md).
+
+#### Improve config file search
+
+Now, for each file linted, LintHTML will look for a config file in the file local folder.
+If a config file is found, LintHTML will use it. If there's no config file LintHTML will check each parent folder and stop once it finds a config file or reaches the `HOME` folder.
+
+### Print error for invalid rule config
+
+LintHTML will now report an error if a rule is not correctly activated in the new config format.
+For example, the following patterns will now print errors in the console.
+
+```
+// Valid string values are "error", "warning" and "off"
+"rule-name": "foo" 
+
+// Only string, boolean and array are accepted
+"rule-name": 1 
+"rule-name": {}
+
+// If an array is provided, the first value should be a valid string or a boolean
+"rule-name": [1, rule_config] 
+"rule-name": ["foo", rule_config]
+"rule-name": [{}]
+
+```
+
+### Breaking change ⚠️ (old config)
+
+Remove the possibility to use [presets in inline config](https://github.com/htmllint/htmllint/wiki/Inline-Configurations#presets). This feature was not documented in LintHTML and not available when using the new config format.
+
+### Improvements 🔧
+
+#### HTML parser improvments
+
+Upgrade [htmlparser2](https://github.com/fb55/htmlparser2) and improve outputed AST to extract more informations about nodes, for example now a node element:
+
+- contains all attributes event the duclicated and know the start and end location for each.
+- has more informations about open/close tags
+
+All nodes now include a property `loc` containing start and end position (line/column).
+
+Thanks to the AST improvements somme rules have been updated to better target the errors locations.
+
+### Refactor 🧰
+
+#### Config validations utils function
+
+Create some utils functions to check rules config and have unified error messages.
+
 ## v0.5.0-beta.4
 
 ### Features 🚀
