@@ -66,33 +66,39 @@ describe("Config", function() {
         this.config.setRuleConfig(rule, rule_config);
         expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
       });
-      it("Should not activate rule if a dummy value is provided", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if an invalid string is provided to activate rule", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": "foo"
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected string value \"foo\"");
       });
     });
     describe("Object config", function() {
-      it("Should not activate rule is a js object is provided", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if a js object is provided", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": {
             foo: "bar"
           }
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"{\"foo\":\"bar\"}\"");
       });
-      it("Should not activate rule is an empty array is provided", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if a js object is provided", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": []
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"undefined\"");
       });
       it("Should activate rule is first value of array is \"true\" (boolean)", function() {
         const rule = this.config.getRule("attr-bans");
@@ -138,44 +144,41 @@ describe("Config", function() {
         this.config.setRuleConfig(rule, rule_config);
         expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
       });
-
-      it("Should not activate rule is first value of array is a dummy string", function() {
-        const rule = this.config.getRule("attr-bans");
-        const rule_config = {
-          "attr-bans": ["foo"]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
-      });
     });
 
     describe("Dummy configs", function() {
       // this.beforeEach(function() {
       //   this.config = new Config(rules);
       // });
-      it("should not activate rule", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if the first value of the config array is an empty object", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
-          "attr-bans": [{}]
+          "attr-bans": []
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"undefined\"");
       });
-      it("should not activate rule", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if the first value of the config array is a number", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": [1]
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"1\"");
       });
-      it("should not activate rule", function() {
-        const rule = this.config.getRule("attr-bans");
+      it("Should report an error if a number is provided", function() {
+        const config = new Config(rules);
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": 1
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activatedRules).to.not.have.any.keys("attr-bans");
+        expect(() => config.setRuleConfig(rule, rule_config))
+          .to
+          .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"1\"");
       });
     });
 
