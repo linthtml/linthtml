@@ -21,7 +21,19 @@ Finally, install LintHTML:
 npm install @linthtml/linthtml --save-dev
 ```
 
+### Deprecated rules
+
 You might want to remove the rules `indent-delta` and `indent-width-cont` from there in case you where using them, since LintHTML's indent style checker deals with those aspects out of the box.
+
+### Inline config
+
+Since the release [0.5.0](./https://github.com/linthtml/linthtml/releases/tag/0.5.0) it's no longer possible to use presets in inline config.
+The following no longer work.
+
+```html
+<!-- linthtml-configure preset="$default -->
+<!-- linthtml-configure preset="$none -->
+```
 
 ## 0.3.0 Upgrade guide
 
