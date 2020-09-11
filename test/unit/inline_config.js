@@ -1,10 +1,9 @@
-const Parser = require("../../lib/parser");
+const parse = require("../../lib/parser");
 const { extract_inline_config } = require("../../lib/inline_config");
 const { expect } = require("chai");
 const Config = require("../../lib/config");
 const linthtml = require("../../lib/index");
 
-const parser = new Parser();
 const fooRule = {
   name: "foo",
   lint() {}
@@ -12,25 +11,49 @@ const fooRule = {
 
 describe("inline_config extraction", function() {
   it("report an error when instruction does not exist", function(done) {
-    function report(issue) {
-      expect(issue.code).to.equal("INLINE_01", "Issue with code `INLINE_01` is reported");
-      expect(issue.position).to.deep.equal([1, 1]);
-      expect(issue.meta).to.deep.equal({ data: { instruction: "foo" } });
+    function report({ code, position, meta }) {
+      expect(code).to.equal("INLINE_01", "Issue with code `INLINE_01` is reported");
+      expect(position)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 22
+          }
+        });
+      expect(meta).to.deep.equal({ data: { instruction: "foo" } });
       done();
     }
-    const comment = parser.parse("<!-- linthtml-foo -->")[0];
+    const comment = parse("<!-- linthtml-foo -->")[0];
     extract_inline_config(comment, {}, report);
   });
 
   it("report an error when configuration target a nonexistent rule ", function(done) {
     const config = new Config({});
-    function report(issue) {
-      expect(issue.code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
-      expect(issue.position).to.deep.equal([1, 1]);
-      expect(issue.meta).to.deep.equal({ data: { rule_name: "foo" } });
+    function report({ code, position, meta }) {
+      expect(code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
+      expect(position)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 38
+          }
+        });
+      expect(meta).to.deep.equal({ data: { rule_name: "foo" } });
       done();
     }
-    const comment = parser.parse("<!-- linthtml-configure foo=false -->")[0];
+    const comment = parse("<!-- linthtml-configure foo=false -->")[0];
     extract_inline_config(comment, config, report);
   });
 
@@ -39,10 +62,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo='bar' -->")[0];
+    const comment = parse("<!-- linthtml-configure foo='bar' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: "bar" }, "String value is extracted inside a config object");
   });
@@ -52,10 +74,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo=2 -->")[0];
+    const comment = parse("<!-- linthtml-configure foo=2 -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: 2 }, "Number value is extracted inside a config object");
   });
@@ -65,10 +86,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo={\"bar\": \"fix\"} -->")[0];
+    const comment = parse("<!-- linthtml-configure foo={\"bar\": \"fix\"} -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: { bar: "fix" } }, "JSON object is extracted inside a config object");
   });
@@ -78,10 +98,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo=[\"bar\"] -->")[0];
+    const comment = parse("<!-- linthtml-configure foo=[\"bar\"] -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: ["bar"] }, "JSON object is extracted inside a config object");
   });
@@ -91,10 +110,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo=true -->")[0];
+    const comment = parse("<!-- linthtml-configure foo=true -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: false }, "JSON object is extracted inside a config object");
   });
@@ -104,10 +122,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo=false -->")[0];
+    const comment = parse("<!-- linthtml-configure foo=false -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -117,10 +134,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo='false' -->")[0];
+    const comment = parse("<!-- linthtml-configure foo='false' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -130,10 +146,9 @@ describe("inline_config extraction", function() {
       throw new Error("Report function should not be called for valid inline config");
     }
     const config = new Config({ fooRule });
-    const comment = parser.parse("<!-- linthtml-configure foo='off' -->")[0];
+    const comment = parse("<!-- linthtml-configure foo='off' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ disabled: true });
   });
@@ -149,12 +164,10 @@ describe("inline_config extraction", function() {
         lint() {}
       }
     });
-    const comment = parser.parse("<!-- linthtml-configure foo='fix' bar='buz' -->")[0];
+    const comment = parse("<!-- linthtml-configure foo='fix' bar='buz' -->")[0];
     const inline_config = extract_inline_config(comment, config, report);
 
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.foo).to.not.be.undefined;
-    /* eslint-disable-next-line no-unused-expressions */
     expect(inline_config.bar).to.not.be.undefined;
     expect(inline_config.foo).to.deep.equal({ config: "fix" });
     expect(inline_config.bar).to.deep.equal({ config: "buz" });
@@ -163,73 +176,145 @@ describe("inline_config extraction", function() {
   describe("configuration format", function() {
     it("report an error for invalid string (no quotes)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "bar" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 36
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "bar" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo=bar -->")[0];
+      const comment = parse("<!-- linthtml-configure foo=bar -->")[0];
       extract_inline_config(comment, config, report);
     });
 
     it("report an error for empty config (nothing after =)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 33
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo= -->")[0];
+      const comment = parse("<!-- linthtml-configure foo= -->")[0];
       extract_inline_config(comment, config, report);
     });
 
     it("report an error for invalid object config", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar:x}" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 40
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "{bar:x}" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo={bar:x} -->")[0];
+      const comment = parse("<!-- linthtml-configure foo={bar:x} -->")[0];
       extract_inline_config(comment, config, report);
     });
 
     it("report an error for invalid array config", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[bar]" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 38
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "[bar]" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo=[bar] -->")[0];
+      const comment = parse("<!-- linthtml-configure foo=[bar] -->")[0];
       extract_inline_config(comment, config, report);
     });
 
     it("report an error for invalid json object (no quotes on keys)", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "{bar: 'x'}" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 43
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "{bar: 'x'}" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo={bar: 'x'} -->")[0];
+      const comment = parse("<!-- linthtml-configure foo={bar: 'x'} -->")[0];
       extract_inline_config(comment, config, report);
     });
 
     it("report an error for invalid json", function(done) {
       const config = new Config({ fooRule });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_configuration: "[{'foo': 'bar'}}]" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 50
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_configuration: "[{'foo': 'bar'}}]" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo=[{'foo': 'bar'}}] -->")[0];
+      const comment = parse("<!-- linthtml-configure foo=[{'foo': 'bar'}}] -->")[0];
       extract_inline_config(comment, config, report);
     });
 
@@ -242,13 +327,25 @@ describe("inline_config extraction", function() {
         }
       };
       const config = new Config({ foo });
-      function report(issue) {
-        expect(issue.code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
-        expect(issue.position).to.deep.equal([1, 1]);
-        expect(issue.meta).to.deep.equal({ data: { rule_name: "foo", error: "not valid" } });
+      function report({ code, position, meta }) {
+        expect(code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
+        expect(position)
+          .to
+          .deep
+          .equal({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 38
+            }
+          });
+        expect(meta).to.deep.equal({ data: { rule_name: "foo", error: "not valid" } });
         done();
       }
-      const comment = parser.parse("<!-- linthtml-configure foo='bar' -->")[0];
+      const comment = parse("<!-- linthtml-configure foo='bar' -->")[0];
       extract_inline_config(comment, config, report);
     });
   });

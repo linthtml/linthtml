@@ -4,8 +4,8 @@ const ConstRule = function(issues) {
   this.description = "returns a constant issue array for all inputs";
 };
 
-module.exports = ConstRule;
-
 ConstRule.prototype.lint = function() {
   return this.issues;
 };
+
+module.exports = ConstRule;

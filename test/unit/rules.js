@@ -17,7 +17,7 @@ describe("linthtml.rules", function() {
         expect(rule).to.have.property("lint");
       });
 
-      if (["line", "dom"].indexOf(rule.name) === -1) {
+      if (["dom"].indexOf(rule.name) === -1) {
         it("should subscribe to something", function() {
           expect(rule).to.have.property("on");
           expect(rule.on.length > 0).to.equal(true);

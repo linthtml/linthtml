@@ -12,7 +12,7 @@ describe("Legcay Config", function() {
     baseRule = { name: "base" };
     rule = {
       name: "therule",
-      on: ["base"]
+      on: "base"
     };
     option = {
       name: "theoption",
@@ -40,14 +40,6 @@ describe("Legcay Config", function() {
       expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
     });
 
-    it("should initialize both rules and options", function() {
-      config = new Config([baseRule, rule], [option]);
-
-      expect(config.getRule(rule.name)).to.be.eql(rule);
-      expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
-      expect(config.options[option.name]).to.be.eql(option);
-    });
-
     it("should get options from a rule", function() {
       rule.options = [option];
       config = new Config([baseRule, rule]);
@@ -71,7 +63,7 @@ describe("Legcay Config", function() {
       const addedRule = config.getRule("test");
 
       expect(addedRule.name).to.be.eql("test");
-      expect(addedRule.on).to.be.eql([]);
+      expect(addedRule.on).to.be.undefined;
       expect(addedRule.subscribers).to.be.eql([]);
     });
 
@@ -100,7 +92,7 @@ describe("Legcay Config", function() {
       config.addOption(option);
       config.setOption(option.name, true);
 
-      const newRule = { name: rule.name, on: [] };
+      const newRule = { name: rule.name };
       config.addRule(newRule);
 
       expect(newRule.subscribers).to.be.eql([option]);
@@ -205,7 +197,7 @@ describe("Legcay Config", function() {
     it("should remove the option", function() {
       config.addOption(option);
       config.removeOption(option.name);
-      /* eslint-disable-next-line no-unused-expressions */
+
       expect(config.options[option.name]).to.be.undefined;
     });
 
