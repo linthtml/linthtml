@@ -10,8 +10,6 @@ on:
 
 jobs:
   test:
-    env:
-      repo_token: yaETwUmumfZQU9ZJjJhqsfCrtLg9mQVdf
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,7 +18,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
