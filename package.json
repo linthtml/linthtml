@@ -21,7 +21,7 @@
     "test": "gulp tests",
     "lint": "gulp lint",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov | coveralls",
+    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
@@ -35,7 +35,6 @@
     "chai": "4.2.0",
     "commitizen": "4.1.2",
     "conventional-changelog-cli": "2.0.34",
-    "coveralls": "3.1.0",
     "cz-conventional-changelog": "^3.2.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.19.1",
