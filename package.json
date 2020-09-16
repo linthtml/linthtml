@@ -19,6 +19,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "gulp tests",
+    "lint": "gulp lint",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
     "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov | coveralls",
     "commit": "npx git-cz",
