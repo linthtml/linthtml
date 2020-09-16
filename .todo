@@ -1,3 +1,8 @@
+## cli
+
+* allow absolute path "linthtml /root/xx/xx/my.html"
+* allow realtive path with ".." "linthtml ../my.html"
+
 ## refactor
 
 ✔️ [0.5.0][inline-config] Remove `preset=`, `${preset}`
