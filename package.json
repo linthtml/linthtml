@@ -33,7 +33,7 @@
     "@commitlint/config-angular": "8.3.4",
     "@commitlint/config-conventional": "11.0.0",
     "chai": "4.2.0",
-    "commitizen": "4.1.2",
+    "commitizen": "4.2.1",
     "conventional-changelog-cli": "2.0.34",
     "cz-conventional-changelog": "^3.2.0",
     "eslint-config-standard": "^14.1.0",
