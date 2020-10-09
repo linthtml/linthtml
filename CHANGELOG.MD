@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.5.1
+
+### Fix 🛠️
+
+- Generate JSON config file with correct json object inside.
+- Use `Object.defineProperty` to add `attributes` property to AST node and fix a runtime error.
+
 ## v0.5.0
 
 ### Features 🚀
