@@ -51,6 +51,7 @@
     "bulk-require": "1.0.1",
     "chalk": "4.1.0",
     "cosmiconfig": "6.0.0",
+    "global-modules": "^2.0.0",
     "globby": "11.0.1",
     "htmlparser2": "^4.1.0",
     "ignore": "^5.1.4",
@@ -59,6 +60,7 @@
     "lodash.pull": "4.1.0",
     "meow": "7.1.1",
     "ora": "5.1.0",
+    "resolve-from": "^5.0.0",
     "table-layout": "1.0.1",
     "yaml": "^1.7.2"
   },
