@@ -2,9 +2,16 @@ pre-commit:
   commands:
     fix_js:
       glob: "*.js"
+      # Save unstagged changes in patch, discard unstagged changes,
+      # run eslint --fix on stagged files & restore patch as unstagged changes
+      # this allow eslint to run on partial stagged files
       run: |
+        git diff > .precommit.patch
+        git checkout -- .
         (eslint {staged_files} --fix || true)
         git add {staged_files}
+        git apply .precommit.patch
+        rm .precommit.patch
 commit-msg:
   commands:
     commitlint:
