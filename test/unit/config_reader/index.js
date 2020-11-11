@@ -108,3 +108,108 @@ describe("Find config file for a file path", function() {
       .property("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.js"));
   });
 });
+
+describe("Load extends config", function() {
+  it("Load and merge configs", function() {
+    const config_path = path.join(__dirname, "fixtures", "valid-extends.js");
+    const { config } = config_from_path(config_path);
+    expect(config)
+      .to
+      .deep
+      .equal({
+        extends: [
+          "./config-attr-bans"
+        ],
+        rules: {
+          "attr-bans": true
+        }
+      });
+  });
+
+  it("Throw an error extended config does not exist", function() {
+    const config_path = path.join(__dirname, "fixtures", "valid-extends.js");
+
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-03");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          module_name: "./foo"
+        });
+    }
+  });
+
+  it("'extends' accept a string only", function() {
+    const config_path = path.join(__dirname, "fixtures", "valid-extends-string-only.js");
+    const { config } = config_from_path(config_path);
+    expect(config)
+      .to
+      .deep
+      .equal({
+        extends: "./config-attr-bans",
+        rules: {
+          "attr-bans": true
+        }
+      });
+  });
+
+  it("Rules settings from config file and extends are merged", function() {
+    const config_path = path.join(__dirname, "fixtures", "extends-merged-rules-settings.js");
+    const { config } = config_from_path(config_path);
+    expect(config)
+      .to
+      .deep
+      .equal({
+        extends: [
+          "./config-attr-bans",
+          "./config-tag-bans"
+        ],
+        rules: {
+          "attr-bans": true,
+          "indent-style": [
+            true,
+            "spaces"
+          ],
+          "tag-bans": [
+            true,
+            "style",
+            "b",
+            "i"
+          ]
+        }
+      });
+  });
+
+  it("Rule settings from config file overrides rule settings form extends", function() {
+    const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.js");
+    const { config } = config_from_path(config_path);
+    expect(config)
+      .to
+      .deep
+      .equal({
+        extends: [
+          "./config-attr-bans",
+          "./config-tag-bans"
+        ],
+        rules: {
+          "attr-bans": "off",
+          "tag-bans": [
+            true,
+            "style",
+            "b",
+            "i"
+          ]
+        }
+      });
+  });
+
+  // Add function to load_extends from given config object (not only paths)?
+});
