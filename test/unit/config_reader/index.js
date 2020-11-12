@@ -1,5 +1,8 @@
 const { expect } = require("chai");
-const { config_from_path, find_local_config } = require("../../../lib/read-config");
+const {
+  config_from_path,
+  find_local_config
+} = require("../../../lib/read-config");
 const path = require("path");
 
 describe("Get config from path", function() {
@@ -11,7 +14,7 @@ describe("Get config from path", function() {
       expect(error)
         .to
         .have
-        .property("code", "CLI-02");
+        .property("code", "CORE-02");
       expect(error)
         .to
         .have
@@ -31,7 +34,7 @@ describe("Get config from path", function() {
       expect(error)
         .to
         .have
-        .property("code", "CLI-01");
+        .property("code", "CORE-01");
       expect(error)
         .to
         .have
