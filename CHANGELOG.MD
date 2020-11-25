@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.6.0-beta.1
+
+### Features 🚀
+
+### Shareable configuration
+
+It's now possible to use and extends [shareable configurations](./docs/shareable-configs.md) in LintHTML.
+Shareable configuration can be extended in a `.linthtmlrc*` file using the keyword `extends`.
+
+```json
+{
+    "extends": "my-linthtml-config",
+    "rules": {
+      // ...
+    }
+}
+```
+
+⚠ Shareable configuration can only be used with the [new config format](./docs/migrations.md#030-upgrade-guide).
+
+To learn more about shareable configuration and how to use them you can read the [documentation](./docs/configuration.md#extending-configuration-files).
+
 ## v0.5.1
 
 ### Fix 🛠️
