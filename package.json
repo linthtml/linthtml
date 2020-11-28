@@ -62,7 +62,7 @@
     "ora": "5.1.0",
     "resolve-from": "^5.0.0",
     "table-layout": "1.0.1",
-    "yaml": "^1.7.2"
+    "js-yaml": "^3.14.0"
   },
   "engines": {
     "node": ">8"
