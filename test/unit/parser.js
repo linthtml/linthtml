@@ -70,6 +70,59 @@ describe("linter", function() {
           }
         });
     });
+
+    it("multiple siblings", function() {
+      const output = parse(
+        [
+          "<div></div>",
+          "<div></div>",
+          "<div></div>"
+        ].join("\n")
+      );
+      expect(output)
+        .to
+        .have
+        .lengthOf(5, "3 divs and 2 text node are extracted");
+      expect(output[0].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 12
+          }
+        });
+      expect(output[2].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 2,
+            column: 1
+          },
+          end: {
+            line: 2,
+            column: 12
+          }
+        });
+      expect(output[4].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 3,
+            column: 1
+          },
+          end: {
+            line: 3,
+            column: 12
+          }
+        });
+    });
   });
 
   describe("onattribute", function() {
