@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.6.0-beta.2
+
+## Refactor 🧰
+
+### Remove [yaml package](https://www.npmjs.com/package/yaml
+
+LintHTML now use [js-yaml](https://www.npmjs.com/package/js-yaml) insteal of [yaml](https://www.npmjs.com/package/yaml) to generate the content of the configuration file (yaml format ^^). The package [js-yaml](https://www.npmjs.com/package/js-yaml) was already available thanks to [cosmiconfig](https://www.npmjs.com/package/cosmiconfig) so it was unnecessary to add a other package to deal with yaml.
+
+### Run indent-x rules on every node
+
+Previously, the rules `indent-style`, `indent-width`(...) were only run on the root tag of the HTML document linted. The other tags were accessed and checked by accessing the list of children nodes of the root tag (and the children nodes of the children...). This used to works, indent issues were reported correctly but by doing this, it was not possible to deactivate the rules for a specific part of the document using an inline config.
+
+Now, the rules is executed per node which make it possible to enable/disable the rules for a part of the DOM using an inline config.
+
 ## v0.6.0-beta.1
 
 ### Features 🚀
