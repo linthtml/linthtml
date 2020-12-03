@@ -61,8 +61,7 @@
     "meow": "7.1.1",
     "ora": "5.1.0",
     "resolve-from": "^5.0.0",
-    "table-layout": "1.0.1",
-    "js-yaml": "^3.14.0"
+    "table-layout": "1.0.1"
   },
   "engines": {
     "node": ">8"
