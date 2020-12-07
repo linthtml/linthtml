@@ -23,6 +23,13 @@
 * Tests should assert issues too (code, position...)
 ✔️ move rules tests in the rule folder
   
+## New rules
+
+- no-script-head -> Forbid the use of `script` tag in the head tag
+- no-style-tag -> Forbid the use of `style` tag
+- no-inline-javascript -> Forbid the use of JS code inside a tag attribute
+- no-inline-style -> forbid the use `style` attribute on tag
+ 
 
 ## deprecate rules
 
