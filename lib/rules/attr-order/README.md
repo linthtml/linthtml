@@ -1,6 +1,6 @@
 # attr-order
 
-Specify the order of attribues in HTML tag.
+Specify the order of attributes in HTML tag.
 
 # Options
 

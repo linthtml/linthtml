@@ -1,6 +1,6 @@
 # attrs-bans
 
-Specify a blacklist of disallowed HTML attributes.
+Specify a list of disallowed HTML attributes.
 
 ## Options
 
