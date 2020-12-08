@@ -123,6 +123,66 @@ describe("linter", function() {
           }
         });
     });
+
+    it("Correctly extract doctype position", function() {
+      const output = parse("<!DOCTYPE html>");
+      expect(output)
+        .to
+        .have
+        .lengthOf(1);
+      expect(output[0].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 16
+          }
+        });
+    });
+
+    it("Correctly extract doctype position when there's a comment before", function() {
+      const output = parse(
+        [
+          "<!-- foo -->",
+          "<!DOCTYPE html>"
+        ].join("\n")
+      );
+      expect(output)
+        .to
+        .have
+        .lengthOf(3, "1 comment, 1 text node and the doctype are extracted");
+      expect(output[0].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 1,
+            column: 1
+          },
+          end: {
+            line: 1,
+            column: 13
+          }
+        });
+      expect(output[2].loc)
+        .to
+        .deep
+        .equal({
+          start: {
+            line: 2,
+            column: 1
+          },
+          end: {
+            line: 2,
+            column: 16
+          }
+        });
+    });
   });
 
   describe("onattribute", function() {
