@@ -103,7 +103,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(5);
     });
 
-    it("quotes for valuese should not be mandatory", async function() {
+    it("quotes for values should not be mandatory", async function() {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
         "<!-- linthtml-configure line-end-style=false -->\r\n",
@@ -299,6 +299,26 @@ describe("inline-configuration", function() {
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
+    });
+
+    it("disable instructions report an error for nonexistent rule name", async function() {
+      const linter = createLinter({});
+      const html = "<!-- linthtml-disable id-no-no-ad-->";
+
+      const issues = await linter.lint(html);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("INLINE_02");
+      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
+    });
+
+    it("enable instructions in report an error for nonexistent rule name", async function() {
+      const linter = createLinter({});
+      const html = "<!-- linthtml-disable id-no-no-ad-->";
+
+      const issues = await linter.lint(html);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("INLINE_02");
+      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
     });
 
     it("enable instruction restore previous configuration", async function() {
