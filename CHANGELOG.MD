@@ -1,14 +1,32 @@
 # Changelog
 
+## v0.6.0-beta.3
+
+### Features 🚀
+
+#### New Inline instructions
+
+It's now possible to enable/disable rules by using `linthml-disable` and `linthtml-enable` in a document.
+There's a complete documentation about this new inline instruction in the [README](./README.md#disableenable-instructions).
+
+### Improvements 💅
+
+Some rules error messages have been improved to give more explanations about the problem.
+
+### Fix 🛠️
+
+- Doctype position is now correctly extracted and no longer messes with inline configurations when there's an inline config before the doctype.
+- Rules `class-style`, `id-style`, `id-class-no-ad`, `id-no-dup`, and `id-class-style` no longer crash when there's no value for `id` and `class` attributes.
+
 ## v0.6.0-beta.2
 
-## Refactor 🧰
+### Refactor 🧰
 
-### Remove [yaml package](https://www.npmjs.com/package/yaml
+#### Remove [yaml package](https://www.npmjs.com/package/yaml
 
 LintHTML now use [js-yaml](https://www.npmjs.com/package/js-yaml) insteal of [yaml](https://www.npmjs.com/package/yaml) to generate the content of the configuration file (yaml format ^^). The package [js-yaml](https://www.npmjs.com/package/js-yaml) was already available thanks to [cosmiconfig](https://www.npmjs.com/package/cosmiconfig) so it was unnecessary to add a other package to deal with yaml.
 
-### Run indent-x rules on every node
+#### Run indent-x rules on every node
 
 Previously, the rules `indent-style`, `indent-width`(...) were only run on the root tag of the HTML document linted. The other tags were accessed and checked by accessing the list of children nodes of the root tag (and the children nodes of the children...). This used to works, indent issues were reported correctly but by doing this, it was not possible to deactivate the rules for a specific part of the document using an inline config.
 
