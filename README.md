@@ -47,7 +47,7 @@ npm uninstall htmllint htmllint-cli
 ```
 
 Then rename the file `.htmlintrc` to `.linthtmlrc`.
-You might want to remove the rules `indent-delta` and `indent-width-cont` from there in case you where using them, since LintHTML's indent style checker deals with those aspects out of the box.
+You might want to remove the rules `indent-delta` and `indent-width-cont` from there in case you were using them since LintHTML's indent style checker deals with those aspects out of the box.
 
 Finally, install LintHTML:
 
@@ -57,29 +57,41 @@ npm install @linthtml/linthtml --save-dev
 
 ## Rules
 
-Current list of rules and deprecations can be found in [docs/rules.md](docs/rules.md).
+The list of current rules and deprecations can be found in [docs/rules.md](docs/rules.md).
 
 ### Global Configuration
 
-By default, LintHTML will look for a JSON, YAML or JavaScript file named `.linthtmlrc.*` or a `linthtmlConfig` section in `package.json`.
+By default, LintHTML will look for a `JSON`, `YAML`, or `JavaScript` file named `.linthtmlrc.*` or a `linthtmlConfig` section in `package.json`.
 Anyway, you can specify a custom configuration file using the `--config` option when running LintHTML in the command line.
 
 ### Inline Configuration
 
-Sometimes it is necessary to disable certain rules for a specific line, block or HTML file.
+Sometimes it is necessary to disable a rule or tweak the configuration for a specific line, block or HTML file.
 This might be the case, for example, for an inline SVG block of code.
-This can be achieved with inline configurations.
+This can be achieved by using inline configurations.
 
-Inline configurations are HTML comments beginning with the keyword `linthtml-configure`:
+Inline configurations are HTML comments beginning with the keyword `linthtml-XXX`.
 
-```html
-<!-- linthtml-configure [rule]="[value]" -->
-```
+`XXX` can be replaced with the following values, which are called instructions.
+Instructions have different effects:
+
+- `configure` : change a rule configuration for the HTML nodes that follow
+- `enable` : activate a rule which was has deactivated previously
+- `disable` : disable a rule
+
+#### Configure instruction
 
 Multiple rules can be set in a single inline configuration comment.
-Values must be surrounded with double/single quotes if they contain spaces, and must be either a valid value for the rule (encoded in pretty-much-JSON), or the string `$previous` (which is special value that recalls the former value of the rule for your convenience).
+Values must be surrounded with double/single quotes if they contain spaces, and must be either a valid value for the rule (encoded in pretty-much-JSON) or the string `$previous` (which is a special value that recalls the former value of the rule for your convenience).
 
 Some examples:
+
+* change the `tag-bans` rule value
+
+```html
+<!-- linthtml-configure tag-bans="['p','style']" -->
+<!-- linthtml-configure tag-bans=['p','style'] -->
+```
 
 * turn off the `attr-bans` rule
 
@@ -89,6 +101,8 @@ Some examples:
 <!-- linthtml-configure attr-bans="off" -->
 ```
 
+_We recommend using the enable/disable instructions instead 😉_
+
 * turn on the `attr-bans` rule
 
 ```html
@@ -96,24 +110,47 @@ Some examples:
 <!-- linthtml-configure attr-bans=true -->
 ```
 
-_⚠️ you can only turn on rules that have being deactivated by an inline config_
-
-* change the `tag-bans` rule value
-
-```html
-<!-- linthtml-configure tag-bans="['p','style']" -->
-<!-- linthtml-configure tag-bans=['p','style'] -->
-```
+_⚠️ you can only turn on rules that have been deactivated by an inline config_
+_We recommend using the enable/disable instructions instead 😉_
 
 * restore the previous value of the `tag-bans` rule
+_⚠️ works only with the legacy config at the moment_
 
 ```html
 <!-- linthtml-configure tag-bans="$previous" -->
 ```
 
-_⚠️ works only with the legacy config at the moment_
-
 It's worth noting that inline configurations only affect the file they're on, so if they are not explicitly reversed with the `$previous` value, they will just apply until the end of the file.
+
+#### Disable/Enable instructions
+
+The `disable` and `enable` instructions only deactivate and activate rules for a specific part of a document.
+
+Some examples:
+
+* turn off the `attr-bans` rule
+
+```html
+<!-- linthtml-disable attr-bans -->
+```
+
+* turn on the `attr-bans` rule
+
+```html
+<!-- linthtml-enable attr-bans -->
+```
+
+_⚠️ you can only turn on rules that have been deactivated by an inline config_
+
+Multiple rules can be provided to the instructions as long as they are separated by a `,`.
+
+```html
+<!-- linthtml-disable attr-bans,indent-style,id-style -->
+<!-- Spaces can be added to improve readability -->
+<!-- linthtml-disable attr-bans, indent-style, id-style -->
+```
+
+When no rules are provided to the instructions, the instructions will affect all rules available for the document that is analysed.
 
 ## Ecosystem
 
@@ -134,6 +171,3 @@ Contributions are welcome, please make sure to use the proper GitHub tag on your
 * `cli`: anything related to LintHTML's CLI
 * `rule`: anything related to the rules (bugs, improvements, docs, new rules...)
 * `core`: anything related to LintHTML's core (file parsing, plugin system...)
-
-<!-- ## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_large) -->
