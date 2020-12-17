@@ -50,7 +50,7 @@
   "dependencies": {
     "bulk-require": "1.0.1",
     "chalk": "4.1.0",
-    "cosmiconfig": "6.0.0",
+    "cosmiconfig": "7.0.0",
     "globby": "11.0.1",
     "htmlparser2": "^4.1.0",
     "ignore": "^5.1.4",
