@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.2
+
+### Fix 🛠️
+
+- rule `attr-new-line`, don't report errors when there's one attribute per line and rule config is `0` or `+0` (match the rule documentation)
+
 ## v0.5.1
 
 ### Fix 🛠️
