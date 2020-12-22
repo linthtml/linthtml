@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.6.0-beta.3",
+  "version": "0.6.0",
   "description": "The html5 linter and validator.",
   "repository": {
     "type": "git",
@@ -30,17 +30,16 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
     "@commitlint/cli": "11.0.0",
-    "@commitlint/config-angular": "11.0.0",
-    "@commitlint/config-conventional": "11.0.0",
+    "@commitlint/config-angular": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "chai": "4.2.0",
     "commitizen": "4.2.2",
     "conventional-changelog-cli": "2.1.1",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^5.0.0",
     "gulp": "4.0.2",
     "gulp-eslint": "6.0.0",
     "gulp-mocha": "7.0.2",
