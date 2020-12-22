@@ -5,68 +5,68 @@
 
 ## refactor
 
-✔️ [0.5.0][inline-config] Remove `preset=`, `${preset}`
-* [0.5.0][inline-config] Remove `$previous`
-✔️ [0.5.0] Remove speudo `line` rule
-✔️ [0.5.0?] Activate rule using string "on"
-* [0.5.0] Improve inline_config extraction
-  _ (rule1 rule2=config) (extract rule1 and rule2) 
-  _ (rule1= rule2=config) (extract rule1 and rule2) 
-  _ (rule1=config rule1) (extract rule1 and rule2)
+* [✔️] [0.5.0][inline-config] Remove `preset=`, `${preset}`
+* [ ] [0.5.0][inline-config] Remove `$previous`
+* [✔️] [0.5.0] Remove speudo `line` rule
+* [✔️] [0.5.0?] Activate rule using string "on"
+* [ ] [0.5.0] Improve inline_config extraction
+  * (rule1 rule2=config) (extract rule1 and rule2) 
+  * (rule1= rule2=config) (extract rule1 and rule2) 
+  * (rule1=config rule1) (extract rule1 and rule2)
   Use parser ?
-* add a rule to enforce href on links
-* rename rule `link-min-length-4` in `link-min-length` and add a length option
-* `raw-ignore-text` Find a better solution than the current one
-* Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
+* [ ] add a rule to enforce href on links
+* [ ] rename rule `link-min-length-4` in `link-min-length` and add a length option
+* [ ] `raw-ignore-text` Find a better solution than the current one
+* [ ] Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
   This funciton should be changed for a validation function that raise errors if config is not valid
-✔️ No rules by default
-* Tests should assert issues too (code, position...)
-✔️ move rules tests in the rule folder
+* [✔️] No rules by default
+* [ ] Tests should assert issues too (code, position...)
+* [✔️] move rules tests in the rule folder
   
 ## New rules
 
-- no-script-head -> Forbid the use of `script` tag in the head tag
-- no-style-tag -> Forbid the use of `style` tag
-- no-inline-javascript -> Forbid the use of JS code inside a tag attribute
-- no-inline-style -> forbid the use `style` attribute on tag
- 
+* [ ] no-script-head -> Forbid the use of `script` tag in the head tag
+* [ ] no-style-tag -> Forbid the use of `style` tag
+* [ ] no-inline-javascript -> Forbid the use of JS code inside a tag attribute
+* [ ] no-inline-style -> forbid the use `style` attribute on tag
 
 ## deprecate rules
 
-  - input-radio-req-name can be merged with input-req-name (don't exist yet)
-  - indent-delta don't understand this rule
-  - raw-ignore-regex it's no really a rule (maybe a options for the linter, but i'm not sure we should keep this option)
-  - maxerr convert in max maxWarn instead ?
-  - id-class-style
-  - attr-new-line: Get rid of "0+"
+* [ ] input-radio-req-name can be merged with input-req-name (don't exist yet)
+* [ ] indent-delta don't understand this rule
+* [ ] raw-ignore-regex it's no really a rule (maybe a options for the linter, but i'm not sure we should keep this option)
+* [ ] maxerr convert in max maxWarn instead ?
+* [ ] id-class-style
+* [ ] attr-new-line: Get rid of "0+"
   
 ## Fix rules naming convention
 
 * complete mane :
-  - req => require
-  - len => length
-  - dup => duplicate
+  * req => require
+  * len => length
+  * dup => duplicate
 
 ## Correct rules
 
-* `button-req-content` should check for aria-labelledby too
-* Rename `input-btn-req-value-or-title` (message from axe "Input buttons must have discernible text")
-* Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
-* `attr-req-value` should report an error for empty values (`''` or `""`). Can be an option like `strict`
-* `attr-req-value` should permit to whitelist attributes that can have no value (default should be boolean attributes like `disable`)
-* `attr-validate` should not accept `\b` `\t` in attributes's value 
-* `class-style` get rid of `bem` format ? Tests seems not valid and it's hard to tel what's BEM or not
-* merge `doctype-first` and `doctype-html5` (html5 should be an option (should be be default too ?))
-* `doctype-first` `smart` should be an option. `smart` should not report if doctype + html + head not present ?
-* `doctype-first` should return an error if first element is plain text (plain text is in fact a textNode)
-* `fig-req-figcaption`report error when figcaption is empty
-* `focusable-tab-index-style` rename the rule
-* `id-class-no-ad` deprecate this one ? Why not allow `ad`, `social`... in id or class ? (Can be replaced by a rule that ban word in attributes (using a regexp))
+* [ ] `button-req-content` should check for aria-labelledby too
+* [ ] Rename `input-btn-req-value-or-title` (message from axe "Input buttons must have discernible text")
+* [ ] Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
+* [ ] `attr-req-value` should report an error for empty values (`''` or `""`). Can be an option like `strict`
+* [ ] `attr-req-value` should permit to whitelist attributes that can have no value (default should be boolean attributes like `disable`)
+* [ ] `attr-validate` should not accept `\b` `\t` in attributes's value 
+* [ ] `class-style` get rid of `bem` format ? Tests seems not valid and it's hard to tel what's BEM or not
+* [ ] merge `doctype-first` and `doctype-html5` (html5 should be an option (should be be default too ?))
+* [ ] `doctype-first` `smart` should be an option. `smart` should not report if doctype + html + head not present ?
+* [ ] `doctype-first` should return an error if first element is plain text (plain text is in fact a textNode)
+* [ ] `fig-req-figcaption`report error when figcaption is empty
+* [ ] `focusable-tab-index-style` rename the rule
+* [ ] `id-class-no-ad` deprecate this one ? Why not allow `ad`, `social`... in id or class ? (Can be replaced by a rule that ban word in attributes (using a regexp))
+* [ ] `attr-new-line` value of 0 should not allow one attribut per line. Config should only accept >=1 ?
 
 ## Improve inline config
 
-✔️ The `preset` thing is totally overkill, hard to understand >< and not documented very well.
-* The `$previous` thing  is totally overkill and hard to understand >< , Maybe we can keep this one).
+* [✔️] The `preset` thing is totally overkill, hard to understand >< and not documented very well.
+* [ ] The `$previous` thing  is totally overkill and hard to understand >< , Maybe we can keep this one).
 
 Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 
@@ -76,22 +76,20 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 
 ## Coming "soon"
 
-- Tests for the `cli`.
-- Nice/cute logo (because every projects should have one)
-- A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
-- Translated `cli`. Like the website the `cli` should be available in as many language as possible
-✔️ Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
-- Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
-✔️ Warning level for rules.
-- Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
-- More to come 🤷‍♀️
-
+* [ ] Tests for the `cli`.
+* [ ] Nice/cute logo (because every projects should have one)
+* [ ] A website + online documentation to make it easier for everyone to use LintHTML. (The website will be accessible and available in as many language as possible)
+* [ ] Translated `cli`. Like the website the `cli` should be available in as many language as possible
+* [✔️] Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
+* [ ] Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
+* [✔️] Warning level for rules.
+* [ ] Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+* [ ] More to come 🤷‍♀️
 
 ## inline config
 
 `linthtml-enable, linthtml-disable, linthtml-configure` cannot be use to activate new rules
 only affect configured rules (already defined before)
-
 
 <div>
   <div>
