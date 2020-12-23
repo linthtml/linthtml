@@ -12,9 +12,13 @@ You can use the `--config` option to manually target a config file.
 
 The configuration object has the following properties:
 
-## rules
+- `rules` - [Contains the list of activated rules and their config](#activate-rules)
+- `ignoreFiles` - [Can be used to exclude files from linting](#ignore-files)
+- `extends` - [Use shared configurations](#extending-configuration-files)
 
-Rules determine what the linter looks and test. All rules are listed here [rules](./rules.md).
+## Activate rules
+
+Rules determine what the linter looks for and test. All rules are listed here [rules](./rules.md).
 The `rules` property is an object whose keys are rule names and values are rule configuration. For example:
 
 ```json
@@ -30,14 +34,16 @@ The `rules` property is an object whose keys are rule names and values are rule 
 
 Each rule configuration fits one of the following formats:
 
-- `false`, `true`, `"error"`, `"warning"` or `"off"`. `false` and `"off"` turn the rule off. `"warning"` will make the rules report a warning instead of an error.
+- `false`, `true`, `"error"`, `"warning"` or `"off"`.
+  - `false` and `"off"` turn the rule off.
+  - `"warning"` will make the rules report a warning instead of an error.
 - an array with two values (`[activation option, rule configuration]`)
 
-## ignoreFiles
+## Exclude files from linting
 
 You can provide a glob or array of globs to ignore specific files.
 
-For example, you can ignore all html files in the `foo` folder.
+For example, you can ignore all HTML files in the `foo` folder.
 
 ```json
 {
@@ -46,6 +52,66 @@ For example, you can ignore all html files in the `foo` folder.
 ```
 
 LintHTML by default ignore the `node_modules` directory and use the content of the `.gitignore` file.
-This is overriden if `ignoreFiles` is hidden.
+This is overridden if `ignoreFiles` is hidden.
 
 _Note: If your `ignoreFiles` list is large use the [`.linthtmlignore`](./ignore-code.md#entire-files) file_
+
+## Extending Configuration Files
+
+A configuration file can extend the set of enabled rules from base configurations.
+
+The `extends` property value is either:
+
+- a string that specifies a configuration (either a path to a config file, the name of a shareable config)
+- an array of strings: each additional configuration extends the preceding configurations
+
+LintHTML extends configurations recursively, so a base configuration can also have an `extends` property. Relative paths and shareable config names in an `extends` property are resolved from the location of the config file where they appear.
+
+The `rules` property can do any of the following to extend (or override) the set of rules:
+
+- enable additional rules
+<!-- - change an inherited rule's severity without changing its options: <---- Need to test - Nope doesn't work at the moment
+  - Base config: `"id-style": ["error", "underscore"]`
+  - Derived config: `"id-style": "warn"`
+  - Resulting actual config: `"id-style": ["warn", "underscore"]` -->
+- override options for rules from base configurations:
+  - Base config: `"attr-quote-style": ["error", "single"]`
+  - Derived config: `"attr-quote-style": ["error", "double"]`
+  - Resulting actual config: `"attr-quote-style": ["error", "double"]`
+
+### Using a shareable configuration package
+
+A [shareable configuration](./shareable-configuration) is an npm package that exports a configuration object. Make sure the package has been installed in a directory where LintHTML can require it.
+
+The `linthtml --init` command can create a configuration so you can extend a popular style guide (for example, `@linhtml/config-xxx`).
+
+Example of a configuration file in YAML format:
+
+```yaml
+extends: @linthtml/config-xxx
+rules:
+  line-max-len:
+    - error
+    - 80
+  id-style: warn
+```
+
+_LintHTML as a shareable configuration package you can use [@linhtml/config-xxx]()_
+
+### Using a configuration file
+
+The extends property value can be an absolute or relative path to a base configuration file. LintHTML resolves a relative path to a base configuration file relative to the configuration file that uses it.
+
+Example of a configuration file in JSON format:
+
+```json
+{
+    "extends": [
+        "./node_modules/coding-standard/linthtmlDefaults.js",
+        "./node_modules/coding-standard/.linthtmlrc-webc"
+    ],
+    "rules": {
+        "id-style": "warn"
+    }
+}
+```
