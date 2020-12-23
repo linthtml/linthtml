@@ -17,7 +17,7 @@ npm install @linthtml/linthtml --save-dev
 yarn add @linthtml/linthtml --dev
 ```
 
-And intialize a LintHTML configuration file (`.linthtmlrc`) either with `npx`:
+And initialize a LintHTML configuration file (`.linthtmlrc`) either with `npx`:
 
 ```shell
 npx linthtml --init
@@ -43,7 +43,7 @@ npm install -g @linthtml/linthtml
 yarn global add @linthtml/linthtml
 ```
 
-And intialize a LintHTML configuration file (`.linthtmlrc`) running:
+And initialize a LintHTML configuration file (`.linthtmlrc`) running:
 
 ```shell
 linthtml --init
