@@ -1,6 +1,6 @@
 # attr-quote-style
 
-Enforce the consistent use of quotes accross code.
+Enforce the consistent use of quotes across code.
 
 ## Options
 
