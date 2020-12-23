@@ -3,18 +3,22 @@ const { is_labelable } = require("../../lib/knife");
 
 describe("knife.is_labeable", function() {
   it("should return false for hidden input element", function() {
-    const ele = {
+    const node = {
       type: "tag",
       name: "input",
-      attribs: {
-        type: {
-          value: "hidden"
+      attributes: [{
+        type: "attribute",
+        name: {
+          chars: "type"
+        },
+        value: {
+          chars: "hidden"
         }
-      }
+      }]
     };
 
-    const output = is_labelable(ele);
+    const output = is_labelable(node);
 
-    expect(output).to.be.eql(false);
+    expect(output).to.be.false;
   });
 });

@@ -1,5 +1,107 @@
 # Changelog
 
+## v0.6.0
+
+### Features 🚀
+
+### Shareable configuration
+
+It's now possible to use and extends [shareable configurations](./docs/shareable-configs.md) in LintHTML.
+Shareable configuration can be extended in a `.linthtmlrc*` file using the keyword `extends`.
+
+```json
+{
+    "extends": "my-linthtml-config",
+    "rules": {
+      // ...
+    }
+}
+```
+
+⚠ Shareable configuration can only be used with the [new config format](./docs/migrations.md#030-upgrade-guide).
+
+To learn more about shareable configuration and how to use them you can read the [documentation](./docs/configuration.md#extending-configuration-files).
+
+#### New Inline instructions
+
+It's now possible to enable/disable rules by using `linthml-disable` and `linthtml-enable` in a document.
+There's a complete documentation about this new inline instruction in the [README](./README.md#disableenable-instructions).
+
+### Improvements 💅
+
+Some rules error messages have been improved to give more explanations about the problem.
+
+### Refactor 🧰
+
+#### Remove [yaml package](https://www.npmjs.com/package/yaml
+
+LintHTML now use [js-yaml](https://www.npmjs.com/package/js-yaml) insteal of [yaml](https://www.npmjs.com/package/yaml) to generate the content of the configuration file (yaml format ^^). The package [js-yaml](https://www.npmjs.com/package/js-yaml) was already available thanks to [cosmiconfig](https://www.npmjs.com/package/cosmiconfig) so it was unnecessary to add a other package to deal with yaml.
+
+#### Run indent-x rules on every node
+
+Previously, the rules `indent-style`, `indent-width`(...) were only run on the root tag of the HTML document linted. The other tags were accessed and checked by accessing the list of children nodes of the root tag (and the children nodes of the children...). This used to works, indent issues were reported correctly but by doing this, it was not possible to deactivate the rules for a specific part of the document using an inline config.
+
+Now, the rules is executed per node which make it possible to enable/disable the rules for a part of the DOM using an inline config.
+
+### Fix 🛠️
+
+- Doctype position is now correctly extracted and no longer messes with inline configurations when there's an inline config before the doctype.
+- Rules `class-style`, `id-style`, `id-class-no-ad`, `id-no-dup`, and `id-class-style` no longer crash when there's no value for `id` and `class` attributes.
+
+## v0.6.0-beta.3
+
+### Features 🚀
+
+#### New Inline instructions
+
+It's now possible to enable/disable rules by using `linthml-disable` and `linthtml-enable` in a document.
+There's a complete documentation about this new inline instruction in the [README](./README.md#disableenable-instructions).
+
+### Improvements 💅
+
+Some rules error messages have been improved to give more explanations about the problem.
+
+### Fix 🛠️
+
+- Doctype position is now correctly extracted and no longer messes with inline configurations when there's an inline config before the doctype.
+- Rules `class-style`, `id-style`, `id-class-no-ad`, `id-no-dup`, and `id-class-style` no longer crash when there's no value for `id` and `class` attributes.
+
+## v0.6.0-beta.2
+
+### Refactor 🧰
+
+#### Remove [yaml package](https://www.npmjs.com/package/yaml
+
+LintHTML now use [js-yaml](https://www.npmjs.com/package/js-yaml) insteal of [yaml](https://www.npmjs.com/package/yaml) to generate the content of the configuration file (yaml format ^^). The package [js-yaml](https://www.npmjs.com/package/js-yaml) was already available thanks to [cosmiconfig](https://www.npmjs.com/package/cosmiconfig) so it was unnecessary to add a other package to deal with yaml.
+
+#### Run indent-x rules on every node
+
+Previously, the rules `indent-style`, `indent-width`(...) were only run on the root tag of the HTML document linted. The other tags were accessed and checked by accessing the list of children nodes of the root tag (and the children nodes of the children...). This used to works, indent issues were reported correctly but by doing this, it was not possible to deactivate the rules for a specific part of the document using an inline config.
+
+Now, the rules is executed per node which make it possible to enable/disable the rules for a part of the DOM using an inline config.
+
+## v0.6.0-beta.1
+
+### Features 🚀
+
+### Shareable configuration
+
+It's now possible to use and extends [shareable configurations](./docs/shareable-configs.md) in LintHTML.
+Shareable configuration can be extended in a `.linthtmlrc*` file using the keyword `extends`.
+
+```json
+{
+    "extends": "my-linthtml-config",
+    "rules": {
+      // ...
+    }
+}
+```
+
+⚠ Shareable configuration can only be used with the [new config format](./docs/migrations.md#030-upgrade-guide).
+
+To learn more about shareable configuration and how to use them you can read the [documentation](./docs/configuration.md#extending-configuration-files).
+
 ## v0.5.2
 
 ### Fix 🛠️
