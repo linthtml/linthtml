@@ -7,12 +7,12 @@ Given :
 ```json
 {
   "tag-req-attr": {
-    img: [
+    "img": [
       {
-        name: "src"
+        "name": "src"
       },
       {
-        name: "alt"
+        "name": "alt"
       }
     ]
   }
