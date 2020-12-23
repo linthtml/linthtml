@@ -20,15 +20,16 @@ Since `index.js` is just JavaScript, you can optionally read these settings from
 
 ## Publishing a Shareable Config
 
-Once your shareable config is ready, you can [publish to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages) to share with others. We recommend using the `linthtml` and `linthtmlconfig` keywords so others can easily find your module.
+Once your shareable config is ready, you can [publish to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages) to share with others. We recommend using the `linthtml` and `linthtml-config` keywords so others can easily find your module.
 
 You should declare your dependency on LintHTML in `package.json` using the [peerDependencies](https://docs.npmjs.com/files/package.json#peerdependencies) field. <!-- The recommended way to declare a dependency for future proof compatibility is with the ">=" range syntax, using the lowest required LintHTML version. For example: -->
 
-```
+```json
 "peerDependencies": {
     "@linthtml/linthtml": "^0.6.0"
 }
 ```
+
 <!-- 
 If your shareable config depends on a plugin, you should also specify it as a `peerDependency` (plugins will be loaded relative to the end user's project, so the end user is required to install the plugins they need). However, if your shareable config depends on a third-party parser or another shareable config, you can specify these packages as `dependencies`. -->
 
@@ -55,6 +56,8 @@ Shareable configs are designed to work with the `extends` feature of `.linthtmlr
     "extends": "my-linthtml-config"
 }
 ```
+
+_LintHTML has a shared config you can use, [linthtml-config-recommended](https://github.com/linthtml/linthtml-config-recommended)_
 
 ### npm scoped modules
 
