@@ -42,7 +42,7 @@ Define how void element must be closed.
 
 Possible values :
 
-* `"always"`: Void elements must be self-closed with `/` (html4 style).',
+* `"always"`: Void elements must be self-closed with `/` (xhtml style).',
 * `"never"`: Void elements must not be self-closed with `/` (html5 style).',
 * `false`: No restriction.",
 
