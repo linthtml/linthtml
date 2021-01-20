@@ -62,9 +62,9 @@ describe("Legcay Config", function() {
 
       const addedRule = config.getRule("test");
 
-      expect(addedRule.name).to.be.eql("test");
-      expect(addedRule.on).to.be.undefined;
-      expect(addedRule.subscribers).to.be.eql([]);
+      expect(addedRule.name).to.equal("test");
+      expect(addedRule.on).to.equal("dom", "Default value for 'on' should be 'dom'");
+      expect(addedRule.subscribers).to.deep.equal([]);
     });
 
     it("should not initialize the same rule twice", function() {
