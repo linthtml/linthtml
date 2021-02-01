@@ -1,5 +1,4 @@
-# lang
+# indent-delta
 
 ⚠ This rule does nothing.
 Inherited form HTMLLint not removed to stay compatible (config) but rule will not return any error.
-Use `html-req-lang` and `lang-style` instead
