@@ -12,8 +12,8 @@ There're two ways to set a value for this config:
 
   ```json
   {
-      "attr-name-style": "lowercase",
-      "attr-name-ignore-regex": "attribute-to-ignore"
+      "line-length": "lowercase",
+      "line-max-len-ignore-regex": 80
   }
   ```
 
@@ -21,9 +21,9 @@ There're two ways to set a value for this config:
 
   ```json
   {
-      "attr-name-ignore-regex": "attribute-to-ignore",
+      "line-max-len-ignore-regex": "pattern-to-ignore",
       "rules": {
-        "attr-name-style": [true, "lowercase"]
+        "line-length": [true, 80]
       }
   }
   ```
