@@ -1,6 +1,6 @@
 # id-class-style
 
-A format specifier, or `false`. If set, `id`s and `class`es must fit the given format. May be overridden by `class-style` for classes and `id-style` for ids.
+A format specifier, or `false`. If set, `id`s and `class`es must fit the given format. May be overridden by [class-style](../class-style/README.md) for classes and [id-style](../id-style/README.md) for ids.
 
 Possible values :
 
