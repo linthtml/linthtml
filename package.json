@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "The html5 linter and validator.",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp tests",
+    "test": "mocha './test/**/*.js' './lib/rules/**/__tests__/*.js' --bail",
     "lint": "eslint .",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
     "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",
@@ -33,7 +33,7 @@
     "@commitlint/config-angular": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "chai": "4.2.0",
-    "commitizen": "4.2.2",
+    "commitizen": "^4.2.3",
     "conventional-changelog-cli": "2.1.1",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.16.0",
@@ -41,8 +41,6 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "gulp": "4.0.2",
-    "gulp-mocha": "7.0.2",
     "lodash.template": ">=4.5.0",
     "mocha": "8.2.1"
   },
@@ -51,14 +49,14 @@
     "chalk": "4.1.0",
     "cosmiconfig": "7.0.0",
     "global-modules": "^2.0.0",
-    "globby": "11.0.1",
+    "globby": "^11.0.2",
     "htmlparser2": "^5.0.1",
     "ignore": "^5.1.4",
     "inquirer": "^7.0.4",
     "kebabcase": "1.0.1",
     "lodash.pull": "4.1.0",
-    "meow": "8.0.0",
-    "ora": "5.1.0",
+    "meow": "^9.0.0",
+    "ora": "^5.3.0",
     "resolve-from": "^5.0.0",
     "table-layout": "1.0.1",
     "js-yaml": "^3.14.0"
@@ -88,10 +86,5 @@
     "lib"
   ],
   "author": "Benjamin JEGARD <kamikillerto@gmail.com>",
-  "private": false,
-  "nyc": {
-    "exclude": [
-      "gulpfile.js"
-    ]
-  }
+  "private": false
 }

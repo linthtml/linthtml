@@ -19,6 +19,6 @@ The following patterns are not considered violations:
 
 ```html
 <head>
-  <title>Titre</title>
+  <title>Title</title>
 </head>
 ```

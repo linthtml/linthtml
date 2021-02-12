@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.6.1
+
+### Fix 🛠️
+
+- Rule `inpu-req-label` no longer report an error for input with type "hidden".
+- Rule `inpu-req-label` no longer report an error for input with type "button" when the attribut value has a non empty value.
+
 ## v0.6.0
 
 ### Features 🚀
