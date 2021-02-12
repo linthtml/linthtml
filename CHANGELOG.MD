@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.0-beta.1
+
+### Refactor 🧰
+
+Move nested rules into their own folder. The code for rules like `indent-width`, `indent-style`... are no longer mixed in the files.
+
 ## v0.6.3
 
 ### Fix 🛠️
