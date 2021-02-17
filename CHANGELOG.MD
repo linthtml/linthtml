@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.0-beta.2
+
+### Fix 🛠️
+
+- Correctly define `--print-config` option with meow
+
 ## v0.7.0-beta.1
 
 ### Refactor 🧰
