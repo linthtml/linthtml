@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.6.3
+
+### Fix 🛠️
+
+- Rule `indent-width` no longer report an error for such HTML
+
+```html
+<script
+  src="http://link.com"
+></script>
+```
+
 ## v0.6.2
 
 ### Fix 🛠️
@@ -10,8 +22,8 @@
 
 ### Fix 🛠️
 
-- Rule `inpu-req-label` no longer report an error for input with type "hidden".
-- Rule `inpu-req-label` no longer report an error for input with type "button" when the attribut value has a non empty value.
+- Rule `input-req-label` no longer report an error for input with type "hidden".
+- Rule `input-req-label` no longer report an error for input with type "button" when the attribut value has a non empty value.
 
 ## v0.6.0
 
