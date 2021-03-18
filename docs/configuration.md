@@ -96,7 +96,7 @@ rules:
   id-style: warn
 ```
 
-_LintHTML as a shareable configuration package you can use [@linhtml/config-xxx]()_
+_LintHTML as a shareable configuration package you can use [@linhtml/linthtml-config-recommended](https://github.com/linthtml/linthtml-config-recommended)_
 
 ### Using a configuration file
 
@@ -115,3 +115,25 @@ Example of a configuration file in JSON format:
     }
 }
 ```
+
+### Using a custom parser
+
+By default, LintHTML uses [htmlparser2](https://github.com/fb55/htmlparser2) as its parser but with a custom AST format in output. You can optionally specify that a different parser should be used in your configuration file so long as the parser meets the following requirements:
+
+1. It must be a Node module loadable from the config file where the parser is used. Usually, this means you should install the parser package separately using npm.
+2. It must conform to the parser [interface](./custom-parser.md).
+
+To indicate the npm module to use as your parser, specify it using the `parser` option in your `.linthtmlrc` file.
+For example, the following specifies to use `linthtml-pug` parser:
+
+```json
+{
+    "parser": "@linthtml/linthtml-pug",
+    "rules": {
+    }
+}
+```
+
+Here's a list of parser that are compatible with LintHTML:
+
+- `@linthtml/linthtml-pug` - A wrapper around the [PUG](https://pugjs.org/) parser that makes it compatible with LintHTML.
