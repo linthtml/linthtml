@@ -33,7 +33,6 @@ interface Node {
  parent?: Node;
  previousSibling: Node;
  nextSibling?: Node;
- indent: string; // [deprecated] Contains indentation chars present before a tag (spaces or tabs)
 
  startIndex: number; 
  endIndex: number; 
