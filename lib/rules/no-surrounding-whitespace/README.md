@@ -2,7 +2,6 @@
 
 Disallow extra spacing just after a tag is opened and just before a tag is closed.
 
-
 ## The following patterns are considered violations
 
 ```html
@@ -42,6 +41,7 @@ Disallow extra spacing just after a tag is opened and just before a tag is close
 ```html
 <p><!-- comment --><strong>Lorem</strong> ipsum</p>
 ```
+
 ```html
 <p>Lorem <strong>ipsum</strong></p>
 ```
@@ -73,4 +73,3 @@ Disallow extra spacing just after a tag is opened and just before a tag is close
 ```html
 <div></div>
 ```
-

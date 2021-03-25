@@ -48,7 +48,7 @@ You can pass the "smart" as value for the rule. This value allow the none presen
 Given :
 
 ```
-  "doctype-first": "smart"
+  "doctype-first": ["error", "smart"]
 ```
 
 The following patterns are considered violations:

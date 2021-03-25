@@ -4,12 +4,14 @@ Specify a list of disallowed HTML attributes.
 
 ## Options
 
-`attr-bans`: `["array", "of", "unwanted", "attributes"]`
-`attr-bans`: `"attributes"`
-`attr-bans`: `/regex/`
-`attr-bans`: `[/regex/]`
+The rule accept the following formats as configuration:
 
-Default:
+- `["array", "of", "unwanted", "attributes"]`
+- `"attributes"`
+- `/regex/`
+- `[/regex/]`
+
+By default the rule disallow the following attibutes:
 
 ```js
 [

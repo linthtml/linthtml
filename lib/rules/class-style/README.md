@@ -16,7 +16,7 @@ Possible values :
 Given:
 
 ```
-  "class-style": "underscore"
+  "class-style": ["error", "underscore"]
 ```
 
 The following patterns are considered violations:

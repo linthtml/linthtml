@@ -11,7 +11,7 @@ Given:
 
 ```json
 {
-  "attr-new-line": "1"
+  "attr-new-line": [true, "1"]
 }
 ```
 
@@ -32,7 +32,7 @@ Given:
 
 ```json
 {
-  "attr-new-line": "0"
+  "attr-new-line": [true, "0"]
 }
 ```
 
@@ -54,7 +54,7 @@ Given:
 
 ```json
 {
-  "attr-new-line": "+0"
+  "attr-new-line": [true, "+0"]
 }
 ```
 

@@ -13,7 +13,7 @@ There're two ways to set a value for this config:
   ```json
   {
       "line-length": "lowercase",
-      "line-max-len-ignore-regex": 80
+      "line-max-len-ignore-regex": "pattern-to-ignore"
   }
   ```
 

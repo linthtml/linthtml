@@ -16,7 +16,7 @@ Possible values :
 Given:
 
 ```
-  "id-style": "underscore"
+  "id-style": ["error", "underscore"]
 ```
 
 The following patterns are considered violations:

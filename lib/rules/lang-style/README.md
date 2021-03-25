@@ -5,7 +5,7 @@ If set, the lang tag must have a valid form (`xx-YY`, where `xx` is a valid lang
 Given:
 
 ```
-  "lang-style": "xx"
+  "lang-style": [true, "xx"]
 ```
 
 The following patterns are considered violations:
