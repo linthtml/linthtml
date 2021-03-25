@@ -6,16 +6,19 @@ Given :
 
 ```json
 {
-  "tag-req-attr": {
-    "img": [
-      {
-        "name": "src"
-      },
-      {
-        "name": "alt"
-      }
-    ]
-  }
+  "tag-req-attr": [
+    true,
+    {
+      "img": [
+        {
+          "name": "src"
+        },
+        {
+          "name": "alt"
+        }
+      ]
+    }
+  ]
 }
 ```
 

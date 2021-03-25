@@ -1,5 +1,43 @@
 # Changelog
 
+## v0.7.0-beta.4
+
+### Breaking change ⚠️
+
+#### Parser now return root node
+
+Because of the latest version of [htmlparser2](https://github.com/fb55/htmlparser2#readme) the HTML parser now return a single node instead of an array of nodes. The node returned by the parser is the `root` node of the HTML document parsed.
+
+This internal change has also an impact on the new parser feature. Custom parsers will also have to return a `root` node to LintHTML.
+
+### Refactor 🧰
+
+#### Remove `indent` property to node
+
+Nodes no longer have the property `indent`. This property was used by the rules `indent-*` to know what type of indentation is present before a node.
+But this property was not necessary, a node indentation can be found by looking at the previous node. If the previous node is a text node with only spaces/tabs chars then it's an indentation node and we can use it, otherwise, it means that the node has no indentation.
+
+## v0.7.0-beta.3
+
+### Provide a custom parser
+
+It's now possible to provide a custom parser to the linter using the property `parser` in the config file.
+This property accept a string value, which could be the name of package or the path to a file. The file or package should expose a function that takes a string value in input (HTML to parse) and return an AST tree compatible with LintHTML.
+
+You can have a look to [@linthtml/linthtml-pug](https://github.com/linthtml/linthtml-pug) to see an example of a custom parser.
+
+## v0.7.0-beta.2
+
+### Fix 🛠️
+
+- Correctly define `--print-config` option with meow
+
+## v0.7.0-beta.1
+
+### Refactor 🧰
+
+Move nested rules into their own folder. The code for rules like `indent-width`, `indent-style`... are no longer mixed in the files.
+
 ## v0.6.3
 
 ### Fix 🛠️

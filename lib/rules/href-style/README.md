@@ -15,7 +15,7 @@ _Links to fragments (those starting with `#`) are not checked._
 Given:
 
 ```
-  "href-style": "relative"
+  "href-style": [true, "relative"]
 ```
 
 The following patterns are considered violations:
