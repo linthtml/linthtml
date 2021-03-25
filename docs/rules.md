@@ -1,6 +1,7 @@
 # Rules
 
-Here is the list of all rules available in LintHTML
+The following table contains the list of all rules available in Link HTML.
+To learn more about how activate or configure rules, have a look to this [documentation page](./configuration.md).
 
 | Rule name                                                                                   | Description                                                                |
 | :------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------- |
