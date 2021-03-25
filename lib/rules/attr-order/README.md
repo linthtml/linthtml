@@ -2,14 +2,17 @@
 
 Specify the order of attributes in HTML tag.
 
-# Options
+## Options
 
-["class", "of", "attributes"]
+There rule accept as configuration an array of strings (example: ["class", "of", "attributes"]).
 
 Given:
 
-```
-  "attr-order": ["class", "id"]
+```js
+  "attr-order": [
+    "error",
+    ["class", "id"]
+  ]
 ```
 
 The following patterns are considered violations:

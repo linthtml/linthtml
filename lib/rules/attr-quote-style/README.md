@@ -13,7 +13,7 @@ Possible values :
 Given:
 
 ```
-  "attr-quote-style": "double"
+  "attr-quote-style": [true, "double"]
 ```
 
 The following patterns are considered violations:

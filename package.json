@@ -1,10 +1,10 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.6.1",
-  "description": "The html5 linter and validator.",
+  "version": "0.7.0",
+  "description": "The HTML5 linter and validator you need",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/KamiKillertO/linthtml.git"
+    "url": "git+ssh://git@github.com/linthtml/linthtml.git"
   },
   "bin": {
     "linthtml": "bin/linthtml.js"
@@ -29,10 +29,10 @@
   "license": "ISC",
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
-    "@commitlint/cli": "11.0.0",
-    "@commitlint/config-angular": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "chai": "4.2.0",
+    "@commitlint/cli": "12.0.1",
+    "@commitlint/config-angular": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "chai": "4.3.4",
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "2.1.1",
     "cz-conventional-changelog": "^3.2.0",
@@ -42,7 +42,8 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "lodash.template": ">=4.5.0",
-    "mocha": "8.2.1"
+    "mocha": "8.3.2",
+    "rewiremock": "^3.14.3"
   },
   "dependencies": {
     "bulk-require": "1.0.1",
@@ -50,7 +51,7 @@
     "cosmiconfig": "7.0.0",
     "global-modules": "^2.0.0",
     "globby": "^11.0.2",
-    "htmlparser2": "^5.0.1",
+    "htmlparser2": "^6.0.1",
     "ignore": "^5.1.4",
     "inquirer": "^7.0.4",
     "kebabcase": "1.0.1",

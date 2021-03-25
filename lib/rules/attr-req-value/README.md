@@ -2,7 +2,6 @@
 
 If set, attribute values cannot be empty.
 
-
 _⚠️Boolean attributes such as `hidden` and `checked` do not require values, but no attribute may have an equals sign but no value after it, like `<div class=></div>`, as this is invalid html._
 
 The following patterns are considered violations:
