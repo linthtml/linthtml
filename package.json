@@ -1,10 +1,10 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.7.0-beta.4",
-  "description": "The html5 linter and validator.",
+  "version": "0.7.0",
+  "description": "The HTML5 linter and validator you need",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/KamiKillertO/linthtml.git"
+    "url": "git+ssh://git@github.com/linthtml/linthtml.git"
   },
   "bin": {
     "linthtml": "bin/linthtml.js"

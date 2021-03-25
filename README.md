@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/linthtml/linthtml/badge.svg?branch=develop)](https://coveralls.io/github/linthtml/linthtml?branch=develop)
 <!-- [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flinthtml%2Flinthtml?ref=badge_shield) -->
 
-> An unofficial HTML5 linter and validator.
+> The HTML5 linter and validator you need.
 
 LintHTML is a fork of [htmllint](https://github.com/htmllint/htmllint) featuring a built-in CLI and multiple bug fixes and improvements.
 The migration from htmllint to LintHTML is easy, as all htmllint's rules can be used with LintHTML – just follow this [simple guide](#migrate-from-htmllint).
