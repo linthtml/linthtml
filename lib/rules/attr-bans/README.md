@@ -1,4 +1,4 @@
-# attrs-bans
+# attr-bans
 
 Specify a list of disallowed HTML attributes.
 
