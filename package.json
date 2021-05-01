@@ -74,9 +74,9 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/KamiKillertO/linthtml/issues"
+    "url": "https://github.com/linthtml/linthtml/issues"
   },
-  "homepage": "https://github.com/KamiKillertO/linthtml#readme",
+  "homepage": "https://github.com/linthtml/linthtml#readme",
   "directories": {
     "doc": "docs",
     "lib": "lib",
