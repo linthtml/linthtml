@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "The HTML5 linter and validator you need",
   "repository": {
     "type": "git",
