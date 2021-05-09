@@ -63,7 +63,7 @@
     "js-yaml": "^3.14.0"
   },
   "engines": {
-    "node": ">8"
+    "node": ">10"
   },
   "contributors": [
     "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"
