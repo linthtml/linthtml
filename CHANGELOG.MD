@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.7.2
+
+### Fix 🛠️
+
+- Rule `indent-width` now longer ignore nodes that are siblings with a text node ending with an EOL char
+
+```html
+<div>
+  foo
+   <span>bar</span>
+  <!-- Now the previous node is correctly handle and this report an error -->
+</div>
+```
+
 ## v0.7.0
 
 ### Breaking change ⚠️
