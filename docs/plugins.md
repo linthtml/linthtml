@@ -5,20 +5,18 @@ It's recommanded to use the format `linthtml-plugin-<plugin-name>`. you can also
 
 ## Expose Rules in Plugins
 
-Plugins can expose additional rules for use in LintHTML. To do so, the plugin must export a rules object containing a key-value mapping of rule ID to rule.
-The rule ID (or name) should follow the pattern `<plugin-name>/<rule-id>`.
+Plugins can expose additional rules for use in LintHTML. To do so, the plugin must export am arrayof rules objects.
+The rules should contains a `property` matching the following pattern `<plugin-name>/<rule-id>`.
 For exemple:
 
 ```js
 module.exports = {
-    rules: {
-        "a11y/heading-level": {
-          name: "a11y/heading-level",
-          lint(node, rule_config, { report }) {
-            // rule implementation ...
-          }
-        }
-    }
+    rules: [{
+      name: "a11y/heading-level",
+      lint(node, rule_config, { report }) {
+        // rule implementation ...
+      }
+    }]
 };
 ```
 
