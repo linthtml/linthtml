@@ -120,6 +120,7 @@ describe("Load extends config", function() {
         extends: [
           "./config-attr-bans"
         ],
+        plugins: [],
         rules: {
           "attr-bans": true
         }
@@ -155,6 +156,7 @@ describe("Load extends config", function() {
       .deep
       .equal({
         extends: "./config-attr-bans",
+        plugins: [],
         rules: {
           "attr-bans": true
         }
@@ -172,6 +174,7 @@ describe("Load extends config", function() {
           "./config-attr-bans",
           "./config-tag-bans"
         ],
+        plugins: [],
         rules: {
           "attr-bans": true,
           "indent-style": [
@@ -199,6 +202,7 @@ describe("Load extends config", function() {
           "./config-attr-bans",
           "./config-tag-bans"
         ],
+        plugins: [],
         rules: {
           "attr-bans": "off",
           "tag-bans": [
@@ -213,3 +217,5 @@ describe("Load extends config", function() {
 
   // Add function to load_extends from given config object (not only paths)?
 });
+
+// describe("Load plugins",)
