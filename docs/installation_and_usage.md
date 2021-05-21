@@ -5,6 +5,7 @@ Although the installation and usage instructions given in the general README are
 ## Installation
 
 ### Locally
+
 In most cases you'll want to include LintHTML as part of your project's build system. To do so, you can install LintHTML either with `npm`:
 
 ```shell
