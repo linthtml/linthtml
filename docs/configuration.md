@@ -137,3 +137,21 @@ For example, the following specifies to use `linthtml-pug` parser:
 Here's a list of parser that are compatible with LintHTML:
 
 - `@linthtml/linthtml-pug` - A wrapper around the [PUG](https://pugjs.org/) parser that makes it compatible with LintHTML.
+
+### Using plugins
+
+It's possible to extends the capabilities of LintHTML by providing more rules using Plugins.
+
+Plugins should be listed in the `plugins` option in your `.linthtmlrc` file, the property accept either a string or an array of strings.
+
+For example:
+
+```json
+{
+    "plugins": ["@linthtml/linthtml-pug", "linthtml-plugin-custom"],
+    "rules": {
+    }
+}
+```
+
+To learn more about Plugins and how to expose rules read the [Plugins documentation page](./plugins.md).
