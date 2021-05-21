@@ -121,6 +121,7 @@ describe("Load extends config", function() {
           "./config-attr-bans"
         ],
         plugins: [],
+        plugins_rules: {},
         rules: {
           "attr-bans": true
         }
@@ -157,6 +158,7 @@ describe("Load extends config", function() {
       .equal({
         extends: "./config-attr-bans",
         plugins: [],
+        plugins_rules: {},
         rules: {
           "attr-bans": true
         }
@@ -175,6 +177,7 @@ describe("Load extends config", function() {
           "./config-tag-bans"
         ],
         plugins: [],
+        plugins_rules: {},
         rules: {
           "attr-bans": true,
           "indent-style": [
@@ -203,6 +206,7 @@ describe("Load extends config", function() {
           "./config-tag-bans"
         ],
         plugins: [],
+        plugins_rules: {},
         rules: {
           "attr-bans": "off",
           "tag-bans": [
