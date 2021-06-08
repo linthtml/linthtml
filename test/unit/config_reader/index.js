@@ -1,9 +1,10 @@
 const { expect } = require("chai");
+const rewiremock = require("rewiremock/node");
+const path = require("path");
 const {
   config_from_path,
   find_local_config
 } = require("../../../lib/read-config");
-const path = require("path");
 
 describe("Get config from path", function() {
   it("Report an error if path provided does not exist", function() {
@@ -222,4 +223,126 @@ describe("Load extends config", function() {
   // Add function to load_extends from given config object (not only paths)?
 });
 
-// describe("Load plugins",)
+describe("Load plugins", function() {
+  it("Load and merge rules from plugins", function() {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const { config } = config_from_path(config_path);
+    expect(config.plugins)
+      .to
+      .deep
+      .equal([
+        plugin_path
+      ]);
+    expect(config.plugins_rules)
+      .to
+      .not
+      .be
+      .null;
+    expect(config.plugins_rules["my-plugin/rule"])
+      .to
+      .have
+      .property("name", "my-plugin/rule");
+    expect(config.plugins_rules["my-plugin/rule"].lint)
+      .to
+      .be
+      .a("function");
+  });
+  it("Throw an error when rule does not have a name", function() {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    rewiremock.overrideEntryPoint(module);
+    rewiremock(plugin_path).with({
+    });
+    rewiremock.enable();
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-06");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          plugin_name: plugin_path
+        });
+    }
+    rewiremock.disable();
+  });
+  it("Throw an error when rule's name is not prefixed", function() {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    rewiremock.overrideEntryPoint(module);
+    rewiremock(plugin_path).with({
+      name: "my-rule"
+    });
+    rewiremock.enable();
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-07");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          plugin_name: plugin_path,
+          rule_name: "my-rule"
+        });
+    }
+    rewiremock.disable();
+  });
+  it("Throw an error when rule does not have a lint function", function() {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    rewiremock.overrideEntryPoint(module);
+    rewiremock(plugin_path).with({
+      name: "my/my-rule"
+    });
+    rewiremock.enable();
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-08");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          rule_name: "my/my-rule"
+        });
+    }
+    rewiremock.disable();
+  });
+  it("Throw an error when rule does not have a lint function", function() {
+    const config_path = path.join(__dirname, "fixtures", "invalid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-05");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          module_name: "foo"
+        });
+    }
+  });
+});
