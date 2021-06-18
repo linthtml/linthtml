@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.8.0-beta.2
+
+### Fix 🛠️
+
+#### Split rules
+
+Fix error in plugins docs.
+
+
 ## v0.8.0-beta.1
 
 ### Features 🚀
