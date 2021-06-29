@@ -1,4 +1,4 @@
-# doctype-first
+# doctype-html5
 
 If set, the doctype should be HTML5 one
 
