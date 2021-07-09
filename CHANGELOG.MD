@@ -1,13 +1,24 @@
 # Changelog
 
+## v0.8.0
+
+### Features 🚀
+
+#### Provide Plugins
+
+It's now possible to provide plugins to LintHTML using the property `plugins` in the config file.
+This property accept a string or an array of strings. The string values can be the name of a package or the path to a file.
+To learn more about Plugins read [the documentation page](./docs/plugins.md).
+
+### Fix 🛠️
+
+Value for settings `attr-name-ignore-regex` and `id-class-ignore-regex` are now correctly converted to regexp when coming from a json config file.
+
 ## v0.8.0-beta.2
 
 ### Fix 🛠️
 
-#### Split rules
-
 Fix error in plugins docs.
-
 
 ## v0.8.0-beta.1
 
