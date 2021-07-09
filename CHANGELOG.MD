@@ -1,5 +1,49 @@
 # Changelog
 
+## v0.8.0
+
+### Features 🚀
+
+#### Provide Plugins
+
+It's now possible to provide plugins to LintHTML using the property `plugins` in the config file.
+This property accept a string or an array of strings. The string values can be the name of a package or the path to a file.
+To learn more about Plugins read [the documentation page](./docs/plugins.md).
+
+### Fix 🛠️
+
+Value for settings `attr-name-ignore-regex` and `id-class-ignore-regex` are now correctly converted to regexp when coming from a json config file.
+
+## v0.8.0-beta.2
+
+### Fix 🛠️
+
+Fix error in plugins docs.
+
+## v0.8.0-beta.1
+
+### Features 🚀
+
+#### Provide Plugins
+
+It's now possible to provide plugins to LintHTML using the property `plugins` in the config file.
+This property accept a string value or an array of string, which could be the name of package or the path to a file.
+To learn more about Plugins read [the documentation page](./docs/plugins.md).
+
+## v0.7.2
+
+### Fix 🛠️
+
+- Rule `indent-width` now longer ignore nodes that are siblings with a text node ending with an EOL char
+
+```html
+<div>
+  foo
+   <span>bar</span>
+  <!-- Now the previous node is correctly handle and this report an error -->
+</div>
+```
+
 ## v0.7.0
 
 ### Breaking change ⚠️
@@ -12,7 +56,7 @@ This internal change has also an impact on the new parser feature. Custom parser
 
 ### Features 🚀
 
-### Provide a custom parser
+#### Provide a custom parser
 
 It's now possible to provide a custom parser to the linter using the property `parser` in the config file.
 This property accept a string value, which could be the name of package or the path to a file. The file or package should expose a function that takes a string value in input (HTML to parse) and return an AST tree compatible with LintHTML.

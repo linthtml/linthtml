@@ -62,6 +62,7 @@ The list of current rules and deprecations can be found in [docs/rules.md](docs/
 
 By default, LintHTML will look for a `JSON`, `YAML`, or `JavaScript` file named `.linthtmlrc.*` or a `linthtmlConfig` section in `package.json`.
 Anyway, you can specify a custom configuration file using the `--config` option when running LintHTML in the command line.
+See our documentation about [configuration](./docs/configuration.md) to see how to configure rules, use custom parser, plugins...
 
 ### Inline Configuration
 
