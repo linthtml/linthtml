@@ -43,11 +43,10 @@ This version adds a new format for the configuration file that should be easier 
 
 To migrate from the legacy format to the new one you need to do two things:
 
-- Nest all rules under `rules`, except `spec-char-escape`, `text-ignore-regex`, `raw-ignore-regex`, `attr-name-ignore-regex`, `id-class-ignore-regex` and `line-max-len-ignore-regex`.
+- Nest all rules under `rules`, except `text-ignore-regex`, `raw-ignore-regex`, `attr-name-ignore-regex`, `id-class-ignore-regex` and `line-max-len-ignore-regex`.
 
 ```diff
 {
-  "spec-char-escape": false,
   "text-ignore-regex": false,
   "raw-ignore-regex": false,
 -  "indent-style": ...,

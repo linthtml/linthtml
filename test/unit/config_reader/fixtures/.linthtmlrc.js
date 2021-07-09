@@ -1,6 +1,5 @@
 module.exports = {
   "maxerr": false,
-  "spec-char-escape": false,
   "text-ignore-regex": false,
   "raw-ignore-regex": false,
   "attr-name-ignore-regex": false,
