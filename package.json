@@ -22,7 +22,8 @@
     "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md",
+    "postinstall": "lerna bootstrap --hoist"
   },
   "license": "ISC",
   "devDependencies": {
