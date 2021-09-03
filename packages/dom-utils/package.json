@@ -1,0 +1,26 @@
+{
+  "name": "@linthtml/dom-utils",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "BenjaminJ <kamikillerto@gmail.com>",
+  "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/dom-utils#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linthtml/linthtml.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/linthtml/linthtml/issues"
+  }
+}

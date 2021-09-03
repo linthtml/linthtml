@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const parse = require("../../lib/parser");
+const parse = require("@linthtml/html-parser");
 
 describe("linter", function() {
   it("should be a function", function() {
