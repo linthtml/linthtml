@@ -26,6 +26,13 @@
   "dependencies": {
     "@linthtml/cli": "^0.9.0-beta.1",
     "@linthtml/dom-utils": "^1.0.0",
-    "@linthtml/html-parser": "^0.9.0-beta.1"
+    "@linthtml/html-parser": "^0.9.0-beta.1",
+    "bulk-require": "1.0.1",
+    "cosmiconfig": "7.0.0",
+    "global-modules": "^2.0.0",
+    "globby": "^11.0.2",
+    "ignore": "^5.1.4",
+    "lodash.pull": "4.1.0",
+    "resolve-from": "^5.0.0"
   }
 }
