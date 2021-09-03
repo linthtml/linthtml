@@ -24,6 +24,7 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/dom-utils": "^1.0.0"
+    "@linthtml/dom-utils": "^1.0.0",
+    "htmlparser2": "^6.1.0"
   }
 }
