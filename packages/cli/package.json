@@ -1,0 +1,32 @@
+{
+  "name": "@linthtml/cli",
+  "version": "0.9.0-beta.1",
+  "description": "LintHTML CLI package",
+  "author": "BenjaminJ <kamikillerto@gmail.com>",
+  "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/cli#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "dependencies": {
+    "chalk": "4.1.1"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linthtml/linthtml.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/linthtml/linthtml/issues"
+  },
+  "peerDependencies": {
+    "@linthtml/linthtml": "^0.9.0-beta.1"
+  }
+}
