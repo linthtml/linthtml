@@ -1,4 +1,5 @@
 {
+  "name": "linthtml-monorepo",
   "description": "The HTML5 linter and validator you need",
   "repository": {
     "type": "git",
