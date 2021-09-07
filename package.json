@@ -18,21 +18,20 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha './test/**/*.js' './lib/rules/**/__tests__/*.js' --bail",
     "lint": "eslint .",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
     "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md",
-    "postinstall": "lerna bootstrap --hoist"
+    "postinstall": "lerna bootstrap --hoist",
+    "test": "lerna run test --parallel"
   },
   "license": "ISC",
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.0",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "chai": "4.3.4",
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "2.1.1",
     "cz-conventional-changelog": "^3.2.0",
@@ -41,10 +40,7 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "lerna": "^4.0.0",
-    "lodash.template": ">=4.5.0",
-    "mocha": "9.0.3",
-    "rewiremock": "^3.14.3"
+    "lerna": "^4.0.0"
   },
   "engines": {
     "node": ">10"
