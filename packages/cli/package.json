@@ -26,13 +26,10 @@
     "type": "git",
     "url": "git+https://github.com/linthtml/linthtml.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "peerDependencies": {
-    "@linthtml/linthtml": "^0.9.0-beta.1"
+    "@linthtml/linthtml": "file:../linthtml"
   }
 }

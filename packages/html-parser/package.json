@@ -18,13 +18,17 @@
     "url": "git+https://github.com/linthtml/linthtml.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "mocha '__tests__' --bail"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/dom-utils": "^1.0.0",
+    "@linthtml/dom-utils": "file:../dom-utils",
     "htmlparser2": "^6.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1"
   }
 }
