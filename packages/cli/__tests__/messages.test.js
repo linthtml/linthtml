@@ -1,8 +1,7 @@
 const { expect } = require("chai");
+const messages = require("../lib/messages");
 
 describe("messages", function() {
-  const messages = require("../../lib/messages");
-
   describe("renderMsg", function() {
     it("should return a string", function() {
       const code = "E000";

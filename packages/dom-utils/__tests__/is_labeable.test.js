@@ -1,7 +1,7 @@
 const { expect } = require("chai");
-const { is_labelable } = require("../../lib/knife");
+const { is_labelable } = require("../lib");
 
-describe("knife.is_labeable", function() {
+describe("is_labeable", function() {
   it("should return false for hidden input element", function() {
     const node = {
       type: "tag",
