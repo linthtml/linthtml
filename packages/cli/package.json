@@ -29,6 +29,12 @@
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
   },
+  "scripts": {
+    "test": "mocha '__tests__' --bail"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.1"
+  },
   "peerDependencies": {
     "@linthtml/linthtml": "file:../linthtml"
   }

@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const validators = require("../../lib/validate_option");
+const validators = require("../lib/validate_option");
 
 describe("Rules config validators", function() {
   describe("String|Regexp validator", function() {

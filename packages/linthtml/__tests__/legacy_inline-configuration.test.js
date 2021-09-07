@@ -1,8 +1,8 @@
-const InlineConfig = require("../../lib/legacy/inline_config");
+const InlineConfig = require("../lib/legacy/inline_config");
 const { expect } = require("chai");
 
-const linthtml = require("../../lib");
-const none = require("../../lib/presets").presets.none;
+const linthtml = require("../lib");
+const none = require("../lib/presets").presets.none;
 
 function createLinter() {
   return new linthtml.LegacyLinter(linthtml.rules, none, ...arguments);

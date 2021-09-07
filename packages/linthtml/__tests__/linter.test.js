@@ -1,7 +1,7 @@
 const { expect } = require("chai");
-const Linter = require("../../lib/linter");
-const Config = require("../../lib/config");
-const CustomError = require("../../lib/utils/custom-errors");
+const Linter = require("../lib/linter");
+const Config = require("../lib/config");
+const CustomError = require("../lib/utils/custom-errors");
 const rewiremock = require("rewiremock/node");
 const path = require("path");
 
@@ -40,7 +40,7 @@ describe("Config", function() {
   });
 
   it("A custom parser can be provided", async function(done) {
-    const config_path = path.join(__dirname, "..", "fixtures", "custom-parser.js");
+    const config_path = path.join(__dirname, "fixtures", "custom-parser.js");
     rewiremock.overrideEntryPoint(module);
     rewiremock(config_path).with(function(html) {
       expect(html).to.equal("foo");
