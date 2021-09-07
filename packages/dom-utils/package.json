@@ -17,10 +17,13 @@
     "type": "git",
     "url": "git+https://github.com/linthtml/linthtml.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
+  },
+  "scripts": {
+    "test": "mocha '__tests__' --bail"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.1"
   }
 }
