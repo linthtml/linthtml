@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const Config = require("../../lib/legacy/config");
+const Config = require("../lib/legacy/config");
 
 describe("Legcay Config", function() {
   let config = null;

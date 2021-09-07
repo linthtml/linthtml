@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const Linter = require("../../lib/legacy/linter");
+const Linter = require("../lib/legacy/linter");
 describe("LegacyLinter", function() {
   function createLinter() {
     const dom = {
@@ -10,7 +10,7 @@ describe("LegacyLinter", function() {
     };
     return new Linter([
       dom,
-      require("../../lib/rules/free-options.js")
+      require("../lib/rules/free-options.js")
     ],
     ...arguments
     );
@@ -21,7 +21,7 @@ describe("LegacyLinter", function() {
   });
 
   describe("lint", function() {
-    const ConstRule = require("../fixtures/const_rule");
+    const ConstRule = require("./fixtures/const_rule");
 
     const rule = new ConstRule([{
       msg: "this is a test",

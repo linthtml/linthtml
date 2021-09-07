@@ -1,6 +1,6 @@
 const { expect } = require("chai");
-const Config = require("../../lib/config");
-const rules = require("../../lib/rules");
+const Config = require("../lib/config");
+const rules = require("../lib/rules");
 describe("Config", function() {
   // let config = new Config(rules);
 

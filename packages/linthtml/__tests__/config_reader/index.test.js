@@ -4,7 +4,7 @@ const path = require("path");
 const {
   config_from_path,
   find_local_config
-} = require("../../../lib/read-config");
+} = require("../../lib/read-config");
 
 describe("Get config from path", function() {
   it("Report an error if path provided does not exist", function() {

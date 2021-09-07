@@ -1,5 +1,6 @@
-const linthtml = require("../../");
+const linthtml = require("../lib");
 const { expect } = require("chai");
+const path = require("path");
 
 describe("linthtml", function() {
   it("should be a function", function() {
@@ -20,7 +21,7 @@ describe("linthtml", function() {
 
   it("should not throw on sanity.html", function() {
     const fs = require("fs");
-    const filePath = "./test/fixtures/sanity.html";
+    const filePath = path.join(__dirname, "fixtures", "sanity.html");
     const sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
 
     expect(function() {
