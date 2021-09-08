@@ -59,10 +59,6 @@
     "lib": "lib",
     "test": "test"
   },
-  "files": [
-    "bin",
-    "lib"
-  ],
   "author": "Benjamin JEGARD <kamikillerto@gmail.com>",
   "private": false,
   "workspaces": [
