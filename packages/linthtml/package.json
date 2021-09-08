@@ -10,6 +10,9 @@
     "lib": "lib",
     "test": "__tests__"
   },
+  "bin": {
+    "linthtml": "bin/linthtml.js"
+  },
   "files": [
     "lib"
   ],
