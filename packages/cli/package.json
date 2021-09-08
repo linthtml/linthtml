@@ -20,7 +20,7 @@
     "table-layout": "1.0.1"
   },
   "files": [
-    "src"
+    "lib"
   ],
   "repository": {
     "type": "git",
