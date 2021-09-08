@@ -5,9 +5,6 @@
     "type": "git",
     "url": "git+ssh://git@github.com/linthtml/linthtml.git"
   },
-  "bin": {
-    "linthtml": "bin/linthtml.js"
-  },
   "keywords": [
     "html",
     "lint",
