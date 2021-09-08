@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/html-parser",
-  "version": "0.9.0-beta.1",
+  "version": "0.8.0",
   "description": "LintHTML HTML parser",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/html-parser#readme",
@@ -30,5 +30,8 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "mocha": "^9.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
