@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/html-parser",
-  "version": "0.8.0",
+  "version": "0.9.0-alpha.0",
   "description": "LintHTML HTML parser",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/html-parser#readme",
