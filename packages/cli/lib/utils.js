@@ -6,7 +6,7 @@ const EXIT_CODE_NORMAL = 0;
 
 function isBetaVersion() {
   const { version } = pkg;
-  const R_BETA = /-beta\.\d+$/;
+  const R_BETA = /-(?:beta|alpha)\.\d+$/;
   return R_BETA.test(version);
 }
 
