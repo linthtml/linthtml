@@ -1,11 +1,9 @@
-# `linthtml-cli`
+# `@linthtml/cli`
 
-> TODO: description
+> LintHTML cli
 
 ## Usage
 
-```
-const linthtmlCli = require('linthtml-cli');
+You probably shouldn't, at least directly.
 
-// TODO: DEMONSTRATE API
-```
+Install [LintHTML](https://www.npmjs.com/package/@linthtml/linthtml) for access to the `LintHTML` CLI.

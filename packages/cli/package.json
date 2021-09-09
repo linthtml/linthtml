@@ -1,7 +1,7 @@
 {
   "name": "@linthtml/cli",
   "version": "0.9.0-alpha.1",
-  "description": "LintHTML CLI package",
+  "description": "LintHTML CLI",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/cli#readme",
   "license": "ISC",
