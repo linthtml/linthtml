@@ -1,11 +1,7 @@
-# `linthtml-parser`
+# `@linthtml/html-parser`
 
-> TODO: description
+HTML parser for LintHTML.
 
-## Usage
+The parser is base on [htmlparser2](https://www.npmjs.com/package/htmlparser2).
 
-```
-const linthtmlParser = require('linthtml-parser');
-
-// TODO: DEMONSTRATE API
-```
+You should not install this package by yourself as it's by default included in [LintHTML](https://www.npmjs.com/package/@linthtml/linthtml).
