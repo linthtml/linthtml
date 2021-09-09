@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.9.0-alpha.0",
+  "version": "0.9.0-alpha.1",
   "description": "LintHTML core package",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
@@ -28,9 +28,9 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/cli": "file:../cli",
-    "@linthtml/dom-utils": "file:../dom-utils",
-    "@linthtml/html-parser": "file:../html-parser",
+    "@linthtml/cli": "^0.9.0-alpha.1",
+    "@linthtml/dom-utils": "^0.9.0-alpha.1",
+    "@linthtml/html-parser": "^0.9.0-alpha.1",
     "bulk-require": "1.0.1",
     "cosmiconfig": "7.0.0",
     "global-modules": "^2.0.0",
@@ -46,5 +46,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "89b6bc563fb385a6ca1aa74a3a704154b8d560da"
 }

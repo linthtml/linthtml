@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/cli",
-  "version": "0.9.0-alpha.0",
+  "version": "0.9.0-alpha.1",
   "description": "LintHTML CLI package",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/cli#readme",
@@ -41,5 +41,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "89b6bc563fb385a6ca1aa74a3a704154b8d560da"
 }
