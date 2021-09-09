@@ -12,7 +12,6 @@
     "linthtml",
     "linter"
   ],
-  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint .",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
@@ -53,11 +52,6 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "homepage": "https://github.com/linthtml/linthtml#readme",
-  "directories": {
-    "doc": "docs",
-    "lib": "lib",
-    "test": "test"
-  },
   "author": "Benjamin JEGARD <kamikillerto@gmail.com>",
   "private": false,
   "workspaces": [
