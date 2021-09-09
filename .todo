@@ -84,6 +84,7 @@ Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
 * [ ] Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
 * [✔️] Warning level for rules.
 * [ ] Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+* [ ] Man pages for the cli ? (https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directoriesman)
 * [ ] More to come 🤷‍♀️
 
 ## inline config
