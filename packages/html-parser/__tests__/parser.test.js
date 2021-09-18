@@ -189,11 +189,11 @@ describe("linter", function() {
     it("should correctly extract all attributes", function() {
       const { children } = parse(
         [
-          "<body>\n",
-          "  <div class=\"hello\" id=\"identityDiv\" class=\"goodbye\">\n",
-          "  </div>\n",
-          "</body>\n"
-        ].join("")
+          "<body>",
+          "  <div class=\"hello\" id=\"identityDiv\" class=\"goodbye\">",
+          "  </div>",
+          "</body>"
+        ].join("\n")
       );
 
       expect(children[0].children[1].attributes).to.have.lengthOf(3);
