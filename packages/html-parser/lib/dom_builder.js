@@ -94,7 +94,6 @@ class Handler extends DomHandler {
 
     const node = this.tagStack[this.tagStack.length - 1];
     const name_index = this.parser.startIndex + 1;
-    node.openIndex = this.parser.startIndex; // +1 ?
     node.open = {
       chars: this.buffer.slice(name_index, name_index + name.length),
       raw: this.buffer.slice(this.parser.startIndex, this.parser.endIndex + 1),
@@ -126,16 +125,8 @@ class Handler extends DomHandler {
       };
       node.loc.end = node.close.loc.end;
     }
-    node.closeIndex = this.parser.endIndex; // +1?
 
     super.onclosetag(...arguments);
-  }
-
-  onprocessinginstruction(name, data) {
-    // htmlparser2 doesn't normally update the position when processing
-    // declarations or processing directives (<!doctype ...> or <?...> elements)
-    this.parser.updatePosition(1);
-    super.onprocessinginstruction(...arguments);
   }
 
   addDataNode(node) {
