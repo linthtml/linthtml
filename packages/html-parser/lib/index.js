@@ -10,7 +10,7 @@ const DomBuilder = require("./dom_builder");
 
 /**
  * @typedef {object} NodeAttribute
- * @property {string} type
+ * @property {'attribute'} type
  * @property {CharValue} name
  * @property {CharValue} value
  * @property {CharValue} equal
@@ -47,17 +47,6 @@ const DomBuilder = require("./dom_builder");
  * @property {CharValue} close
  */
 
-class CustomParser extends Parser {
-  onattribname(value) {
-    super.onattribname(value);
-    this._attribstartindex = this.tokenizer._index - value.length;
-  }
-
-  onattribute() {
-    super.onattribute(...arguments);
-    this._attribstartindex = null;
-  }
-}
 /**
  * Parse an HTML text and return an AST tree
  *
@@ -77,7 +66,7 @@ function parse(htmlText) {
 
   // more information for these options can be found at:
   // https://github.com/fb55/htmlparser2/wiki/Parser-options
-  const parser = new CustomParser(domBuilder, {
+  const parser = new Parser(domBuilder, {
     decodeEntities: false,
     // decodeEntities: true, //should always be true according to doc // enable after updating DomHandler
     lowerCaseAttributeNames: false,

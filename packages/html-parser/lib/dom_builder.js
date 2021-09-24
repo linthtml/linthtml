@@ -32,12 +32,11 @@ class Handler extends DomHandler {
   __createAttributeNode(name, _value) {
     let equal = null;
     let value = null;
-    const start = this.parser._attribstartindex;
-    let end = this.parser.tokenizer._index;
+    const start = this.parser.startIndex; // Use this.startIndex instead (since htmlparser 7.1?)
+    let end = this.parser.endIndex;
     if (/\s|\n/.test(this.buffer[end]) === false) {
       end++;
     }
-
     const namePosition = {
       start: this._indexToPosition(start),
       end: this._indexToPosition(start + name.length)
@@ -58,7 +57,7 @@ class Handler extends DomHandler {
     if (_value) {
       const rawValue = raw.slice(rawEqValue.length);
       value = {
-        chars: _value,
+        chars: _value, // remove extra spaces newline?
         raw: rawValue,
         loc: {
           start: this._indexToPosition(start + name.length + rawEqValue.length),
@@ -94,7 +93,6 @@ class Handler extends DomHandler {
 
     const node = this.tagStack[this.tagStack.length - 1];
     const name_index = this.parser.startIndex + 1;
-    node.openIndex = this.parser.startIndex; // +1 ?
     node.open = {
       chars: this.buffer.slice(name_index, name_index + name.length),
       raw: this.buffer.slice(this.parser.startIndex, this.parser.endIndex + 1),
@@ -126,16 +124,8 @@ class Handler extends DomHandler {
       };
       node.loc.end = node.close.loc.end;
     }
-    node.closeIndex = this.parser.endIndex; // +1?
 
     super.onclosetag(...arguments);
-  }
-
-  onprocessinginstruction(name, data) {
-    // htmlparser2 doesn't normally update the position when processing
-    // declarations or processing directives (<!doctype ...> or <?...> elements)
-    this.parser.updatePosition(1);
-    super.onprocessinginstruction(...arguments);
   }
 
   addDataNode(node) {
