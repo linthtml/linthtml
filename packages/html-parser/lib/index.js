@@ -10,7 +10,7 @@ const DomBuilder = require("./dom_builder");
 
 /**
  * @typedef {object} NodeAttribute
- * @property {string} type
+ * @property {'attribute'} type
  * @property {CharValue} name
  * @property {CharValue} value
  * @property {CharValue} equal
@@ -50,6 +50,7 @@ const DomBuilder = require("./dom_builder");
 class CustomParser extends Parser {
   onattribname(value) {
     super.onattribname(value);
+    // Use startIndex instead ? (htmlparser 7.1)
     this._attribstartindex = this.tokenizer._index - value.length;
   }
 
