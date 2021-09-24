@@ -1,5 +1,6 @@
-const { expect } = require("chai");
-const parse = require("../lib");
+import { describe, it } from "mocha";
+import { expect } from "chai";
+import parse from "../lib";
 
 describe("HTML Parser", function() {
   it("Tags positions are correct (nesting)", function() {
@@ -192,6 +193,7 @@ describe("HTML Parser", function() {
     const div = children[0].children[1];
 
     expect(div.attributes).to.have.lengthOf(3);
+    //@ts-ignore
     const [class_1, id, class_2] = div.attributes;
 
     expect(class_1.type).to.equal("attribute");
