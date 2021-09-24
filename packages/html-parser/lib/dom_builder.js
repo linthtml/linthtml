@@ -32,12 +32,11 @@ class Handler extends DomHandler {
   __createAttributeNode(name, _value) {
     let equal = null;
     let value = null;
-    const start = this.parser._attribstartindex;
+    const start = this.parser._attribstartindex; // Use this.startIndex instead (since htmlparser 7.1?)
     let end = this.parser.tokenizer._index;
     if (/\s|\n/.test(this.buffer[end]) === false) {
       end++;
     }
-
     const namePosition = {
       start: this._indexToPosition(start),
       end: this._indexToPosition(start + name.length)
@@ -58,7 +57,7 @@ class Handler extends DomHandler {
     if (_value) {
       const rawValue = raw.slice(rawEqValue.length);
       value = {
-        chars: _value,
+        chars: _value, // remove extra spaces newline?
         raw: rawValue,
         loc: {
           start: this._indexToPosition(start + name.length + rawEqValue.length),
