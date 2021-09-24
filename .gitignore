@@ -22,3 +22,5 @@ npm-debug.log
 \.nyc_output/
 
 \.vscode/
+
+packages/html-parser/dist/
