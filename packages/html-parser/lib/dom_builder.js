@@ -32,8 +32,8 @@ class Handler extends DomHandler {
   __createAttributeNode(name, _value) {
     let equal = null;
     let value = null;
-    const start = this.parser._attribstartindex; // Use this.startIndex instead (since htmlparser 7.1?)
-    let end = this.parser.tokenizer._index;
+    const start = this.parser.startIndex; // Use this.startIndex instead (since htmlparser 7.1?)
+    let end = this.parser.endIndex;
     if (/\s|\n/.test(this.buffer[end]) === false) {
       end++;
     }
