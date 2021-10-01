@@ -28,7 +28,9 @@
   },
   "dependencies": {
     "@linthtml/dom-utils": "^0.9.0-alpha.1",
-    "htmlparser2": "^7.1.2"
+    "htmlparser2": "^7.1.2",
+    "domhandler": "^4.2.2",
+    "domelementtype": "^2.2.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.21",
