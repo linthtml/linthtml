@@ -18,7 +18,9 @@
     "url": "git+https://github.com/linthtml/linthtml.git"
   },
   "scripts": {
-    "test": "npm run build; mocha 'dist/__tests__' --bail",
+    "clean": "rm -rf dist",
+    "pretest": "npm run build",
+    "test": "mocha 'dist/__tests__' --bail",
     "build": "tsc --build"
   },
   "bugs": {
