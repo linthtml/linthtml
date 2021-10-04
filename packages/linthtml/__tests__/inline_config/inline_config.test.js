@@ -1,4 +1,4 @@
-const parse = require("@linthtml/html-parser");
+const parse = require("@linthtml/html-parser").default;
 const { extract_inline_config } = require("../../lib/inline_config");
 const { expect } = require("chai");
 const Config = require("../../lib/config");

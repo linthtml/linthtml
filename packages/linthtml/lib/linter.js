@@ -48,7 +48,7 @@ function get_parser(config = {}) {
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
-  return require("@linthtml/html-parser");
+  return require("@linthtml/html-parser").default;
 }
 
 class Linter {

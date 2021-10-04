@@ -89,6 +89,7 @@ function lint(node, config, { report }) {
         }
       });
     } else {
+      // TODO: use util functions
       if (attributes[name] === undefined || attributes[name] === null) {
         return;
       }
