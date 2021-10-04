@@ -16,14 +16,16 @@ export class CharValue {
 }
 
 export class NodeAttribute {
-  type = 'attribute';
+  public type = 'attribute';
   constructor(
     public name: CharValue,
     public loc: Range,
+    public index: number,
     public equal: CharValue | null = null,
     public value: CharValue | null = null
   ) {
     this.name = name;
+    this.index = index;
     this.value = value;
     this.equal = equal;
     this.loc = loc ;
@@ -69,7 +71,7 @@ export function ExtendedNode<TBase extends Constructor>(Base: TBase) {
     set open(value) {
       this._open = value;
     }
-    private _close: CharValue | null = null;
+    private _close: CharValue | undefined = undefined;
     get close() {
       return this._close;
     }
