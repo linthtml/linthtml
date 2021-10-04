@@ -56,8 +56,8 @@ export default class Handler extends DomHandler {
   
   __createAttributeNode(name: string, attribute_value: string): NodeAttribute {
     let equal: CharValue | null = null;
-    let value = null;
-    const start = this._parser.startIndex; // Use this.startIndex instead (since htmlparser 7.1?)
+    let value: CharValue | null = null;
+    const start: number = this._parser.startIndex; // Use this.startIndex instead (since htmlparser 7.1?)
     let end = this._parser.endIndex;
     if (/\s|\n/.test(this.buffer[end]) === false) {
       end++;
@@ -88,16 +88,17 @@ export default class Handler extends DomHandler {
     } else {
       end = start + name.length;
     }
-    return {
-      type: "attribute",
-      name: new CharValue(name, namePosition),
-      value,
-      equal,
-      loc: {
+
+    return new NodeAttribute(
+      new CharValue(name, namePosition),
+      {
         start: this._indexToPosition(start),
         end: this._indexToPosition(end)
-      }
-    };
+      },
+      start,
+      equal,
+      value
+    );
   }
 
 

@@ -1,4 +1,4 @@
-const parse = require("@linthtml/html-parser");
+const parse = require("@linthtml/html-parser").default;
 const Config = require("./config");
 const InlineConfig = require("./inline_config");
 const { flatten } = require("../utils/arrays");
