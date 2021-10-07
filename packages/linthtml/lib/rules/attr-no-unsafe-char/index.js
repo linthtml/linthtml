@@ -1,4 +1,4 @@
-const { is_tag_node, attribute_has_value } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node, attribute_has_value } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "attr-no-unsafe-char";
 

@@ -1,4 +1,4 @@
-const { is_text_node } = require("./tag_utils");
+const { is_text_node } = require("./tags");
 
 /**
  * @typedef {object} TextLine

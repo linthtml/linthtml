@@ -1,4 +1,4 @@
-const { attribute_has_value } = require("./tag_utils");
+const { attribute_has_value } = require("./tags");
 
 // these elements are *labelable elements* according to the HTML spec
 const LABELABLE_NODES = [

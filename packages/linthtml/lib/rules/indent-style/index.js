@@ -2,8 +2,8 @@ const {
   is_text_node,
   node_tag_name,
   has_parent_node
-} = require("@linthtml/dom-utils/lib/tag_utils");
-const { is_newline_only } = require("@linthtml/dom-utils/lib/text_node_utils");
+} = require("@linthtml/dom-utils/lib/tags");
+const { is_newline_only } = require("@linthtml/dom-utils/lib/text_node");
 const { create_list_value_validator } = require("../../validate_option");
 
 const RULE_NAME = "indent-style";

@@ -1,5 +1,5 @@
-const { is_text_node } = require("@linthtml/dom-utils/lib/tag_utils");
-const { get_lines } = require("@linthtml/dom-utils/lib/text_node_utils");
+const { is_text_node } = require("@linthtml/dom-utils/lib/tags");
+const { get_lines } = require("@linthtml/dom-utils/lib/text_node");
 const { create_list_value_validator } = require("../../validate_option");
 
 const RULE_NAME = "line-end-style";
