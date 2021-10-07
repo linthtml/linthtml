@@ -11,7 +11,7 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist/lib"
   ],
   "repository": {
     "type": "git",
@@ -21,11 +21,21 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "scripts": {
-    "test": "mocha '__tests__' --bail"
+    "clean": "rm -rf dist",
+    "postinstall": "npm run build",
+    "pretest": "npm run build",
+    "test": "mocha 'dist/__tests__' --bail",
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "domhandler": "^4.2.2",
+    "domelementtype": "^2.2.0"
   },
   "devDependencies": {
+    "@types/node": "^16.9.1",
     "chai": "^4.3.4",
-    "mocha": "^9.1.1"
+    "mocha": "^9.1.1",
+    "typescript": "^4.4.2"
   },
   "publishConfig": {
     "access": "public"
