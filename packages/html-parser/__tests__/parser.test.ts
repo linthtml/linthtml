@@ -1,6 +1,9 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import parse, { Element } from "../lib";
+// @ts-ignore
+// TODO find solution to remove dist/lib
+import { Element } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import parse from "../lib";
 
 describe("HTML Parser", function() {
   it("Tags positions are correct (nesting)", function() {
