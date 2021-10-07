@@ -10,7 +10,9 @@ import {
   Node,
   Position,
   Range
-} from "./index";
+// TODO find a way to remove dist/lib (flatten generated package)
+// @ts-ignore
+} from "@linthtml/dom-utils/dist/lib/dom_elements";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
   public dom: Node[] = [];
@@ -101,8 +103,9 @@ export default class Handler extends DomHandler {
     );
   }
 
-
-  onattribute(name: string, value: string/*, quote?: string | undefined | null*/): void {
+  //@ts-ignore
+  onattribute(name: string, value: string, quote?: string | undefined | null): void {
+    debugger
     const attribute = this.__createAttributeNode(name, value);
     this.attributes.push(attribute);
   }
