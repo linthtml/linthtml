@@ -1,5 +1,5 @@
 const match_format = require("../../utils/check_format");
-const { is_tag_node } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
 const { create_string_or_regexp_validator } = require("../../validate_option");
 const { types: { isRegExp } } = require("util");
 

@@ -1,4 +1,4 @@
-const { is_tag_node, has_attribute, attribute_value, get_attribute } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node, has_attribute, attribute_value, get_attribute } = require("@linthtml/dom-utils/lib/tags");
 const { create_list_value_validator } = require("../../validate_option");
 
 const RULE_NAME = "href-style";

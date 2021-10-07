@@ -4,5 +4,5 @@ module.exports = {
   check_lang_attribute: require("./check_lang_attribute"),
   ...require("./attr_parse"),
   ...require("./boolean_attrs"),
-  ...require("./tag_utils")
+  ...require("./tags")
 };
