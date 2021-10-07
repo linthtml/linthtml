@@ -1,4 +1,4 @@
-const { is_tag_node, attribute_value, has_non_empty_attribute } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node, attribute_value, has_non_empty_attribute } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "link-min-length-4";
 

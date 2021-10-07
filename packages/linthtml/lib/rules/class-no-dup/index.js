@@ -1,4 +1,4 @@
-const { is_tag_node, get_classes, has_attribute, attribute_value } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node, get_classes, has_attribute, attribute_value } = require("@linthtml/dom-utils/lib/tags");
 const { types: { isRegExp } } = require("util");
 
 const RULE_NAME = "class-no-dup";

@@ -1,5 +1,5 @@
 const { has_non_empty_attribute } = require("@linthtml/dom-utils");
-const { is_tag_node } = require("@linthtml/dom-utils/lib/tag_utils");
+const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "button-req-content";
 
