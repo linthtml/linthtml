@@ -19,10 +19,10 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "postinstall": "npm run build",
     "pretest": "npm run build",
     "test": "mocha 'dist/__tests__' --bail",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prepare": "npm run build;"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
