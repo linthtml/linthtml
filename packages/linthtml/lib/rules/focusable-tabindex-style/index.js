@@ -1,4 +1,5 @@
-const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
+// TODO: Find a way to get rid of `dist/lib`
+const { is_tag_node } = require("@linthtml/dom-utils/dist/lib/tags");
 const { has_attribute, has_non_empty_attribute, attribute_value } = require("@linthtml/dom-utils");
 
 const RULE_NAME = "focusable-tabindex-style";

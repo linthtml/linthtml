@@ -1,4 +1,4 @@
-const { is_tag_node, attribute_value, has_non_empty_attribute } = require("@linthtml/dom-utils/lib/tags");
+const { is_tag_node, attribute_value, has_non_empty_attribute } = require("@linthtml/dom-utils/dist/lib/tags");
 
 const RULE_NAME = "id-no-dup";
 

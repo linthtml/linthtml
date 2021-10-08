@@ -1,5 +1,5 @@
 const { types: { isRegExp } } = require("util");
-const { is_tag_node, get_attribute } = require("@linthtml/dom-utils/lib/tags");
+const { is_tag_node, get_attribute } = require("@linthtml/dom-utils/dist/lib/tags");
 
 const RULE_NAME = "attr-order";
 function validateConfig(options) {

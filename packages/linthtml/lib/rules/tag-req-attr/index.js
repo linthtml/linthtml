@@ -1,4 +1,4 @@
-const { is_tag_node, has_attribute, has_non_empty_attribute } = require("@linthtml/dom-utils/lib/tags");
+const { is_tag_node, has_attribute, has_non_empty_attribute } = require("@linthtml/dom-utils/dist/lib/tags");
 
 const RULE_NAME = "tag-req-attr";
 

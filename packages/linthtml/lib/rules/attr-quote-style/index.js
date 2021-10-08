@@ -1,4 +1,5 @@
-const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
+// TODO: Find a way to get rid of `dist/lib`
+const { is_tag_node } = require("@linthtml/dom-utils/dist/lib/tags");
 const { create_list_value_validator } = require("../../validate_option");
 
 const RULE_NAME = "attr-quote-style";

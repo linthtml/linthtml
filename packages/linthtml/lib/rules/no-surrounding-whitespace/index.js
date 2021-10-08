@@ -1,5 +1,6 @@
-const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/lib/tags");
-const { get_lines } = require("@linthtml/dom-utils/lib/text_node");
+const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/dist/lib/tags");
+// TODO: Find a way to get rid of `dist/lib`
+const { get_lines } = require("@linthtml/dom-utils/dist/lib/text_node");
 
 const RULE_NAME = "no-surrounding-whitespace";
 
