@@ -1,4 +1,7 @@
 /* eslint-disable array-element-newline */
+
+import { CharValue } from "./dom_elements";
+
 // List of ISO 639-1 language codes
 const LANG_CODES = [
   "ab", "aa", "af", "sq", "am", "ar", "an", "hy", "as", "ay", "az", "ba",
@@ -21,7 +24,7 @@ const LANG_CODES = [
   "zh-cmn-Hant"
 ];
 
-function check_lang_code(code) {
+function check_lang_code(code: string): boolean {
   return code.length === 0 || LANG_CODES.indexOf(code) !== -1;
 }
 
@@ -46,7 +49,7 @@ const CONTRY_CODES = [
   "US", "UM", "UY", "UZ", "VU", "VE", "VN", "VG", "VI", "WF", "EH", "YE", "ZM", "ZW"
 ];
 
-function check_country_code(code) {
+function check_country_code(code: string): boolean {
   return code.length === 0 || CONTRY_CODES.indexOf(code) !== -1;
 }
 
@@ -54,20 +57,11 @@ function check_country_code(code) {
 // language code and YY is a valid country code.
 // Return 1 if the tag is invalid, or 2 if it is valid but has
 // unconventional capitalization.
-module.exports = function(l) {
-  if (!l || l.chars.length === 0) {
+export default function check_lang_attribute(lang_attribute: CharValue) {
+  if (!lang_attribute || lang_attribute.chars.length === 0) {
     return 0;
   }
-  l = l.chars;
-  const n = l.lastIndexOf("-");
-  let lang = "";
-  let country = "";
-  if (n === -1) {
-    lang = l;
-  } else {
-    lang = l.slice(0, n);
-    country = l.slice(n + 1, l.length);
-  }
+  const [lang, country = ""] = lang_attribute.chars.split("-");
   // WHAT????
   return check_lang_code(lang) && check_country_code(country)
     ? 0

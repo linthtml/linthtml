@@ -1,3 +1,5 @@
+import { Element } from "./dom_elements";
+
 const VOID_NODES = [
   "area",
   "base",
@@ -29,11 +31,6 @@ const VOID_NODES = [
   "polygon"
 ];
 
-/**
- * Returns whether or not an html tag name is a void element.
- * @param {Object} node
- * @returns {Boolean} whether or not `tagName` is a void element
- */
-module.exports = function({ name }) {
+export default function is_void_node({ name }: Element): boolean {
   return VOID_NODES.indexOf(name.toLowerCase()) !== -1;
 };

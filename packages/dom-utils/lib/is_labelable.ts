@@ -1,4 +1,5 @@
-const { attribute_has_value } = require("./tags");
+import { Node } from "./dom_elements";
+import { attribute_has_value, is_tag_node } from "./tags";
 
 // these elements are *labelable elements* according to the HTML spec
 const LABELABLE_NODES = [
@@ -15,11 +16,9 @@ const LABELABLE_NODES = [
 /**
  * Returns whether or not an html element can be associated with a
  * label element.
- * @param {Object} node - an html node from the htmlparser2 parser
- * @returns {Boolean} whether or not the node is labelable
  */
-module.exports = function(node) {
-  if (node.type !== "tag" || !LABELABLE_NODES.includes(node.name)) {
+export default function is_labelable(node: Node): boolean {
+  if (!is_tag_node(node) || !LABELABLE_NODES.includes(node.name)) {
     // element isn't a tag or isn't a labeable element
     return false;
   }
