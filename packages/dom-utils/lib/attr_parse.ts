@@ -8,7 +8,7 @@
 /* eslint-disable-next-line no-useless-escape */
 const attrRegex = /(\s*)([^ "'>=\^\/]+)((\s*=\s*)((?:"[^"]*")|(?:'[^']*')|(?:\S+)))?/g;
 
-function parse_HTML_attributes(attributes) {
+export function parse_HTML_attributes(attributes: string) {
   const ret = [];
   let match;
 
@@ -21,7 +21,3 @@ function parse_HTML_attributes(attributes) {
 
   return ret;
 }
-
-module.exports = {
-  parse_HTML_attributes
-};

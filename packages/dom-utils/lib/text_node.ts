@@ -1,18 +1,14 @@
-const { is_text_node } = require("./tags");
+// TODO: Use custom one from dom_elements
+import { Text } from "domhandler";
+import { Node } from "./dom_elements";
+import { is_text_node } from "./tags";
 
-/**
- * @typedef {object} TextLine
- * @property {string} text
- * @property {integer} offset
- * @returns {TextLine[]}
- */
+type TextLine = {
+ text: string;
+ offset: number;
+};
 
-/**
- * @param {import('../../../parser/lib/index').Node} node
- * @param {boolean} [include_EOL = false]
- */
-// TODO: throw error if not text node
-function get_lines(node, include_EOL = false) {
+function get_lines(node: Text, include_EOL: boolean = false): TextLine[] {
   const { data } = node;
   const R = /(\r\n|\r|\n)/g;
   let match;
@@ -39,11 +35,7 @@ function get_lines(node, include_EOL = false) {
   return lines;
 }
 
-/**
- * @param {import("../../../parser/lib").Node} node
- * @returns {boolean}
- */
-function is_newline_only(node) {
+function is_newline_only(node: Node): boolean {
   if (!is_text_node(node)) {
     return false;
   }

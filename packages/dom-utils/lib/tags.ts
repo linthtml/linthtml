@@ -28,6 +28,8 @@ function has_non_empty_attribute(node: Element, attribute_name: string, allow_nu
   return !!attribute && (allow_null || !!attribute.value && attribute.value.chars.length > 0);
 }
 
+// Find a way to make this generic
+// type LangAttribute = { chars: 'lang' } & NodeAttribute ;
 function get_attribute(node: Element, attribute_name: string): NodeAttribute | null {
   if (has_attribute(node, attribute_name)) {
     return node.attributes

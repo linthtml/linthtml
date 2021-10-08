@@ -15,11 +15,12 @@ const BOOLEAN_ATTRIBUTES = [
   "truespeed", "typemustmatch", "visible"
 ];
 
-function is_boolean_attribute(name) {
+// should consume a NodeAttribute in the same file as other atrribute related function
+function is_boolean_attribute(name: string) {
   return BOOLEAN_ATTRIBUTES.indexOf(name.toLowerCase()) >= 0;
 }
 
-module.exports = {
+export {
   is_boolean_attribute,
   BOOLEAN_ATTRIBUTES
 };
