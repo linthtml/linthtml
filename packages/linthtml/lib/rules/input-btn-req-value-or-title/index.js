@@ -1,5 +1,5 @@
 const { has_non_empty_attribute } = require("@linthtml/dom-utils");
-const { is_tag_node, attribute_value } = require("@linthtml/dom-utils/lib/tags");
+const { is_tag_node, attribute_value } = require("@linthtml/dom-utils/dist/lib/tags");
 
 const RULE_NAME = "input-btn-req-value-or-title";
 
