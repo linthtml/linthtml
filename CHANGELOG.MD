@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.1](https://github.com/linthtml/linthtml/compare/v0.8.0...v0.8.1) (2021-11-27)
+
+### Fix
+
+* [#413](https://github.com/linthtml/linthtml/issues/413) lowercase attr-order config correctly ([78ca538](https://github.com/linthtml/linthtml/commit/78ca5384ccd6f30361a1223674902b2b95c26703))
+
 ## v0.8.0
 
 ### Features 🚀
