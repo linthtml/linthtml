@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.2](https://github.com/linthtml/linthtml/compare/v0.8.1...v0.8.2) (2021-11-29)
+
+### Fix
+
+* [#413](https://github.com/linthtml/linthtml/issues/413) `attr-order` can now check order for attributes without values ([17dabcb](https://github.com/linthtml/linthtml/commit/17dabcbaa0f4e5cb5cb5eef932ab6b7057436636))
+
 ## [0.8.1](https://github.com/linthtml/linthtml/compare/v0.8.0...v0.8.1) (2021-11-27)
 
 ### Fix
