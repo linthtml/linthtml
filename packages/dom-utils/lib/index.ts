@@ -1,4 +1,4 @@
-// Keep as js file for now
+// Keep as nodejs syntaxt for now
 module.exports = {
   is_labelable: require("./is_labelable").default,
   is_void_node: require("./is_void_node").default,
