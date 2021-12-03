@@ -5,12 +5,12 @@ import { attribute_has_value, is_tag_node } from "./tags";
 const LABELABLE_NODES = [
   "button",
   "input", // if not in the hidden state
-  "keygen",
   "meter",
   "output",
   "progress",
   "select",
-  "textarea"
+  "textarea",
+  "keygen", // no longer in html spec
 ];
 
 /**
