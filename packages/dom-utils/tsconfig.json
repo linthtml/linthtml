@@ -3,5 +3,5 @@
   "compilerOptions": {
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
   },
-  "include": ["./lib/*.js", "./lib/*.ts", "./__tests__/*.js"]
+  "include": ["./lib/*.ts", "./__tests__/*.ts"]
 }
