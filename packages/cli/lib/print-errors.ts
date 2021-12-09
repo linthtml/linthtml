@@ -9,4 +9,4 @@ export default function print_errors(error: { code: string, meta: Object, messag
     return console.log(error_message(chalk, error.meta));
   }
   return console.log(chalk`{red ${error.message}}`);
-};
+}

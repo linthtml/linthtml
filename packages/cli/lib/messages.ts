@@ -1,5 +1,5 @@
 import { Chalk } from "chalk";
-//@ts-ignore
+// @ts-ignore
 import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
 import { Issue } from "./utils";
 
@@ -101,9 +101,9 @@ export function renderIssue(issue: Issue) {
   return format
     ? format(issue.data, issue.position)
     : issue.message;
-};
+}
 
 export function get_issue_message(issue: Issue) {
   const generate_issue_message = errors[issue.code];
   return generate_issue_message(issue.data, issue.position);
-};
+}

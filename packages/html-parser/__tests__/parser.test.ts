@@ -196,7 +196,7 @@ describe("HTML Parser", function() {
     const div = <Element> children[0].children[1];
 
     expect(div.attributes).to.have.lengthOf(3);
-    //@ts-ignore
+    // @ts-ignore
     const [class_1, id, class_2] = div.attributes;
 
     expect(class_1.type).to.equal("attribute");
