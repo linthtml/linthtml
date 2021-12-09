@@ -34,20 +34,17 @@ export default function print_file_report(report: Report) {
     level: string;
     rule: string;
   }
-  const issues = report.issues.reduce((acc: CliIssue[], issue: Issue) => {
+  const issues: CliIssue[] = report.issues.map((issue: Issue) => {
     const msg = renderIssue(issue);
     const positionTxt = print_position(issue, maxLine, maxColumn);
     const level = print_level(issue);
-    return [
-      ...acc,
-      {
-        positions: chalk`{gray ${positionTxt}}`,
-        level: chalk`{${level}}`,
-        msg,
-        rule: chalk`{gray ${issue.rule}}`
-      }
-    ];
-  }, []);
+    return {
+      positions: chalk`{gray ${positionTxt}}`,
+      level: chalk`{${level}}`,
+      msg,
+      rule: chalk`{gray ${issue.rule}}`
+    };
+  });
 
   const table = new Table(issues, { noTrim: true });
   console.log(table.toString());

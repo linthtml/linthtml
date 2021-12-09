@@ -4,7 +4,12 @@ import chalk from "chalk";
 import ora from "ora";
 import meow from "meow";
 
-import { Report, Issue } from "./utils";
+import {
+  Report,
+  Issue,
+  exitProcess,
+  EXIT_CODE_ERROR
+} from "./utils";
 
 import checkInvalidCLIOptions from "./check-invalid-cli-options";
 import print_file_report from "./print-file-report";
@@ -12,12 +17,8 @@ import init_command from "./commands/init";
 import print_config_command from "./commands/print-config";
 import printErrors from "./print-errors";
 
-const {
-  exitProcess,
-  EXIT_CODE_ERROR
-} = require("./utils");
-
-const linthtml = require("@linthtml/linthtml");
+// @ts-ignore
+import linthtml from "@linthtml/linthtml";
 
 const cliOptions = {
   help: chalk`
@@ -81,7 +82,7 @@ export default function cli(argv: string[]) {
   // Add legacy flag to command
   if (cli.flags.init) {
     return init_command()
-      .then(exitProcess);
+      .then(() => exitProcess());
   }
 
   if (cli.flags.printConfig !== undefined) { // convert to command and throw deprecation warning for flag
@@ -96,6 +97,7 @@ export default function cli(argv: string[]) {
   return lint(cli.input, cli.flags.config as string);
 }
 
+// @ts-ignore
 async function lint(input: string[], config_path: string) {
   let files_linters = [];
   const searchSpinner = ora("Searching for files").start();

@@ -24,6 +24,7 @@ export default class Handler extends DomHandler {
   private lineOffsets: number[];
 
   constructor(lineOffsets: number[]) {
+    /* eslint-disable @typescript-eslint/no-empty-function */
     super(
       () => {},
       {
@@ -103,6 +104,7 @@ export default class Handler extends DomHandler {
     );
   }
 
+  // TODO: Use quote?
   // @ts-ignore
   onattribute(name: string, value: string, quote?: string | undefined | null): void {
     debugger;

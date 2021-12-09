@@ -25,7 +25,7 @@ function has_non_empty_attribute(node: Element, attribute_name: string, allow_nu
   const attribute = node.attributes.find(
     ({ name }) => name.chars.toLowerCase() === attribute_name
   );
-  return !!attribute && (allow_null || !!attribute.value && attribute.value.chars.length > 0);
+  return !!attribute && (allow_null || (!!attribute.value && attribute.value.chars.length > 0));
 }
 
 // Find a way to make this generic

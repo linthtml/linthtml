@@ -1,4 +1,4 @@
-import { NodeWithChildren, Element as _Element } from "domhandler";
+import { NodeWithChildren } from "domhandler";
 import { ElementType } from "domelementtype";
 
 export class CharValue {
@@ -50,6 +50,8 @@ export class Position {
   }
 }
 
+// TODO: Fix type
+/* eslint-disable-next-line @typescript-eslint/ban-types */
 type Constructor<T = {}> = new (...args: any[]) => T;
 export function ExtendedNode<TBase extends Constructor>(Base: TBase) {
   return class TExtractor extends Base {
