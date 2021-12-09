@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 "use strict";
-
-require("@linthtml/cli")(process.argv.slice(2));
+// TODO remove .default
+require("@linthtml/cli").default(process.argv.slice(2));

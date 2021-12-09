@@ -1,8 +1,9 @@
-const yaml = require("js-yaml");
-const presets = require("@linthtml/linthtml/lib/presets").presets;
-const fs = require("fs");
-const chalk = require("chalk");
-const inquirer = require("inquirer");
+import yaml from "js-yaml";
+// @ts-ignore
+import { presets } from "@linthtml/linthtml/lib/presets";
+import fs from "fs";
+import chalk from "chalk";
+import inquirer from "inquirer";
 
 const default_config = {
   maxerr: false,
@@ -17,20 +18,20 @@ const default_config = {
 const GENERATORS = {
   JavaScript: {
     name: ".linthtmlrc.js",
-    generate_content: (content) => `module.exports = ${JSON.stringify(content, null, "\t")}`
+    generate_content: (content: any) => `module.exports = ${JSON.stringify(content, null, "\t")}`
   },
   JSON: {
     name: ".linthtmlrc.json",
-    generate_content: (content) => JSON.stringify(content, null, "\t")
+    generate_content: (content: any) => JSON.stringify(content, null, "\t")
   },
   YAML: {
     name: ".linthtmlrc.yaml",
-    generate_content: (content) => yaml.dump(content)
+    generate_content: (content: any) => yaml.dump(content)
   }
 };
 
-module.exports = async function() {
-  const response = await inquirer.prompt([{
+export default async function init_command(): Promise<void> {
+  const response: { format: "JavaScript" | "YAML" | "JSON", legacy: boolean } = await inquirer.prompt([{
     type: "list",
     name: "format",
     message: "What format do you want your config file to be in?",
@@ -54,7 +55,7 @@ module.exports = async function() {
     fs.writeFileSync(config_file.name, config_file.generate_content(presets.default), "utf8");
   } else {
     fs.writeFileSync(config_file.name, config_file.generate_content(default_config), "utf8");
-    console.log(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
+    process.stdout.write(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
   }
-  console.log(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
+  process.stdout.write(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
 };

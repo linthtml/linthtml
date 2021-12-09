@@ -1,9 +1,10 @@
 "use strict";
-const kebabCase = require("kebabcase");
-const chalk = require("chalk");
-const EOL = require("os").EOL;
+import kebabCase from "lodash.kebabcase";
+import chalk from "chalk";
+import { EOL } from "os";
+import meow from "meow";
 
-const buildAllowedOptions = (allowedOptions) => {
+function buildAllowedOptions(allowedOptions: meow.AnyFlags) {
   let options = Object.keys(allowedOptions);
 
   options = options.reduce((opts, opt) => {
@@ -20,11 +21,17 @@ const buildAllowedOptions = (allowedOptions) => {
   return options;
 };
 
-const cliOption = (opt) => opt.length === 1 ? `"-${opt}"` : `"--${kebabCase(opt)}"`;
+function cliOption(opt: string) {
+  return opt.length === 1
+    ? `"-${opt}"`
+    : `"--${kebabCase(opt)}"`;
+}
 
-const buildMessageLine = (invalid) => `Invalid option ${chalk.red(cliOption(invalid))}.${EOL}`;
+function buildMessageLine(invalid: string) {
+  return `Invalid option ${chalk.red(cliOption(invalid))}.${EOL}`;
+}
 
-module.exports = function checkInvalidCLIOptions(allowedOptions, inputOptions) {
+export default function checkInvalidCLIOptions(allowedOptions: meow.AnyFlags, inputOptions: meow.AnyFlags) {
   const allOptions = buildAllowedOptions(allowedOptions);
   return Object.keys(inputOptions)
     .map(opt => kebabCase(opt))

@@ -1,22 +1,23 @@
 /* eslint-disable no-console */
-const fs = require("fs");
-const chalk = require("chalk");
-const ora = require("ora");
-const meow = require("meow");
+import fs from "fs";
+import chalk from "chalk";
+import ora from "ora";
+import meow from "meow";
 
-const checkInvalidCLIOptions = require("./check-invalid-cli-options");
-const print_file_report = require("./print-file-report");
-const init_command = require("./commands/init");
-const print_config_command = require("./commands/print-config");
-const printErrors = require("./print-errors");
+import { Report, Issue } from "./utils";
+
+import checkInvalidCLIOptions from "./check-invalid-cli-options";
+import print_file_report from "./print-file-report";
+import init_command from "./commands/init";
+import print_config_command from "./commands/print-config";
+import printErrors from "./print-errors";
 
 const {
-  displayBetaVersionMessage,
-  exitProcess
+  exitProcess,
+  EXIT_CODE_ERROR 
 } = require("./utils");
 
 const linthtml = require("@linthtml/linthtml");
-const { flatten } = require("@linthtml/linthtml/lib/utils/arrays");
 
 const cliOptions = {
   help: chalk`
@@ -63,10 +64,13 @@ const cliOptions = {
   }
 };
 
-module.exports = (argv) => {
+export default function cli(argv: string[]) {
+  // TODO: Fix?
+  // @ts-ignore
   cliOptions.argv = argv;
+  // @ts-ignore
   const cli = meow(cliOptions);
-  const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags, cli.flags);
+  const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as meow.AnyFlags, cli.flags as meow.AnyFlags);
   if (invalidOptionsMessage) {
     process.stderr.write(invalidOptionsMessage);
     return exitProcess();
@@ -81,7 +85,7 @@ module.exports = (argv) => {
   }
 
   if (cli.flags.printConfig !== undefined) { // convert to command and throw deprecation warning for flag
-    return print_config_command(cli.flags.printConfig);
+    return print_config_command(cli.flags.printConfig as string);
   }
 
   // use config_path if provided or search local config file
@@ -89,62 +93,65 @@ module.exports = (argv) => {
   if (cli.flags.help || cli.flags.h || argv.length === 0) {
     cli.showHelp();
   }
-  return lint(cli.input, cli.flags.config);
+  return lint(cli.input, cli.flags.config as string);
 };
 
-async function lint(input, config_path) {
+async function lint(input: string[], config_path: string) {
   let files_linters = [];
   const searchSpinner = ora("Searching for files").start();
   try {
     files_linters = await linthtml.create_linters_for_files(input, config_path);
     searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
-  } catch (error) {
+  } catch (error: any) {
     searchSpinner.fail();
     printErrors(error);
-    exitProcess(true);
+    return exitProcess(EXIT_CODE_ERROR);
   }
 
   const lintSpinner = ora("Analysing files");
   try {
     lintSpinner.start();
-    let reports = await Promise.all(files_linters.map(lintFile));
+    let reports: Report[] = await Promise.all(files_linters.map(lintFile));
     reports = reports.filter(report => report.issues.length > 0);
     lintSpinner.succeed("Files analyzed");
     printReports(reports);
-  } catch (error) {
+  } catch (error: any) {
     lintSpinner.fail();
     console.log();
     console.log(chalk`An error occured while analysing {underline ${error.fileName}}`);
     console.log();
     printErrors(error);
     console.log(chalk`{red ${error.message}}`);
-    return exitProcess(true);
+    return exitProcess(EXIT_CODE_ERROR);
   }
 }
 
-function printReports(reports) {
-  console.log();
+function printReports(reports: Report[]) {
+  process.stdout.write("");
   reports.forEach(print_file_report);
 
   if (reports.length > 0) {
-    let issues = reports.filter((report) => report.issues.length > 0);
-    issues = flatten(issues.map(_ => _.issues));
+    const issues: Issue[] = reports
+      .filter((report) => report.issues.length > 0)
+      .reduce((acc: Issue[], { issues }) => [...acc, ...issues], []);
+
     const errorsCount = issues.reduce((count, issue) => issue.severity === "error" ? count + 1 : count, 0);
     const warningCount = issues.reduce((count, issue) => issue.severity === "warning" ? count + 1 : count, 0);
     const problemsCount = errorsCount + warningCount;
+
     if (errorsCount > 0) {
-      console.log(chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
-      displayBetaVersionMessage();
-      return exitProcess(true);
+      process.stdout.write(chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+      return exitProcess(EXIT_CODE_ERROR);
     }
-    console.log(chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+    process.stdout.write(chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
   } else {
-    console.log("✨  There's no problem, good job 👏");
+    process.stdout.write("✨  There's no problem, good job 👏");
   }
   return exitProcess();
 }
 
-async function lintFile({ file_path, linter, config_path, preset }) {
+// TODO imporve
+async function lintFile({ file_path, linter, config_path, preset }: { file_path: string, linter: any, config_path: string, preset: string } ): Promise<Report> {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
     const issues = await linter.lint(file_content);
@@ -154,7 +161,7 @@ async function lintFile({ file_path, linter, config_path, preset }) {
       config_path,
       preset
     };
-  } catch (error) {
+  } catch (error: any) {
     error.fileName = file_path;
     throw error;
   }
