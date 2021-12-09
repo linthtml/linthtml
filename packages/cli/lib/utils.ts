@@ -14,9 +14,9 @@ function isBetaVersion() {
 
 function displayBetaVersionMessage() {
   if (isBetaVersion() === true) {
-    process.stdout.write("");
-    process.stdout.write(chalk`{yellow 🚧🚧 You"re using a beta version 🚧🚧}`);
-    process.stdout.write(chalk`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`);
+    console.log("");
+    console.log(chalk`{yellow 🚧🚧 You"re using a beta version 🚧🚧}`);
+    console.log(chalk`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`);
   }
 }
 

@@ -55,7 +55,7 @@ export default async function init_command(): Promise<void> {
     fs.writeFileSync(config_file.name, config_file.generate_content(presets.default), "utf8");
   } else {
     fs.writeFileSync(config_file.name, config_file.generate_content(default_config), "utf8");
-    process.stdout.write(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
+    console.log(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
   }
-  process.stdout.write(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
+  console.log(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
 }

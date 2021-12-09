@@ -18,12 +18,12 @@ function print_level({ severity }: { severity: string }) {
 }
 
 export default function print_file_report(report: Report) {
-  process.stdout.write(chalk`File: {underline ${report.fileName}}`);
+  console.log(chalk`File: {underline ${report.fileName}}\n`);
   if (report.config_path) {
-    process.stdout.write(chalk`{blue Config file: {white.underline ${report.config_path}}}`);
+    console.log(chalk`{blue Config file: {white.underline ${report.config_path}}}\n`);
   }
   if (report.preset) {
-    process.stdout.write(chalk`{blue Using preset: {white ${report.preset}}}`);
+    console.log(chalk`{blue Using preset: {white ${report.preset}}}\n`);
   }
   const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.line), -1).toString().length;
   const maxColumn = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.column), -1).toString().length;
@@ -50,5 +50,5 @@ export default function print_file_report(report: Report) {
   }, []);
 
   const table = new Table(issues, { noTrim: true });
-  process.stdout.write(table.toString());
+  console.log(table.toString());
 }
