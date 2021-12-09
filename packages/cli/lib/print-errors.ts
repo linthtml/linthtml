@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import * as messages from "./messages";
 
-export default function print_errors(error: { code: string, meta: Object, message: string }) {
+export default function print_errors(error: { code: string, meta: unknown, message: string }) {
   if (error.code) {
     const [type, code] = error.code.split("-");
     // @ts-ignore
