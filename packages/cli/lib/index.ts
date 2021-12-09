@@ -14,7 +14,7 @@ import printErrors from "./print-errors";
 
 const {
   exitProcess,
-  EXIT_CODE_ERROR 
+  EXIT_CODE_ERROR
 } = require("./utils");
 
 const linthtml = require("@linthtml/linthtml");
@@ -94,7 +94,7 @@ export default function cli(argv: string[]) {
     cli.showHelp();
   }
   return lint(cli.input, cli.flags.config as string);
-};
+}
 
 async function lint(input: string[], config_path: string) {
   let files_linters = [];
@@ -151,7 +151,7 @@ function printReports(reports: Report[]) {
 }
 
 // TODO imporve
-async function lintFile({ file_path, linter, config_path, preset }: { file_path: string, linter: any, config_path: string, preset: string } ): Promise<Report> {
+async function lintFile({ file_path, linter, config_path, preset }: { file_path: string, linter: any, config_path: string, preset: string }): Promise<Report> {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
     const issues = await linter.lint(file_content);

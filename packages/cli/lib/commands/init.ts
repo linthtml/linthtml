@@ -58,4 +58,4 @@ export default async function init_command(): Promise<void> {
     process.stdout.write(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
   }
   process.stdout.write(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
-};
+}

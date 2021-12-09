@@ -19,7 +19,7 @@ function buildAllowedOptions(allowedOptions: meow.AnyFlags) {
   options.sort();
 
   return options;
-};
+}
 
 function cliOption(opt: string) {
   return opt.length === 1
@@ -38,4 +38,4 @@ export default function checkInvalidCLIOptions(allowedOptions: meow.AnyFlags, in
     .reduce((msg, invalid) => {
       return msg + buildMessageLine(invalid);
     }, "");
-};
+}

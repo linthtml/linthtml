@@ -68,4 +68,4 @@ export default function check_lang_attribute(lang_attribute: CharValue) {
     : check_lang_code(lang.toLowerCase()) && check_country_code(country.toUpperCase())
       ? 2
       : 1;
-};
+}

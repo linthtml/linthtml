@@ -21,7 +21,7 @@ function has_attribute(node: Element, attribute_name: string): boolean {
  * name. Count "" as a non-empty attribute value only if optional
  * parameter allow_null is true
  */
-function has_non_empty_attribute(node: Element, attribute_name: string, allow_null: boolean = false): boolean {
+function has_non_empty_attribute(node: Element, attribute_name: string, allow_null = false): boolean {
   const attribute = node.attributes.find(
     ({ name }) => name.chars.toLowerCase() === attribute_name
   );
@@ -53,7 +53,6 @@ function attribute_has_value(node: Element, attribute_name: string, value_to_che
   return false;
 }
 
-
 function is_tag_node(node: Node): node is Element {
   return [
     ElementType.Tag,
@@ -68,14 +67,12 @@ function is_text_node(node: Node): node is Text {
   return node.type === ElementType.Text;
 }
 
-
 function get_classes(class_attribute: CharValue): string[] {
-  const classes = class_attribute ?.chars ?? "";
+  const classes = class_attribute?.chars ?? "";
   return classes
     .trim()
     .split(/\s+/);
 }
-
 
 function node_tag_name(node: Node): string {
   switch (node.type) {
