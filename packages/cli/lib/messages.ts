@@ -1,4 +1,9 @@
-module.exports.CORE_ERRORS = {
+import { Chalk } from "chalk";
+//@ts-ignore
+import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Issue } from "./utils";
+
+export const CORE_ERRORS: { [code: string]: (chalk: Chalk, meta?: any) => string} = {
   "01": (chalk, meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta.config_path}}`,
   "02": (chalk, meta) => chalk`{red Error:} Cannot find the config file {underline ${meta.config_path}}`,
   "03": (chalk, meta) => chalk`{red Error:} Cannot find module "${meta.module_name}" to extends`,
@@ -11,7 +16,7 @@ module.exports.CORE_ERRORS = {
 };
 
 // TODO: add the possibility to use chalk ?
-const errors = {
+export const errors: { [code: string]: (meta: any, position: Range) => string} = {
   E000: (/* data */) => "not a valid error code",
   E001: (data) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
   E002: ({ format, attribute }) => `The attribute "${attribute}" must be written using the format "${format}"`,
@@ -90,14 +95,7 @@ const errors = {
 //   "01": ({ instruction }) => `unrecognized linthtml instruction: \`linthtml-${instruction}\``
 // };
 
-module.exports.errors = errors;
-
-module.exports.renderMsg = function(code, data) {
-  const format = errors[code];
-  return format(data);
-};
-
-module.exports.renderIssue = function(issue) {
+export function renderIssue(issue: Issue) {
   const format = errors[issue.code];
 
   return format
@@ -105,7 +103,7 @@ module.exports.renderIssue = function(issue) {
     : issue.message;
 };
 
-module.exports.get_issue_message = function(issue) {
+export function get_issue_message(issue: Issue) {
   const generate_issue_message = errors[issue.code];
   return generate_issue_message(issue.data, issue.position);
 };
