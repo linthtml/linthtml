@@ -8,7 +8,7 @@ type TextLine = {
  offset: number;
 };
 
-function get_lines(node: Text, include_EOL: boolean = false): TextLine[] {
+function get_lines(node: Text, include_EOL = false): TextLine[] {
   const { data } = node;
   const R = /(\r\n|\r|\n)/g;
   let match;

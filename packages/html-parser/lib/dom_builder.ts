@@ -55,7 +55,7 @@ export default class Handler extends DomHandler {
       column + 1
     );
   }
-  
+
   __createAttributeNode(name: string, attribute_value: string): NodeAttribute {
     let equal: CharValue | null = null;
     let value: CharValue | null = null;
@@ -85,7 +85,7 @@ export default class Handler extends DomHandler {
         this._indexToPosition(start + name.length + rawEqValue.length),
         this._indexToPosition(end)
       );
-       // remove extra spaces newline? (attribute_value)
+      // remove extra spaces newline? (attribute_value)
       value = new CharValue(attribute_value, loc, rawValue);
     } else {
       end = start + name.length;
@@ -103,14 +103,14 @@ export default class Handler extends DomHandler {
     );
   }
 
-  //@ts-ignore
+  // @ts-ignore
   onattribute(name: string, value: string, quote?: string | undefined | null): void {
-    debugger
+    debugger;
     const attribute = this.__createAttributeNode(name, value);
     this.attributes.push(attribute);
   }
 
-  onopentag(name: string/* , attribs: { [key: string]: string }*/): void {
+  onopentag(name: string/* , attribs: { [key: string]: string } */): void {
     // @ts-ignore
     const type = this.options.xmlMode ? ElementType.Tag : undefined;
     const node = new Element(name, this.attributes, undefined, type);

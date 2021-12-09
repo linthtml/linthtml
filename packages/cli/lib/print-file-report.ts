@@ -51,4 +51,4 @@ export default function print_file_report(report: Report) {
 
   const table = new Table(issues, { noTrim: true });
   process.stdout.write(table.toString());
-};
+}

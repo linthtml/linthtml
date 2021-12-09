@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { exitProcess, EXIT_CODE_ERROR } from "../utils";
 // @ts-ignore
-import { find_local_config } from"@linthtml/linthtml/lib/read-config";
+import { find_local_config } from "@linthtml/linthtml/lib/read-config";
 
 export default function print_config(path: string) {
   if (path === "") {
@@ -15,4 +15,4 @@ export default function print_config(path: string) {
   }
   process.stderr.write(chalk`{red.bold Couldn't file a config file to print}`);
   exitProcess(EXIT_CODE_ERROR);
-};
+}

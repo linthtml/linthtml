@@ -10,7 +10,7 @@ const LABELABLE_NODES = [
   "progress",
   "select",
   "textarea",
-  "keygen", // no longer in html spec
+  "keygen" // no longer in html spec
 ];
 
 /**
@@ -30,4 +30,4 @@ export default function is_labelable(node: Node): boolean {
 
   // element passed all the tests
   return true;
-};
+}

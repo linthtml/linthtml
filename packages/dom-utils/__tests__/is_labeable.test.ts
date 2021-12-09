@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
 // To remove/fix after index.ts cleaning
-//@ts-ignore
+// @ts-ignore
 import { is_labelable } from "../lib";
 import { Element, NodeAttribute, Position, CharValue, Range } from "../lib/dom_elements";
 import { ElementType } from "domelementtype";
@@ -12,12 +12,12 @@ function generate_node_attribute(name: string, value?: string) {
     new Position(0, name.length)
   );
   const name_char = new CharValue(name, name_loc);
-  
-  if(value) {
+
+  if (value) {
     const equal_loc = new Range(
       name_loc.end,
       new Position(0, name.length + 1)
-    )
+    );
     const equal_char = new CharValue("=", equal_loc);
 
     const value_loc = new Range(
