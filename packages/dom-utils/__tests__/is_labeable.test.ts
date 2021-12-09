@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-// To remove/fix after inmdex.ts cleaning
+// To remove/fix after index.ts cleaning
 //@ts-ignore
 import { is_labelable } from "../lib";
 import { Element, NodeAttribute, Position, CharValue, Range } from "../lib/dom_elements";
