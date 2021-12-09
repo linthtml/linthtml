@@ -127,7 +127,7 @@ async function lint(input: string[], config_path: string) {
 }
 
 function printReports(reports: Report[]) {
-  process.stdout.write("");
+  console.log("");
   reports.forEach(print_file_report);
 
   if (reports.length > 0) {
@@ -140,12 +140,12 @@ function printReports(reports: Report[]) {
     const problemsCount = errorsCount + warningCount;
 
     if (errorsCount > 0) {
-      process.stdout.write(chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+      console.log(chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
       return exitProcess(EXIT_CODE_ERROR);
     }
-    process.stdout.write(chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+    console.log(chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
   } else {
-    process.stdout.write("✨  There's no problem, good job 👏");
+    console.log("✨  There's no problem, good job 👏");
   }
   return exitProcess();
 }
