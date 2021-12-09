@@ -32,7 +32,7 @@ type Issue = {
   position: Range;
   code: string;
   rule: string;
-  data: Object;
+  data: unknown;
   message: string;
 }
 

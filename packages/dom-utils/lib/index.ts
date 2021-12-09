@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // Keep as nodejs syntaxt for now
 module.exports = {
   is_labelable: require("./is_labelable").default,
