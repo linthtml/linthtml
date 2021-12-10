@@ -18,12 +18,12 @@ function print_level({ severity }: { severity: string }) {
 }
 
 export default function print_file_report(report: Report) {
-  console.log(chalk`File: {underline ${report.fileName}}\n`);
+  console.log(chalk`File: {underline ${report.fileName}}`);
   if (report.config_path) {
-    console.log(chalk`{blue Config file: {white.underline ${report.config_path}}}\n`);
+    console.log(chalk`{blue Config file: {white.underline ${report.config_path}}}`);
   }
   if (report.preset) {
-    console.log(chalk`{blue Using preset: {white ${report.preset}}}\n`);
+    console.log(chalk`{blue Using preset: {white ${report.preset}}}`);
   }
   const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.line), -1).toString().length;
   const maxColumn = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.column), -1).toString().length;
