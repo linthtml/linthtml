@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.3](https://github.com/linthtml/linthtml/compare/v0.8.2...v0.8.3) (2021-12-13)
+
+### Fix
+
+* Correctly load plugin's rules ([dbeb654](https://github.com/linthtml/linthtml/commit/dbeb654006a3b44b84313c83a72013a411a7148e))
+
 ## [0.8.2](https://github.com/linthtml/linthtml/compare/v0.8.1...v0.8.2) (2021-11-29)
 
 ### Fix
