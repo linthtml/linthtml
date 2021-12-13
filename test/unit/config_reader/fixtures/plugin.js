@@ -1,4 +1,6 @@
-module.exports = [{
-  name: "my-plugin/rule",
-  lint() {}
-}];
+module.exports = {
+    rules: [{
+    name: "my-plugin/rule",
+    lint() {}
+  }]
+};

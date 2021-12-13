@@ -248,10 +248,37 @@ describe("Load plugins", function() {
       .be
       .a("function");
   });
+  it("Throw an error when plugins rules property is not an array", function() {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    rewiremock.overrideEntryPoint(module);
+    rewiremock(plugin_path).with({
+      rules: {}
+    });
+    rewiremock.enable();
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error)
+        .to
+        .have
+        .property("code", "CORE-09");
+      expect(error)
+        .to
+        .have
+        .deep
+        .property("meta", {
+          plugin_name: plugin_path
+        });
+    }
+    rewiremock.disable();
+  });
   it("Throw an error when rule does not have a name", function() {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
+      rules: [{}]
     });
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
@@ -277,7 +304,9 @@ describe("Load plugins", function() {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
-      name: "my-rule"
+      rules: [{
+        name: "my-rule"
+      }]
     });
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
@@ -304,7 +333,9 @@ describe("Load plugins", function() {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
-      name: "my/my-rule"
+      rules: [{
+        name: "my/my-rule"
+      }]
     });
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
