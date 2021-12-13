@@ -12,7 +12,7 @@ export const CORE_ERRORS: { [code: string]: (chalk: Chalk, meta?: any) => string
   "06": (chalk, meta) => chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
   "07": (chalk, meta) => chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
   "08": (chalk, meta) => chalk`{red Error:} Plugin rules need to define a "lint" function. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
-  "09": (chalk, meta) => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
+  "09": (chalk) => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
 };
 
 // TODO: add the possibility to use chalk ?
