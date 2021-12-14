@@ -37,6 +37,6 @@ function lint(node, style, { report }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_list_value_validator(["always", "never"], false),
+  validateConfig: create_list_value_validator(RULE_NAME, ["always", "never"], false),
   lint
 };

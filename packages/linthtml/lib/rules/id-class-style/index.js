@@ -18,6 +18,6 @@ function lint(node, config, { report, rules, global_config }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_list_value_validator(["lowercase", "underscore", "dash", "camel", "bem"]),
+  validateConfig: create_list_value_validator(RULE_NAME, ["lowercase", "underscore", "dash", "camel", "bem"]),
   lint
 };

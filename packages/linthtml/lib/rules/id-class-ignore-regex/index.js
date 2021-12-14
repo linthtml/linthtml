@@ -5,6 +5,6 @@ const RULE_NAME = "id-class-ignore-regex";
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_string_or_regexp_validator(false),
+  validateConfig: create_string_or_regexp_validator(RULE_NAME, false),
   lint() {}
 };

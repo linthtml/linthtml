@@ -47,5 +47,5 @@ function lint(node, format, { report }) {
 module.exports = {
   name: RULE_NAME,
   lint,
-  validateConfig: create_list_value_validator(["absolute", "relative"], false)
+  validateConfig: create_list_value_validator(RULE_NAME, ["absolute", "relative"], false)
 };

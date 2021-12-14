@@ -12,11 +12,11 @@ module.exports = {
   options: [
     {
       name: "maxerr",
-      validateConfig: create_number_validator(false)
+      validateConfig: create_number_validator("maxerr", false)
     },
     {
       name: "raw-ignore-regex",
-      validateConfig: create_string_or_regexp_validator()
+      validateConfig: create_string_or_regexp_validator("raw-ignore-regex")
     }
   ]
 };

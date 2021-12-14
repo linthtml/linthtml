@@ -38,6 +38,6 @@ function lint(node, max_length, { report }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_number_validator(false),
+  validateConfig: create_number_validator(RULE_NAME, false),
   lint
 };

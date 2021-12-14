@@ -62,7 +62,7 @@ describe("Config", function() {
       });
     } catch (error) {
       expect(error)
-        .to.be.an.instanceOf(CustomError)
+        .to.be.a("CustomError")
         .to.have.property("code", "CORE-04");
       expect(error.meta)
         .to.deep.equal({
