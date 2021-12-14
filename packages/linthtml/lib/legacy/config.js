@@ -76,7 +76,7 @@ class Config {
       this.addOption({
         name: rule.name,
         rules: [rule.name],
-        validateConfig: rule.validateConfig || is_boolean
+        validateConfig: rule.validateConfig || is_boolean(rule.name)
       });
     }
   }
@@ -131,7 +131,7 @@ class Config {
       option.rules = [option.name];
     }
     option.active = false;
-    option.validateConfig = option.validateConfig || is_boolean;
+    option.validateConfig = option.validateConfig || is_boolean(option.name);
     this.options[option.name] = option;
 
     if (oldOption && oldOption.active) {

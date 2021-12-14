@@ -41,6 +41,6 @@ function lint(node, config, { report }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_list_value_validator(["double", "single", "quoted"], false),
+  validateConfig: create_list_value_validator(RULE_NAME, ["double", "single", "quoted"], false),
   lint
 };
