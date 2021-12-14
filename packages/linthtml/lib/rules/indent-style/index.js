@@ -188,6 +188,6 @@ function lint(node, config, { report, global_config }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_list_value_validator(["tabs", "spaces", "nonmixed"], false),
+  validateConfig: create_list_value_validator(RULE_NAME, ["tabs", "spaces", "nonmixed"], false),
   lint
 };

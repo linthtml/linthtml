@@ -57,6 +57,6 @@ function lint(node, format, { report }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_list_value_validator(["cr", "lf", "crlf"], false),
+  validateConfig: create_list_value_validator(RULE_NAME, ["cr", "lf", "crlf"], false),
   lint
 };

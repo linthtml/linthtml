@@ -11,6 +11,6 @@ function lint(_, __, { rules }) {
 
 module.exports = {
   name: RULE_NAME,
-  validateConfig: create_number_validator(false),
+  validateConfig: create_number_validator(RULE_NAME, false),
   lint
 };
