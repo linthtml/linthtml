@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 
 describe("linthtml.rules", function() {
-  const rules = require("../lib").rules;
-
+  // TODO: Remove .default after typescript migration
+  const { rules } = require("../lib").default;
   rules.forEach(function(rule) {
     describe(rule.name, function() {
       it("should have a name", function() {

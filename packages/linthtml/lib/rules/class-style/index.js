@@ -1,4 +1,5 @@
-const match_format = require("../../utils/check_format");
+// TODO: Remove .defafult after typescript migration
+const match_format = require("../../utils/check_format").default;
 const { is_tag_node, attribute_value, get_classes, has_non_empty_attribute } = require("@linthtml/dom-utils/dist/lib/tags");
 const { create_list_value_validator } = require("../../validate_option");
 const { types: { isRegExp } } = require("util");

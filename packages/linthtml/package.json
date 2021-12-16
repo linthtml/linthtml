@@ -21,8 +21,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "mocha -r ts-node/register './__tests__/**/*.test.js' './lib/rules/**/__tests__/*.js' --bail",
-    "build": "tsc --build",
-    "prepare": "npm run build;"
+    "build": "tsc --build"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
@@ -44,6 +43,8 @@
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.1",
+    "@types/global-modules": "^2.0.0",
+    "@types/resolve-from": "^5.0.1",
     "chai": "^4.3.4",
     "mocha": "^9.1.1",
     "ts-node": "^10.4.0",

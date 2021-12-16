@@ -1,5 +1,4 @@
 module.exports = {
-  maxerr: false,
   "raw-ignore-regex": false,
   "attr-bans": [
     "align",

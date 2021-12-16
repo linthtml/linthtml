@@ -1,4 +1,5 @@
 const { expect } = require("chai");
+// TODO: Remove .default after typescript migration
 const Config = require("../lib/legacy/config");
 
 describe("Legcay Config", function() {

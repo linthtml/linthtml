@@ -1,4 +1,5 @@
-const linthtml = require("../../lib");
+// TODO: Remove .default after typescript migration
+const linthtml = require("../../lib").default;
 const none = require("../../lib/presets").presets.none;
 const base = require("../../lib/presets").presets.default;
 const { expect } = require("chai");
