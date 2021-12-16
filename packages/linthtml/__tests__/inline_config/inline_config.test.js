@@ -1,8 +1,9 @@
 const parse = require("@linthtml/html-parser").default;
 const { extract_inline_config } = require("../../lib/inline_config");
 const { expect } = require("chai");
-const Config = require("../../lib/config");
-const linthtml = require("../../lib/index");
+// TODO: Remove .default after typescript migration
+const Config = require("../../lib/config").default;
+const linthtml = require("../../lib/index").default;
 
 const fooRule = {
   name: "foo",
@@ -40,7 +41,7 @@ describe("inline_config extraction", function() {
 
   describe("Configure instruction", function() {
     it("report an error when configuration target a nonexistent rule ", function(done) {
-      const config = new Config({});
+      const config = new Config();
       function report({ code, position, meta }) {
         expect(code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
         expect(position)
@@ -67,7 +68,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo='bar' -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -79,7 +80,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo=2 -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -91,7 +92,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo={\"bar\": \"fix\"} -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -103,7 +104,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo=[\"bar\"] -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -115,7 +116,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo=true -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -127,7 +128,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo=false -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -139,7 +140,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo='false' -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -151,7 +152,7 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({ fooRule });
+      const config = new Config([fooRule]);
       const comment = parse_comment("<!-- linthtml-configure foo='off' -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -163,13 +164,13 @@ describe("inline_config extraction", function() {
       function report() {
         throw new Error("Report function should not be called for valid inline config");
       }
-      const config = new Config({
+      const config = new Config([
         fooRule,
-        bar: {
+        {
           name: "bar",
           lint() {}
         }
-      });
+      ]);
       const comment = parse_comment("<!-- linthtml-configure foo='fix' bar='buz' -->");
       const inline_config = extract_inline_config(comment, config, report);
 
@@ -181,7 +182,7 @@ describe("inline_config extraction", function() {
 
     describe("configuration format", function() {
       it("report an error for invalid string (no quotes)", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -205,7 +206,7 @@ describe("inline_config extraction", function() {
       });
 
       it("report an error for empty config (nothing after =)", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -229,7 +230,7 @@ describe("inline_config extraction", function() {
       });
 
       it("report an error for invalid object config", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -253,7 +254,7 @@ describe("inline_config extraction", function() {
       });
 
       it("report an error for invalid array config", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -277,7 +278,7 @@ describe("inline_config extraction", function() {
       });
 
       it("report an error for invalid json object (no quotes on keys)", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -301,7 +302,7 @@ describe("inline_config extraction", function() {
       });
 
       it("report an error for invalid json", function(done) {
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_03", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -332,7 +333,7 @@ describe("inline_config extraction", function() {
             throw Error("not valid");
           }
         };
-        const config = new Config({ foo });
+        const config = new Config([foo]);
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_04", "Issue with code `INLINE_03` is reported");
           expect(position)
@@ -360,7 +361,7 @@ describe("inline_config extraction", function() {
   ["enable", "disable"].forEach((instruction) => {
     describe(`${instruction} instruction`, function() {
       it("report an error when configuration target a nonexistent rule ", function(done) {
-        const config = new Config({});
+        const config = new Config();
         const html = `<!-- linthtml-${instruction} foo -->`;
         function report({ code, position, meta }) {
           expect(code).to.equal("INLINE_02", "Issue with code `INLINE_02` is reported");
@@ -388,7 +389,7 @@ describe("inline_config extraction", function() {
         function report() {
           throw new Error("Report function should not be called for valid inline config");
         }
-        const config = new Config({ fooRule });
+        const config = new Config([fooRule]);
         const comment = parse_comment(`<!-- linthtml-${instruction} foo -->`);
         const inline_config = extract_inline_config(comment, config, report);
 
@@ -400,13 +401,13 @@ describe("inline_config extraction", function() {
         function report() {
           throw new Error("Report function should not be called for valid inline config");
         }
-        const config = new Config({
+        const config = new Config([
           fooRule,
-          bar: {
+          {
             name: "bar",
             lint() {}
           }
-        });
+        ]);
         const comment = parse_comment(`<!-- linthtml-${instruction} foo, bar -->`);
         const inline_config = extract_inline_config(comment, config, report);
         expect(inline_config.foo).to.not.be.undefined;
@@ -420,13 +421,13 @@ describe("inline_config extraction", function() {
         function report() {
           throw new Error("Report function should not be called for valid inline config");
         }
-        const config = new Config({
+        const config = new Config([
           fooRule,
-          bar: {
+          {
             name: "bar",
             lint() {}
           }
-        }, { // active provided rules
+        ], { // active provided rules
           rules: {
             bar: true,
             foo: true

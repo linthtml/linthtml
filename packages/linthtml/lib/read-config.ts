@@ -1,20 +1,85 @@
-const { cosmiconfigSync } = require("cosmiconfig");
-const path = require("path");
-const fs = require("fs");
-const CustomError = require("./utils/custom-errors");
+import path from "path";
+import fs from "fs";
 
-const globalModules = require("global-modules");
-const resolveFrom = require("resolve-from");
+import { cosmiconfigSync } from "cosmiconfig";
+import { Config, CosmiconfigResult } from "cosmiconfig/dist/types";
+import globalModules from "global-modules";
+import resolveFrom from "resolve-from";
+
+import CustomError from "./utils/custom-errors";
+import Issue from "./issue";
+// @ts-ignore
+import { Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
 
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
-/**
- * @param {string} basedir
- * @param {string} module_name
- * @return {string}
- */
-function get_module_path(basedir, module_name) {
+export type reportFunction = (data: { code: string, position: Range, meta: any, message: string }) => void;
+
+// TODO: Move every types in the same file?
+export type RuleDefinition = {
+  name: string;
+  // eslint-disable-next-line no-use-before-define
+  lint: (node: Node, rule_config: unknown, obj: { report: reportFunction, rules: Record<string, ActiveRuleDefinition>, global_config: any }) => void;
+  validateConfig?: <T>(option: T) => void | never;
+
+  configTransform?: (option: unknown) => unknown; // remove for v1
+  filter?: string[]; // remove for v1
+  end?: () => Issue[]; // remove for v1
+}
+
+export type RuleSeverity = "warning" | "error";
+export type RuleActivation = boolean | RuleSeverity | "off";
+
+export type RuleConfig = RuleActivation | [RuleActivation, unknown];
+
+export type LinterConfig = {
+  extends: string | string[];
+  plugins: string[];
+  parser?: string;
+  ignoreFiles: string[];
+
+  maxerr?: number;
+  "text-ignore-regex"?: string | RegExp | boolean;
+  "raw-ignore-regex"?: string | RegExp | boolean;
+  "attr-name-ignore-regex"?: string | RegExp | boolean;
+  "id-class-ignore-regex"?: string | RegExp | boolean;
+  "line-max-len-ignore-regex"?: string | RegExp | boolean;
+
+  plugins_rules?: {
+    [rules_name: string]: RuleDefinition
+  };
+  rules: {
+    [rule_name: string]: RuleConfig
+  };
+}
+
+export type PluginConfig = {
+  rules?: RuleDefinition[]
+}
+
+export type LegacyRuleDefinition = RuleDefinition & { options: RuleDefinition[] };
+
+export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
+
+export type LegacyLinterConfig = {
+  maxerr?: number;
+  "text-ignore-regex"?: string | RegExp | boolean;
+  "raw-ignore-regex"?: string | RegExp | boolean;
+  "attr-name-ignore-regex"?: string | RegExp | boolean;
+  "id-class-ignore-regex"?: string | RegExp | boolean;
+  "line-max-len-ignore-regex"?: string | RegExp | boolean;
+
+  [rule_name: string]: boolean | unknown;
+}
+
+export type ExtractConfigResult = {
+  filepath: string;
+  isEmpty?: boolean | undefined;
+  config: LinterConfig | LegacyLinterConfig
+};
+
+function get_module_path(basedir: string, module_name: string): string | never {
   // 1. Try to resolve from the provided directory
   // 2. Try to resolve from `process.cwd`
   // 3. Try to resolve from global `node_modules` directory
@@ -35,8 +100,8 @@ function get_module_path(basedir, module_name) {
   return path;
 }
 
-function merge_configs(a, b) {
-  let plugins = [];
+function merge_configs(a: LinterConfig, b: Partial<LinterConfig>): LinterConfig {
+  let plugins: string[] = [];
 
   if (a.plugins || b.plugins) {
     if (a.plugins) {
@@ -66,13 +131,13 @@ function merge_configs(a, b) {
  * @param {CosmiconfigResult} cosmiconfig_result
  * @return {CosmiconfigResult}
  */
-function augment_config(cosmiconfig_result) {
+function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigResult | null {
   if (!cosmiconfig_result) {
     return null;
   }
 
   const config_dir = path.dirname(cosmiconfig_result.filepath || "");
-  const { ignoreFiles = [], ...config } = cosmiconfig_result.config;
+  const { ignoreFiles = [], ...config }: LinterConfig = cosmiconfig_result.config;
   let result = {
     filepath: cosmiconfig_result.filepath,
     config
@@ -86,13 +151,13 @@ function augment_config(cosmiconfig_result) {
     const extended_config = normalized_extends.reduce((extended_config, extends_path) => {
       const configResult = load_extended_config(extends_path, config_dir);
       return merge_configs(extended_config, configResult);
-    }, {});
+    }, {} as LinterConfig);
 
     result = {
       filepath: result.filepath,
       config: merge_configs(
         extended_config,
-        result.config
+        result.config as LinterConfig
       )
     };
   }
@@ -110,9 +175,11 @@ function augment_config(cosmiconfig_result) {
  * @param {string} config_dir
  * @return {CosmiconfigResult}
  */
-function load_extended_config(extends_path, config_dir) {
+function load_extended_config(extends_path: string, config_dir: string): LinterConfig {
   const extendPath = get_module_path(config_dir, extends_path);
   // create cosmiconfigSync only once ?
+  // TODO fix (use "linthtml" ?)
+  // @ts-ignore
   const cosmiconfig_result = cosmiconfigSync(null, {
     stopDir: STOP_DIR,
     transform: augment_config
@@ -127,7 +194,7 @@ function load_extended_config(extends_path, config_dir) {
  * @param {string} plugin_name
  * @throws {CustomError}
  */
-function check_plugin_rule(rule_definition, plugin_name) {
+function check_plugin_rule(rule_definition: { name?: string, lint?: unknown }, plugin_name: string): void | never {
   if (!rule_definition.name) {
     throw new CustomError("CORE-06", { plugin_name });
   }
@@ -146,8 +213,11 @@ function check_plugin_rule(rule_definition, plugin_name) {
  * @returns {Object}
  * @throws {CustomError}
  */
-function load_plugin(plugin_name) {
+function load_plugin(plugin_name: string): PluginConfig | never {
   try {
+    // TODO: Switch to import
+    // Eslint Typescript recommend using import statement but import return a promise.
+    /* eslint-disable-next-line @typescript-eslint/no-var-requires */
     const plugin_import = require(plugin_name);
     // Handle either ES6 or CommonJS modules
     return plugin_import.default || plugin_import;
@@ -161,32 +231,32 @@ function load_plugin(plugin_name) {
  * @returns {CosmiconfigResult}
  * @throws {CustomError}
  */
-function add_plugins_rules(cosmiconfig_result) {
+function add_plugins_rules(cosmiconfig_result: { config: Config, filepath: string, isEmpty?: boolean | undefined }): ExtractConfigResult | never {
   if (cosmiconfig_result.config.plugins) {
-    const normalized_plugins = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
+    const normalized_plugins: string[] = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
       ? cosmiconfig_result.config.plugins
       : [cosmiconfig_result.config.plugins];
 
-    const plugins_rules = normalized_plugins.reduce((plugin_rules, plugin_name) => {
+    const plugins_rules: Record<string, RuleDefinition> = normalized_plugins.reduce((plugin_rules: Record<string, RuleDefinition>, plugin_name) => {
       const { rules } = load_plugin(plugin_name);
 
       if (rules && !Array.isArray(rules)) {
         throw new CustomError("CORE-09", { plugin_name });
       }
 
-      rules.forEach((rule_definition) => {
+      (rules ?? []).forEach((rule_definition) => {
         check_plugin_rule(rule_definition, plugin_name);
         plugin_rules[rule_definition.name] = rule_definition;
       });
 
       return plugin_rules;
-    }, []);
+    }, {});
 
     return {
       ...cosmiconfig_result,
       config: merge_configs(
         cosmiconfig_result.config,
-        { plugins_rules }
+        { plugins_rules } // use partial type?
       )
     };
   }
@@ -200,7 +270,7 @@ const explorer = cosmiconfigSync("linthtml", {
   transform: augment_config
 });
 
-function config_from_path(file_path) {
+function config_from_path(file_path: string): ExtractConfigResult | never {
   const config_path = path.resolve(process.cwd(), file_path);
   let isconfig_directory = false;
   try {
@@ -220,6 +290,7 @@ function config_from_path(file_path) {
     if (config === null) {
       throw new Error();
     }
+
     return add_plugins_rules(config);
   } catch (error) {
     // let CustomError (like CORE-03) passthrough
@@ -233,14 +304,14 @@ function config_from_path(file_path) {
   }
 }
 
-function find_local_config(file_path) {
+function find_local_config(file_path: string): ExtractConfigResult | null | never {
   const config = explorer.search(file_path);
   return config
     ? add_plugins_rules(config)
     : null;
 }
 
-module.exports = {
+export {
   config_from_path,
   find_local_config,
   get_module_path

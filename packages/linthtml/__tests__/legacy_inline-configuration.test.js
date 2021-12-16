@@ -1,7 +1,8 @@
 const InlineConfig = require("../lib/legacy/inline_config");
 const { expect } = require("chai");
 
-const linthtml = require("../lib");
+// TODO: Remove .default after typescript migration
+const linthtml = require("../lib").default;
 const none = require("../lib/presets").presets.none;
 
 function createLinter() {

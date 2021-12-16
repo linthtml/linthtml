@@ -1,7 +1,6 @@
 const parse = require("@linthtml/html-parser").default;
 const Config = require("./config");
 const InlineConfig = require("./inline_config");
-const { flatten } = require("../utils/arrays");
 const rules = require("../rules");
 /**
  * Apply the raw-ignore-regex option.
@@ -66,9 +65,7 @@ class Linter {
       issues = issues.slice(0, this.config.maxerr);
     }
 
-    return Promise.all(issues).then(function(resolved) {
-      return flatten(resolved);
-    });
+    return Promise.resolve(issues.flat());
   }
 
   lintDom(dom, opts) {
@@ -76,12 +73,11 @@ class Linter {
   }
 
   resetRules(opts) {
-    return flatten(
-      this.rules.getAllRules().map(function(rule) {
-        const r = rule.end && rule.end(opts);
-        return r || [];
-      })
-    );
+    return this.rules.getAllRules().map(function(rule) {
+      const r = rule.end && rule.end(opts);
+      return r || [];
+    })
+      .flat();
   }
 
   setupInlineConfigs(dom) {

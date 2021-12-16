@@ -1,5 +1,8 @@
-class CustomError extends Error {
-  constructor(code, meta) {
+export default class CustomError extends Error {
+  constructor(
+    public code: string,
+    public meta: unknown
+  ) {
     super("");
     this.code = code;
     this.meta = meta;
@@ -9,5 +12,3 @@ class CustomError extends Error {
     return "CustomError";
   }
 }
-
-module.exports = CustomError;
