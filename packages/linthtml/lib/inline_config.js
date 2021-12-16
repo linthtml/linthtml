@@ -1,4 +1,5 @@
-const CustomError = require("./utils/custom-errors");
+// TODO: Remove .default after typescript migration
+const CustomError = require("./utils/custom-errors").default;
 // inline_config 0.2
 //
 // config "false", "off" disable rule

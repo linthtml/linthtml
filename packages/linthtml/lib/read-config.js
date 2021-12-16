@@ -1,7 +1,8 @@
 const { cosmiconfigSync } = require("cosmiconfig");
 const path = require("path");
 const fs = require("fs");
-const CustomError = require("./utils/custom-errors");
+// TODO: remove .default after typescript migration
+const CustomError = require("./utils/custom-errors").default;
 
 const globalModules = require("global-modules");
 const resolveFrom = require("resolve-from");
@@ -201,6 +202,7 @@ const explorer = cosmiconfigSync("linthtml", {
 });
 
 function config_from_path(file_path) {
+  debugger
   const config_path = path.resolve(process.cwd(), file_path);
   let isconfig_directory = false;
   try {

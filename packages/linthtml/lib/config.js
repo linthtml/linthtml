@@ -112,6 +112,8 @@ function extractAllRules(rules, config) {
   return o;
 }
 
+// TODO: Also validate config for "text-ignore-regex", "maxerr"...
+
 /**
  * @typedef {(Boolean|"error"|"warning"|"off"|String[])} RuleActivationConfig
  */

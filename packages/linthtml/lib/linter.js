@@ -2,9 +2,11 @@ const Config = require("./config");
 const { extract_inline_config } = require("./inline_config");
 const { flatten } = require("./utils/arrays");
 const rules = require("./rules");
-const Issue = require("./issue");
+// TODO: remove .default after typescript migration
+const Issue = require("./issue").default;
 const { get_module_path } = require("./read-config");
-const CustomError = require("./utils/custom-errors");
+// TODO: remove .default after typescript migration
+const CustomError = require("./utils/custom-errors").default;
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column

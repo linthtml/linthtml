@@ -1,6 +1,6 @@
 const { flatten } = require("../utils/arrays");
-
-const Issue = require("../issue");
+// TODO: remove .default after typescript migration
+const Issue = require("../issue").default;
 
 function apply_rules(rules, element, global_config) {
   const issues = [];

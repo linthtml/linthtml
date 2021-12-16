@@ -1,5 +1,6 @@
 const { parse_HTML_attributes } = require("@linthtml/dom-utils");
-const Issue = require("../issue");
+// TODO: remove .default after typescript migration
+const Issue = require("../issue").default;
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
