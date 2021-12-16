@@ -1,21 +1,27 @@
-// TODO: Remove .default after typescript migration
-const CustomError = require("./utils/custom-errors").default;
+import CustomError from "./utils/custom-errors";
+// @ts-ignore
+import { Node } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import Config from "./config";
 // inline_config 0.2
 //
 // config "false", "off" disable rule
 // Rest is treated as rule config
 
-function is_string_config(str) {
+type InlineInstructionConfig = {
+  config?: unknown;
+  disabled?: boolean;
+}
+
+function is_string_config(str: string): boolean {
   return /^("|')/.test(str) && /("|')$/.test(str);
 }
 
+// TODO: return node is CommentNode instead
+
 /**
  * Check whether or not an HTML is a inline config node
- *
- * @param {import('./parser/index').Node} node
- * @returns {Boolean}
  */
-function is_likely_inline_config(node) {
+function is_likely_inline_config(node: Node): boolean {
   if (node.type === "comment") {
     const data = node.data.trim();
     return /^linthtml-/.test(data);
@@ -25,12 +31,9 @@ function is_likely_inline_config(node) {
 
 /**
  * Validate that inline config contains a valid inline instruction
- *
- * @param {string} text
- * @throws {CustomError}
  */
-function check_instruction(text) {
-  const instruction = (/^linthtml-(\w+)(?:$|\s)/.exec(text))[1];
+function check_instruction(text: string): void | never {
+  const instruction = (/^linthtml-(\w+)(?:$|\s)/.exec(text) as RegExpExecArray)[1];
   const instruction_types = [
     "configure",
     "enable",
@@ -43,7 +46,7 @@ function check_instruction(text) {
 
 // don't catch things like `rule rule_2="x"` (rule_2 extracted but not rule)
 // ' x=y - ' => extract config "y -" should be y only
-function extract_rule_config(text) {
+function extract_rule_config(text: string): { rule_name: string, rule_configuration: string }[] {
   const R = /((?:\s|)\w+[-\w]*=)/g;
   const matches = [];
   let match;
@@ -62,12 +65,7 @@ function extract_rule_config(text) {
     });
 }
 
-/**
- *
- * @param {string} rule_configuration
- * @returns {*}
- */
-function parse_config(rule_configuration) {
+function parse_config(rule_configuration: string): unknown | never {
   const cleaned_rule_configuration = rule_configuration.replace(/^("|')/, "").replace(/("|')$/, "");
   try {
     // deal with boolean, array and object
@@ -80,13 +78,7 @@ function parse_config(rule_configuration) {
   }
 }
 
-/**
- * @param {String} rule_name
- * @param {Object} rule_configuration
- * @param {import('./config')} linter_config
- * @returns { {config?: Object, disabled?: Boolean} }
- */
-function generate_inline_instruction(rule_name, rule_configuration, linter_config) {
+function generate_inline_instruction(rule_name: string, rule_configuration: unknown, linter_config: Config): InlineInstructionConfig {
   let rule;
   try {
     rule = linter_config.getRule(rule_name);
@@ -106,25 +98,19 @@ function generate_inline_instruction(rule_name, rule_configuration, linter_confi
     return {
       config: rule_configuration
     };
-  } catch (error) {
+  } catch (error: any) {
     throw new CustomError("INLINE_04", { rule_name, error: error.message });
   }
 }
 
-/**
- *
- * @param {String} text
- * @param {import('./config')} linter_config
- * @returns {Object}
- */
-function get_instruction_meta(text, linter_config) {
-  const [, instruction_type, instruction_meta] = (/^linthtml-(enable|disable|configure)(?:\s+(.*)|$)/.exec(text));
+function get_instruction_meta(text: string, linter_config: Config): { [rule_name: string]: InlineInstructionConfig } {
+  const [, instruction_type, instruction_meta] = (/^linthtml-(enable|disable|configure)(?:\s+(.*)|$)/.exec(text)) as RegExpExecArray;
   if (instruction_type === "configure") {
     const rules_configurations = instruction_meta
       ? extract_rule_config(instruction_meta) // report error if only rule_name and nothing else
       : [];
 
-    return rules_configurations.reduce((configurations, { rule_name, rule_configuration }) => {
+    return rules_configurations.reduce((configurations: { [rule_name: string]: InlineInstructionConfig }, { rule_name, rule_configuration }) => {
       // there's an extra pair of "|' for string configuration that need to be removed before using JSON.parse
       const cleaned_rule_configuration = parse_config(rule_configuration);
       configurations[rule_name] = generate_inline_instruction(rule_name, cleaned_rule_configuration, linter_config);
@@ -136,30 +122,24 @@ function get_instruction_meta(text, linter_config) {
     ? instruction_meta.trim().split(/\s*,\s*/)
     : Object.keys(linter_config.activatedRules); // If no rules provided then enable/disabled all activated rules
 
-  return rules.reduce((configurations, rule_name) => {
+  return rules.reduce((configurations: { [rule_name: string]: InlineInstructionConfig }, rule_name) => {
     configurations[rule_name] = generate_inline_instruction(rule_name, instruction_type === "enable", linter_config);
     return configurations;
   }, {});
 }
 
 /**
- * Extract inline config form HTML comment node
- *
- * @param {import('./parser/index').Node} node
- * @param {import('./config')} linter_config
- * @param {Object} report
- * @returns
+ * Extract inline config from HTML comment node
  */
-module.exports.extract_inline_config = function extract_inline_config(node, linter_config, report) {
+export function extract_inline_config(node: Node, linter_config: Config, report: (obj: unknown) => void): { [rule_name: string]: InlineInstructionConfig } {
   if (is_likely_inline_config(node) === false) {
     return {};
   }
   const data = node.data.trim();
   try {
     check_instruction(data);
-    const instructions_meta = get_instruction_meta(data, linter_config);
-    return instructions_meta;
-  } catch (error) {
+    return get_instruction_meta(data, linter_config);
+  } catch (error: any) {
     report({
       code: error.code,
       position: node.loc,
@@ -169,4 +149,4 @@ module.exports.extract_inline_config = function extract_inline_config(node, lint
     });
     return {};
   }
-};
+}
