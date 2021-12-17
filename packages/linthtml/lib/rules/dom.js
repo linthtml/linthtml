@@ -1,4 +1,3 @@
-const { flatten } = require("../utils/arrays");
 // TODO: remove .default after typescript migration
 const Issue = require("../issue").default;
 
@@ -64,7 +63,7 @@ function lint(dom, opts, inlineConfigs) {
   const issues = dom.children.length
     ? dom.children.map(getIssues)
     : [];
-  return flatten(issues);
+  return issues.flat();
 }
 
 module.exports = {

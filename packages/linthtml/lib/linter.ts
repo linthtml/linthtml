@@ -1,6 +1,5 @@
 import Config from "./config";
 import { extract_inline_config, InlineConfig } from "./inline_config";
-import { flatten } from "./utils/arrays";
 import rules from "./rules";
 import Issue from "./issue";
 import CustomError from "./utils/custom-errors";
@@ -125,7 +124,7 @@ export default class Linter {
       inline_config = merge_inline_config(inline_config, extracted_inline_config);
       return getIssues(node, inline_config);
     });
-    return [...issues, ...flatten(rules_issues)];
+    return [...issues, ...rules_issues.flat()];
   }
 
   // TODO: Remove after v1
