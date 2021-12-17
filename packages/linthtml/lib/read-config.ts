@@ -8,13 +8,19 @@ import resolveFrom from "resolve-from";
 
 import CustomError from "./utils/custom-errors";
 import Issue from "./issue";
+// @ts-ignore
+import { Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
 
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
+export type reportFunction = (data: { code: string, position: Range, meta: any, message: string }) => void;
+
+// TODO: Move every types in the same file?
 export type RuleDefinition = {
   name: string;
-  lint: () => void;
+  // eslint-disable-next-line no-use-before-define
+  lint: (node: Node, rule_config: unknown, obj: { report: reportFunction, rules: Record<string, ActiveRuleDefinition>, global_config: any }) => void;
   validateConfig?: <T>(option: T) => void | never;
 
   configTransform?: (option: unknown) => unknown; // remove for v1
@@ -30,6 +36,7 @@ export type RuleConfig = RuleActivation | [RuleActivation, unknown];
 export type LinterConfig = {
   extends: string | string[];
   plugins: string[];
+  parser?: string;
   ignoreFiles?: string[];
 
   maxerr?: number | false;
@@ -49,6 +56,21 @@ export type LinterConfig = {
 
 export type PluginConfig = {
   rules?: RuleDefinition[]
+}
+
+export type LegacyRuleDefinition = RuleDefinition & { options: RuleDefinition[] };
+
+export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
+
+export type LegacyLinterConfig = {
+  maxerr?: number | false;
+  "text-ignore-regex"?: string | RegExp | false;
+  "raw-ignore-regex"?: string | RegExp | false;
+  "attr-name-ignore-regex"?: string | RegExp | false;
+  "id-class-ignore-regex"?: string | RegExp | false;
+  "line-max-len-ignore-regex"?: string | RegExp | false;
+
+  [rule_name: string]: boolean | unknown;
 }
 
 function get_module_path(basedir: string, module_name: string): string | never {
@@ -189,7 +211,7 @@ function load_plugin(plugin_name: string): PluginConfig | never {
   try {
     // TODO: Switch to import
     // Eslint Typescript recommend using import statement but import return a promise.
-    /* eslint-disable-next-line */
+    /* eslint-disable-next-line @typescript-eslint/no-var-requires */
     const plugin_import = require(plugin_name);
     // Handle either ES6 or CommonJS modules
     return plugin_import.default || plugin_import;
@@ -282,7 +304,7 @@ function find_local_config(file_path: string): CosmiconfigResult | null | never 
     : null;
 }
 
-module.exports = {
+export {
   config_from_path,
   find_local_config,
   get_module_path

@@ -236,8 +236,7 @@ describe("Config", function() {
             done();
           }
         };
-
-        const config = new Config({ foo });
+        const config = new Config([foo]);
         const rule = config.getRule("foo");
         const rule_config = {
           foo: [
@@ -264,7 +263,7 @@ describe("Config", function() {
           }
         };
 
-        const config = new Config({ foo });
+        const config = new Config([foo]);
         const rule = config.getRule("foo");
         const rule_config = {
           foo: [
@@ -290,7 +289,7 @@ describe("Config", function() {
       };
       this.config.setRuleConfig(rule, rule_config);
       expect(
-        this.config.getActivatedRule("attr-bans")
+        this.config.activated_rules["attr-bans"]
       ).to.have.property("severity", "error");
     });
     it("Rules severity should be set as \"error\" if \"error\" is provided", function() {
@@ -300,7 +299,7 @@ describe("Config", function() {
       };
       this.config.setRuleConfig(rule, rule_config);
       expect(
-        this.config.getActivatedRule("attr-bans")
+        this.config.activated_rules["attr-bans"]
       ).to.have.property("severity", "error");
     });
     it("Rules severity should be set as \"warning\" if \"warning\" is provided", function() {
@@ -310,7 +309,7 @@ describe("Config", function() {
       };
       this.config.setRuleConfig(rule, rule_config);
       expect(
-        this.config.getActivatedRule("attr-bans")
+        this.config.activated_rules["attr-bans"]
       ).to.have.property("severity", "warning");
     });
   });

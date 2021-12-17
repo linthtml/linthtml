@@ -1,19 +1,4 @@
-import { LinterConfig, RuleConfig, RuleDefinition } from "./read-config";
-
-type LegacyRuleDefinition = RuleDefinition & { options: RuleDefinition[] };
-
-type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
-
-type LegacyConfigFormat = {
-  maxerr: number | false;
-  "text-ignore-regex": string | RegExp | false;
-  "raw-ignore-regex": string | RegExp | false;
-  "attr-name-ignore-regex": string | RegExp | false;
-  "id-class-ignore-regex": string | RegExp | false;
-  "line-max-len-ignore-regex": string | RegExp | false;
-
-  [rule_name: string]: boolean | unknown;
-}
+import { ActiveRuleDefinition, LegacyLinterConfig, LegacyRuleDefinition, LinterConfig, RuleConfig, RuleDefinition } from "./read-config";
 
 class NonExistingRule extends Error {
   constructor(public rule_name: string) {
@@ -89,13 +74,10 @@ function generate_rules_from_options(rule: LegacyRuleDefinition): { [rule_name: 
     return rules;
   }, {});
 }
-function extract_all_rules(rules: Record<string, LegacyRuleDefinition>) {
-  const keys = Object.keys(rules);
-
-  const extracted_rules: Record<string, RuleDefinition> = keys.reduce((extracted: Record<string, RuleDefinition>, key) => {
-    const rule = rules[key];
-    if (rules[key].options !== undefined) {
-      const optionsRules = generate_rules_from_options(rules[key]);
+function extract_all_rules(rules: LegacyRuleDefinition[]) {
+  const extracted_rules: Record<string, RuleDefinition> = rules.reduce((extracted: Record<string, RuleDefinition>, rule) => {
+    if (rule.options !== undefined) {
+      const optionsRules = generate_rules_from_options(rule);
       extracted = { ...extracted, ...optionsRules };
     }
     extracted[rule.name] = rule;
@@ -119,16 +101,15 @@ export default class Config {
   public rules: Record<string, RuleDefinition>;
   public activated_rules: Record<string, ActiveRuleDefinition>; // Not good
   public config: LinterConfig;
-  public legacy_config?: LegacyConfigFormat;
+  public legacy_config: LegacyLinterConfig = {};
 
-  // TODO: remove Partial?
-  constructor(rules: Record<string, LegacyRuleDefinition> = {}, config: Partial<LinterConfig> = {}) {
+  constructor(rules: LegacyRuleDefinition[] = [], config?: LinterConfig) {
     // TODO: Remove after v1. No more nested rules
-    const { plugins_rules = {} } = config;
+    const plugins_rules = config?.plugins_rules ?? {};
     this.rules = { ...extract_all_rules(rules), ...plugins_rules };
     this.activated_rules = {};
     this.config = config as LinterConfig;
-    if (config.rules) {
+    if (config?.rules) {
       this.activateRules(this.config);
       // TODO: Remove after v1. No more needed
       this.legacy_config = this.generateLegacyConfig(this.config);
@@ -157,14 +138,6 @@ export default class Config {
     return rule;
   }
 
-  /**
-   * Get a rule by name.
-   */
-  getActivatedRule(rule_name: string): ActiveRuleDefinition | null {
-    const rule = this.activated_rules[rule_name];
-    return rule;
-  }
-
   setRuleConfig(rule: RuleDefinition, rules_config: Record<string, RuleConfig>): void | never {
     if (should_active_rule(rules_config[rule.name], rule.name)) {
       let rule_config = extract_rule_config(rules_config[rule.name], rule.name);
@@ -184,7 +157,7 @@ export default class Config {
     }
   }
 
-  generateLegacyConfig(config: any): LegacyConfigFormat {
+  generateLegacyConfig(config: any): LegacyLinterConfig {
     const o: any = {};
     const keys = Object.keys(config.rules);
     keys.forEach(rule_name => {

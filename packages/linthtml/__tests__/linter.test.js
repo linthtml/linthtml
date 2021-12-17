@@ -1,5 +1,6 @@
 const { expect } = require("chai");
-const Linter = require("../lib/linter");
+// TODO: Remove .default after typescript migration
+const Linter = require("../lib/linter").default;
 // TODO: Remove .default after typescript migration
 const Config = require("../lib/config").default;
 const rewiremock = require("rewiremock/node");
@@ -24,7 +25,7 @@ describe("Config", function() {
       foo: "error"
     };
     const linter = new Linter();
-    linter.config = new Config({ foo }, { rules: rule_config });
+    linter.config = new Config([foo], { rules: rule_config });
     const issues = await linter.lint("<div></div>");
     expect(issues[0].severity).to.equal("error");
   });
@@ -33,7 +34,7 @@ describe("Config", function() {
       foo: "warning"
     };
     const linter = new Linter();
-    linter.config = new Config({ foo }, { rules: rule_config });
+    linter.config = new Config([foo], { rules: rule_config });
 
     const issues = await linter.lint("<div></div>");
     expect(issues[0].severity).to.equal("warning");

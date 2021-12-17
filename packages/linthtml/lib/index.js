@@ -1,5 +1,6 @@
 const { config_from_path, find_local_config } = require("./read-config");
-const Linter = require("./linter");
+// TODO: Remove .default after typescript migration
+const Linter = require("./linter").default;
 const LegacyLinter = require("./legacy/linter");
 const presets = require("./presets").presets;
 
