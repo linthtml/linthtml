@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.4](https://github.com/linthtml/linthtml/compare/v0.8.3...v0.8.4) (2021-12-17)
+
+### Fix
+
+* preserve and use ignoreFiles property in config files ([089b781](https://github.com/linthtml/linthtml/commit/089b7811576d782f8ada2587f8f3c9955e9c4203))
+
 ## [0.8.3](https://github.com/linthtml/linthtml/compare/v0.8.2...v0.8.3) (2021-12-13)
 
 ### Fix
