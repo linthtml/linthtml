@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const Linter = require("../lib/linter");
-const Config = require("../lib/config");
-const CustomError = require("../lib/utils/custom-errors");
+// TODO: Remove .default after typescript migration
+const Config = require("../lib/config").default;
 const rewiremock = require("rewiremock/node");
 const path = require("path");
 

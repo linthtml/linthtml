@@ -12,11 +12,45 @@ import Issue from "./issue";
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
-/**
- * @param {string} basedir
- * @param {string} module_name
- * @return {string}
- */
+export type RuleDefinition = {
+  name: string;
+  lint: () => void;
+  validateConfig?: <T>(option: T) => void | never;
+
+  configTransform?: (option: unknown) => unknown; // remove for v1
+  filter?: string[]; // remove for v1
+  end?: () => Issue[]; // remove for v1
+}
+
+export type RuleSeverity = "warning" | "error";
+export type RuleActivation = boolean | RuleSeverity | "off";
+
+export type RuleConfig = RuleActivation | [RuleActivation, unknown];
+
+export type LinterConfig = {
+  extends: string | string[];
+  plugins: string[];
+  ignoreFiles?: string[];
+
+  maxerr?: number | false;
+  "text-ignore-regex"?: string | RegExp | false;
+  "raw-ignore-regex"?: string | RegExp | false;
+  "attr-name-ignore-regex"?: string | RegExp | false;
+  "id-class-ignore-regex"?: string | RegExp | false;
+  "line-max-len-ignore-regex"?: string | RegExp | false;
+
+  plugins_rules?: {
+    [rules_name: string]: RuleDefinition
+  };
+  rules: {
+    [rule_name: string]: RuleConfig
+  };
+}
+
+export type PluginConfig = {
+  rules?: RuleDefinition[]
+}
+
 function get_module_path(basedir: string, module_name: string): string | never {
   // 1. Try to resolve from the provided directory
   // 2. Try to resolve from `process.cwd`
@@ -36,29 +70,6 @@ function get_module_path(basedir: string, module_name: string): string | never {
   }
 
   return path;
-}
-
-export type RuleDefinition = {
-  name: string;
-  lint: () => void;
-  validateConfig?: <T>(option: T) => T | never;
-  end?: () => Issue[]
-}
-
-export type RuleActivation = boolean | "warning" | "error" | "off"
-
-export type RuleConfig = RuleActivation | [RuleActivation, unknown];
-
-export type LinterConfig = {
-  extends: string | string[];
-  ignoreFiles: string[];
-  plugins: string[];
-  plugins_rules: Record<string, RuleDefinition>;
-  rules: Record<string, RuleConfig>;
-}
-
-export type PluginConfig = {
-  rules?: RuleDefinition[]
 }
 
 function merge_configs(a: LinterConfig, b: Partial<LinterConfig>): LinterConfig {

@@ -1,4 +1,5 @@
-const Config = require("./config");
+// TODO: Remove .default after typescript migration
+const Config = require("./config").default;
 const { extract_inline_config } = require("./inline_config");
 const { flatten } = require("./utils/arrays");
 const rules = require("./rules");
@@ -79,8 +80,8 @@ class Linter {
     html = rawIgnoreRegex(html, this.config.config);
 
     const dom = this.parse_fn(html);
-    const activated_rules = Object.keys(this.config.activatedRules)
-      .map(name => this.config.getRule(name));
+    const activated_rules = Object.keys(this.config.activated_rules)
+      .map(name => this.config.getActivatedRule(name));
     const domIssues = flatten(this.lintDom(activated_rules, dom));
     issues = issues.concat(domIssues, this.resetRules());
 
@@ -160,13 +161,13 @@ class Linter {
     const global_config = inline_config[rule.name] && inline_config[rule.name].config
       ? { ...this.config.legacy_config, [rule.name]: inline_config[rule.name].config }
       : this.config.legacy_config;
-    rule.lint(node, rule_config, { report, rules: this.config.activatedRules, global_config });
+    rule.lint(node, rule_config, { report, rules: this.config.activated_rules, global_config });
     return issues;
   }
 
   resetRules() {
-    const activatedRules = Object.keys(this.config.activatedRules);
-    return flatten(activatedRules.map((name) => {
+    const activated_rules = Object.keys(this.config.activated_rules);
+    return flatten(activated_rules.map((name) => {
       const rule = this.config.getRule(name);
       const r = rule.end && rule.end();
       return r || [];

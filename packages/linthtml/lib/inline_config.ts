@@ -87,11 +87,15 @@ function generate_inline_instruction(rule_name: string, rule_configuration: unkn
   }
   if (typeof rule_configuration === "boolean" || rule_configuration === "off") {
     return {
-      disabled: rule_configuration === "off" ? true : !rule_configuration
+      disabled: rule_configuration === "off"
+        ? true
+        : !rule_configuration
     };
   }
   try {
-    rule_configuration = rule.configTransform ? rule.configTransform(rule_configuration) : rule_configuration;
+    rule_configuration = rule.configTransform
+      ? rule.configTransform(rule_configuration)
+      : rule_configuration;
     if (rule.validateConfig) {
       rule.validateConfig(rule_configuration);
     }
@@ -120,7 +124,7 @@ function get_instruction_meta(text: string, linter_config: Config): { [rule_name
 
   const rules = instruction_meta
     ? instruction_meta.trim().split(/\s*,\s*/)
-    : Object.keys(linter_config.activatedRules); // If no rules provided then enable/disabled all activated rules
+    : Object.keys(linter_config.activated_rules); // If no rules provided then enable/disabled all activated rules
 
   return rules.reduce((configurations: { [rule_name: string]: InlineInstructionConfig }, rule_name) => {
     configurations[rule_name] = generate_inline_instruction(rule_name, instruction_type === "enable", linter_config);
