@@ -3,7 +3,7 @@ const { extract_inline_config } = require("../../lib/inline_config");
 const { expect } = require("chai");
 // TODO: Remove .default after typescript migration
 const Config = require("../../lib/config").default;
-const linthtml = require("../../lib/index");
+const linthtml = require("../../lib/index").default;
 
 const fooRule = {
   name: "foo",

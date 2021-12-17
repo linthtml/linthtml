@@ -21,8 +21,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "mocha -r ts-node/register './__tests__/**/*.test.js' './lib/rules/**/__tests__/*.js' --bail",
-    "build": "tsc --build",
-    "prepare": "npm run build;"
+    "build": "tsc --build"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"

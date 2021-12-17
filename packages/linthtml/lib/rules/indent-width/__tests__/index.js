@@ -1,5 +1,6 @@
 const { expect } = require("chai");
-const linthtml = require("../../../index");
+// TODO: Remove .default after typescript migration
+const linthtml = require("../../../index").default;
 const path = require("path");
 const fs = require("fs");
 const none = require("../../../presets").presets.none;

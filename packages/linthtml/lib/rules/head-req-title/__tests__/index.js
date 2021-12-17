@@ -1,5 +1,6 @@
 const { expect } = require("chai");
-const linthtml = require("../../../index");
+// TODO: Remove .default after typescript migration
+const linthtml = require("../../../index").default;
 const none = require("../../../presets").presets.none;
 
 describe("legacy linter | head-req-title", function() {

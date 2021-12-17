@@ -19,7 +19,8 @@ function raw_ignore_regex(html: string, options: LegacyLinterConfig | LinterConf
   if (!ignore) {
     return html;
   }
-  return html.replace((new RegExp(ignore, "gm")), function(match) {
+  // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
+  return html.replace((new RegExp(ignore as string | RegExp, "gm")), function(match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }

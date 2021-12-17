@@ -37,14 +37,14 @@ export type LinterConfig = {
   extends: string | string[];
   plugins: string[];
   parser?: string;
-  ignoreFiles?: string[];
+  ignoreFiles: string[];
 
-  maxerr?: number | false;
-  "text-ignore-regex"?: string | RegExp | false;
-  "raw-ignore-regex"?: string | RegExp | false;
-  "attr-name-ignore-regex"?: string | RegExp | false;
-  "id-class-ignore-regex"?: string | RegExp | false;
-  "line-max-len-ignore-regex"?: string | RegExp | false;
+  maxerr?: number;
+  "text-ignore-regex"?: string | RegExp | boolean;
+  "raw-ignore-regex"?: string | RegExp | boolean;
+  "attr-name-ignore-regex"?: string | RegExp | boolean;
+  "id-class-ignore-regex"?: string | RegExp | boolean;
+  "line-max-len-ignore-regex"?: string | RegExp | boolean;
 
   plugins_rules?: {
     [rules_name: string]: RuleDefinition
@@ -63,15 +63,21 @@ export type LegacyRuleDefinition = RuleDefinition & { options: RuleDefinition[] 
 export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
 
 export type LegacyLinterConfig = {
-  maxerr?: number | false;
-  "text-ignore-regex"?: string | RegExp | false;
-  "raw-ignore-regex"?: string | RegExp | false;
-  "attr-name-ignore-regex"?: string | RegExp | false;
-  "id-class-ignore-regex"?: string | RegExp | false;
-  "line-max-len-ignore-regex"?: string | RegExp | false;
+  maxerr?: number;
+  "text-ignore-regex"?: string | RegExp | boolean;
+  "raw-ignore-regex"?: string | RegExp | boolean;
+  "attr-name-ignore-regex"?: string | RegExp | boolean;
+  "id-class-ignore-regex"?: string | RegExp | boolean;
+  "line-max-len-ignore-regex"?: string | RegExp | boolean;
 
   [rule_name: string]: boolean | unknown;
 }
+
+export type ExtractConfigResult = {
+  filepath: string;
+  isEmpty?: boolean | undefined;
+  config: LinterConfig | LegacyLinterConfig
+};
 
 function get_module_path(basedir: string, module_name: string): string | never {
   // 1. Try to resolve from the provided directory
@@ -125,7 +131,7 @@ function merge_configs(a: LinterConfig, b: Partial<LinterConfig>): LinterConfig 
  * @param {CosmiconfigResult} cosmiconfig_result
  * @return {CosmiconfigResult}
  */
-function augment_config(cosmiconfig_result: CosmiconfigResult): CosmiconfigResult | null {
+function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigResult | null {
   if (!cosmiconfig_result) {
     return null;
   }
@@ -225,7 +231,7 @@ function load_plugin(plugin_name: string): PluginConfig | never {
  * @returns {CosmiconfigResult}
  * @throws {CustomError}
  */
-function add_plugins_rules(cosmiconfig_result: { config: Config, filepath: string, isEmpty?: boolean | undefined }): CosmiconfigResult | never {
+function add_plugins_rules(cosmiconfig_result: { config: Config, filepath: string, isEmpty?: boolean | undefined }): ExtractConfigResult | never {
   if (cosmiconfig_result.config.plugins) {
     const normalized_plugins: string[] = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
       ? cosmiconfig_result.config.plugins
@@ -264,7 +270,7 @@ const explorer = cosmiconfigSync("linthtml", {
   transform: augment_config
 });
 
-function config_from_path(file_path: string): CosmiconfigResult | never {
+function config_from_path(file_path: string): ExtractConfigResult | never {
   const config_path = path.resolve(process.cwd(), file_path);
   let isconfig_directory = false;
   try {
@@ -284,6 +290,7 @@ function config_from_path(file_path: string): CosmiconfigResult | never {
     if (config === null) {
       throw new Error();
     }
+
     return add_plugins_rules(config);
   } catch (error) {
     // let CustomError (like CORE-03) passthrough
@@ -297,7 +304,7 @@ function config_from_path(file_path: string): CosmiconfigResult | never {
   }
 }
 
-function find_local_config(file_path: string): CosmiconfigResult | null | never {
+function find_local_config(file_path: string): ExtractConfigResult | null | never {
   const config = explorer.search(file_path);
   return config
     ? add_plugins_rules(config)

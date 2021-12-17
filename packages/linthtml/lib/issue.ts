@@ -7,7 +7,7 @@ export default class Issue {
   rule: string;
   message: string;
   data: unknown = {};
-  severity: "error" | "warning"  = "error";
+  severity: "error" | "warning" = "error";
 
   constructor(rule_name: string, position: Range, options: { code: string, rule: string, message: string, data: unknown, severity: 'error' | 'warning' }) {
     this.position = position;

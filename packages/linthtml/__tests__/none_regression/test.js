@@ -4,7 +4,8 @@ const fs = require("fs");
 // TODO: Remove .default after typescript migration
 const new_config = require("./config").default;
 const legacy_config = require("./legacy_config");
-const linthtml = require("../../lib");
+// TODO: Remove .default after typescript migration
+const linthtml = require("../../lib").default;
 
 const html = fs.readFileSync(path.resolve(__dirname, "index.html")).toString("utf8");
 
