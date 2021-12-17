@@ -123,6 +123,7 @@ describe("Load extends config", function() {
         ],
         plugins: [],
         plugins_rules: {},
+        ignoreFiles: [],
         rules: {
           "attr-bans": true
         }
@@ -160,6 +161,7 @@ describe("Load extends config", function() {
         extends: "./config-attr-bans",
         plugins: [],
         plugins_rules: {},
+        ignoreFiles: [],
         rules: {
           "attr-bans": true
         }
@@ -179,6 +181,7 @@ describe("Load extends config", function() {
         ],
         plugins: [],
         plugins_rules: {},
+        ignoreFiles: [],
         rules: {
           "attr-bans": true,
           "indent-style": [
@@ -208,6 +211,7 @@ describe("Load extends config", function() {
         ],
         plugins: [],
         plugins_rules: {},
+        ignoreFiles: [],
         rules: {
           "attr-bans": "off",
           "tag-bans": [
