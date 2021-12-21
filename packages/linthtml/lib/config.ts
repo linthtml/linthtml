@@ -1,4 +1,4 @@
-import { ActiveRuleDefinition, LegacyLinterConfig, LegacyRuleDefinition, LinterConfig, RuleConfig, RuleDefinition } from "./read-config";
+import { ActiveRuleDefinition, LegacyLinterConfig, LegacyRuleDefinition, LinterConfig, RuleConfig, RuleDefinition, LegacyRuleOption } from "./read-config";
 
 class NonExistingRule extends Error {
   constructor(public rule_name: string) {
@@ -61,7 +61,7 @@ function extract_rule_config(config: RuleConfig, ruleName: string): unknown {
 }
 
 function generate_rules_from_options(rule: LegacyRuleDefinition): { [rule_name: string]: RuleDefinition } {
-  return rule.options.reduce((rules: { [rule_name: string]: RuleDefinition }, option: RuleDefinition) => {
+  return rule.options.reduce((rules: { [rule_name: string]: RuleDefinition }, option: LegacyRuleOption) => {
     if (option.name) {
       rules[option.name] = {
         name: option.name,

@@ -1,4 +1,4 @@
-const InlineConfig = require("../lib/legacy/inline_config");
+const InlineConfig = require("../lib/legacy/inline_config").default;
 const { expect } = require("chai");
 
 // TODO: Remove .default after typescript migration
