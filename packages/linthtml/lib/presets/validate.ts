@@ -1,4 +1,6 @@
-module.exports = {
+import { LegacyLinterConfig } from "../read-config";
+
+export default {
   "doctype-first": true,
   "doctype-html5": true,
   "attr-no-dup": true,
@@ -11,4 +13,4 @@ module.exports = {
   "html-valid-content-model": true,
   "head-valid-content-model": true,
   "attr-validate": true
-};
+} as LegacyLinterConfig;

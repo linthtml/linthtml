@@ -1,4 +1,6 @@
-module.exports = {
+import { LegacyLinterConfig } from "../read-config";
+
+export default {
   "raw-ignore-regex": false,
   "attr-bans": [
     "align",
@@ -64,4 +66,4 @@ module.exports = {
   "table-req-caption": false,
   "table-req-header": false,
   "tag-req-attr": false
-};
+} as LegacyLinterConfig;

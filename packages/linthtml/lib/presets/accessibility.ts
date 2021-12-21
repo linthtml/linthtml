@@ -1,4 +1,6 @@
-module.exports = {
+import { LegacyLinterConfig } from "../read-config";
+
+export default {
   "fig-req-figcaption": true,
   "focusable-tabindex-style": true,
   "input-radio-req-name": true,
@@ -7,4 +9,4 @@ module.exports = {
   "table-req-caption": true,
   "table-req-header": true,
   "tag-name-match": true
-};
+} as LegacyLinterConfig;
