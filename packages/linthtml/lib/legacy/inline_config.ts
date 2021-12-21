@@ -1,46 +1,49 @@
-const { parse_HTML_attributes } = require("@linthtml/dom-utils");
-// TODO: remove .default after typescript migration
-const Issue = require("../issue").default;
+// @ts-ignore
+import { parse_HTML_attributes } from "@linthtml/dom-utils";
+import Issue from "../issue";
+import Config from "./config";
+// @ts-ignore
+import { Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
 
+type InlineConfigIndex = {
+  [key: string]: unknown;
+  rules?: any[];
+  end: number;
+}
+
 /**
  * An inline configuration class is created to hold each inline configuration
  * and report back what the options should be at a certain index.
- *
- * @class InlineConfig
  */
-class InlineConfig {
+export default class InlineConfig {
+  private indexConfigs: InlineConfigIndex[] = [];
+  private previous: InlineConfigIndex = { end: -1 };
+  private current: InlineConfigIndex = { end: -1 };
   /**
    * Creates an instance of InlineConfig.
-   * @constructor
    * @param {import('./config')} config - an option parser.
    * If not given here, it must be set with inlineConfig.reset(basis).
-   * @memberof InlineConfig
    */
-  constructor(config) {
+  constructor(public config: Config) {
     this.config = config;
-    this.indexConfigs = [];
-    this.previous = {};
   }
 
   /**
    * Reset the current opts to the basis. if newBasis is supplied, use that as our new basis.
-   *
-   * @param {Object} newBasis - the new options to use.
-   * @memberof InlineConfig
    */
-  reset(newBasis) {
+  reset(newBasis: InlineConfigIndex) {
     this.current = Object.assign({}, newBasis);
     index = 0;
   }
 
-  setOption(name, value, isPrev, previous) {
+  setOption(name: string, value: unknown, previous: InlineConfigIndex) {
     previous[name] = this.current[name];
     try {
-      this.current[name] = this.config.setOption(name, value, isPrev);
-    } catch (error) {
+      this.current[name] = this.config.setOption(name, value);
+    } catch (error: any) {
       let message = error.message;
       message = message.replace(/^Configuration/, "Inline configuration");
       throw new Error(message);
@@ -49,19 +52,16 @@ class InlineConfig {
 
   /**
    * Apply the given configuration to this.current. Returns true if the operation resulted in any changes, false otherwise.
-   *
-   * @param {Object} config - the new config to write onto the current options.
-   * @memberof InlineConfig
    */
-  applyConfig(config) {
-    const previous = {};
-    config.rules.forEach(rule => {
+  applyConfig(config: InlineConfigIndex) {
+    const previous = { end: -1 };
+    config.rules?.forEach(rule => {
       const isprev = rule.value === "$previous";
       if (rule.type === "rule") {
         const rules = rule.name === "ALL"
           ? Object.keys(this.current)
           : [rule.name];
-        rules.forEach(name => this.setOption(name, isprev ? this.previous[name] : rule.value, isprev, previous));
+        rules.forEach(name => this.setOption(name, isprev ? this.previous[name] : rule.value, previous));
         /* istanbul ignore else */
       }
     });
@@ -74,11 +74,8 @@ class InlineConfig {
   /**
    * Get the options object to use at this index. Indices must be given in order, or an error is thrown (much speedier).
    * If you must get them out of order, use 'reset' first. Sets the opts to this.current.
-   *
-   * @param {number} newIndex - The index to get opts for.
-   * @memberof InlineConfig
    */
-  getOptsAtIndex(newIndex) {
+  getOptsAtIndex(newIndex: number) {
     if (newIndex !== 0 && newIndex <= index) {
       throw new Error(`Cannot get options for index "${newIndex}" when index "${index}" has already been checked"`);
     } else {
@@ -92,11 +89,8 @@ class InlineConfig {
 
   /**
    * Add the config when it was given to us from feedComment.
-   *
-   * @param {Object} config - The config to add.
-   * @memberof InlineConfig
    */
-  addConfig(config) {
+  addConfig(config: InlineConfigIndex) {
     if (this.indexConfigs[config.end]) {
       throw new Error("config exists at index already!");
     }
@@ -108,13 +102,10 @@ class InlineConfig {
    * Take the comment node and check it for the proper structure.
    * Add it to our array indexConfigs.
    * Return a list of issues encountered.
-   *
-   * @param {import('../parser/index').Node} node - Comment node
-   * @memberof InlineConfig
    */
-  feedComment(node) {
-    const issues = [];
-    const settings = [];
+  feedComment(node: Node) {
+    const issues: Issue[] = [];
+    const settings: any[] = [];
     const line = node.data;
     const match = line.match(/[\s]*linthtml-(configure|disable|enable)[\s]+(.*)/);
 
@@ -127,19 +118,20 @@ class InlineConfig {
     if (instruction_type === "configure") {
       const key_values = parse_HTML_attributes(match[2]);
 
-      key_values.forEach((pair) => {
+      key_values.forEach((pair: any) => {
         // TODO More precise line/column numbers
         const r = this.parsePair(
           pair.name,
           pair.value,
           node.loc
         );
+        // @ts-ignore
         (r.code ? issues : settings).push(r);
       });
     } else {
       const rules_name = (match[2].trim() || "ALL").split(/\s*,\s*/);
 
-      rules_name.forEach((rule_name) => {
+      rules_name.forEach((rule_name: string) => {
         if (rule_name !== "ALL" && !this.config.hasOption(rule_name)) {
           issues.push(
             new Issue(
@@ -147,6 +139,7 @@ class InlineConfig {
               node.loc,
               {
                 code: "INLINE_02",
+                rule: "INLINE_02",
                 data: {
                   rule_name: rule_name
                 }
@@ -184,8 +177,9 @@ class InlineConfig {
    * @returns
    * @memberof InlineConfig
    */
-  parsePair(name, value, pos) {
+  parsePair(name: string, value: string, pos: Range) {
     if (!name || !value || !name.length || !value.length) {
+      // @ts-ignore
       throw new Error("Cannot parse inline configuration.", { pos });
     }
 
@@ -196,6 +190,7 @@ class InlineConfig {
         pos,
         {
           code: "E051",
+          rule: "INLINE_03",
           data: {
             name: name
           }
@@ -224,6 +219,7 @@ class InlineConfig {
           pos,
           {
             code: "INLINE_02",
+            rule: "INLINE_02",
             data: {
               rule_name: name
             }
@@ -239,6 +235,7 @@ class InlineConfig {
             pos,
             {
               code: "INLINE_03",
+              rule: "INLINE_03",
               data: {
                 rule_configuration: value
               }
@@ -252,5 +249,3 @@ class InlineConfig {
     return { type: "rule", name: name, value: parsed };
   }
 }
-
-module.exports = InlineConfig;

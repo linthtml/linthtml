@@ -9,11 +9,11 @@ export default class Issue {
   data: unknown = {};
   severity: "error" | "warning" = "error";
 
-  constructor(rule_name: string, position: Range, options: { code: string, rule: string, message: string, data: unknown, severity: 'error' | 'warning' }) {
+  constructor(rule_name: string, position: Range, options: { code: string, rule: string, message?: string, data?: unknown, severity?: "error" | "warning" }) {
     this.position = position;
     this.code = options.code;
     this.rule = rule_name;
-    this.message = options.message;
+    this.message = options.message ?? "";
     this.data = options.data || {};
     this.severity = options.severity || "error";
   }

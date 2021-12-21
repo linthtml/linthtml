@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const Linter = require("../lib/legacy/linter");
+const Linter = require("../lib/legacy/linter").default;
 describe("LegacyLinter", function() {
   function createLinter() {
     const dom = {

@@ -1,21 +1,17 @@
+import { is_boolean } from "../validate_option";
+import pull from "lodash.pull";
+import { LegacyRuleDefinition, LegacyRuleOption } from "../read-config";
+
 /**
  * The config object stores all possible rules and options and manages
  * dependencies based on which options are enabled.
  * As it runs, it updates the subscribers array for each rule to indicate
  * the active rules and options depending on it.
- *
- * @module Config
  */
-const { is_boolean } = require("../validate_option");
-const pull = require("lodash.pull");
-
-class Config {
-  /**
-   *
-   * @constructor
-   * @param {Object[]} rules - The rules to use.
-   */
-  constructor(rules) {
+export default class Config {
+  public options: { [key: string]: LegacyRuleOption };
+  public rulesMap: { [key: string]: LegacyRuleDefinition };
+  constructor(rules: LegacyRuleDefinition[]) {
     /** @public */
     this.options = {};
     /** @public */
@@ -27,11 +23,8 @@ class Config {
 
   /**
    * Get a rule by name.
-   * @param {string} ruleName
-   * @returns {Object}
-   * @memberof Config
    */
-  getRule(ruleName) {
+  getRule(ruleName: string): LegacyRuleDefinition { // Template type for rule name?
     return this.rulesMap[ruleName];
   }
 
@@ -44,7 +37,7 @@ class Config {
    * Options in this list that have no name use the rule's name.
    * @memberof Config
    */
-  addRule(rule) {
+  addRule(rule: LegacyRuleDefinition) {
     if (["free-options", "dom"].indexOf(rule.name) === -1) {
       rule.on = "dom";
     }
@@ -56,7 +49,7 @@ class Config {
     rule.subscribers = [];
     this.rulesMap[rule.name] = rule;
 
-    if (oldRule && oldRule.subscribers.length) {
+    if (oldRule?.subscribers.length) {
       this.deactivateRule(oldRule);
       this.activateRule(rule);
       rule.subscribers = oldRule.subscribers;
@@ -83,21 +76,15 @@ class Config {
 
   /**
    * Check if the provided string match an existing option
-   *
-   * @param {string} optionName
-   * @memberof Config
-   * @returns {Boolean}
    */
-  hasOption(name) {
+  hasOption(name: string) {
     return Boolean(this.options[name]);
   }
 
   /**
    * Remove a rule by name.
-   * @param {string} ruleName
-   * @memberof Config
    */
-  removeRule(ruleName) {
+  removeRule(ruleName: string) {
     const rule = this.rulesMap[ruleName];
     if (rule) {
       this.deactivateRule(rule);
@@ -107,8 +94,6 @@ class Config {
 
   /**
    * Return a list of all rules.
-   * @returns {Object[]}
-   * @memberof Config
    */
   getAllRules() {
     return Object.values(this.rulesMap);
@@ -116,12 +101,8 @@ class Config {
 
   /**
    * Add an option.
-   * @param {Object} option
-   * @param {string} option.name
-   * @param {string[]} [option.rules=[option.name]] - The rules using option.
-   * @memberof Config
    */
-  addOption(option) {
+  addOption(option: LegacyRuleOption) {
     const oldOption = this.options[option.name];
     if (option === oldOption) {
       return;
@@ -142,10 +123,8 @@ class Config {
 
   /**
    * Remove an option by name.
-   * @param {string} optionName
-   * @memberof Config
    */
-  removeOption(optionName) {
+  removeOption(optionName: string) {
     const option = this.options[optionName];
     if (option) {
       this.setOptionObj(option, false);
@@ -155,12 +134,9 @@ class Config {
 
   /**
    * Set the values of all options.
-   * @param {Object} opts - Option values by name.
    * Values will be replaced with parsed versions.
-   * @returns {Object[]} A list of issues
-   * @memberof Config
    */
-  initOptions(opts) {
+  initOptions(opts: Record<string, unknown>) {
     this.getAllRules()
       .forEach(function(rule) {
         rule.subscribers = [];
@@ -171,7 +147,6 @@ class Config {
         o.active = false;
       });
 
-    const issues = [];
     Object.keys(opts)
       .forEach((name) => {
         if (!(name in this.options)) {
@@ -182,7 +157,6 @@ class Config {
           this.setOption(name, value);
         }
       });
-    return issues;
   }
 
   /**
@@ -192,10 +166,10 @@ class Config {
    * @returns The value, possibly parsed according to the option.
    * @memberof Config
    */
-  setOption(optionName, value) {
+  setOption(optionName: string, value: unknown) {
     const rule = this.options[optionName];
     if (value !== false) {
-      rule.validateConfig(value);
+      rule.validateConfig?.(value);
     }
     this.setOptionObj(rule, value);
     return value;
@@ -203,11 +177,8 @@ class Config {
 
   /**
    * Update rule subscriptions according to a new option value.
-   * @param {Object} option
-   * @param value - The new value. Only its truthiness is used.
-   * @memberof Config
    */
-  setOptionObj(option, value) {
+  setOptionObj(option: LegacyRuleOption, value: unknown) {
     const active = value !== false && value !== undefined;
     if (active !== option.active) {
       this.onAllSubs(
@@ -219,7 +190,7 @@ class Config {
     }
   }
 
-  onAllSubs(obj, subs, action) {
+  onAllSubs(obj: LegacyRuleOption, subs: string[], action: (rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) => void) {
     subs.forEach((parentName) => {
       if (this.rulesMap[parentName]) {
         action(this.rulesMap[parentName], obj);
@@ -227,31 +198,29 @@ class Config {
     });
   }
 
-  activateRule(rule) {
+  activateRule(rule: LegacyRuleDefinition) {
     if (this.rulesMap[rule.on]) {
       this.addSubscriber(this.rulesMap[rule.on], rule);
     }
   }
 
-  addSubscriber(rule, sub) {
+  addSubscriber(rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) {
     if (!rule.subscribers.length) {
       this.activateRule(rule);
     }
-    rule.subscribers.push(sub);
+    rule.subscribers.push(sub as LegacyRuleDefinition);
   }
 
-  deactivateRule(rule) {
+  deactivateRule(rule: LegacyRuleDefinition) {
     if (this.rulesMap[rule.on]) {
       this.removeSubscriber(this.rulesMap[rule.on], rule);
     }
   }
 
-  removeSubscriber(rule, sub) {
+  removeSubscriber(rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) {
     // I've try replacing pull with array.filter but it's not working
     if (!pull(rule.subscribers, sub).length) {
       this.deactivateRule(rule);
     }
   }
 }
-
-module.exports = Config;
