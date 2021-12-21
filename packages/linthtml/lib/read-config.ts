@@ -25,7 +25,7 @@ export type RuleDefinition = {
 
   configTransform?: (option: unknown) => unknown; // remove for v1
   filter?: string[]; // remove for v1
-  end?: () => Issue[]; // remove for v1
+  end?: (opts?: unknown) => Issue[]; // remove for v1
 }
 
 export type RuleSeverity = "warning" | "error";
@@ -33,6 +33,7 @@ export type RuleActivation = boolean | RuleSeverity | "off";
 
 export type RuleConfig = RuleActivation | [RuleActivation, unknown];
 
+// TODO: Remove boolean type for x-regex config
 export type LinterConfig = {
   extends: string | string[];
   plugins: string[];
@@ -58,7 +59,8 @@ export type PluginConfig = {
   rules?: RuleDefinition[]
 }
 
-export type LegacyRuleDefinition = RuleDefinition & { options: RuleDefinition[] };
+export type LegacyRuleOption = Partial<RuleDefinition> & { name: string, active?: boolean, rules: string[] }
+export type LegacyRuleDefinition = RuleDefinition & { options: LegacyRuleOption[], on: string, subscribers: LegacyRuleDefinition[] };
 
 export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
 
