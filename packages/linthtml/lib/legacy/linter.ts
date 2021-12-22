@@ -4,9 +4,9 @@ import Config from "./config";
 import InlineConfig from "./inline_config";
 import rules from "../rules";
 import { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config";
-// @ts-ignore
-import { Node, Document } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Node, Document } from "@linthtml/dom-utils/lib/dom_elements";
 import Issue from "../issue";
+import { is_comment_node } from "@linthtml/dom-utils/lib/tags";
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column
@@ -84,7 +84,7 @@ export default class Linter {
   }
 
   // Here ignore ts error as "dom" is special rule.
-  lintDom(dom: string, opts: unknown): Issue[] {
+  lintDom(dom: Document, opts: unknown): Issue[] {
     // @ts-ignore
     return this.rules.getRule("dom").lint(dom, opts, this.inlineConfig);
   }
@@ -103,7 +103,7 @@ export default class Linter {
     let issues: Issue[] = [];
     const { inlineConfig } = this;
     function feedComments(element: Node) {
-      if (element.type === "comment") {
+      if (is_comment_node(element)) {
         issues = issues.concat(inlineConfig.feedComment(element));
       }
       if (element.children) {

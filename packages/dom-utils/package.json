@@ -23,8 +23,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "mocha -r ts-node/register '__tests__/*.ts' --bail",
-    "build": "tsc --build",
-    "prepare": "npm run build"
+    "build": "tsc --build"
   },
   "dependencies": {
     "domelementtype": "^2.2.0",

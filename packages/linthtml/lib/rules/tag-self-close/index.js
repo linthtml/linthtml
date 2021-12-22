@@ -1,5 +1,5 @@
 const { is_void_node } = require("@linthtml/dom-utils");
-const { is_tag_node, is_self_closing } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_tag_node, is_self_closing } = require("@linthtml/dom-utils/lib/tags");
 const { create_list_value_validator } = require("../../validate_option");
 
 const RULE_NAME = "tag-self-close";

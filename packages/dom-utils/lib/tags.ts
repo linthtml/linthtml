@@ -1,7 +1,6 @@
 import { ElementType } from "domelementtype";
-import { Text } from "domhandler";
 import { types } from "util";
-import { CharValue, Element, Node, NodeAttribute } from "./dom_elements";
+import { CharValue, Element, Node, NodeAttribute, Comment, Text } from "./dom_elements";
 
 const { isRegExp } = types;
 
@@ -61,10 +60,13 @@ function is_tag_node(node: Node): node is Element {
   ].indexOf(node.type) !== -1;
 }
 
-// Todo check is current node text have `.loc` property if yes then create class Text_Node in dom_element.ts
-// @ts-ignore
+// TODO: check is current node text have `.loc` property if yes then create class Text_Node in dom_element.ts
 function is_text_node(node: Node): node is Text {
   return node.type === ElementType.Text;
+}
+
+function is_comment_node(node: Node): node is Comment {
+  return node.type === ElementType.Comment;
 }
 
 function get_classes(class_attribute: CharValue): string[] {
@@ -96,6 +98,7 @@ export {
   attribute_value,
   is_tag_node,
   is_text_node,
+  is_comment_node,
   is_self_closing,
   get_attribute,
   has_attribute,

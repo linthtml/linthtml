@@ -1,6 +1,6 @@
 // TODO: remove .default after typescript migration
 const Issue = require("../../issue").default;
-const { is_tag_node, attribute_value, attribute_has_value } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_tag_node, attribute_value, attribute_has_value } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "input-req-label";
 

@@ -28,7 +28,7 @@ describe("HTML Parser", function() {
           column: 7
         }
       });
-    expect(children[0].close.loc)
+    expect(children[0]?.close?.loc)
       .to
       .deep
       .equal({
@@ -54,7 +54,7 @@ describe("HTML Parser", function() {
           column: 19
         }
       });
-    expect(children[0].children[1].close.loc)
+    expect(children[0]?.children[1]?.close?.loc)
       .to
       .deep
       .equal({

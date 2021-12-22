@@ -1,6 +1,5 @@
 const { types: { isRegExp } } = require("util");
-// TODO: Find a way to get rid of `dist/lib`
-const { is_tag_node } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "attr-bans";
 function validateConfig(config) {

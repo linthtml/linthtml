@@ -1,5 +1,4 @@
-// @ts-ignore
-import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 export default class Issue {
   code: string;
