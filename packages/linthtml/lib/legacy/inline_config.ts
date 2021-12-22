@@ -2,8 +2,7 @@
 import { parse_HTML_attributes } from "@linthtml/dom-utils";
 import Issue from "../issue";
 import Config from "./config";
-// @ts-ignore
-import { Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Comment, Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
@@ -103,7 +102,7 @@ export default class InlineConfig {
    * Add it to our array indexConfigs.
    * Return a list of issues encountered.
    */
-  feedComment(node: Node) {
+  feedComment(node: Comment) {
     const issues: Issue[] = [];
     const settings: any[] = [];
     const line = node.data;
@@ -160,7 +159,7 @@ export default class InlineConfig {
     if (settings.length > 0) {
       this.addConfig({
         start: node.startIndex,
-        end: node.endIndex,
+        end: node.endIndex as number,
         rules: settings
       });
     }

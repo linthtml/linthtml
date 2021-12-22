@@ -1,7 +1,6 @@
 import chalk from "chalk";
 import pkg from "../package.json";
-// @ts-ignore
-import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;

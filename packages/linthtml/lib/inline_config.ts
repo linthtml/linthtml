@@ -1,6 +1,6 @@
+import { is_comment_node } from "@linthtml/dom-utils/lib/tags";
 import CustomError from "./utils/custom-errors";
-// @ts-ignore
-import { Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Comment, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 import Config from "./config";
 // inline_config 0.2
 //
@@ -24,7 +24,7 @@ function is_string_config(str: string): boolean {
  * Check whether or not an HTML is a inline config node
  */
 function is_likely_inline_config(node: Node): boolean {
-  if (node.type === "comment") {
+  if (is_comment_node(node)) {
     const data = node.data.trim();
     return /^linthtml-/.test(data);
   }
@@ -143,7 +143,7 @@ export function extract_inline_config(node: Node, linter_config: Config, report:
   if (is_likely_inline_config(node) === false) {
     return {};
   }
-  const data = node.data.trim();
+  const data = (node as Comment).data.trim();
   try {
     check_instruction(data);
     return get_instruction_meta(data, linter_config);

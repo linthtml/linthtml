@@ -1,5 +1,5 @@
 const { is_labelable } = require("@linthtml/dom-utils");
-const { is_tag_node, has_attribute, attribute_value } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_tag_node, has_attribute, attribute_value } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "label-req-for";
 

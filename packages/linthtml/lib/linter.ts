@@ -5,8 +5,7 @@ import Issue from "./issue";
 import CustomError from "./utils/custom-errors";
 
 import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config";
-// @ts-ignore
-import { Document, Node, Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Document, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 /**
  * Apply the raw-ignore-regex option.

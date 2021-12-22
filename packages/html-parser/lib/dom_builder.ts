@@ -1,7 +1,6 @@
 import { DomHandler } from "htmlparser2";
 // TODO: remove
-// @ts-ignore
-import { is_void_node } from "@linthtml/dom-utils";
+import is_void_node from "@linthtml/dom-utils/lib/is_void_node";
 import {
   CharValue,
   Document,
@@ -11,8 +10,7 @@ import {
   Position,
   Range
 // TODO find a way to remove dist/lib (flatten generated package)
-// @ts-ignore
-} from "@linthtml/dom-utils/dist/lib/dom_elements";
+} from "@linthtml/dom-utils/lib/dom_elements";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
   public dom: Node[] = [];
@@ -134,7 +132,7 @@ export default class Handler extends DomHandler {
 
   onclosetag() {
     const node = this.tagStack[this.tagStack.length - 1];
-    if (node && !is_void_node(node)) {
+    if (node && !is_void_node(node as Element)) {
       const raw = this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1);
       node.close = {
         raw,

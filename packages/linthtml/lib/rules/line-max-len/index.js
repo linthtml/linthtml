@@ -1,6 +1,6 @@
-const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/lib/tags");
 // TODO: Find a way to get rid of `dist/lib`
-const { get_lines } = require("@linthtml/dom-utils/dist/lib/text_node");
+const { get_lines } = require("@linthtml/dom-utils/lib/text_node");
 const { create_number_validator } = require("../../validate_option");
 
 const RULE_NAME = "line-max-len";
