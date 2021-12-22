@@ -1,6 +1,5 @@
 import chalk from "chalk";
-// @ts-ignore
-import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Range } from "@linthtml/dom-utils/lib/dom_elements";
 import { Issue } from "./utils";
 
 export const CORE_ERRORS: { [code: string]: (meta?: any) => string} = {
@@ -16,7 +15,7 @@ export const CORE_ERRORS: { [code: string]: (meta?: any) => string} = {
 };
 
 // TODO: add the possibility to use chalk ?
-export const errors: { [code: string]: (meta: any, position?: Range) => string} = {
+export const errors: { [code: string]: (meta: any, position: Range) => string} = {
   E000: (/* data */) => "not a valid error code",
   E001: (data) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
   E002: ({ format, attribute }) => `The attribute "${attribute}" must be written using the format "${format}"`,
@@ -86,7 +85,7 @@ export const errors: { [code: string]: (meta: any, position?: Range) => string} 
 
   INLINE_01: ({ instruction }) => `unrecognized linthtml instruction: \`linthtml-${instruction}\``,
   INLINE_02: ({ rule_name }) => `unrecognized rule name \`${rule_name}\` in inline configuration`,
-  INLINE_03: ({ rule_configuration }) => `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON  global`,
+  INLINE_03: ({ rule_configuration }) => `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON global`,
   INLINE_04: ({ rule_name, error }) => `linthtml-configure instruction for rule \`${rule_name}\` is not valid. ${error}`
 };
 

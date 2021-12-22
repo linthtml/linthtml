@@ -4,18 +4,8 @@ import rules from "./rules";
 import Issue from "./issue";
 import CustomError from "./utils/custom-errors";
 
-import {
-  get_module_path,
-  ActiveRuleDefinition,
-  LegacyLinterConfig,
-  LinterConfig,
-} from "./read-config";
-// @ts-ignore
-import {
-  Document,
-  Node,
-  Range,
-} from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config";
+import { Document, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 /**
  * Apply the raw-ignore-regex option.
@@ -33,7 +23,7 @@ function raw_ignore_regex(
   // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
   return html.replace(
     new RegExp(ignore as string | RegExp, "gm"),
-    function (match) {
+    function(match) {
       return match.replace(/[^\n\t\n\r]/g, "¤");
     }
   );
@@ -48,7 +38,7 @@ function merge_inline_config(
       if (base_config[rule_name]) {
         merged_config[rule_name] = {
           ...base_config[rule_name],
-          ...new_config[rule_name],
+          ...new_config[rule_name]
         };
       } else {
         merged_config[rule_name] = new_config[rule_name];
@@ -59,7 +49,7 @@ function merge_inline_config(
   );
   return {
     ...base_config,
-    ...merged_config,
+    ...merged_config
   };
 }
 
@@ -118,7 +108,7 @@ export default class Linter {
       const meta = {
         ...data.meta,
         severity: "error",
-        code: data.code,
+        code: data.code
       };
 
       issues.push(new Issue("inline_config", data.position, meta));
@@ -131,13 +121,13 @@ export default class Linter {
       let issues = rules.reduce(
         (issues, rule) => [
           ...issues,
-          ...this.call_rule_lint(rule, node, parent_inline_config),
+          ...this.call_rule_lint(rule, node, parent_inline_config)
         ],
         [] as Issue[]
       );
       if (node.children && node.children.length > 0) {
         let inline_config = {
-          ...parent_inline_config,
+          ...parent_inline_config
         };
         node.children.forEach((child: Node) => {
           const extracted_inline_config = extract_inline_config(
@@ -188,7 +178,7 @@ export default class Linter {
         ...data.meta,
         severity: rule.severity,
         code: data.code,
-        message: data.message,
+        message: data.message
       };
 
       issues.push(new Issue(rule.name, data.position, meta));
@@ -204,14 +194,14 @@ export default class Linter {
     const global_config = inline_config[rule.name]?.config
       ? {
           ...this.config.legacy_config,
-          [rule.name]: inline_config[rule.name].config,
+          [rule.name]: inline_config[rule.name].config
         }
       : this.config.legacy_config;
 
     rule.lint(node, rule_config, {
       report,
       rules: this.config.activated_rules,
-      global_config,
+      global_config
     });
     return issues;
   }

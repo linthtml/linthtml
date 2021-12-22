@@ -18,7 +18,7 @@ import print_config_command from "./commands/print-config";
 import printErrors from "./print-errors";
 
 // @ts-ignore
-import linthtml from "@linthtml/linthtml";
+import linthtml, { FileLinter } from "@linthtml/linthtml";
 
 const cliOptions = {
   help: chalk`
@@ -153,7 +153,7 @@ function printReports(reports: Report[]) {
 }
 
 // TODO imporve
-async function lintFile({ file_path, linter, config_path, preset }: { file_path: string, linter: any, config_path: string, preset: string }): Promise<Report> {
+async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
     const issues = await linter.lint(file_content);

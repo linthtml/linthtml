@@ -14,9 +14,10 @@ const DEFAULT_EXCLUDED_FOLDERS = [
   "!node_modules/"
 ];
 
+export type FileLinter = { file_path: string; preset: string | undefined; config_path: string | undefined; linter: LegacyLinter; };
+
 /**
  * The linthtml namespace.
- * @namespace
  */
 const linthtml = function(html: string, config: LegacyLinterConfig | LinterConfig): Promise<Issue[]> {
   if (config?.rules !== undefined) {
@@ -87,7 +88,6 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] | undefi
   return ignorer.ignores(file_path);
 }
 
-type FileLinter = { file_path: string; preset: string | undefined; config_path: string | undefined; linter: LegacyLinter; };
 
 function create_file_linter(file_path: string, config: { preset?: string, filepath?: string, config: LegacyLinterConfig | LinterConfig }): FileLinter {
   return {

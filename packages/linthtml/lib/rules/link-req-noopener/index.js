@@ -1,4 +1,4 @@
-const { is_tag_node, attribute_has_value } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_tag_node, attribute_has_value } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "link-req-noopener";
 

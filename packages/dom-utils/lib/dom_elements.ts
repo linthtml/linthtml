@@ -53,7 +53,17 @@ export class Position {
 // TODO: Fix type
 /* eslint-disable-next-line @typescript-eslint/ban-types */
 type Constructor<T = {}> = new (...args: any[]) => T;
-export function ExtendedNode<TBase extends Constructor>(Base: TBase) {
+
+type ExtendedNode<T> = new () => T;
+interface MyExtendedNode {
+  loc: Range;
+  open: CharValue;
+  close: CharValue | undefined;
+}
+export function ExtendedNode<TBase extends Constructor>(Base: TBase): {
+  new (...args: any[]): MyExtendedNode;
+  prototype: MyExtendedNode;
+} & TBase {
   return class TExtractor extends Base {
     // @ts-ignore
     private _loc: Range;
@@ -85,6 +95,8 @@ export function ExtendedNode<TBase extends Constructor>(Base: TBase) {
     }
   };
 }
+
+// Keep in sync with domhandler types
 
 // Change NodeWithChildren type for children
 export class Node extends ExtendedNode(NodeWithChildren) {
@@ -149,4 +161,36 @@ export class Document extends Node {
   }
 
   "x-mode"?: "no-quirks" | "quirks" | "limited-quirks";
+}
+
+export declare class DataNode extends Node {
+  data: string;
+  /**
+   * @param type The type of the node
+   * @param data The content of the data node
+   */
+  constructor(type: ElementType.Comment | ElementType.Text | ElementType.Directive, data: string);
+  get nodeValue(): string;
+  set nodeValue(data: string);
+}
+
+export declare class Text extends DataNode {
+  constructor(data: string);
+}
+/**
+ * Comments within the document.
+ */
+export declare class Comment extends DataNode {
+  constructor(data: string);
+}
+
+/**
+ * Processing instructions, including doc types.
+ */
+export declare class ProcessingInstruction extends DataNode {
+  name: string;
+  constructor(name: string, data: string);
+  "x-name"?: string;
+  "x-publicId"?: string;
+  "x-systemId"?: string;
 }

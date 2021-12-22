@@ -1,4 +1,4 @@
-const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/dist/lib/tags");
+const { is_text_node, has_parent_node } = require("@linthtml/dom-utils/lib/tags");
 
 const RULE_NAME = "line-no-trailing-whitespace";
 
