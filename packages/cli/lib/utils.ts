@@ -38,8 +38,8 @@ type Issue = {
 type Report = {
   fileName: string;
   issues: Issue[];
-  config_path: string;
-  preset: string;
+  config_path?: string;
+  preset?: string;
 }
 
 export {
