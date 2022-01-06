@@ -1,7 +1,8 @@
 import { is_comment_node } from "@linthtml/dom-utils/lib/tags";
 import CustomError from "./utils/custom-errors";
-import { Comment, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
+import { Comment, Node } from "@linthtml/dom-utils/lib/dom_elements";
 import Config from "./config";
+import { reportFunction } from "./read-config";
 // inline_config 0.2
 //
 // config "false", "off" disable rule
@@ -133,8 +134,6 @@ function get_instruction_meta(text: string, linter_config: Config): InlineConfig
     return configurations;
   }, {});
 }
-
-type reportFunction = (obj: { code: string, position: Range, meta: any }) => void
 
 /**
  * Extract inline config from HTML comment node

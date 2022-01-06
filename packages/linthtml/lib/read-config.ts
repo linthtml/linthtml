@@ -13,9 +13,10 @@ import { Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
-export type reportFunction = (data: { code: string, position: Range, meta: any, message: string }) => void;
+export type reportFunction = (data: { code: string, position: Range, meta?: any, message?: string }) => void;
 
 // TODO: Move every types in the same file?
+// TODO: RuleDefinition<ConfigType> ?
 export type RuleDefinition = {
   name: string;
   // eslint-disable-next-line no-use-before-define
@@ -30,7 +31,7 @@ export type RuleDefinition = {
 export type RuleSeverity = "warning" | "error";
 export type RuleActivation = boolean | RuleSeverity | "off";
 
-export type RuleConfig = RuleActivation | [RuleActivation, unknown];
+export type RuleConfig = RuleActivation | [RuleActivation] | [RuleActivation, unknown];
 
 // TODO: Remove boolean type for x-regex config
 export type LinterConfig = {
@@ -40,11 +41,11 @@ export type LinterConfig = {
   ignoreFiles: string[];
 
   maxerr?: number;
-  "text-ignore-regex"?: string | RegExp | boolean;
-  "raw-ignore-regex"?: string | RegExp | boolean;
-  "attr-name-ignore-regex"?: string | RegExp | boolean;
-  "id-class-ignore-regex"?: string | RegExp | boolean;
-  "line-max-len-ignore-regex"?: string | RegExp | boolean;
+  "text-ignore-regex"?: string | RegExp | false;
+  "raw-ignore-regex"?: string | RegExp | false;
+  "attr-name-ignore-regex"?: string | RegExp | false;
+  "id-class-ignore-regex"?: string | RegExp | false;
+  "line-max-len-ignore-regex"?: string | RegExp | false;
 
   plugins_rules?: {
     [rules_name: string]: RuleDefinition
@@ -65,11 +66,11 @@ export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "err
 
 export type LegacyLinterConfig = {
   maxerr?: number;
-  "text-ignore-regex"?: string | RegExp | boolean;
-  "raw-ignore-regex"?: string | RegExp | boolean;
-  "attr-name-ignore-regex"?: string | RegExp | boolean;
-  "id-class-ignore-regex"?: string | RegExp | boolean;
-  "line-max-len-ignore-regex"?: string | RegExp | boolean;
+  "text-ignore-regex"?: string | RegExp | false;
+  "raw-ignore-regex"?: string | RegExp | false;
+  "attr-name-ignore-regex"?: string | RegExp | false;
+  "id-class-ignore-regex"?: string | RegExp | false;
+  "line-max-len-ignore-regex"?: string | RegExp | false;
 
   [rule_name: string]: boolean | unknown;
 }

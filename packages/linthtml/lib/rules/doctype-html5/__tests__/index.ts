@@ -1,11 +1,12 @@
-const { expect } = require("chai");
+import { expect } from "chai";
 // TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | doctype-html5", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report any error for a valid html5 DOCTYPE", async function() {
     const linter = createLinter({ "doctype-html5": true });
@@ -48,7 +49,9 @@ describe("legacy linter | doctype-html5", function() {
   });
 });
 describe("doctype-html5", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report any error for a valid html5 DOCTYPE", async function() {

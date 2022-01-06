@@ -4,8 +4,8 @@ const linthtml = require("../../../index").default;
 const none = require("../../../presets").presets.none;
 
 describe("legacy linter | title-no-dup", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report an error when title is not duplicated", async function() {
     const linter = createLinter({ "title-no-dup": true });
@@ -33,7 +33,9 @@ describe("legacy linter | title-no-dup", function() {
 });
 
 describe("title-no-dup", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report an error when title is not duplicated", async function() {

@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// Keep as nodejs syntaxt for now
-module.exports = {
-  is_labelable: require("./is_labelable").default,
-  is_void_node: require("./is_void_node").default,
-  check_lang_attribute: require("./check_lang_attribute").default,
-  ...require("./attr_parse"),
-  ...require("./boolean_attrs"),
-  ...require("./tags")
-};
+export * from "./is_void_node";
+export * from "./is_labelable";
+export * from "./check_lang_attribute";
+export * from "./attr_parse";
+export * from "./boolean_attrs";
+export * from "./tags";

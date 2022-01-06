@@ -1,6 +1,7 @@
 import { NodeWithChildren } from "domhandler";
 import { ElementType } from "domelementtype";
 
+// TODO: Add new type or template for CharValue with non empty raw value (like attribute value)
 export class CharValue {
   constructor(
     public chars: string,

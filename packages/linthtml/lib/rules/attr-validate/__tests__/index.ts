@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
 
 describe("legacy linter | attr-validate", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should report an error when given malformed attributes", async function() {
     const linter = createLinter({ "attr-req-value": true });
@@ -32,7 +32,9 @@ describe("legacy linter | attr-validate", function() {
   });
 });
 describe("attr-validate", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should report an error when given malformed attributes", async function() {
