@@ -1,6 +1,6 @@
 import { ElementType } from "domelementtype";
 import { types } from "util";
-import { CharValue, Element, Node, NodeAttribute, Comment, Text } from "./dom_elements";
+import { CharValue, Element, Node, NodeAttribute, Comment, Text, ProcessingInstruction } from "./dom_elements";
 
 const { isRegExp } = types;
 
@@ -42,7 +42,7 @@ function attribute_value(node: Element, attribute_name: string): CharValue | nul
   return attribute?.value ?? null;
 }
 
-function attribute_has_value(node: Element, attribute_name: string, value_to_check: string): boolean {
+function attribute_has_value(node: Element, attribute_name: string, value_to_check: string | RegExp): boolean {
   const value = attribute_value(node, attribute_name);
   if (value) {
     return isRegExp(value_to_check)
@@ -67,6 +67,10 @@ function is_text_node(node: Node): node is Text {
 
 function is_comment_node(node: Node): node is Comment {
   return node.type === ElementType.Comment;
+}
+
+function is_directive_node(node: Node): node is ProcessingInstruction {
+  return node.type === ElementType.Directive;
 }
 
 function get_classes(class_attribute: CharValue): string[] {
@@ -99,6 +103,7 @@ export {
   is_tag_node,
   is_text_node,
   is_comment_node,
+  is_directive_node,
   is_self_closing,
   get_attribute,
   has_attribute,

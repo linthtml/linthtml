@@ -1,11 +1,12 @@
-const { expect } = require("chai");
+import { expect } from "chai";
 // TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | doctype-first", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report any error when DOCTYPE is first", async function() {
     const linter = createLinter({ "doctype-first": true });
@@ -129,7 +130,9 @@ describe("legacy linter | doctype-first", function() {
   });
 });
 describe("doctype-first", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report any error when DOCTYPE is first", async function() {
@@ -263,7 +266,7 @@ describe("doctype-first", function() {
       "doctype-first": [
         true,
         0
-      ]
+      ] as [boolean, unknown]
     };
     expect(() => createLinter(config))
       .to
@@ -275,7 +278,7 @@ describe("doctype-first", function() {
       "doctype-first": [
         true,
         "foo"
-      ]
+      ] as [boolean, unknown]
     };
     expect(() => createLinter(config))
       .to

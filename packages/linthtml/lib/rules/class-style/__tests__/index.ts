@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | class-style", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report any error for correctly formatted class", async function() {
     const linter = createLinter({ "class-style": "lowercase" });
@@ -149,7 +149,9 @@ describe("legacy linter | class-style", function() {
 });
 
 describe("class-style", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report any error for correctly formatted class", async function() {
@@ -301,7 +303,7 @@ describe("class-style", function() {
         ]
       });
       const html = "<div class=\"bar-2\"></div>";
-      const issues = await linter.lint(html, none);
+      const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
     });
   });
@@ -368,7 +370,7 @@ describe("class-style", function() {
       "class-style": [
         true,
         1
-      ]
+      ] as [boolean, unknown]
     };
 
     expect(() => createLinter(config))
@@ -381,7 +383,7 @@ describe("class-style", function() {
       "class-style": [
         true,
         "foo"
-      ]
+      ] as [boolean, unknown]
     };
 
     expect(() => createLinter(config))

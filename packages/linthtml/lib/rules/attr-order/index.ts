@@ -1,9 +1,14 @@
-const { types: { isRegExp } } = require("util");
-const { is_tag_node, get_attribute } = require("@linthtml/dom-utils/lib/tags");
+import { types } from "util";
+import { is_tag_node, get_attribute } from "@linthtml/dom-utils/lib/tags";
+import { reportFunction, RuleDefinition } from "../../read-config";
+import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+
+const { isRegExp } = types;
 
 const RULE_NAME = "attr-order";
-function validateConfig(options) {
-  const typeError = (type) => `Configuration for rule "${this.name}" is invalid: Expected (string|RegExp)[] got ${type}`;
+// TODO: Use validator
+function validateConfig(options: unknown) {
+  const typeError = (type: string) => `Configuration for rule "${RULE_NAME}" is invalid: Expected (string|RegExp)[] got ${type}`;
   if (Array.isArray(options)) {
     options = options.map(option => {
       const type = typeof option;
@@ -20,38 +25,27 @@ function validateConfig(options) {
   throw new Error(typeError(typeof options));
 }
 
-function mut_config(options) {
-  if (Array.isArray(options)) {
-    return options.map(option => {
-      if (typeof option === "string") {
-        return option.toLowerCase();
-      }
-      if (isRegExp(option)) {
-        return option;
-      }
+function mut_config(options: (RegExp | string)[]) {
+  return options.map(option => {
+    if (isRegExp(option)) {
       return option;
-    });
-  }
-  return options;
+    }
+    return option.toLowerCase();
+  });
 }
 
-/**
- * @param {import('../../parser/index').Node} node
- * @param {*} config
- * @param {*} param2
- */
-function lint(node, config, { report }) {
+function lint(node: Node, config: (string | RegExp)[], { report }: { report: reportFunction }) {
   if (is_tag_node(node) === false) {
     return;
   }
   const order = mut_config(config);
   let lastpos = 0;
-  let lastname;
-  const matched = {};
+  let lastname: string;
+  const matched: Record<string, boolean> = {};
 
   // Improve algo
-  const attributes = {};
-  node.attributes.forEach(attribute => {
+  const attributes: Record<string, NodeAttribute> = {};
+  (node as Element).attributes.forEach(attribute => {
     const name = attribute.name.chars.toLowerCase();
     if (attributes[name] === undefined) {
       attributes[name] = attribute;
@@ -74,7 +68,7 @@ function lint(node, config, { report }) {
           // Check only fails if keys are not ordered by insertion
           /* istanbul ignore else */
         } else if (pos < prevpos) {
-          const attribute = get_attribute(node, prevname);
+          const attribute = get_attribute(node as Element, prevname) as NodeAttribute;
           report({
             code: "E043",
             position: attribute.loc,
@@ -98,7 +92,7 @@ function lint(node, config, { report }) {
         lastpos = pos;
         lastname = name;
       } else {
-        const attribute = get_attribute(node, lastname);
+        const attribute = get_attribute(node as Element, lastname) as NodeAttribute;
         report({
           code: "E043",
           position: attribute.loc,
@@ -119,8 +113,8 @@ function lint(node, config, { report }) {
 // // should report error for src and class but not height and width
 // const issues = await linter.lint(html, { "attr-order": ["class", "src", "height", "width"] });
 
-module.exports = {
+export default {
   name: RULE_NAME,
   validateConfig,
   lint
-};
+} as RuleDefinition;

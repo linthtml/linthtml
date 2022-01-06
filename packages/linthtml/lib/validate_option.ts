@@ -4,7 +4,7 @@ const { isRegExp } = types;
 // TODO: Send `rule_name` to the actual validation function?
 // TODO: Create error code for messages
 export function is_boolean(rule_name: string) {
-  return function(option: unknown): boolean | never{
+  return function(option: unknown): boolean | never {
     if (typeof option !== "boolean") {
       throw new Error(`Configuration for rule "${rule_name}" is invalid: Expected boolean got ${typeof option}.`);
     }
@@ -32,15 +32,17 @@ function list_value_error_message(value_list: string[]): string {
   return `Accepted value is ${list_copy[0]}`;
 }
 
+export function create_list_value_validator(rule_name: string, values: string[], allow_reg?: true): (option: any) => option is (string | RegExp) | never;
+export function create_list_value_validator(rule_name: string, values: string[], allow_reg: false): (option: any) => option is string | never;
 export function create_list_value_validator(rule_name: string, values: string[], allow_reg = true) {
-  const type_error = 
+  const type_error =
     (rule_name: string, option: unknown) =>
       `Configuration for rule "${rule_name}" is invalid: Expected string${allow_reg ? " or RegExp" : ""} got ${typeof option}.`;
   if (Array.isArray(values) === false || values.some(_ => typeof _ !== "string")) {
     throw new Error("You must provide a array of string"); // CORE error message?
   }
   // TODO: need same rule without regexp
-  return function(option: any): string | RegExp | never {
+  return function(option: any) {
     if (typeof option !== "string" && (allow_reg === false || isRegExp(option) === false)) {
       throw new Error(type_error(rule_name, option));
     }

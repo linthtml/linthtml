@@ -1,6 +1,6 @@
 import { DomHandler } from "htmlparser2";
 // TODO: remove
-import is_void_node from "@linthtml/dom-utils/lib/is_void_node";
+import { is_void_node } from "@linthtml/dom-utils";
 import {
   CharValue,
   Document,
@@ -105,7 +105,6 @@ export default class Handler extends DomHandler {
   // TODO: Use quote?
   // @ts-ignore
   onattribute(name: string, value: string, quote?: string | undefined | null): void {
-    debugger;
     const attribute = this.__createAttributeNode(name, value);
     this.attributes.push(attribute);
   }
@@ -132,6 +131,8 @@ export default class Handler extends DomHandler {
 
   onclosetag() {
     const node = this.tagStack[this.tagStack.length - 1];
+    // fail 
+    // console.log(node)
     if (node && !is_void_node(node as Element)) {
       const raw = this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1);
       node.close = {

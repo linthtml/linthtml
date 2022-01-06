@@ -1,22 +1,18 @@
-// TODO: Find a way to get rid of `dist/lib`
-const { is_tag_node } = require("@linthtml/dom-utils/lib/tags");
+import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+import { is_tag_node } from "@linthtml/dom-utils/lib/tags";
+import { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "attr-new-line";
 
-function validateConfig(limit) {
+function validateConfig(limit: number) {
   if (typeof limit === "number" || limit === "+0") {
     return limit;
   }
-  throw new Error(`Configuration for rule "${this.name}" is invalid: Expected number or "+0" got ${typeof limit}`);
+  throw new Error(`Configuration for rule "${RULE_NAME}" is invalid: Expected number or "+0" got ${typeof limit}`);
 }
 
-/**
- * @param {import('../../parser/index').Node} node
- * @param {*} limit
- * @param {*} param2
- */
-function lint(node, limit, { report }) {
-  const reportIssue = (attribute) =>
+function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunction }) {
+  const reportIssue = (attribute: NodeAttribute) =>
     report({
       code: "E037",
       position: attribute.loc,
@@ -31,7 +27,7 @@ function lint(node, limit, { report }) {
     return;
   }
 
-  const attributes_lines = node.attributes.reduce((m, attribute) => {
+  const attributes_lines = (node as Element).attributes.reduce((m, attribute) => {
     const line = m.get(attribute.loc.start.line) || [];
     m.set(attribute.loc.start.line, line.concat([attribute]));
     if (attribute.loc.end.line !== attribute.loc.start.line) {
@@ -39,7 +35,7 @@ function lint(node, limit, { report }) {
       m.set(attribute.loc.end.line, line.concat([attribute]));
     }
     return m;
-  }, new Map());
+  }, new Map<number, NodeAttribute[]>());
 
   const allow_attributes_on_first_line = limit === "+0" || limit > 0;
   const row_limit = (limit === 0 || limit === "+0")
@@ -64,8 +60,8 @@ function lint(node, limit, { report }) {
   }
 }
 
-module.exports = {
+export default {
   name: RULE_NAME,
   validateConfig,
   lint
-};
+} as RuleDefinition;

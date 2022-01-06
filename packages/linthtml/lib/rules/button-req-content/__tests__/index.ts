@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | button-req-content", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should report an error when button has no text", async function() {
     const linter = createLinter({ "button-req-content": true });
@@ -74,7 +74,9 @@ describe("legacy linter | button-req-content", function() {
 });
 
 describe("button-req-content", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should report an error when button has no text", async function() {

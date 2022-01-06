@@ -100,11 +100,7 @@ export default class Linter {
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {
     const issues: Issue[] = [];
     // merge with report in call_rule_lint ?
-    function report_inline_config(data: {
-      code: string;
-      position: Range;
-      meta: any;
-    }) {
+    function report_inline_config(data: { code: string, position: Range, meta?: any }) {
       const meta = {
         ...data.meta,
         severity: "error",
@@ -168,12 +164,7 @@ export default class Linter {
     inline_config: InlineConfig
   ): Issue[] {
     const issues: Issue[] = [];
-    function report(data: {
-      code: string;
-      position: Range;
-      meta: any;
-      message: string;
-    }) {
+    function report(data: { code: string, position: Range, meta?: any, message?: string }) {
       const meta = {
         ...data.meta,
         severity: rule.severity,
