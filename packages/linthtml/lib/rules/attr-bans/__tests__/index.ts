@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
 
 describe("legacy linter | attr-bans", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report an error for a tag named 'style'", async function() {
     const linter = createLinter({ "attr-bans": ["style"] });
@@ -66,7 +66,9 @@ describe("legacy linter | attr-bans", function() {
   });
 });
 describe("attr-bans", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
 
@@ -127,7 +129,7 @@ describe("attr-bans", function() {
       "attr-bans": [
         true,
         true
-      ]
+      ] as [boolean, boolean]
     };
     expect(() => createLinter(config))
       .to
@@ -139,7 +141,7 @@ describe("attr-bans", function() {
       "attr-bans": [
         true,
         ["string", true]
-      ]
+      ] as [boolean, unknown]
     };
     expect(() => createLinter(config))
       .to

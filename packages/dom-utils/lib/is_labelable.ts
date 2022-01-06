@@ -17,7 +17,7 @@ const LABELABLE_NODES = [
  * Returns whether or not an html element can be associated with a
  * label element.
  */
-export default function is_labelable(node: Node): boolean {
+export function is_labelable(node: Node): boolean {
   if (!is_tag_node(node) || !LABELABLE_NODES.includes(node.name)) {
     // element isn't a tag or isn't a labeable element
     return false;

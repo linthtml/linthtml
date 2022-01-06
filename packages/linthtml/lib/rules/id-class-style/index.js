@@ -1,4 +1,4 @@
-const lintClassStyle = require("../class-style").lint;
+const lintClassStyle = require("../class-style").default.lint;
 const lintIdStyle = require("../id-style").lint;
 const {
   create_list_value_validator

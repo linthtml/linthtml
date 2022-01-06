@@ -20,7 +20,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha -r ts-node/register './__tests__/**/*.test.js' './lib/rules/**/__tests__/*.js' --bail",
+    "test": "mocha -r ts-node/register './__tests__/**/*.test.ts' './__tests__/**/*.test.js' './lib/rules/**/__tests__/*.js' './lib/rules/**/__tests__/*.ts' --bail",
     "build": "tsc --build"
   },
   "bugs": {

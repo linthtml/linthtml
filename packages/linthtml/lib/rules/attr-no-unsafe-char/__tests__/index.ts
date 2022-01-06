@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
 
 describe("legacy linter | attr-no-unsafe-char", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report error for safe char in attributes", async function() {
     const linter = createLinter({ "attr-no-unsafe-char": true });
@@ -45,7 +45,9 @@ describe("legacy linter | attr-no-unsafe-char", function() {
 });
 
 describe("attr-no-unsafe-char", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report error for safe char in attributes", async function() {

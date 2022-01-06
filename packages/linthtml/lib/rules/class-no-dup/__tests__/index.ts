@@ -1,11 +1,11 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | class-no-dup", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should not report an error when there's no duplicated classes", async function() {
     const linter = createLinter({ "class-no-dup": true });
@@ -41,8 +41,8 @@ describe("legacy linter | class-no-dup", function() {
 });
 
 describe("legacy linter | class-no-dup + id-class-ignore-regexp", function() {
-  function createLinter(config) {
-    return new linthtml.LegacyLinter(linthtml.rules, none, config);
+  function createLinter(config: LegacyLinterConfig) {
+    return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
   it("Should report errors for duplicates classes not matching a custom separator", async function() {
     const linter = createLinter({ "class-no-dup": true, "id-class-ignore-regex": /^b/ });
@@ -69,7 +69,9 @@ describe("legacy linter | class-no-dup + id-class-ignore-regexp", function() {
   });
 });
 describe("class-no-dup", function() {
-  function createLinter(rules) {
+  function createLinter(rules: {
+    [rule_name: string]: RuleConfig
+  }) {
     return linthtml.fromConfig({ rules });
   }
   it("Should not report an error when there's no duplicated classes", async function() {
@@ -114,7 +116,7 @@ describe("class-no-dup", function() {
 });
 
 describe("class-no-dup + id-class-ignore-regexp", function() {
-  function createLinter(ignore) {
+  function createLinter(ignore: RegExp) {
     return linthtml.fromConfig({
       "id-class-ignore-regex": ignore,
       rules: {
