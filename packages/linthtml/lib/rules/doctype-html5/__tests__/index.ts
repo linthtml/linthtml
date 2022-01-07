@@ -1,5 +1,4 @@
 import { expect } from "chai";
-// TODO: Remove .default after typescript migration
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
