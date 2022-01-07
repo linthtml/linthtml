@@ -9,7 +9,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     // NOTE: this does not support legacy strings or obsolete permitted doctypes
     const html5_doctype = /^!DOCTYPE[ \t\n\f]+html[ \t\n\f]*$/i;
 
-    if (html5_doctype.test(node.data)) {
+    if (!html5_doctype.test(node.data)) {
       report({
         code: "E008",
         position: node.loc
