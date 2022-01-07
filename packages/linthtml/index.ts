@@ -1,7 +1,7 @@
-const { expect } = require("chai");
-// TODO: Remove .default after typescript migration
-const linthtml = require("../../../index").default;
-const none = require("../../../presets").presets.none;
+import { expect } from "chai";
+import linthtml from "../../../index";
+import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | title-no-dup", function() {
   function createLinter(config: LegacyLinterConfig) {
