@@ -1,6 +1,6 @@
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 import { is_tag_node } from "@linthtml/dom-utils/lib/tags";
-import { RuleDefinition } from "../../read-config";
+import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_list_value_validator } from "../../validate_option";
 
 const RULE_NAME = "attr-quote-style";
@@ -11,7 +11,7 @@ const formats: Record<string, { regex: RegExp, desc: string }> = {
   quoted: { regex: /^['"]/, desc: "quoted" }
 };
 
-function lint(node: Node, config: string, { report }: any) {
+function lint(node: Node, config: string, { report }: { report: reportFunction }) {
   if (is_tag_node(node)) {
     // TODO: Remove after `raw-ignore-text` refacto
     const attributes = node.attributes.filter(({ name }) => /^¤+$/.test(name.chars) === false);
