@@ -92,7 +92,7 @@ function node_tag_name(node: Node): string {
   }
 }
 
-function has_parent_node(node: Node): boolean {
+function has_parent_node(node: Node): node is (Node & { parent: Node }) {
   // root node is not a "normal" node
   return !!node.parent && node.parent.type !== "root";
 }

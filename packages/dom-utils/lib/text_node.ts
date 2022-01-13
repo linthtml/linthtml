@@ -3,12 +3,12 @@ import { Text } from "domhandler";
 import { Node } from "./dom_elements";
 import { is_text_node } from "./tags";
 
-type TextLine = {
+export type TextLine = {
  text: string;
  offset: number;
 };
 
-function get_lines(node: Text, include_EOL = false): TextLine[] {
+export function get_lines(node: Text, include_EOL = false): TextLine[] {
   const { data } = node;
   const R = /(\r\n|\r|\n)/g;
   let match;
@@ -35,15 +35,10 @@ function get_lines(node: Text, include_EOL = false): TextLine[] {
   return lines;
 }
 
-function is_newline_only(node: Node): boolean {
+export function is_newline_only(node: Node): boolean {
   if (!is_text_node(node)) {
     return false;
   }
   const text = node.data || "";
   return /^([\n\r]+[\t ]*)+$/.test(text);
 }
-
-module.exports = {
-  get_lines,
-  is_newline_only
-};
