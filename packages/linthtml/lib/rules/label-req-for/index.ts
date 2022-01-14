@@ -64,7 +64,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   }
 
   const id = (attribute_value(node, "for") as CharValue).chars;
-    // @ts-ignore
+  // @ts-ignore
   const fornodement = this.idmap.get(id);
 
   if (!fornodement) {

@@ -1,7 +1,7 @@
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { is_tag_node, has_attribute, attribute_value, get_attribute } from "@linthtml/dom-utils/lib/tags";
 import { create_list_value_validator } from "../../validate_option";
-import { Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements"
+import { Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "href-style";
 

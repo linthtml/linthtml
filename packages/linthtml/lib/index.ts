@@ -88,7 +88,6 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] | undefi
   return ignorer.ignores(file_path);
 }
 
-
 function create_file_linter(file_path: string, config: { preset?: string, filepath?: string, config: LegacyLinterConfig | LinterConfig }): FileLinter {
   return {
     file_path,
