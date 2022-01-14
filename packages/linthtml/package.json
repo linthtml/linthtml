@@ -6,13 +6,14 @@
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
   "license": "ISC",
   "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
     "bin",
-    "dist/lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
