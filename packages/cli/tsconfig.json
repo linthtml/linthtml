@@ -4,5 +4,5 @@
     "resolveJsonModule": true,
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
   },
-  "include": ["./lib/**/*.ts", "./__tests__/*.ts", "package.json"]
+  "include": ["./lib/**/*.ts", "package.json"]
 }
