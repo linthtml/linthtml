@@ -6,7 +6,7 @@ export default function print_errors(error: { code: string, meta: unknown, messa
     const [type, code] = error.code.split("-");
     // @ts-ignore
     const error_message = messages[`${type}_ERRORS`][code];
-    return console.log(error_message(chalk, error.meta));
+    return console.log(chalk`{red Error:} ${error_message(error.meta)}`);
   }
   return console.log(chalk`{red ${error.message}}`);
 }

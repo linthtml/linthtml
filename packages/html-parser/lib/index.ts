@@ -1,8 +1,7 @@
 import { Parser } from "htmlparser2";
 import DomBuilder from "./dom_builder";
 // TODO find a way to remove dist/lib (flatten generated package)
-// @ts-ignore
-import { Document } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import { Document } from "@linthtml/dom-utils/lib/dom_elements";
 /**
  * Parse an HTML text and return an AST tree
  *

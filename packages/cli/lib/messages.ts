@@ -1,22 +1,21 @@
-import { Chalk } from "chalk";
-// @ts-ignore
-import { Range } from "@linthtml/dom-utils/dist/lib/dom_elements";
+import chalk from "chalk";
+import { Range } from "@linthtml/dom-utils/lib/dom_elements";
 import { Issue } from "./utils";
 
-export const CORE_ERRORS: { [code: string]: (chalk: Chalk, meta?: any) => string} = {
-  "01": (chalk, meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta.config_path}}`,
-  "02": (chalk, meta) => chalk`{red Error:} Cannot find the config file {underline ${meta.config_path}}`,
-  "03": (chalk, meta) => chalk`{red Error:} Cannot find module "${meta.module_name}" to extends`,
-  "04": (chalk, meta) => chalk`{red Error:} Failed to load parser "${meta.module_name}". Cannot find module "${meta.module_name}"`,
-  "05": (chalk, meta) => chalk`{red Error:} Cannot find plugin "${meta.module_name}", make sure it's installed locally.`,
-  "06": (chalk, meta) => chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
-  "07": (chalk, meta) => chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
-  "08": (chalk, meta) => chalk`{red Error:} Plugin rules need to define a "lint" function. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
-  "09": (chalk) => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
+export const CORE_ERRORS: { [code: string]: (meta?: any) => string} = {
+  "01": (meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta.config_path}}`,
+  "02": (meta) => chalk`{red Error:} Cannot find the config file {underline ${meta.config_path}}`,
+  "03": (meta) => chalk`{red Error:} Cannot find module "${meta.module_name}" to extends`,
+  "04": (meta) => chalk`{red Error:} Failed to load parser "${meta.module_name}". Cannot find module "${meta.module_name}"`,
+  "05": (meta) => chalk`{red Error:} Cannot find plugin "${meta.module_name}", make sure it's installed locally.`,
+  "06": (meta) => chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
+  "07": (meta) => chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+  "08": (meta) => chalk`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+  "09": () => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
 };
 
 // TODO: add the possibility to use chalk ?
-export const errors: { [code: string]: (meta: any, position?: Range) => string} = {
+export const errors: { [code: string]: (meta: any, position: Range) => string} = {
   E000: (/* data */) => "not a valid error code",
   E001: (data) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
   E002: ({ format, attribute }) => `The attribute "${attribute}" must be written using the format "${format}"`,
@@ -86,7 +85,7 @@ export const errors: { [code: string]: (meta: any, position?: Range) => string} 
 
   INLINE_01: ({ instruction }) => `unrecognized linthtml instruction: \`linthtml-${instruction}\``,
   INLINE_02: ({ rule_name }) => `unrecognized rule name \`${rule_name}\` in inline configuration`,
-  INLINE_03: ({ rule_configuration }) => `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON  global`,
+  INLINE_03: ({ rule_configuration }) => `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON global`,
   INLINE_04: ({ rule_name, error }) => `linthtml-configure instruction for rule \`${rule_name}\` is not valid. ${error}`
 };
 

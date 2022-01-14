@@ -57,7 +57,7 @@ function check_country_code(code: string): boolean {
 // language code and YY is a valid country code.
 // Return 1 if the tag is invalid, or 2 if it is valid but has
 // unconventional capitalization.
-export default function check_lang_attribute(lang_attribute: CharValue) {
+export function check_lang_attribute(lang_attribute: CharValue) {
   if (!lang_attribute || lang_attribute.chars.length === 0) {
     return 0;
   }

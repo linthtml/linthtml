@@ -5,24 +5,23 @@
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
   "license": "ISC",
-  "main": "lib/index.js",
+  "main": "dist/lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
-  "bin": {
-    "linthtml": "bin/linthtml.js"
-  },
   "files": [
     "bin",
-    "lib"
+    "dist/lib"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/linthtml/linthtml.git"
   },
   "scripts": {
-    "test": "mocha './__tests__/**/*.test.js' './lib/rules/**/__tests__/*.js' --bail"
+    "clean": "rm -rf dist",
+    "test": "mocha -r ts-node/register './__tests__/**/*.test.ts' './lib/rules/**/__tests__/*.ts' --bail",
+    "build": "tsc --build"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
@@ -41,8 +40,16 @@
     "rewiremock": "^3.14.3"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.9.1",
+    "@types/global-modules": "^2.0.0",
+    "@types/resolve-from": "^5.0.1",
+    "@types/lodash.pull": "^4.1.6",
     "chai": "^4.3.4",
-    "mocha": "^9.1.1"
+    "mocha": "^9.1.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.2"
   },
   "publishConfig": {
     "access": "public"

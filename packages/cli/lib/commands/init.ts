@@ -1,5 +1,4 @@
 import yaml from "js-yaml";
-// @ts-ignore
 import { presets } from "@linthtml/linthtml/lib/presets";
 import fs from "fs";
 import chalk from "chalk";
@@ -51,6 +50,7 @@ export default async function init_command(): Promise<void> {
   }]);
 
   const config_file = GENERATORS[response.format];
+  console.log();
   if (response.legacy) {
     fs.writeFileSync(config_file.name, config_file.generate_content(presets.default), "utf8");
   } else {

@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { exitProcess, EXIT_CODE_ERROR } from "../utils";
-// @ts-ignore
 import { find_local_config } from "@linthtml/linthtml/lib/read-config";
 
 export default function print_config(path: string) {

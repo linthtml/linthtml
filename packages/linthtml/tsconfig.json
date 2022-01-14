@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+  },
+  "references": [{
+    "path": "../html-parser"
+  }, {
+    "path": "../cli"
+  }, {
+    "path": "../dom-utils"
+  }],
+  "include": ["./lib/**/*.ts", "./lib/**/*.js", "./__tests__/**/*.ts,", "./__tests__/**/*.js"] /* What about the bin folder? */
+}

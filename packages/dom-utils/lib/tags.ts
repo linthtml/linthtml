@@ -1,7 +1,6 @@
 import { ElementType } from "domelementtype";
-import { Text } from "domhandler";
 import { types } from "util";
-import { CharValue, Element, Node, NodeAttribute } from "./dom_elements";
+import { CharValue, Element, Node, NodeAttribute, Comment, Text, ProcessingInstruction } from "./dom_elements";
 
 const { isRegExp } = types;
 
@@ -43,7 +42,7 @@ function attribute_value(node: Element, attribute_name: string): CharValue | nul
   return attribute?.value ?? null;
 }
 
-function attribute_has_value(node: Element, attribute_name: string, value_to_check: string): boolean {
+function attribute_has_value(node: Element, attribute_name: string, value_to_check: string | RegExp): boolean {
   const value = attribute_value(node, attribute_name);
   if (value) {
     return isRegExp(value_to_check)
@@ -61,10 +60,17 @@ function is_tag_node(node: Node): node is Element {
   ].indexOf(node.type) !== -1;
 }
 
-// Todo check is current node text have `.loc` property if yes then create class Text_Node in dom_element.ts
-// @ts-ignore
+// TODO: check is current node text have `.loc` property if yes then create class Text_Node in dom_element.ts
 function is_text_node(node: Node): node is Text {
   return node.type === ElementType.Text;
+}
+
+function is_comment_node(node: Node): node is Comment {
+  return node.type === ElementType.Comment;
+}
+
+function is_directive_node(node: Node): node is ProcessingInstruction {
+  return node.type === ElementType.Directive;
 }
 
 function get_classes(class_attribute: CharValue): string[] {
@@ -86,7 +92,7 @@ function node_tag_name(node: Node): string {
   }
 }
 
-function has_parent_node(node: Node): boolean {
+function has_parent_node(node: Node): node is (Node & { parent: Node }) {
   // root node is not a "normal" node
   return !!node.parent && node.parent.type !== "root";
 }
@@ -96,6 +102,8 @@ export {
   attribute_value,
   is_tag_node,
   is_text_node,
+  is_comment_node,
+  is_directive_node,
   is_self_closing,
   get_attribute,
   has_attribute,
