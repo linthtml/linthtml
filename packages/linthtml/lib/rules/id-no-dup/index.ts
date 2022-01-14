@@ -1,6 +1,6 @@
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { is_tag_node, attribute_value, has_non_empty_attribute } from "@linthtml/dom-utils/lib/tags";
-import { CharValue, Node } from "@linthtml/dom-utils/lib/dom_elements"
+import { CharValue, Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "id-no-dup";
 

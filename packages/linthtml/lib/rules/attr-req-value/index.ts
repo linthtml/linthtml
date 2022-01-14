@@ -1,5 +1,5 @@
 import { is_boolean_attribute, is_tag_node, has_non_empty_attribute } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements"
+import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 import { RuleDefinition, reportFunction } from "../../read-config";
 
 const RULE_NAME = "attr-req-value";
