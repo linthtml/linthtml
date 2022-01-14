@@ -1,4 +1,4 @@
-// const { expect } = require("chai");
+// import { expect } from "chai";
 // // TODO: Remove .default after typescript migration
 // const linthtml = require("../../../index").default;
 // const none = require("../../../presets").presets.none;

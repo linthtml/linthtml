@@ -21,6 +21,7 @@ export type RuleDefinition = {
   name: string;
   // eslint-disable-next-line no-use-before-define
   lint: (node: Node, rule_config: unknown, obj: { report: reportFunction, rules: Record<string, ActiveRuleDefinition>, global_config: any }) => void;
+  // TODO: Why <T> ?
   validateConfig?: <T>(option: T) => void | never;
 
   configTransform?: (option: unknown) => unknown; // remove for v1
@@ -35,10 +36,10 @@ export type RuleConfig = RuleActivation | [RuleActivation] | [RuleActivation, un
 
 // TODO: Remove boolean type for x-regex config
 export type LinterConfig = {
-  extends: string | string[];
-  plugins: string[];
+  extends?: string | string[];
+  plugins?: string[];
   parser?: string;
-  ignoreFiles: string[];
+  ignoreFiles?: string[];
 
   maxerr?: number;
   "text-ignore-regex"?: string | RegExp | false;
@@ -50,7 +51,7 @@ export type LinterConfig = {
   plugins_rules?: {
     [rules_name: string]: RuleDefinition
   };
-  rules: {
+  rules?: {
     [rule_name: string]: RuleConfig
   };
 }

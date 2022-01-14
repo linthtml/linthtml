@@ -1,13 +1,17 @@
-// TODO: remove .default after typescript migration
-const Issue = require("../issue").default;
+import Issue from "../issue";
+import { Document, Node } from "@linthtml/dom-utils/lib/dom_elements";
+import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config";
+import { LegacyLinterConfig, RuleDefinition } from "../read-config";
 
-function apply_rules(rules, element, global_config) {
-  const issues = [];
+// TODO: remove .default after typescript migration
+
+function apply_rules(rules: RuleDefinition[], element: Node, global_config: LegacyLinterConfig) {
+  const issues: Issue[] = [];
   if (!rules) {
     return [];
   }
-  function report(rule) {
-    return (data) => {
+  function report(rule: RuleDefinition) {
+    return (data: any) => {
       if (Array.isArray(data)) {
         issues.push(...data);
       } else {
@@ -38,7 +42,8 @@ function apply_rules(rules, element, global_config) {
   return issues;
 }
 
-function lint(dom, opts, inlineConfigs) {
+function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfig) {
+  // @ts-ignore
   const subs = this.subscribers;
   /*
    * Reset our inline configuration object to be what opts is.
@@ -46,9 +51,9 @@ function lint(dom, opts, inlineConfigs) {
    */
   inlineConfigs.reset(opts);
 
-  const getIssues = function(element) {
+  const getIssues = function(element: Node) {
     // fast-forwards inlineConfig.current to whatever it should be at this index.
-    inlineConfigs.getOptsAtIndex(element.startIndex);
+    inlineConfigs.getOptsAtIndex(element.startIndex as number);
 
     let issues = apply_rules(subs, element, inlineConfigs.current);
 
@@ -66,7 +71,7 @@ function lint(dom, opts, inlineConfigs) {
   return issues.flat();
 }
 
-module.exports = {
+export default {
   name: "dom",
   lint
 };

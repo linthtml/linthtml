@@ -1,10 +1,10 @@
-const { expect } = require("chai");
-const rewiremock = require("rewiremock/node");
-const path = require("path");
-const {
+import { expect } from "chai";
+import rewiremock from "rewiremock/node";
+import path from "path";
+import {
   config_from_path,
   find_local_config
-} = require("../../lib/read-config");
+} from "../../lib/read-config";
 
 describe("Get config from path", function() {
   it("Report an error if path provided does not exist", function() {
@@ -243,11 +243,11 @@ describe("Load plugins", function() {
       .not
       .be
       .null;
-    expect(config.plugins_rules["my-plugin/rule"])
+    expect((config.plugins_rules as any)["my-plugin/rule"])
       .to
       .have
       .property("name", "my-plugin/rule");
-    expect(config.plugins_rules["my-plugin/rule"].lint)
+    expect((config.plugins_rules as any)["my-plugin/rule"].lint)
       .to
       .be
       .a("function");
