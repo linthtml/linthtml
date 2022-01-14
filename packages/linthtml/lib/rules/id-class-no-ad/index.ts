@@ -1,5 +1,5 @@
 import { is_tag_node } from "@linthtml/dom-utils/lib/tags";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements"
+import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 import { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "id-class-no-ad";

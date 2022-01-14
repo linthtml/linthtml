@@ -2,7 +2,7 @@ import { ActiveRuleDefinition, reportFunction, RuleDefinition } from "../../read
 import ClassStyleRule from "../class-style";
 import IdStyleRule from "../id-style";
 import { create_list_value_validator } from "../../validate_option";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements"
+import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 // TODO: Deprecate this rule
 const RULE_NAME = "id-class-style";

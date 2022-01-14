@@ -3,7 +3,7 @@ import { is_tag_node } from "@linthtml/dom-utils/lib/tags";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_list_value_validator } from "../../validate_option";
 import { types } from "util";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements"
+import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const { isRegExp } = types;
 

@@ -131,7 +131,7 @@ export default class Handler extends DomHandler {
 
   onclosetag() {
     const node = this.tagStack[this.tagStack.length - 1];
-    // fail 
+    // fail
     // console.log(node)
     if (node && !is_void_node(node as Element)) {
       const raw = this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1);
