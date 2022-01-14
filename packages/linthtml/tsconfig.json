@@ -10,5 +10,5 @@
   }, {
     "path": "../dom-utils"
   }],
-  "include": ["./lib/**/*.ts", "./lib/**/*.js", "./__tests__/**/*.ts,", "./__tests__/**/*.js"] /* What about the bin folder? */
+  "include": ["./lib/**/*.ts"] /* What about the bin folder? */
 }
