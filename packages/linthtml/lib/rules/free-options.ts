@@ -1,3 +1,4 @@
+// REMOVE
 /*
  * Some options are used directly by the linter and do not control any
  * rules. Since we still want to process the values for these options
@@ -5,22 +6,20 @@
  * never called to contain them. It will be imported with the other
  * rules.
  */
-const { create_number_validator, create_string_or_regexp_validator } = require("../validate_option");
-
-module.exports = {
+import { create_number_validator, create_string_or_regexp_validator } from "../validate_option";
+// TODO: can be removed?
+export default {
   name: "free-options",
   options: [
     {
       name: "maxerr",
-      validateConfig: create_number_validator("maxerr", false)
+      validateConfig: create_number_validator("maxerr", false),
+      rules: []
     },
     {
       name: "raw-ignore-regex",
-      validateConfig: create_string_or_regexp_validator("raw-ignore-regex")
+      validateConfig: create_string_or_regexp_validator("raw-ignore-regex"),
+      rules: []
     }
   ]
 };
-
-module.exports.options.forEach(function(option) {
-  option.rules = [];
-});

@@ -1,11 +1,6 @@
 module.exports = {
-  maxerr: false,
-  "raw-ignore-regex": false,
   "spec-char-escape": false,
-  "text-ignore-regex": false,
   "attr-name-ignore-regex": /^[0-9a-o]+$/,
-  "id-class-ignore-regex": false,
-  "line-max-len-ignore-regex": false,
   rules: {
     "attr-bans": [
       true,

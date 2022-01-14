@@ -1,12 +1,14 @@
-const InlineConfig = require("../lib/legacy/inline_config").default;
-const { expect } = require("chai");
+import InlineConfig from "../lib/legacy/inline_config";
+import Config from "../lib/legacy/config";
+import { expect } from "chai";
 
 // TODO: Remove .default after typescript migration
-const linthtml = require("../lib").default;
-const none = require("../lib/presets").presets.none;
+import linthtml from "../lib";
+import { presets } from "../lib/presets";
+import { LegacyLinterConfig } from "../lib/read-config";
 
-function createLinter() {
-  return new linthtml.LegacyLinter(linthtml.rules, none, ...arguments);
+function createLinter(config: LegacyLinterConfig) {
+  return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
 }
 
 const html = `
@@ -34,11 +36,7 @@ describe("inline-configuration", function() {
     expect(InlineConfig.prototype.getOptsAtIndex.bind(this, -10)).to.throw();
   });
   it("should throw when a config is added twice", function() {
-    const c = new InlineConfig({
-      setOption: function(o) {
-        return o;
-      }
-    });
+    const c = new InlineConfig(new Config([]));
     c.addConfig({ end: 5 });
     expect(c.addConfig.bind(c, { end: 5 })).to.throw();
   });
@@ -151,7 +149,7 @@ describe("inline-configuration", function() {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
+      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
     it("Should report an error on invalid option value", async function() {
@@ -309,7 +307,7 @@ describe("inline-configuration", function() {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
+      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
     it("enable instructions in report an error for nonexistent rule name", async function() {
@@ -319,7 +317,7 @@ describe("inline-configuration", function() {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
+      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
     it("enable instruction restore previous configuration", async function() {

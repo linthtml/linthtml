@@ -89,13 +89,11 @@ export default class Linter {
     return this.rules.getRule("dom").lint(dom, opts, this.inlineConfig);
   }
 
-  resetRules(opts: unknown) {
-    return this.rules
-      .getAllRules()
-      .map(function (rule) {
-        const r = rule.end && rule.end(opts);
-        return r || [];
-      })
+  resetRules(opts?: unknown) {
+    return this.rules.getAllRules().map(function(rule) {
+      const r = rule.end && rule.end(opts);
+      return r || [];
+    })
       .flat();
   }
 

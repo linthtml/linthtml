@@ -109,7 +109,7 @@ export default class Config {
     this.rules = { ...extract_all_rules(rules), ...plugins_rules };
     this.activated_rules = {};
     this.config = config as LinterConfig;
-    if (config?.rules) {
+    if (this.config?.rules) {
       this.activateRules(this.config);
       // TODO: Remove after v1. No more needed
       this.legacy_config = this.generateLegacyConfig(this.config);
@@ -120,10 +120,10 @@ export default class Config {
    * Activate rules from a config object
    */
   activateRules(config: LinterConfig) {
-    const keys = Object.keys(config.rules);
+    const keys = Object.keys(config.rules as Record<string, RuleConfig>);
     keys.forEach((rule_name: string) => {
       const rule = this.getRule(rule_name);
-      this.setRuleConfig(rule, config.rules);
+      this.setRuleConfig(rule, config.rules as Record<string, RuleConfig>);
     });
   }
 

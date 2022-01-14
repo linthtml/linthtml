@@ -7,7 +7,7 @@ import { Comment, Range } from "@linthtml/dom-utils/lib/dom_elements";
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
 
-type InlineConfigIndex = {
+export type InlineConfigIndex = {
   [key: string]: unknown;
   rules?: any[];
   end: number;
@@ -20,7 +20,7 @@ type InlineConfigIndex = {
 export default class InlineConfig {
   private indexConfigs: InlineConfigIndex[] = [];
   private previous: InlineConfigIndex = { end: -1 };
-  private current: InlineConfigIndex = { end: -1 };
+  public current: InlineConfigIndex = { end: -1 };
   /**
    * Creates an instance of InlineConfig.
    * @param {import('./config')} config - an option parser.

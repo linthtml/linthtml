@@ -9,7 +9,7 @@ export function is_boolean(rule_name: string) {
       throw new Error(`Configuration for rule "${rule_name}" is invalid: Expected boolean got ${typeof option}.`);
     }
     return option;
-  }
+  };
 }
 
 export function create_string_or_regexp_validator(rule_name: string, allow_empty_string = true) {
