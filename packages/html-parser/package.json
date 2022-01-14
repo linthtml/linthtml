@@ -6,12 +6,13 @@
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/html-parser#readme",
   "license": "ISC",
   "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "dist/lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
