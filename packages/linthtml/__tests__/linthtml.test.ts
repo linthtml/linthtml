@@ -1,7 +1,8 @@
 // TODO: Remove .default after typescript migration
-const linthtml = require("../lib").default;
-const { expect } = require("chai");
-const path = require("path");
+import linthtml from "../lib";
+import { expect } from "chai";
+import path from "path";
+import fs from "fs";
 
 describe("linthtml", function() {
   it("should be a function", function() {
@@ -9,24 +10,23 @@ describe("linthtml", function() {
   });
 
   it("should return a thenable", function() {
-    const thenable = linthtml("");
+    const thenable = linthtml("", {});
 
     expect(thenable).to.have.property("then");
   });
 
   it("should eventually return an array", async function() {
-    const result = await linthtml("");
+    const result = await linthtml("", {});
 
     expect(result).to.be.an.instanceOf(Array);
   });
 
   it("should not throw on sanity.html", function() {
-    const fs = require("fs");
     const filePath = path.join(__dirname, "fixtures", "sanity.html");
     const sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
 
     expect(function() {
-      linthtml(sanityHtml);
+      linthtml(sanityHtml, {});
     }).to.not.throw(Error);
   });
 

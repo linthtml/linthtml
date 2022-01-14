@@ -1,7 +1,9 @@
-const { expect } = require("chai");
+import { expect } from "chai";
 // TODO: Remove .default after typescript migration
-const Config = require("../lib/config").default;
-const rules = require("../lib/rules");
+import Config from "../lib/config";
+import { LegacyRuleDefinition, RuleDefinition } from "../lib/read-config";
+import rules from "../lib/rules";
+
 describe("Config", function() {
   // let config = new Config(rules);
 
@@ -73,6 +75,7 @@ describe("Config", function() {
         const rule_config = {
           "attr-bans": "foo"
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected string value \"foo\"");
@@ -87,6 +90,7 @@ describe("Config", function() {
             foo: "bar"
           }
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"{\"foo\":\"bar\"}\"");
@@ -97,6 +101,7 @@ describe("Config", function() {
         const rule_config = {
           "attr-bans": []
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"undefined\"");
@@ -157,6 +162,7 @@ describe("Config", function() {
         const rule_config = {
           "attr-bans": []
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"undefined\"");
@@ -167,6 +173,7 @@ describe("Config", function() {
         const rule_config = {
           "attr-bans": [1]
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"1\"");
@@ -177,6 +184,7 @@ describe("Config", function() {
         const rule_config = {
           "attr-bans": 1
         };
+        // @ts-ignore
         expect(() => config.setRuleConfig(rule, rule_config))
           .to
           .throw("Invalid Config for rule \"attr-bans\" - Unexpected value \"1\"");
@@ -220,6 +228,7 @@ describe("Config", function() {
           "error"
         ]
       };
+      // @ts-ignore
       expect(() => config.setRuleConfig(rule, rule_config))
         .to
         .not
@@ -227,16 +236,18 @@ describe("Config", function() {
     });
     describe("Rule validation", function() {
       it("Should call \"validateConfig\" if rule declare the function", function(done) {
-        const foo = {
+        const foo: RuleDefinition = {
           name: "foo",
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           validateConfig(config) {
             expect(config).to.not.be.undefined;
+            // @ts-ignore
             expect(config.bar).to.equal("bar");
             done();
           }
         };
-        const config = new Config([foo]);
+        const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
         const rule_config = {
           foo: [
@@ -244,16 +255,17 @@ describe("Config", function() {
             {
               bar: "bar"
             }
-          ]
+          ] as ["error", unknown]
         };
         config.setRuleConfig(rule, rule_config);
       });
 
       it("Should call \"configTransform\" if rule declare the function", function(done) {
-        const foo = {
+        const foo: RuleDefinition = {
           name: "foo",
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
-          configTransform(config) {
+          configTransform(config: any) {
             return config.bar;
           },
           validateConfig(config) {
@@ -263,7 +275,7 @@ describe("Config", function() {
           }
         };
 
-        const config = new Config([foo]);
+        const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
         const rule_config = {
           foo: [
@@ -271,7 +283,7 @@ describe("Config", function() {
             {
               bar: "bar"
             }
-          ]
+          ] as ["error", unknown]
         };
         config.setRuleConfig(rule, rule_config);
       });

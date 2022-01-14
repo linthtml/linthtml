@@ -1,9 +1,9 @@
-const { expect } = require("chai");
+import { expect } from "chai";
+import linthtml from "../lib";
 
 describe("linthtml.rules", function() {
   // TODO: Remove .default after typescript migration
-  const { rules } = require("../lib").default;
-  rules.forEach(function(rule) {
+  linthtml.rules.forEach(function(rule) {
     describe(rule.name, function() {
       it("should have a name", function() {
         expect(rule).to.have.property("name");

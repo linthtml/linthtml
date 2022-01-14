@@ -1,21 +1,16 @@
-const { expect } = require("chai");
+import { expect } from "chai";
 // TODO: Remove .default after typescript migration
-const Config = require("../lib/legacy/config").default;
+import Config from "../lib/legacy/config";
 
-describe("Legcay Config", function() {
-  let config = null;
-  let rule = null;
-  let baseRule = null;
-  let option = null;
-
+describe("Legacy Config", function() {
   beforeEach(function() {
-    config = new Config();
-    baseRule = { name: "base" };
-    rule = {
+    this.config = new Config([]);
+    this.baseRule = { name: "base" };
+    this.rule = {
       name: "therule",
       on: "base"
     };
-    option = {
+    this.option = {
       name: "theoption",
       rules: ["therule"]
     };
@@ -27,7 +22,7 @@ describe("Legcay Config", function() {
 
   describe("getRule", function() {
     it("should return undefined for nonexistent rule", function() {
-      const rule = config.getRule("nonexistent");
+      const rule = this.config.getRule("nonexistent");
 
       expect(rule).to.be.a("undefined");
     });
@@ -35,33 +30,33 @@ describe("Legcay Config", function() {
 
   describe("initialize", function() {
     it("should initialize rules", function() {
-      config = new Config([baseRule, rule]);
+      const config = new Config([this.baseRule, this.rule]);
 
-      expect(config.getRule(rule.name)).to.be.eql(rule);
-      expect(config.getRule(baseRule.name)).to.be.eql(baseRule);
+      expect(config.getRule(this.rule.name)).to.be.eql(this.rule);
+      expect(config.getRule(this.baseRule.name)).to.be.eql(this.baseRule);
     });
 
     it("should get options from a rule", function() {
-      rule.options = [option];
-      config = new Config([baseRule, rule]);
+      this.rule.options = [this.option];
+      const config = new Config([this.baseRule, this.rule]);
 
-      expect(config.options[option.name]).to.be.eql(option);
+      expect(config.options[this.option.name]).to.be.eql(this.option);
     });
   });
 
   describe("addRule", function() {
     it("should add a rule", function() {
-      config.addRule(rule);
+      this.config.addRule(this.rule);
 
-      const addedRule = config.getRule(rule.name);
+      const addedRule = this.config.getRule(this.rule.name);
 
-      expect(addedRule).to.be.equal(rule);
+      expect(addedRule).to.be.equal(this.rule);
     });
 
     it("should initialize the rule", function() {
-      config.addRule({ name: "test" });
+      this.config.addRule({ name: "test" });
 
-      const addedRule = config.getRule("test");
+      const addedRule = this.config.getRule("test");
 
       expect(addedRule.name).to.equal("test");
       expect(addedRule.on).to.equal("dom", "Default value for 'on' should be 'dom'");
@@ -69,76 +64,80 @@ describe("Legcay Config", function() {
     });
 
     it("should not initialize the same rule twice", function() {
-      config.addRule(rule);
-      rule.subscribers = ["test"];
-      config.addRule(rule);
-      expect(rule.subscribers).to.be.eql(["test"]);
+      this.config.addRule(this.rule);
+      this.rule.subscribers = ["test"];
+      this.config.addRule(this.rule);
+      expect(this.rule.subscribers).to.be.eql(["test"]);
     });
 
     it("should remove a previous rule", function() {
-      const oldRule = {};
-      oldRule.name = rule.name;
+      const oldRule = {
+        name: this.rule.name
+      };
 
-      config.addRule(oldRule);
-      config.addRule(rule);
+      this.config.addRule(oldRule);
+      this.config.addRule(this.rule);
 
-      const addedRule = config.getRule(rule.name);
+      const addedRule = this.config.getRule(this.rule.name);
 
-      expect(addedRule).to.be.equal(rule);
+      expect(addedRule).to.be.equal(this.rule);
     });
 
     it("should remove a previous rule's subcriptions", function() {
-      config.addRule(baseRule);
-      config.addRule(rule);
-      config.addOption(option);
-      config.setOption(option.name, true);
+      this.config.addRule(this.baseRule);
+      this.config.addRule(this.rule);
+      this.config.addOption(this.option);
+      this.config.setOption(this.option.name, true);
 
-      const newRule = { name: rule.name };
-      config.addRule(newRule);
+      const newRule = {
+        name: this.rule.name,
+        subscribers: []
+      };
+      this.config.addRule(newRule);
 
-      expect(newRule.subscribers).to.be.eql([option]);
-      expect(baseRule.subscribers).to.be.eql([]);
+      expect(newRule.subscribers).to.be.eql([this.option]);
+      expect(this.baseRule.subscribers).to.be.eql([]);
     });
   });
 
   describe("removeRule", function() {
     it("should remove a rule", function() {
-      config.addRule(rule);
-      config.removeRule(rule.name);
+      this.config.addRule(this.rule);
+      this.config.removeRule(this.rule.name);
 
-      const addedRule = config.getRule(rule.name);
+      const addedRule = this.config.getRule(this.rule.name);
 
       expect(addedRule).to.be.a("undefined");
     });
 
     it("should not throw when removing a nonregistered rule", function() {
-      config.removeRule("nonexistent");
+      this.config.removeRule("nonexistent");
     });
   });
 
   describe("addOption", function() {
     it("should add an option", function() {
-      config.addOption(option);
+      this.config.addOption(this.option);
 
-      const addedOption = config.options[option.name];
+      const addedOption = this.config.options[this.option.name];
 
-      expect(addedOption).to.be.equal(option);
+      expect(addedOption).to.be.equal(this.option);
     });
 
     it("should initialize the option", function() {
-      config.addOption({ name: "test" });
+      this.config.addOption({ name: "test" });
 
-      const addedOption = config.options.test;
+      const addedOption = this.config.options.test;
 
       expect(addedOption.name).to.be.eql("test");
       expect(addedOption.rules).to.be.eql(["test"]);
     });
 
     it("should not initialize the same option twice", function() {
-      config.addOption(option);
-      option.active = true;
-      config.addOption(option);
-      expect(option.active).to.be.eql(true);
+      this.config.addOption(this.option);
+      this.option.active = true;
+      this.config.addOption(this.option);
+      expect(this.option.active).to.be.eql(true);
     });
 
     // No longer working because rules can only subscribe to the "dom" rule
@@ -198,24 +197,24 @@ describe("Legcay Config", function() {
 
   describe("removeOption", function() {
     it("should remove the option", function() {
-      config.addOption(option);
-      config.removeOption(option.name);
+      this.config.addOption(this.option);
+      this.config.removeOption(this.option.name);
 
-      expect(config.options[option.name]).to.be.undefined;
+      expect(this.config.options[this.option.name]).to.be.undefined;
     });
 
     it("should remove the option's subcriptions", function() {
-      config.addRule(baseRule);
-      config.addRule(rule);
-      config.addOption(option);
-      config.setOption(option.name, true);
-      config.removeOption(option.name);
-      expect(rule.subscribers).to.be.eql([]);
-      expect(baseRule.subscribers).to.be.eql([]);
+      this.config.addRule(this.baseRule);
+      this.config.addRule(this.rule);
+      this.config.addOption(this.option);
+      this.config.setOption(this.option.name, true);
+      this.config.removeOption(this.option.name);
+      expect(this.rule.subscribers).to.be.eql([]);
+      expect(this.baseRule.subscribers).to.be.eql([]);
     });
 
     it("should not fail on nonexistent option", function() {
-      config.removeOption("nonexistent");
+      this.config.removeOption("nonexistent");
     });
   });
 });
