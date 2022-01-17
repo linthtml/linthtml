@@ -1,5 +1,5 @@
 import { is_void_node } from "@linthtml/dom-utils";
-import { is_tag_node, is_self_closing } from "@linthtml/dom-utils/lib/tags";
+import { is_tag_node, is_self_closing } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";

@@ -1,4 +1,4 @@
-import { has_non_empty_attribute, is_tag_node, attribute_value } from "@linthtml/dom-utils/lib/tags";
+import { has_non_empty_attribute, is_tag_node, attribute_value } from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 

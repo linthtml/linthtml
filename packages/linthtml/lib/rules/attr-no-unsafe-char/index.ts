@@ -1,5 +1,5 @@
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { is_tag_node, attribute_has_value } from "@linthtml/dom-utils/lib/tags";
+import { is_tag_node, attribute_has_value } from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "attr-no-unsafe-char";
