@@ -1,7 +1,7 @@
 import { DomHandler } from "htmlparser2";
 // TODO: remove
-import { is_void_node } from "@linthtml/dom-utils";
 import {
+  is_void_node,
   CharValue,
   Document,
   Element,
@@ -9,8 +9,8 @@ import {
   Node,
   Position,
   Range
-// TODO find a way to remove dist/lib (flatten generated package)
-} from "@linthtml/dom-utils/lib/dom_elements";
+// TODO find a way to have /dom_elements
+} from "@linthtml/dom-utils";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
   public dom: Node[] = [];

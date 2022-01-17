@@ -1,5 +1,5 @@
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { is_tag_node } from "@linthtml/dom-utils/lib/tags";
+import { is_tag_node } from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_list_value_validator } from "../../validate_option";
 

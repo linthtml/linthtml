@@ -6,7 +6,7 @@ import rules from "../rules";
 import { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config";
 import { Node, Document } from "@linthtml/dom-utils/lib/dom_elements";
 import Issue from "../issue";
-import { is_comment_node } from "@linthtml/dom-utils/lib/tags";
+import { is_comment_node } from "@linthtml/dom-utils";
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column
