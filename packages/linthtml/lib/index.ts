@@ -136,5 +136,8 @@ linthtml.from_config_path = function(config_path: string): Linter | LegacyLinter
 linthtml.Linter = Linter;
 linthtml.LegacyLinter = LegacyLinter;
 linthtml.rules = rules;
+linthtml.presets = presets;
 
 export default linthtml;
+
+export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };

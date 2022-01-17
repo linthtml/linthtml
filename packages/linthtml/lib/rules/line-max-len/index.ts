@@ -1,5 +1,4 @@
-import { is_text_node, has_parent_node } from "@linthtml/dom-utils";
-import { get_lines } from "@linthtml/dom-utils/lib/text_node";
+import { is_text_node, has_parent_node, get_lines} from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_number_validator } from "../../validate_option";
 import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";

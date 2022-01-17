@@ -1,5 +1,5 @@
 import { CharValue, Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { is_tag_node, get_classes, has_attribute, attribute_value } from "@linthtml/dom-utils/lib/tags";
+import { is_tag_node, get_classes, has_attribute, attribute_value } from "@linthtml/dom-utils";
 import { types } from "util";
 import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
 

@@ -6,8 +6,6 @@
   "references": [{
     "path": "../html-parser"
   }, {
-    "path": "../cli"
-  }, {
     "path": "../dom-utils"
   }],
   "include": ["./lib/**/*.ts"] /* What about the bin folder? */
