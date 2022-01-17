@@ -1,4 +1,4 @@
-import { is_comment_node } from "@linthtml/dom-utils/lib/tags";
+import { is_comment_node } from "@linthtml/dom-utils";
 import CustomError from "./utils/custom-errors";
 import { Comment, Node } from "@linthtml/dom-utils/lib/dom_elements";
 import Config from "./config";

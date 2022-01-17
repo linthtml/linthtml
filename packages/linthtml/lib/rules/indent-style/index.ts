@@ -1,9 +1,9 @@
 import {
   is_text_node,
   node_tag_name,
-  has_parent_node
-} from "@linthtml/dom-utils/lib/tags";
-import { is_newline_only } from "@linthtml/dom-utils/lib/text_node";
+  has_parent_node,
+  is_newline_only
+} from "@linthtml/dom-utils";
 import { CharValue, Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_list_value_validator } from "../../validate_option";

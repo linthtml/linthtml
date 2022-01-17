@@ -1,5 +1,4 @@
-import { is_text_node, has_parent_node } from "@linthtml/dom-utils";
-import { get_lines, TextLine } from "@linthtml/dom-utils/lib/text_node";
+import { is_text_node, has_parent_node, get_lines, TextLine } from "@linthtml/dom-utils";
 import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
 import { reportFunction, RuleDefinition } from "../../read-config";
 

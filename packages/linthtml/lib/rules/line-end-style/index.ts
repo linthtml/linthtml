@@ -1,6 +1,5 @@
 import { reportFunction, RuleDefinition } from "../../read-config";
-import { is_text_node } from "@linthtml/dom-utils";
-import { get_lines } from "@linthtml/dom-utils/lib/text_node";
+import { is_text_node, get_lines } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 

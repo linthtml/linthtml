@@ -1,5 +1,5 @@
 import { types } from "util";
-import { is_tag_node, get_attribute } from "@linthtml/dom-utils/lib/tags";
+import { is_tag_node, get_attribute } from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
 

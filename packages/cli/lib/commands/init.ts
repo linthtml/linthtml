@@ -1,5 +1,5 @@
 import yaml from "js-yaml";
-import { presets } from "@linthtml/linthtml/lib/presets";
+import linthtml from "@linthtml/linthtml";
 import fs from "fs";
 import chalk from "chalk";
 import inquirer from "inquirer";
@@ -52,7 +52,7 @@ export default async function init_command(): Promise<void> {
   const config_file = GENERATORS[response.format];
   console.log();
   if (response.legacy) {
-    fs.writeFileSync(config_file.name, config_file.generate_content(presets.default), "utf8");
+    fs.writeFileSync(config_file.name, config_file.generate_content(linthtml.presets.default), "utf8");
   } else {
     fs.writeFileSync(config_file.name, config_file.generate_content(default_config), "utf8");
     console.log(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
