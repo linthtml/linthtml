@@ -24,3 +24,4 @@ npm-debug.log
 \.vscode/
 
 packages/*/dist/
+packages/*/tsconfig.tsbuildinfo
