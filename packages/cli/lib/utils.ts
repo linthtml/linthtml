@@ -1,12 +1,12 @@
 import chalk from "chalk";
-import pkg from "../package.json";
 import { Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
 
 function isBetaVersion() {
-  const { version } = pkg;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { version } = require("../package.json");
   const R_BETA = /-(?:beta|alpha)\.\d+$/;
   return R_BETA.test(version);
 }
