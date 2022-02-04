@@ -2,6 +2,7 @@ import Issue from "../issue";
 import { Document, Node } from "@linthtml/dom-utils/lib/dom_elements";
 import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config";
 import { LegacyLinterConfig, RuleDefinition } from "../read-config";
+import { flatten } from "../utils/array";
 
 // TODO: remove .default after typescript migration
 
@@ -68,7 +69,7 @@ function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfi
   const issues = dom.children.length
     ? dom.children.map(getIssues)
     : [];
-  return issues.flat();
+  return flatten(issues);
 }
 
 export default {
