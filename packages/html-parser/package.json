@@ -20,7 +20,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha -r ts-node/register '__tests__/*.ts' --bail",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register '__tests__/*.ts' --bail",
     "build": "tsc --build"
   },
   "bugs": {
@@ -30,15 +30,6 @@
     "@linthtml/dom-utils": "^0.9.0-alpha.1",
     "domhandler": "^4.2.2",
     "htmlparser2": "^7.1.2"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.21",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "^16.9.1",
-    "chai": "^4.3.4",
-    "mocha": "^9.1.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.2"
   },
   "publishConfig": {
     "access": "public"
