@@ -38,9 +38,7 @@ function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunc
   }, new Map<number, NodeAttribute[]>());
 
   const allow_attributes_on_first_line = limit === "+0" || limit > 0;
-  const row_limit = (limit === 0 || limit === "+0")
-    ? 1
-    : Math.floor(limit);
+  const row_limit = limit === 0 || limit === "+0" ? 1 : Math.floor(limit);
 
   const tag_line = node.open.loc.start.line;
 
@@ -49,9 +47,7 @@ function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunc
   while (!tmp.done) {
     const [line, attributes] = tmp.value;
     if (line === tag_line) {
-      const nb_attributes_allowed = allow_attributes_on_first_line
-        ? row_limit
-        : 0;
+      const nb_attributes_allowed = allow_attributes_on_first_line ? row_limit : 0;
       attributes.slice(nb_attributes_allowed).map(reportIssue);
     } else {
       attributes.slice(row_limit).map(reportIssue);

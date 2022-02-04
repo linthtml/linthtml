@@ -3,27 +3,27 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | attr-req-value", function() {
+describe("legacy linter | attr-req-value", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report an error for attribute with a value", async function() {
+  it("Should not report an error for attribute with a value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div class=\"foo\"></div>";
+    const html = '<div class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept spaces in attributes value", async function() {
+  it("Should accept spaces in attributes value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div class=\"foo bar\"></div>";
+    const html = '<div class="foo bar"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when an attribute didn't have a value", async function() {
+  it("Should report an error when an attribute didn't have a value", async function () {
     const linter = createLinter({ "attr-req-value": true });
     const html = "<div class></div>";
 
@@ -41,15 +41,15 @@ describe("legacy linter | attr-req-value", function() {
   // });
 
   // For a browser class and class="" are the same
-  it("Should report an error for empty value", async function() {
+  it("Should report an error for empty value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div id=\"\"></div>";
+    const html = '<div id=""></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report errors for boolean attributes", async function() {
+  it("Should not report errors for boolean attributes", async function () {
     const linter = createLinter({ "attr-req-value": true });
     const html = `
       <input type="text" id="input" name="input" required disabled>
@@ -74,29 +74,27 @@ describe("legacy linter | attr-req-value", function() {
   // });
 });
 
-describe("attr-req-value", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("attr-req-value", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report an error for attribute with a value", async function() {
+  it("Should not report an error for attribute with a value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div class=\"foo\"></div>";
+    const html = '<div class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept spaces in attributes value", async function() {
+  it("Should accept spaces in attributes value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div class=\"foo bar\"></div>";
+    const html = '<div class="foo bar"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when an attribute didn't have a value", async function() {
+  it("Should report an error when an attribute didn't have a value", async function () {
     const linter = createLinter({ "attr-req-value": true });
     const html = "<div class></div>";
 
@@ -112,15 +110,15 @@ describe("attr-req-value", function() {
   //   expect(issues).to.have.lengthOf(1);
   // });
 
-  it("Should report an error for empty value", async function() {
+  it("Should report an error for empty value", async function () {
     const linter = createLinter({ "attr-req-value": true });
-    const html = "<div id=\"\"></div>";
+    const html = '<div id=""></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report errors for boolean attributes", async function() {
+  it("Should not report errors for boolean attributes", async function () {
     const linter = createLinter({ "attr-req-value": true });
     const html = `
       <input type="text" id="input" name="input" required disabled>

@@ -7,43 +7,29 @@ const RULE_NAME = "no-surrounding-whitespace";
 // TODO make shared function
 function get_helpful_line_positions(node: Text) {
   return {
-    next_sibling_line: node.nextSibling
-      ? (node.nextSibling as Node).loc.start.line
-      : -1,
-    previous_sibling_line: node.previousSibling
-      ? (node.previousSibling as Node).loc.end.line
-      : -1,
+    next_sibling_line: node.nextSibling ? (node.nextSibling as Node).loc.start.line : -1,
+    previous_sibling_line: node.previousSibling ? (node.previousSibling as Node).loc.end.line : -1,
     node_start_line: node.loc.start.line,
     node_end_line: node.loc.end.line,
-    parent_close_line: has_parent_node(node)
-      ? node.parent.loc.end.line
-      : -1,
-    parent_start_line: has_parent_node(node)
-      ? node.parent.loc.start.line
-      : -1
+    parent_close_line: has_parent_node(node) ? node.parent.loc.end.line : -1,
+    parent_start_line: has_parent_node(node) ? node.parent.loc.start.line : -1
   };
 }
 
 function should_report_before_error(node: Text, { text, offset }: TextLine) {
-  const {
-    previous_sibling_line,
-    node_start_line,
-    parent_start_line
-  } = get_helpful_line_positions(node);
+  const { previous_sibling_line, node_start_line, parent_start_line } = get_helpful_line_positions(node);
 
   const current_line = node_start_line + offset;
   const start_whitespace = /^[\s\uFEFF\xA0]+/.exec(text);
-  return start_whitespace &&
-    ((current_line === parent_start_line &&
-    current_line !== previous_sibling_line) ||
-    (current_line !== parent_start_line &&
-      current_line === previous_sibling_line));
+  return (
+    start_whitespace &&
+    ((current_line === parent_start_line && current_line !== previous_sibling_line) ||
+      (current_line !== parent_start_line && current_line === previous_sibling_line))
+  );
 }
 
 function generate_position_before_error(node: Text, { text, offset }: TextLine) {
-  const {
-    node_start_line
-  } = get_helpful_line_positions(node);
+  const { node_start_line } = get_helpful_line_positions(node);
 
   const current_line = node_start_line + offset;
   const start_whitespace = /^[\s\uFEFF\xA0]+/.exec(text) as RegExpExecArray;
@@ -60,24 +46,20 @@ function generate_position_before_error(node: Text, { text, offset }: TextLine) 
 }
 
 function should_report_after_error(node: Text, { text, offset }: TextLine) {
-  const {
-    next_sibling_line,
-    node_start_line,
-    parent_close_line
-  } = get_helpful_line_positions(node);
+  const { next_sibling_line, node_start_line, parent_close_line } = get_helpful_line_positions(node);
 
   const current_line = node_start_line + offset;
   const end_whitespace = /[\s\uFEFF\xA0]+$/.exec(text);
-  return end_whitespace &&
+  return (
+    end_whitespace &&
     text !== end_whitespace[0] &&
     current_line === parent_close_line &&
-    current_line !== next_sibling_line;
+    current_line !== next_sibling_line
+  );
 }
 
 function generate_position_after_error(node: Text, { text, offset }: TextLine) {
-  const {
-    node_start_line
-  } = get_helpful_line_positions(node);
+  const { node_start_line } = get_helpful_line_positions(node);
 
   const current_line = node_start_line + offset;
   const end_whitespace = /[\s\uFEFF\xA0]+$/.exec(text) as RegExpExecArray;

@@ -14,10 +14,7 @@ function lint(node: Node, style: "always" | "never", { report }: { report: repor
   // remove toLowerCase
   if (!close || name.toLowerCase() !== close.chars.toLowerCase()) {
     const selfClose = is_self_closing(node);
-    if (
-      (style === "always" && !selfClose) ||
-      (style === "never" && selfClose)
-    ) {
+    if ((style === "always" && !selfClose) || (style === "never" && selfClose)) {
       report({
         code: "E018",
         position: node.open.loc,

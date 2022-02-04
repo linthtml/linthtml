@@ -14,7 +14,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     while (
       (child = children[childIndex]) &&
       (!is_tag_node(child) || // skip text nodes
-        (child.name.match(/(caption|colgroup)/i)))
+        child.name.match(/(caption|colgroup)/i))
     ) {
       childIndex++;
     }

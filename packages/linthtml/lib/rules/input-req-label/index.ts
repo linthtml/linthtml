@@ -48,7 +48,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   // check if the input has a label as a parent.
   // TODO: check if
   // @ts-ignore
-  for (let e = node; (e = e.parent);) {
+  for (let e = node; (e = e.parent); ) {
     if (e.name === "label") {
       return;
     }
@@ -84,29 +84,25 @@ function end() {
     labels
   }: {
     inputsInfo: {
-      id: string,
-      loc: Range
-    }[],
-    labels: Record<string, Node>
-  // @ts-ignore
+      id: string;
+      loc: Range;
+    }[];
+    labels: Record<string, Node>;
+    // @ts-ignore
   } = this;
-  inputsInfo
-    .forEach(({ id, loc }) => {
-      if (!labels[id]) {
-        issues.push(
-          new Issue(
-            RULE_NAME,
-            loc,
-            {
-              code: "E033",
-              rule: RULE_NAME,
-              data: {
-                idValue: id
-              }
-            })
-        );
-      }
-    });
+  inputsInfo.forEach(({ id, loc }) => {
+    if (!labels[id]) {
+      issues.push(
+        new Issue(RULE_NAME, loc, {
+          code: "E033",
+          rule: RULE_NAME,
+          data: {
+            idValue: id
+          }
+        })
+      );
+    }
+  });
 
   // wipe previous table
   // @ts-ignore

@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | doctype-first", function() {
+describe("legacy linter | doctype-first", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report any error when DOCTYPE is first", async function() {
+  it("Should not report any error when DOCTYPE is first", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!DOCTYPE>
@@ -18,7 +18,7 @@ describe("legacy linter | doctype-first", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should be case-insensitive", async function() {
+  it("Should be case-insensitive", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!doctype>
@@ -29,7 +29,7 @@ describe("legacy linter | doctype-first", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when doctype is not present", async function() {
+  it("Should report an error when doctype is not present", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <html></html>
@@ -39,7 +39,7 @@ describe("legacy linter | doctype-first", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when DOCTYPE is not first", async function() {
+  it("Should report an error when DOCTYPE is not first", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <html></html>
@@ -50,7 +50,7 @@ describe("legacy linter | doctype-first", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error when there's multiple DOCTYPE (if one is first)", async function() {
+  it("Should not report any error when there's multiple DOCTYPE (if one is first)", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!DOCTYPE>
@@ -64,7 +64,7 @@ describe("legacy linter | doctype-first", function() {
   });
 
   // should report an error
-  it("Should not report any error if the first element is not an html tag", async function() {
+  it("Should not report any error if the first element is not an html tag", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       foobar
@@ -75,7 +75,7 @@ describe("legacy linter | doctype-first", function() {
   });
 
   // should report an error
-  it("Should not report any error if the first element is a comment", async function() {
+  it("Should not report any error if the first element is a comment", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!-- A comment -->
@@ -87,8 +87,8 @@ describe("legacy linter | doctype-first", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  describe("`smart` mode", function() {
-    it("Should not report any error when there's no doctype and <head>", async function() {
+  describe("`smart` mode", function () {
+    it("Should not report any error when there's no doctype and <head>", async function () {
       const linter = createLinter({ "doctype-first": "smart" });
       const html = `
         <section></section>
@@ -98,7 +98,7 @@ describe("legacy linter | doctype-first", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when there's no doctype but an <head>", async function() {
+    it("Should report an error when there's no doctype but an <head>", async function () {
       const linter = createLinter({ "doctype-first": "smart" });
       const html = `
         <head></head>
@@ -110,31 +110,29 @@ describe("legacy linter | doctype-first", function() {
     });
   });
 
-  it("Should throw an error for invalid config (wrong type)", function() {
+  it("Should throw an error for invalid config (wrong type)", function () {
     const linter = createLinter({ "doctype-first": 0 });
-    const html = "<div class=\"foo\"></div>";
+    const html = '<div class="foo"></div>';
 
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"doctype-first\" is invalid: Expected boolean got number");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "doctype-first" is invalid: Expected boolean got number'
+    );
   });
 
-  it("Should throw an error for invalid config (not valid string)", function() {
+  it("Should throw an error for invalid config (not valid string)", function () {
     const linter = createLinter({ "doctype-first": "foo" });
-    const html = "<div class=\"bar\"></div>";
+    const html = '<div class="bar"></div>';
 
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"doctype-first\" is invalid: Only \"smart\" is accepted as string value");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
+    );
   });
 });
-describe("doctype-first", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("doctype-first", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report any error when DOCTYPE is first", async function() {
+  it("Should not report any error when DOCTYPE is first", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!DOCTYPE>
@@ -145,7 +143,7 @@ describe("doctype-first", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should be case-insensitive", async function() {
+  it("Should be case-insensitive", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!doctype>
@@ -156,7 +154,7 @@ describe("doctype-first", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when doctype is not present", async function() {
+  it("Should report an error when doctype is not present", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <html></html>
@@ -166,7 +164,7 @@ describe("doctype-first", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when DOCTYPE is not first", async function() {
+  it("Should report an error when DOCTYPE is not first", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <html></html>
@@ -177,7 +175,7 @@ describe("doctype-first", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error when there's multiple DOCTYPE (if one is first)", async function() {
+  it("Should not report any error when there's multiple DOCTYPE (if one is first)", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!DOCTYPE>
@@ -191,7 +189,7 @@ describe("doctype-first", function() {
   });
 
   // should report an error
-  it("Should not report any error if the first element is not an html tag", async function() {
+  it("Should not report any error if the first element is not an html tag", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       foobar
@@ -202,7 +200,7 @@ describe("doctype-first", function() {
   });
 
   // should report an error
-  it("Should not report any error if the first element is a comment", async function() {
+  it("Should not report any error if the first element is a comment", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!-- A comment -->
@@ -215,7 +213,7 @@ describe("doctype-first", function() {
   });
 
   // should report an error
-  it("Should report if first node is a comment an second is not the doctype", async function() {
+  it("Should report if first node is a comment an second is not the doctype", async function () {
     const linter = createLinter({ "doctype-first": true });
     const html = `
       <!-- A comment -->
@@ -227,13 +225,10 @@ describe("doctype-first", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  describe("`smart` mode", function() {
-    it("Should not report any error when there's no doctype and <head>", async function() {
+  describe("`smart` mode", function () {
+    it("Should not report any error when there's no doctype and <head>", async function () {
       const linter = createLinter({
-        "doctype-first": [
-          true,
-          "smart"
-        ]
+        "doctype-first": [true, "smart"]
       });
       const html = `
         <section></section>
@@ -243,12 +238,9 @@ describe("doctype-first", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when there's no doctype but an <head>", async function() {
+    it("Should report an error when there's no doctype but an <head>", async function () {
       const linter = createLinter({
-        "doctype-first": [
-          true,
-          "smart"
-        ]
+        "doctype-first": [true, "smart"]
       });
       const html = `
         <head></head>
@@ -260,27 +252,21 @@ describe("doctype-first", function() {
     });
   });
 
-  it("Should throw an error for invalid config (wrong type)", function() {
+  it("Should throw an error for invalid config (wrong type)", function () {
     const config = {
-      "doctype-first": [
-        true,
-        0
-      ] as [boolean, unknown]
+      "doctype-first": [true, 0] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"doctype-first\" is invalid: Expected boolean got number");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "doctype-first" is invalid: Expected boolean got number'
+    );
   });
 
-  it("Should throw an error for invalid config (not valid string)", function() {
+  it("Should throw an error for invalid config (not valid string)", function () {
     const config = {
-      "doctype-first": [
-        true,
-        "foo"
-      ] as [boolean, unknown]
+      "doctype-first": [true, "foo"] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"doctype-first\" is invalid: Only \"smart\" is accepted as string value");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
+    );
   });
 });

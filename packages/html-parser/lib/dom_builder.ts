@@ -9,7 +9,7 @@ import {
   Node,
   Position,
   Range
-// TODO find a way to have /dom_elements
+  // TODO find a way to have /dom_elements
 } from "@linthtml/dom-utils";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
@@ -23,13 +23,10 @@ export default class Handler extends DomHandler {
 
   constructor(lineOffsets: number[]) {
     /* eslint-disable @typescript-eslint/no-empty-function */
-    super(
-      () => {},
-      {
-        withStartIndices: true,
-        withEndIndices: true
-      }
-    );
+    super(() => {}, {
+      withStartIndices: true,
+      withEndIndices: true
+    });
     this.attributes = [];
     this.lineOffsets = lineOffsets;
     this.tagStack = [this.root];
@@ -46,13 +43,9 @@ export default class Handler extends DomHandler {
 
   private _indexToPosition(index: number): Position {
     const line = this.lineOffsets.findIndex((startIndex) => index < startIndex);
-    const column = line === -1 ? index - this.lineOffsets[this.lineOffsets.length - 1] : index - this.lineOffsets[line - 1];
-    return new Position(
-      line === -1
-        ? this.lineOffsets.length
-        : line,
-      column + 1
-    );
+    const column =
+      line === -1 ? index - this.lineOffsets[this.lineOffsets.length - 1] : index - this.lineOffsets[line - 1];
+    return new Position(line === -1 ? this.lineOffsets.length : line, column + 1);
   }
 
   __createAttributeNode(name: string, attribute_value: string): NodeAttribute {
@@ -72,18 +65,12 @@ export default class Handler extends DomHandler {
     const match = raw.match(/\s*=\s*/);
     const rawEqValue = match ? match[0] : null;
     if (rawEqValue) {
-      const loc = new Range(
-        namePosition.end,
-        this._indexToPosition(start + name.length + rawEqValue.length)
-      );
+      const loc = new Range(namePosition.end, this._indexToPosition(start + name.length + rawEqValue.length));
       equal = new CharValue(rawEqValue, loc);
     }
     if (attribute_value) {
       const rawValue = raw.slice(rawEqValue.length);
-      const loc = new Range(
-        this._indexToPosition(start + name.length + rawEqValue.length),
-        this._indexToPosition(end)
-      );
+      const loc = new Range(this._indexToPosition(start + name.length + rawEqValue.length), this._indexToPosition(end));
       // remove extra spaces newline? (attribute_value)
       value = new CharValue(attribute_value, loc, rawValue);
     } else {
@@ -109,7 +96,7 @@ export default class Handler extends DomHandler {
     this.attributes.push(attribute);
   }
 
-  onopentag(name: string/* , attribs: { [key: string]: string } */): void {
+  onopentag(name: string /* , attribs: { [key: string]: string } */): void {
     // @ts-ignore
     const type = this.options.xmlMode ? ElementType.Tag : undefined;
     const node = new Element(name, this.attributes, undefined, type);
@@ -152,7 +139,7 @@ export default class Handler extends DomHandler {
     super.addNode(node);
     node.loc = {
       start: this._indexToPosition(node.startIndex as number),
-      end: this._indexToPosition(node.endIndex as number + 1)
+      end: this._indexToPosition((node.endIndex as number) + 1)
     };
   }
 }

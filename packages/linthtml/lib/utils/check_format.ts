@@ -17,7 +17,7 @@ function getRegExp(val: string | RegExp): RegExp {
   return formats[val] || new RegExp(`^${val}$`, "gm");
 }
 
-export default function(format: string | RegExp, value: string): boolean {
+export default function (format: string | RegExp, value: string): boolean {
   // return error is provided format does not exist
   const R = getRegExp(format);
   return R.test(value);

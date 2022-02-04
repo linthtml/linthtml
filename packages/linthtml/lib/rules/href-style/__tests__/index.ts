@@ -3,28 +3,28 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | href-style", function() {
+describe("legacy linter | href-style", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  describe("\"absolute\" mode", function() {
-    it("Should not report any error for absolute links", async function() {
+  describe('"absolute" mode', function () {
+    it("Should not report any error for absolute links", async function () {
       const linter = createLinter({ "href-style": "absolute" });
-      const html = "<a href=\"http://www.google.com\">A link</a>";
+      const html = '<a href="http://www.google.com">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for relative links", async function() {
+    it("Should report an error for relative links", async function () {
       const linter = createLinter({ "href-style": "absolute" });
-      const html = "<a href=\"/foo\">A link</a>";
+      const html = '<a href="/foo">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
     });
 
-    it("Should not report any error for empty links", async function() {
+    it("Should not report any error for empty links", async function () {
       const linter = createLinter({ "href-style": "absolute" });
       const html = "<a>A link</a>";
 
@@ -32,32 +32,32 @@ describe("legacy linter | href-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for fragment only links", async function() {
+    it("Should not report any error for fragment only links", async function () {
       const linter = createLinter({ "href-style": "absolute" });
-      const html = "<a href=\"#bar\">A link</a>";
+      const html = '<a href="#bar">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
   });
-  describe("\"relative\" mode", function() {
-    it("Should not report any error for relative links", async function() {
+  describe('"relative" mode', function () {
+    it("Should not report any error for relative links", async function () {
       const linter = createLinter({ "href-style": "relative" });
-      const html = "<a href=\"/foo\">A link</a>";
+      const html = '<a href="/foo">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for absolute links", async function() {
+    it("Should report an error for absolute links", async function () {
       const linter = createLinter({ "href-style": "relative" });
-      const html = "<a href=\"http://www.google.com\">A link</a>";
+      const html = '<a href="http://www.google.com">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
     });
 
-    it("Should not report any error for empty links", async function() {
+    it("Should not report any error for empty links", async function () {
       const linter = createLinter({ "href-style": "relative" });
       const html = "<a>A link</a>";
 
@@ -65,70 +65,59 @@ describe("legacy linter | href-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for fragment only links", async function() {
+    it("Should not report any error for fragment only links", async function () {
       const linter = createLinter({ "href-style": "relative" });
-      const html = "<a href=\"#bar\">A link</a>";
+      const html = '<a href="#bar">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
   });
 
-  it("Should throw an error for an invalid config", function() {
+  it("Should throw an error for an invalid config", function () {
     const linter = createLinter({ "href-style": true });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"href-style\" is invalid: Expected string got boolean");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "href-style" is invalid: Expected string got boolean'
+    );
   });
 
-  it("Should throw an error if not given a list of strings as config", function() {
+  it("Should throw an error if not given a list of strings as config", function () {
     const linter = createLinter({ "href-style": "foo" });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"href-style\" is invalid: \"foo\" is not accepted. Accepted values are \"absolute\" and \"relative\".");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
+    );
   });
 });
-describe("href-style", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("href-style", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  describe("\"absolute\" mode", function() {
-    it("Should not report any error for absolute links", async function() {
+  describe('"absolute" mode', function () {
+    it("Should not report any error for absolute links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "absolute"
-        ]
+        "href-style": [true, "absolute"]
       });
-      const html = "<a href=\"http://www.google.com\">A link</a>";
+      const html = '<a href="http://www.google.com">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for relative links", async function() {
+    it("Should report an error for relative links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "absolute"
-        ]
+        "href-style": [true, "absolute"]
       });
-      const html = "<a href=\"/foo\">A link</a>";
+      const html = '<a href="/foo">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
     });
 
-    it("Should not report any error for empty links", async function() {
+    it("Should not report any error for empty links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "absolute"
-        ]
+        "href-style": [true, "absolute"]
       });
       const html = "<a>A link</a>";
 
@@ -136,52 +125,40 @@ describe("href-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for fragment only links", async function() {
+    it("Should not report any error for fragment only links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "absolute"
-        ]
+        "href-style": [true, "absolute"]
       });
-      const html = "<a href=\"#bar\">A link</a>";
+      const html = '<a href="#bar">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
   });
-  describe("\"relative\" mode", function() {
-    it("Should not report any error for relative links", async function() {
+  describe('"relative" mode', function () {
+    it("Should not report any error for relative links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "relative"
-        ]
+        "href-style": [true, "relative"]
       });
-      const html = "<a href=\"/foo\">A link</a>";
+      const html = '<a href="/foo">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for absolute links", async function() {
+    it("Should report an error for absolute links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "relative"
-        ]
+        "href-style": [true, "relative"]
       });
-      const html = "<a href=\"http://www.google.com\">A link</a>";
+      const html = '<a href="http://www.google.com">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
     });
 
-    it("Should not report any error for empty links", async function() {
+    it("Should not report any error for empty links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "relative"
-        ]
+        "href-style": [true, "relative"]
       });
       const html = "<a>A link</a>";
 
@@ -189,41 +166,32 @@ describe("href-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for fragment only links", async function() {
+    it("Should not report any error for fragment only links", async function () {
       const linter = createLinter({
-        "href-style": [
-          true,
-          "relative"
-        ]
+        "href-style": [true, "relative"]
       });
-      const html = "<a href=\"#bar\">A link</a>";
+      const html = '<a href="#bar">A link</a>';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
   });
 
-  it("Should throw an error for an invalid config", function() {
+  it("Should throw an error for an invalid config", function () {
     const config = {
-      "href-style": [
-        true,
-        true
-      ] as [boolean, unknown]
+      "href-style": [true, true] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"href-style\" is invalid: Expected string got boolean");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "href-style" is invalid: Expected string got boolean'
+    );
   });
 
-  it("Should throw an error if not given a list of strings as config", function() {
+  it("Should throw an error if not given a list of strings as config", function () {
     const config = {
-      "href-style": [
-        true,
-        "foo"
-      ] as [boolean, unknown]
+      "href-style": [true, "foo"] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"href-style\" is invalid: \"foo\" is not accepted. Accepted values are \"absolute\" and \"relative\".");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
+    );
   });
 });

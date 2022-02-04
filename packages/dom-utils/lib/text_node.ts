@@ -4,8 +4,8 @@ import { Node } from "./dom_elements";
 import { is_text_node } from "./tags";
 
 export type TextLine = {
- text: string;
- offset: number;
+  text: string;
+  offset: number;
 };
 
 export function get_lines(node: Text, include_EOL = false): TextLine[] {
@@ -17,9 +17,7 @@ export function get_lines(node: Text, include_EOL = false): TextLine[] {
   let offset = 0;
   while ((match = R.exec(data)) !== null) {
     const EOL = match[0];
-    const extra_cut = include_EOL
-      ? EOL.length
-      : 0;
+    const extra_cut = include_EOL ? EOL.length : 0;
     lines.push({
       offset: offset++,
       text: data.slice(previous_index, match.index + extra_cut)

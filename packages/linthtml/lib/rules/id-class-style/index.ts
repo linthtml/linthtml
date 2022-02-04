@@ -7,12 +7,32 @@ import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 // TODO: Deprecate this rule
 const RULE_NAME = "id-class-style";
 
-function lint(node: Node, _config: unknown, { report, rules, global_config }: { report: reportFunction, rules: Record<string, ActiveRuleDefinition>, global_config: any }) {
+function lint(
+  node: Node,
+  _config: unknown,
+  {
+    report,
+    rules,
+    global_config
+  }: {
+    report: reportFunction;
+    rules: Record<string, ActiveRuleDefinition>;
+    global_config: any;
+  }
+) {
   if (Boolean(rules["id-style"]) === false && rules["id-class-style"]) {
-    IdStyleRule.lint(node, global_config["id-class-style"], { report, rules, global_config });
+    IdStyleRule.lint(node, global_config["id-class-style"], {
+      report,
+      rules,
+      global_config
+    });
   }
   if (Boolean(rules["class-style"]) === false && rules["id-class-style"]) {
-    ClassStyleRule.lint(node, global_config["id-class-style"], { report, rules, global_config });
+    ClassStyleRule.lint(node, global_config["id-class-style"], {
+      report,
+      rules,
+      global_config
+    });
   }
 }
 

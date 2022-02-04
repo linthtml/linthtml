@@ -13,21 +13,34 @@ import { Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
-export type reportFunction = (data: { code: string, position: Range, meta?: any, message?: string }) => void;
+export type reportFunction = (data: { code: string; position: Range; meta?: any; message?: string }) => void;
 
 // TODO: Move every types in the same file?
 // TODO: RuleDefinition<ConfigType> ?
 export type RuleDefinition = {
   name: string;
-  // eslint-disable-next-line no-use-before-define
-  lint: (node: Node, rule_config: unknown, obj: { report: reportFunction, rules: Record<string, ActiveRuleDefinition>, global_config: any }) => void;
+  lint: (
+    node: Node,
+    rule_config: unknown,
+    obj: {
+      report: reportFunction;
+      // eslint-disable-next-line no-use-before-define
+      rules: Record<string, ActiveRuleDefinition>;
+      global_config: any;
+    }
+  ) => void;
   // TODO: Why <T> ?
   validateConfig?: <T>(option: T) => void | never;
 
   configTransform?: (option: unknown) => unknown; // remove for v1
   filter?: string[]; // remove for v1
   end?: (opts?: unknown) => Issue[]; // remove for v1
-}
+};
+
+export type ActiveRuleDefinition = RuleDefinition & {
+  severity: "warning" | "error";
+  config: unknown;
+};
 
 export type RuleSeverity = "warning" | "error";
 export type RuleActivation = boolean | RuleSeverity | "off";
@@ -49,21 +62,27 @@ export type LinterConfig = {
   "line-max-len-ignore-regex"?: string | RegExp | false;
 
   plugins_rules?: {
-    [rules_name: string]: RuleDefinition
+    [rules_name: string]: RuleDefinition;
   };
   rules?: {
-    [rule_name: string]: RuleConfig
+    [rule_name: string]: RuleConfig;
   };
-}
+};
 
 export type PluginConfig = {
-  rules?: RuleDefinition[]
-}
+  rules?: RuleDefinition[];
+};
 
-export type LegacyRuleOption = Partial<RuleDefinition> & { name: string, active?: boolean, rules: string[] }
-export type LegacyRuleDefinition = RuleDefinition & { options: LegacyRuleOption[], on: string, subscribers: LegacyRuleDefinition[] };
-
-export type ActiveRuleDefinition = RuleDefinition & { severity: "warning" | "error", config: unknown };
+export type LegacyRuleOption = Partial<RuleDefinition> & {
+  name: string;
+  active?: boolean;
+  rules: string[];
+};
+export type LegacyRuleDefinition = RuleDefinition & {
+  options: LegacyRuleOption[];
+  on: string;
+  subscribers: LegacyRuleDefinition[];
+};
 
 export type LegacyLinterConfig = {
   maxerr?: number;
@@ -74,12 +93,12 @@ export type LegacyLinterConfig = {
   "line-max-len-ignore-regex"?: string | RegExp | false;
 
   [rule_name: string]: boolean | unknown;
-}
+};
 
 export type ExtractConfigResult = {
   filepath: string;
   isEmpty?: boolean | undefined;
-  config: LinterConfig | LegacyLinterConfig
+  config: LinterConfig | LegacyLinterConfig;
 };
 
 function get_module_path(basedir: string, module_name: string): string | never {
@@ -158,10 +177,7 @@ function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigRes
 
     result = {
       filepath: result.filepath,
-      config: merge_configs(
-        extended_config,
-        result.config as LinterConfig
-      )
+      config: merge_configs(extended_config, result.config as LinterConfig)
     };
   }
   return {
@@ -187,9 +203,7 @@ function load_extended_config(extends_path: string, config_dir: string): LinterC
     stopDir: STOP_DIR,
     transform: augment_config
   }).load(extendPath);
-  return cosmiconfig_result
-    ? cosmiconfig_result.config
-    : null;
+  return cosmiconfig_result ? cosmiconfig_result.config : null;
 }
 
 /**
@@ -197,13 +211,16 @@ function load_extended_config(extends_path: string, config_dir: string): LinterC
  * @param {string} plugin_name
  * @throws {CustomError}
  */
-function check_plugin_rule(rule_definition: { name?: string, lint?: unknown }, plugin_name: string): void | never {
+function check_plugin_rule(rule_definition: { name?: string; lint?: unknown }, plugin_name: string): void | never {
   if (!rule_definition.name) {
     throw new CustomError("CORE-06", { plugin_name });
   }
 
   if (!rule_definition.name.includes("/")) {
-    throw new CustomError("CORE-07", { rule_name: rule_definition.name, plugin_name });
+    throw new CustomError("CORE-07", {
+      rule_name: rule_definition.name,
+      plugin_name
+    });
   }
 
   if (!rule_definition.lint) {
@@ -234,26 +251,33 @@ function load_plugin(plugin_name: string): PluginConfig | never {
  * @returns {CosmiconfigResult}
  * @throws {CustomError}
  */
-function add_plugins_rules(cosmiconfig_result: { config: Config, filepath: string, isEmpty?: boolean | undefined }): ExtractConfigResult | never {
+function add_plugins_rules(cosmiconfig_result: {
+  config: Config;
+  filepath: string;
+  isEmpty?: boolean | undefined;
+}): ExtractConfigResult | never {
   if (cosmiconfig_result.config.plugins) {
     const normalized_plugins: string[] = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
       ? cosmiconfig_result.config.plugins
       : [cosmiconfig_result.config.plugins];
 
-    const plugins_rules: Record<string, RuleDefinition> = normalized_plugins.reduce((plugin_rules: Record<string, RuleDefinition>, plugin_name) => {
-      const { rules } = load_plugin(plugin_name);
+    const plugins_rules: Record<string, RuleDefinition> = normalized_plugins.reduce(
+      (plugin_rules: Record<string, RuleDefinition>, plugin_name) => {
+        const { rules } = load_plugin(plugin_name);
 
-      if (rules && !Array.isArray(rules)) {
-        throw new CustomError("CORE-09", { plugin_name });
-      }
+        if (rules && !Array.isArray(rules)) {
+          throw new CustomError("CORE-09", { plugin_name });
+        }
 
-      (rules ?? []).forEach((rule_definition) => {
-        check_plugin_rule(rule_definition, plugin_name);
-        plugin_rules[rule_definition.name] = rule_definition;
-      });
+        (rules ?? []).forEach((rule_definition) => {
+          check_plugin_rule(rule_definition, plugin_name);
+          plugin_rules[rule_definition.name] = rule_definition;
+        });
 
-      return plugin_rules;
-    }, {});
+        return plugin_rules;
+      },
+      {}
+    );
 
     return {
       ...cosmiconfig_result,
@@ -309,13 +333,7 @@ function config_from_path(file_path: string): ExtractConfigResult | never {
 
 function find_local_config(file_path: string): ExtractConfigResult | null | never {
   const config = explorer.search(file_path);
-  return config
-    ? add_plugins_rules(config)
-    : null;
+  return config ? add_plugins_rules(config) : null;
 }
 
-export {
-  config_from_path,
-  find_local_config,
-  get_module_path
-};
+export { config_from_path, find_local_config, get_module_path };

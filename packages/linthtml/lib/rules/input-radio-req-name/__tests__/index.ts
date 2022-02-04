@@ -3,35 +3,35 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | input-radio-req-name", function() {
+describe("legacy linter | input-radio-req-name", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report any error for radio input with a name", async function() {
+  it("Should not report any error for radio input with a name", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\" name=\"foo\">";
+    const html = '<input type="radio" name="foo">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error for radio input without a name", async function() {
+  it("Should report an error for radio input without a name", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\">";
+    const html = '<input type="radio">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error for radio input with an empty name value", async function() {
+  it("Should report an error for radio input with an empty name value", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\" name=\"\">";
+    const html = '<input type="radio" name="">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error if input with no type", async function() {
+  it("Should not report any error if input with no type", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
     const html = "<input>";
 
@@ -39,53 +39,51 @@ describe("legacy linter | input-radio-req-name", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report any error if input is not a radio input", async function() {
+  it("Should not report any error if input is not a radio input", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"text\">";
+    const html = '<input type="text">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should check only input radio ", async function() {
+  it("Should check only input radio ", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<div name=\"\">";
+    const html = '<div name="">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 });
-describe("legacy linter | input-radio-req-name", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("legacy linter | input-radio-req-name", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report any error for radio input with a name", async function() {
+  it("Should not report any error for radio input with a name", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\" name=\"foo\">";
+    const html = '<input type="radio" name="foo">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error for radio input without a name", async function() {
+  it("Should report an error for radio input without a name", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\">";
+    const html = '<input type="radio">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error for radio input with an empty name value", async function() {
+  it("Should report an error for radio input with an empty name value", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"radio\" name=\"\">";
+    const html = '<input type="radio" name="">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error if input with no type", async function() {
+  it("Should not report any error if input with no type", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
     const html = "<input>";
 
@@ -93,17 +91,17 @@ describe("legacy linter | input-radio-req-name", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report any error if input is not a radio input", async function() {
+  it("Should not report any error if input is not a radio input", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<input type=\"text\">";
+    const html = '<input type="text">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should check only input radio ", async function() {
+  it("Should check only input radio ", async function () {
     const linter = createLinter({ "input-radio-req-name": true });
-    const html = "<div name=\"\">";
+    const html = '<div name="">';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);

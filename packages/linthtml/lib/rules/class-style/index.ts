@@ -13,17 +13,19 @@ function filterClasses(classes: string[], options: LegacyLinterConfig) {
   let ignore = options["id-class-ignore-regex"];
 
   // TODO: Remove after `raw-ignore-text` refacto
-  classes = classes.filter(_ => /^¤+$/.test(_) === false);
+  classes = classes.filter((_) => /^¤+$/.test(_) === false);
   if (ignore) {
-    ignore = isRegExp(ignore)
-      ? ignore
-      : new RegExp(ignore);
-    classes = classes.filter(_class => !(ignore as RegExp).test(_class));
+    ignore = isRegExp(ignore) ? ignore : new RegExp(ignore);
+    classes = classes.filter((_class) => !(ignore as RegExp).test(_class));
   }
   return classes;
 }
 
-function lint(node: Node, format: string | RegExp, { report, global_config }: { report: reportFunction, global_config: LegacyLinterConfig }) {
+function lint(
+  node: Node,
+  format: string | RegExp,
+  { report, global_config }: { report: reportFunction; global_config: LegacyLinterConfig }
+) {
   if (format === "none") {
     return;
   }
@@ -32,18 +34,21 @@ function lint(node: Node, format: string | RegExp, { report, global_config }: { 
     const class_attribute = attribute_value(node, "class") as CharValue;
     const classes = filterClasses(get_classes(class_attribute), global_config);
 
-    classes.filter(_class => !match_format(format, _class))
-      .forEach(_class => report({
-        code: "E011",
-        position: class_attribute.loc, // should be the location of the class and not the class_attribute
-        meta: {
-          data: {
-            attribute: "class",
-            format: format,
-            value: _class
+    classes
+      .filter((_class) => !match_format(format, _class))
+      .forEach((_class) =>
+        report({
+          code: "E011",
+          position: class_attribute.loc, // should be the location of the class and not the class_attribute
+          meta: {
+            data: {
+              attribute: "class",
+              format: format,
+              value: _class
+            }
           }
-        }
-      }));
+        })
+      );
   }
 }
 

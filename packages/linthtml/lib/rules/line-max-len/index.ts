@@ -7,33 +7,21 @@ const RULE_NAME = "line-max-len";
 
 function get_helpful_line_positions(node: Node) {
   return {
-    sibling_start_line: node.nextSibling
-      ? (node.nextSibling as Node).loc.start.line
-      : -1,
+    sibling_start_line: node.nextSibling ? (node.nextSibling as Node).loc.start.line : -1,
     node_start_line: node.loc.start.line,
     node_end_line: node.loc.end.line,
-    parent_close_line: has_parent_node(node)
-      ? node.parent.loc.end.line
-      : -1,
-    children_start_line: (node.children && node.children.length > 0)
-      ? node.children[0].loc.start.line
-      : -1
+    parent_close_line: has_parent_node(node) ? node.parent.loc.end.line : -1,
+    children_start_line: node.children && node.children.length > 0 ? node.children[0].loc.start.line : -1
   };
 }
 
 function check_text_node(node: Text, max_length: number, report: reportFunction) {
-  const {
-    sibling_start_line,
-    node_start_line,
-    parent_close_line
-  } = get_helpful_line_positions(node);
+  const { sibling_start_line, node_start_line, parent_close_line } = get_helpful_line_positions(node);
 
   const lines = get_lines(node);
   lines.forEach(({ offset, text }) => {
     // const len = lineText.length;
-    const line_length = offset === 0
-      ? (node.loc.start.column - 1) + text.length
-      : text.length;
+    const line_length = offset === 0 ? node.loc.start.column - 1 + text.length : text.length;
     const text_line = node_start_line + offset;
     if (line_length > max_length && text_line !== sibling_start_line && text_line !== parent_close_line) {
       report({
@@ -60,13 +48,13 @@ function check_text_node(node: Text, max_length: number, report: reportFunction)
 }
 
 function check_open_close_same_line(node: Node, max_length: number, report: reportFunction) {
-  const {
-    node_end_line,
-    sibling_start_line,
-    parent_close_line
-  } = get_helpful_line_positions(node);
+  const { node_end_line, sibling_start_line, parent_close_line } = get_helpful_line_positions(node);
 
-  if (node_end_line !== sibling_start_line && node_end_line !== parent_close_line && (node.loc.end.column - 1) > max_length) {
+  if (
+    node_end_line !== sibling_start_line &&
+    node_end_line !== parent_close_line &&
+    node.loc.end.column - 1 > max_length
+  ) {
     report({
       code: "E040",
       position: {
@@ -90,15 +78,14 @@ function check_open_close_same_line(node: Node, max_length: number, report: repo
 }
 
 function check_open_close_not_same_line(node: Node, max_length: number, report: reportFunction) {
-  const {
-    sibling_start_line,
-    node_end_line,
-    node_start_line,
-    children_start_line,
-    parent_close_line
-  } = get_helpful_line_positions(node);
+  const { sibling_start_line, node_end_line, node_start_line, children_start_line, parent_close_line } =
+    get_helpful_line_positions(node);
 
-  if (sibling_start_line !== node_start_line && node_start_line !== children_start_line && (node.loc.start.column - 1) > max_length) {
+  if (
+    sibling_start_line !== node_start_line &&
+    node_start_line !== children_start_line &&
+    node.loc.start.column - 1 > max_length
+  ) {
     report({
       code: "E040",
       position: {
@@ -119,7 +106,11 @@ function check_open_close_not_same_line(node: Node, max_length: number, report: 
       }
     });
   }
-  if (sibling_start_line !== node_end_line && parent_close_line !== node_end_line && (node.loc.end.column - 1) > max_length) {
+  if (
+    sibling_start_line !== node_end_line &&
+    parent_close_line !== node_end_line &&
+    node.loc.end.column - 1 > max_length
+  ) {
     report({
       code: "E040",
       position: {
@@ -143,10 +134,7 @@ function check_open_close_not_same_line(node: Node, max_length: number, report: 
 }
 
 function check_tag_node(node: Node, max_length: number, report: reportFunction) {
-  const {
-    node_end_line,
-    node_start_line
-  } = get_helpful_line_positions(node);
+  const { node_end_line, node_start_line } = get_helpful_line_positions(node);
 
   if (node_start_line !== node_end_line) {
     check_open_close_not_same_line(node, max_length, report);

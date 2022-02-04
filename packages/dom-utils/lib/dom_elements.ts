@@ -3,11 +3,7 @@ import { ElementType } from "domelementtype";
 
 // TODO: Add new type or template for CharValue with non empty raw value (like attribute value)
 export class CharValue {
-  constructor(
-    public chars: string,
-    public loc: Range,
-    public raw?: string
-  ) {
+  constructor(public chars: string, public loc: Range, public raw?: string) {
     this.chars = chars;
     this.raw = raw;
     this.loc = loc;
@@ -32,20 +28,14 @@ export class NodeAttribute {
 }
 
 export class Range {
-  constructor(
-    public start: Position,
-    public end: Position
-  ) {
+  constructor(public start: Position, public end: Position) {
     this.start = start;
     this.end = end;
   }
 }
 
 export class Position {
-  constructor(
-    public line: number,
-    public column: number
-  ) {
+  constructor(public line: number, public column: number) {
     this.line = line;
     this.column = column;
   }
@@ -61,7 +51,9 @@ interface MyExtendedNode {
   open: CharValue;
   close: CharValue | undefined;
 }
-export function ExtendedNode<TBase extends Constructor>(Base: TBase): {
+export function ExtendedNode<TBase extends Constructor>(
+  Base: TBase
+): {
   new (...args: any[]): MyExtendedNode;
   prototype: MyExtendedNode;
 } & TBase {
@@ -102,7 +94,7 @@ export function ExtendedNode<TBase extends Constructor>(Base: TBase): {
 // Change NodeWithChildren type for children
 export class Node extends ExtendedNode(NodeWithChildren) {
   parent: NodeWithChildren | null = null;
-  children: Node[] = [];// {Node[]}
+  children: Node[] = []; // {Node[]}
 }
 /**
  * An element within the DOM.
@@ -114,17 +106,14 @@ export class Element extends Node {
    * @param children Children of the node.
    */
   constructor(
-      public name: string,
-      public attributes: NodeAttribute[],
-      children: Node[] = [],
-      type:
-          | ElementType.Tag
-          | ElementType.Script
-          | ElementType.Style = name === "script"
-        ? ElementType.Script
-        : name === "style"
-          ? ElementType.Style
-          : ElementType.Tag
+    public name: string,
+    public attributes: NodeAttribute[],
+    children: Node[] = [],
+    type: ElementType.Tag | ElementType.Script | ElementType.Style = name === "script"
+      ? ElementType.Script
+      : name === "style"
+      ? ElementType.Style
+      : ElementType.Tag
   ) {
     super(type, children);
   }
@@ -171,6 +160,7 @@ export declare class DataNode extends Node {
    * @param data The content of the data node
    */
   constructor(type: ElementType.Comment | ElementType.Text | ElementType.Directive, data: string);
+
   get nodeValue(): string;
   set nodeValue(data: string);
 }

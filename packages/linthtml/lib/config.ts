@@ -1,4 +1,12 @@
-import { ActiveRuleDefinition, LegacyLinterConfig, LegacyRuleDefinition, LinterConfig, RuleConfig, RuleDefinition, LegacyRuleOption } from "./read-config";
+import {
+  ActiveRuleDefinition,
+  LegacyLinterConfig,
+  LegacyRuleDefinition,
+  LinterConfig,
+  RuleConfig,
+  RuleDefinition,
+  LegacyRuleOption
+} from "./read-config";
 
 class NonExistingRule extends Error {
   constructor(public rule_name: string) {
@@ -25,7 +33,7 @@ function get_severity(config: any): "error" | "warning" {
     case "boolean":
       return "error";
     case "string":
-      return config as "error"|"warning";
+      return config as "error" | "warning";
     default:
       return get_severity(config[0]); // throw an error for objects?
   }
@@ -44,7 +52,9 @@ function should_active_rule(options: RuleConfig, ruleName: string): boolean {
       if (Array.isArray(options)) {
         return should_active_rule(options[0], ruleName);
       }
-      throw new InvalidRuleConfig(`Invalid Config for rule "${ruleName}" - Unexpected value "${JSON.stringify(options)}"`);
+      throw new InvalidRuleConfig(
+        `Invalid Config for rule "${ruleName}" - Unexpected value "${JSON.stringify(options)}"`
+      );
   }
 }
 
@@ -60,7 +70,9 @@ function extract_rule_config(config: RuleConfig, ruleName: string): unknown {
   return ruleConfig;
 }
 
-function generate_rules_from_options(rule: LegacyRuleDefinition): { [rule_name: string]: RuleDefinition } {
+function generate_rules_from_options(rule: LegacyRuleDefinition): {
+  [rule_name: string]: RuleDefinition;
+} {
   return rule.options.reduce((rules: { [rule_name: string]: RuleDefinition }, option: LegacyRuleOption) => {
     if (option.name) {
       rules[option.name] = {
@@ -75,14 +87,17 @@ function generate_rules_from_options(rule: LegacyRuleDefinition): { [rule_name: 
   }, {});
 }
 function extract_all_rules(rules: LegacyRuleDefinition[]) {
-  const extracted_rules: Record<string, RuleDefinition> = rules.reduce((extracted: Record<string, RuleDefinition>, rule) => {
-    if (rule.options !== undefined) {
-      const optionsRules = generate_rules_from_options(rule);
-      extracted = { ...extracted, ...optionsRules };
-    }
-    extracted[rule.name] = rule;
-    return extracted;
-  }, {});
+  const extracted_rules: Record<string, RuleDefinition> = rules.reduce(
+    (extracted: Record<string, RuleDefinition>, rule) => {
+      if (rule.options !== undefined) {
+        const optionsRules = generate_rules_from_options(rule);
+        extracted = { ...extracted, ...optionsRules };
+      }
+      extracted[rule.name] = rule;
+      return extracted;
+    },
+    {}
+  );
 
   delete extracted_rules.maxerr;
   // not considered as rules
@@ -142,9 +157,7 @@ export default class Config {
     if (should_active_rule(rules_config[rule.name], rule.name)) {
       let rule_config = extract_rule_config(rules_config[rule.name], rule.name);
       if (rule_config !== null && rule_config !== undefined) {
-        rule_config = rule.configTransform
-          ? rule.configTransform(rule_config)
-          : rule_config;
+        rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
         if (rule.validateConfig) {
           rule.validateConfig(rule_config);
         }
@@ -160,16 +173,14 @@ export default class Config {
   generateLegacyConfig(config: any): LegacyLinterConfig {
     const o: any = {};
     const keys = Object.keys(config.rules);
-    keys.forEach(rule_name => {
+    keys.forEach((rule_name) => {
       const rule = this.getRule(rule_name);
       const newConfig = config.rules[rule_name];
       let rule_config = extract_rule_config(newConfig, rule_name);
       if (rule_config === null) {
         rule_config = newConfig;
       } else {
-        rule_config = rule.configTransform
-          ? rule.configTransform(rule_config)
-          : rule_config;
+        rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
       }
       o[rule_name] = rule_config;
     });

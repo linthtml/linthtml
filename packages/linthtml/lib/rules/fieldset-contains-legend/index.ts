@@ -6,7 +6,7 @@ const RULE_NAME = "fieldset-contains-legend";
 
 function lint(element: Node, _config: unknown, { report }: { report: reportFunction }) {
   if (is_tag_node(element) && element.name === "fieldset") {
-    const has_legend = element.children.some(node => (node as Element).name === "legend");
+    const has_legend = element.children.some((node) => (node as Element).name === "legend");
 
     if (has_legend === false) {
       report({

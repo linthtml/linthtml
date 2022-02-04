@@ -18,7 +18,7 @@ function rawIgnoreRegex(html: string, opts: LegacyLinterConfig) {
   if (!ignore) {
     return html;
   }
-  return html.replace((new RegExp(ignore as string | RegExp, "gm")), function(match) {
+  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }
@@ -29,11 +29,13 @@ export default class Linter {
   public inlineConfig: InlineConfig;
 
   constructor(_rules: LegacyRuleDefinition[] | null, ..._config: LegacyLinterConfig[]) {
-    this.config = _config
-      .reduce((obj, cell) => ({
+    this.config = _config.reduce(
+      (obj, cell) => ({
         ...obj,
         ...cell
-      }), {});
+      }),
+      {}
+    );
     _rules = _rules || rules;
     this.rules = new Config(_rules);
     this.inlineConfig = new InlineConfig(this.rules);
@@ -41,9 +43,7 @@ export default class Linter {
 
   use(plugin: { rules: LegacyRuleDefinition[] }) {
     if (plugin.rules) {
-      plugin.rules.forEach(
-        (rule: LegacyRuleDefinition) => this.rules.addRule(rule)
-      );
+      plugin.rules.forEach((rule: LegacyRuleDefinition) => this.rules.addRule(rule));
     }
   }
 

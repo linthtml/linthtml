@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | fig-req-figcaption", function() {
+describe("legacy linter | fig-req-figcaption", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should report an error when there's no figcaption", async function() {
+  it("Should report an error when there's no figcaption", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -18,7 +18,7 @@ describe("legacy linter | fig-req-figcaption", function() {
   });
 
   // TODO: Rename test ><
-  it("Should report two errors", async function() {
+  it("Should report two errors", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -30,7 +30,7 @@ describe("legacy linter | fig-req-figcaption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should report two errors when figcaption is a sibling", async function() {
+  it("Should report two errors when figcaption is a sibling", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -44,7 +44,7 @@ describe("legacy linter | fig-req-figcaption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report any error when figcaption is the last child", async function() {
+  it("Should not report any error when figcaption is the last child", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure>
@@ -62,13 +62,11 @@ describe("legacy linter | fig-req-figcaption", function() {
   });
 });
 
-describe("fig-req-figcaption", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("fig-req-figcaption", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should report an error when there's no figcaption", async function() {
+  it("Should report an error when there's no figcaption", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -79,7 +77,7 @@ describe("fig-req-figcaption", function() {
   });
 
   // TODO: Rename test ><
-  it("Should report two errors", async function() {
+  it("Should report two errors", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -91,7 +89,7 @@ describe("fig-req-figcaption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should report two errors when figcaption is a sibling", async function() {
+  it("Should report two errors when figcaption is a sibling", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure></figure>
@@ -105,7 +103,7 @@ describe("fig-req-figcaption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report any error when figcaption is the last child", async function() {
+  it("Should not report any error when figcaption is the last child", async function () {
     const linter = createLinter({ "fig-req-figcaption": true });
     const html = `
       <figure>

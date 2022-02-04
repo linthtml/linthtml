@@ -7,6 +7,6 @@ export default class ConstRule {
     this.issues = issues;
   }
   lint() {
-    return this.issues
+    return this.issues;
   }
 }

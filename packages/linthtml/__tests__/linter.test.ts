@@ -24,31 +24,35 @@ const foo: RuleDefinition = {
   }
 };
 
-describe("Config", function() {
-  it("Should report an issue with the \"error\" severity", async function() {
+describe("Config", function () {
+  it('Should report an issue with the "error" severity', async function () {
     const rule_config: Record<string, RuleConfig> = {
       foo: "error"
     };
     const linter = new Linter({});
-    linter.config = new Config([foo as LegacyRuleDefinition], { rules: rule_config });
+    linter.config = new Config([foo as LegacyRuleDefinition], {
+      rules: rule_config
+    });
     const issues = await linter.lint("<div></div>");
     expect(issues[0].severity).to.equal("error");
   });
-  it("Should report an issue with the \"warning\" severity", async function() {
+  it('Should report an issue with the "warning" severity', async function () {
     const rule_config: Record<string, RuleConfig> = {
       foo: "warning"
     };
     const linter = new Linter({});
-    linter.config = new Config([foo as LegacyRuleDefinition], { rules: rule_config });
+    linter.config = new Config([foo as LegacyRuleDefinition], {
+      rules: rule_config
+    });
 
     const issues = await linter.lint("<div></div>");
     expect(issues[0].severity).to.equal("warning");
   });
 
-  it("A custom parser can be provided", async function(done) {
+  it("A custom parser can be provided", async function (done) {
     const config_path = path.join(__dirname, "fixtures", "custom-parser.js");
     rewiremock.overrideEntryPoint(module);
-    rewiremock(config_path).with(function(html: string) {
+    rewiremock(config_path).with(function (html: string) {
       expect(html).to.equal("foo");
       rewiremock.disable();
       done();
@@ -60,20 +64,17 @@ describe("Config", function() {
     });
     linter.lint("foo");
   });
-  it("should report an error when provided with an unexisting parser", async function() {
+  it("should report an error when provided with an unexisting parser", async function () {
     try {
       // eslint-disable-next-line no-new
       new Linter({
         parser: "foo"
       });
     } catch (error: any) {
-      expect(error)
-        .to.be.a("CustomError")
-        .to.have.property("code", "CORE-04");
-      expect(error.meta)
-        .to.deep.equal({
-          module_name: "foo"
-        });
+      expect(error).to.be.a("CustomError").to.have.property("code", "CORE-04");
+      expect(error.meta).to.deep.equal({
+        module_name: "foo"
+      });
     }
   });
 });

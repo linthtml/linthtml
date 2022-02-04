@@ -29,36 +29,36 @@ const html = `
 </html>
 `;
 
-describe("inline-configuration", function() {
+describe("inline-configuration", function () {
   // Tests for inlineConfig internals
   // Should instantiate an object rather than using the prototype
-  it("should throw when indices are passed to getOptsAtInex out of order", function() {
+  it("should throw when indices are passed to getOptsAtInex out of order", function () {
     expect(InlineConfig.prototype.getOptsAtIndex.bind(this, -10)).to.throw();
   });
-  it("should throw when a config is added twice", function() {
+  it("should throw when a config is added twice", function () {
     const c = new InlineConfig(new Config([]));
     c.addConfig({ end: 5 });
     expect(c.addConfig.bind(c, { end: 5 })).to.throw();
   });
 
-  it("should not do anything if no inline config comments exist", async function() {
+  it("should not do anything if no inline config comments exist", async function () {
     const linter = createLinter({});
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  describe("linthml-configure instruction", function() {
-    it("should not do anything on an empty tag", async function() {
+  describe("linthml-configure instruction", function () {
+    it("should not do anything on an empty tag", async function () {
       const linter = createLinter({});
       const html = "<!-- linthtml-configure -->";
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("should change options to turn off rules", async function() {
+    it("should change options to turn off rules", async function () {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
-        "<!-- linthtml-configure line-end-style=\"false\" -->\r\n",
+        '<!-- linthtml-configure line-end-style="false" -->\r\n',
         "<body>\r\n",
         "  <p>\r\n",
         "    some text\r", // Should normaly report an error
@@ -70,10 +70,10 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("should work when used multiple times in a line ", async function() {
+    it("should work when used multiple times in a line ", async function () {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
-        "<!-- linthtml-configure line-end-style=\"lf\" --><!-- linthtml-configure line-end-style=\"false\" -->\r\n",
+        '<!-- linthtml-configure line-end-style="lf" --><!-- linthtml-configure line-end-style="false" -->\r\n',
         "<body>\n",
         "  <p>\r",
         "    some text\r",
@@ -87,10 +87,10 @@ describe("inline-configuration", function() {
       // Should report 4 errors with "crlf"
     });
 
-    it("Should revert to previous (previous) config using \"$previous\"", async function() {
+    it('Should revert to previous (previous) config using "$previous"', async function () {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
-        "<!-- linthtml-configure line-end-style=\"false\" --><!-- linthtml-configure line-end-style=\"$previous\" -->\r\n",
+        '<!-- linthtml-configure line-end-style="false" --><!-- linthtml-configure line-end-style="$previous" -->\r\n',
         "<body>\n",
         "  <p>\r",
         "    some text\r",
@@ -102,7 +102,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(5);
     });
 
-    it("quotes for values should not be mandatory", async function() {
+    it("quotes for values should not be mandatory", async function () {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
         "<!-- linthtml-configure line-end-style=false -->\r\n",
@@ -117,7 +117,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("should work for strings without quotes", async function() {
+    it("should work for strings without quotes", async function () {
       const linter = createLinter({ "line-end-style": "cr" });
       const html = [
         "<!-- linthtml-configure line-end-style=crlf -->\r",
@@ -133,18 +133,16 @@ describe("inline-configuration", function() {
     });
 
     // TODO: Should report only one error, parsing error
-    it("Should throw an error on bad config formatting", function() {
+    it("Should throw an error on bad config formatting", function () {
       const linter = createLinter({});
-      const html = "<!-- linthtml-configure id-no-dup-\"false\" -->";
+      const html = '<!-- linthtml-configure id-no-dup-"false" -->';
 
-      expect(() => linter.lint(html))
-        .to
-        .throw("Cannot parse inline configuration.");
+      expect(() => linter.lint(html)).to.throw("Cannot parse inline configuration.");
     });
 
-    it("should report an error for  nonexistent rule name", async function() {
+    it("should report an error for  nonexistent rule name", async function () {
       const linter = createLinter({});
-      const html = "<!-- linthtml-configure id-no-no-ad=\"false\"-->";
+      const html = '<!-- linthtml-configure id-no-no-ad="false"-->';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
@@ -152,9 +150,9 @@ describe("inline-configuration", function() {
       expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
-    it("Should report an error on invalid option value", async function() {
+    it("Should report an error on invalid option value", async function () {
       const linter = createLinter({});
-      const html = "<!-- linthtml-configure id-class-no-ad=\"fal#se\"-->";
+      const html = '<!-- linthtml-configure id-class-no-ad="fal#se"-->';
 
       // Should not report an error as it's a valid string
       const issues = await linter.lint(html);
@@ -162,25 +160,25 @@ describe("inline-configuration", function() {
       expect(issues[0].code).to.equal("INLINE_03");
     });
 
-    it("should output an issue on invalid rule name", async function() {
+    it("should output an issue on invalid rule name", async function () {
       const linter = createLinter({});
-      const html = "<!-- linthtml-configure pre#set=\"none\" -->";
+      const html = '<!-- linthtml-configure pre#set="none" -->';
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("E051");
     });
 
-    it("should change multiple rules", async function() {
+    it("should change multiple rules", async function () {
       const linter = createLinter({
         "line-end-style": "crlf",
         "id-no-dup": true,
         "id-class-no-ad": true
       });
       const html = [
-        "<!-- linthtml-configure line-end-style=\"false\" id-no-dup=\"false\" id-class-no-ad=\"false\" -->\r\n",
-        "<body id=\"foo\" class=\"ad-banner\">\r",
-        "  <p id=\"foo\">\r",
+        '<!-- linthtml-configure line-end-style="false" id-no-dup="false" id-class-no-ad="false" -->\r\n',
+        '<body id="foo" class="ad-banner">\r',
+        '  <p id="foo">\r',
         "    some text\r",
         "  </p>\r",
         "</body>\r"
@@ -192,8 +190,8 @@ describe("inline-configuration", function() {
     });
   });
 
-  describe("linthml-(disable|enable) instruction", function() {
-    it("instruction turn off rule when provided with the name", async function() {
+  describe("linthml-(disable|enable) instruction", function () {
+    it("instruction turn off rule when provided with the name", async function () {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
         "<!-- linthtml-disable line-end-style -->\r\n",
@@ -208,7 +206,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("instruction can turn off multiple rules when names are separated using \",\"", async function() {
+    it('instruction can turn off multiple rules when names are separated using ","', async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4
@@ -226,7 +224,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("instruction can turn off multiple rules when names are separated using \",\" (+spaces)", async function() {
+    it('instruction can turn off multiple rules when names are separated using "," (+spaces)', async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4
@@ -244,25 +242,18 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("instruction turn off all rules by default", async function() {
+    it("instruction turn off all rules by default", async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4
       });
-      const html = [
-        "<!-- linthtml-disable -->",
-        "<body>",
-        "  <p>",
-        "    some text",
-        "  </p>",
-        "</body>"
-      ].join("\n");
+      const html = ["<!-- linthtml-disable -->", "<body>", "  <p>", "    some text", "  </p>", "</body>"].join("\n");
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("rules can be turned on again using the enable instruction", async function() {
+    it("rules can be turned on again using the enable instruction", async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4
@@ -281,7 +272,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(2);
     });
 
-    it("only one rules can be turned on again", async function() {
+    it("only one rules can be turned on again", async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4
@@ -300,7 +291,7 @@ describe("inline-configuration", function() {
       expect(issues).to.have.lengthOf(1);
     });
 
-    it("disable instructions report an error for nonexistent rule name", async function() {
+    it("disable instructions report an error for nonexistent rule name", async function () {
       const linter = createLinter({});
       const html = "<!-- linthtml-disable id-no-no-ad-->";
 
@@ -310,7 +301,7 @@ describe("inline-configuration", function() {
       expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
-    it("enable instructions in report an error for nonexistent rule name", async function() {
+    it("enable instructions in report an error for nonexistent rule name", async function () {
       const linter = createLinter({});
       const html = "<!-- linthtml-disable id-no-no-ad-->";
 
@@ -320,7 +311,7 @@ describe("inline-configuration", function() {
       expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
     });
 
-    it("enable instruction restore previous configuration", async function() {
+    it("enable instruction restore previous configuration", async function () {
       const linter = createLinter({
         "indent-style": "tabs",
         "indent-width": 4

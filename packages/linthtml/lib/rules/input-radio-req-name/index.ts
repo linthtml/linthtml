@@ -7,10 +7,7 @@ const RULE_NAME = "input-radio-req-name";
 function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {
   if (is_tag_node(node) && node.name === "input") {
     // if it's not a radio-type input, ignore it
-    if (
-      attribute_has_value(node, "type", "radio") &&
-      has_non_empty_attribute(node, "name") === false
-    ) {
+    if (attribute_has_value(node, "type", "radio") && has_non_empty_attribute(node, "name") === false) {
       report({
         code: "E034",
         position: node.open.loc

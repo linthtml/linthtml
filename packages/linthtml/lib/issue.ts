@@ -9,7 +9,17 @@ export default class Issue {
   severity: "error" | "warning" = "error";
 
   // TODO: CHECK why options.rule
-  constructor(rule_name: string, position: Range, options: { code: string, rule: string, message?: string, data?: unknown, severity?: "error" | "warning" }) {
+  constructor(
+    rule_name: string,
+    position: Range,
+    options: {
+      code: string;
+      rule: string;
+      message?: string;
+      data?: unknown;
+      severity?: "error" | "warning";
+    }
+  ) {
     this.position = position;
     this.code = options.code;
     this.rule = rule_name;

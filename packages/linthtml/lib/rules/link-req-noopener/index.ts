@@ -4,14 +4,11 @@ import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "link-req-noopener";
 
-function lint(node:Node, _config: unknown, { report }: { report: reportFunction }) {
+function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {
   if (is_tag_node(node) && node.name === "a") {
     const noopen = /(^| )(noopener|noreferrer)( |$)/;
 
-    if (
-      attribute_has_value(node, "target", "_blank") &&
-      attribute_has_value(node, "rel", noopen) === false
-    ) {
+    if (attribute_has_value(node, "target", "_blank") && attribute_has_value(node, "rel", noopen) === false) {
       report({
         code: "E058",
         position: node.open.loc

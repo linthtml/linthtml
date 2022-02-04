@@ -9,24 +9,19 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     let has_head = false;
     let has_body = false;
 
-    node.children.filter(child => child.type === "tag")
-      .forEach(child => {
+    node.children
+      .filter((child) => child.type === "tag")
+      .forEach((child) => {
         // E044: Illegal element
         // E045: Duplicated tag
         // E046: Head and body tags out of order
         // TODO: Clean
         let err;
         if ((child as Element).name === "head") {
-          err = has_body
-            ? "E046"
-            : has_head
-              ? "E045"
-              : undefined;
+          err = has_body ? "E046" : has_head ? "E045" : undefined;
           has_head = true;
         } else if ((child as Element).name === "body") {
-          err = has_body
-            ? "E045"
-            : undefined;
+          err = has_body ? "E045" : undefined;
           has_body = true;
         } else {
           err = "E044";

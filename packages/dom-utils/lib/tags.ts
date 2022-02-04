@@ -10,9 +10,7 @@ function is_self_closing(node: Element): boolean {
 }
 
 function has_attribute(node: Element, attribute_name: string): boolean {
-  return is_tag_node(node)
-    ? node.attributes.some(({ name }) => name.chars.toLowerCase() === attribute_name)
-    : false;
+  return is_tag_node(node) ? node.attributes.some(({ name }) => name.chars.toLowerCase() === attribute_name) : false;
 }
 
 /**
@@ -21,9 +19,7 @@ function has_attribute(node: Element, attribute_name: string): boolean {
  * parameter allow_null is true
  */
 function has_non_empty_attribute(node: Element, attribute_name: string, allow_null = false): boolean {
-  const attribute = node.attributes.find(
-    ({ name }) => name.chars.toLowerCase() === attribute_name
-  );
+  const attribute = node.attributes.find(({ name }) => name.chars.toLowerCase() === attribute_name);
   return !!attribute && (allow_null || (!!attribute.value && attribute.value.chars.length > 0));
 }
 
@@ -31,8 +27,7 @@ function has_non_empty_attribute(node: Element, attribute_name: string, allow_nu
 // type LangAttribute = { chars: 'lang' } & NodeAttribute ;
 function get_attribute(node: Element, attribute_name: string): NodeAttribute | null {
   if (has_attribute(node, attribute_name)) {
-    return node.attributes
-      .find(({ name }) => name.chars.toLowerCase() === attribute_name) as NodeAttribute;
+    return node.attributes.find(({ name }) => name.chars.toLowerCase() === attribute_name) as NodeAttribute;
   }
   return null;
 }
@@ -45,19 +40,13 @@ function attribute_value(node: Element, attribute_name: string): CharValue | nul
 function attribute_has_value(node: Element, attribute_name: string, value_to_check: string | RegExp): boolean {
   const value = attribute_value(node, attribute_name);
   if (value) {
-    return isRegExp(value_to_check)
-      ? value_to_check.test(value.chars)
-      : value.chars === value_to_check;
+    return isRegExp(value_to_check) ? value_to_check.test(value.chars) : value.chars === value_to_check;
   }
   return false;
 }
 
 function is_tag_node(node: Node): node is Element {
-  return [
-    ElementType.Tag,
-    ElementType.Style,
-    ElementType.Script
-  ].indexOf(node.type) !== -1;
+  return [ElementType.Tag, ElementType.Style, ElementType.Script].indexOf(node.type) !== -1;
 }
 
 // TODO: check is current node text have `.loc` property if yes then create class Text_Node in dom_element.ts
@@ -75,9 +64,7 @@ function is_directive_node(node: Node): node is ProcessingInstruction {
 
 function get_classes(class_attribute: CharValue): string[] {
   const classes = class_attribute?.chars ?? "";
-  return classes
-    .trim()
-    .split(/\s+/);
+  return classes.trim().split(/\s+/);
 }
 
 function node_tag_name(node: Node): string {
@@ -92,7 +79,7 @@ function node_tag_name(node: Node): string {
   }
 }
 
-function has_parent_node(node: Node): node is (Node & { parent: Node }) {
+function has_parent_node(node: Node): node is Node & { parent: Node } {
   // root node is not a "normal" node
   return !!node.parent && node.parent.type !== "root";
 }

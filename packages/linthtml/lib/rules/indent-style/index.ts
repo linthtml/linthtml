@@ -1,9 +1,4 @@
-import {
-  is_text_node,
-  node_tag_name,
-  has_parent_node,
-  is_newline_only
-} from "@linthtml/dom-utils";
+import { is_text_node, node_tag_name, has_parent_node, is_newline_only } from "@linthtml/dom-utils";
 import { CharValue, Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_list_value_validator } from "../../validate_option";
@@ -31,9 +26,11 @@ function is_sibling_close_tag_same_line(node: Node) {
 }
 
 function is_parent_open_close_same_line(node: Node) {
-  return has_parent_node(node) &&
+  return (
+    has_parent_node(node) &&
     (node.parent as Node).open.loc.end.line === node.loc.start.line &&
-    (node.parent as Node).loc.end.line === node.loc.end.line;
+    (node.parent as Node).loc.end.line === node.loc.end.line
+  );
 }
 
 /**
@@ -64,10 +61,7 @@ function check_indent_width_close({ open, close }: Node) {
 }
 
 function check_indent_style(node: Node, indent_style: unknown) {
-  if (
-    is_parent_open_close_same_line(node) ||
-    is_sibling_close_tag_same_line(node)
-  ) {
+  if (is_parent_open_close_same_line(node) || is_sibling_close_tag_same_line(node)) {
     return true;
   }
 
@@ -105,7 +99,7 @@ function indent_style_used(node: Node) {
 
 function check_node_indent(
   node: Node,
-  indent: { width: false | number, style: false | "spaces" | "tabs" | "mixed" },
+  indent: { width: false | number; style: false | "spaces" | "tabs" | "mixed" },
   expected_indent_width: number,
   report: reportFunction
 ) {
@@ -169,7 +163,7 @@ function node_indentation_level(node: Node, level = 0): number {
   return node_indentation_level(node.parent as Node, level + 1);
 }
 
-function lint(node: Node, _config: unknown, { report, global_config }: { report: reportFunction, global_config: any }) {
+function lint(node: Node, _config: unknown, { report, global_config }: { report: reportFunction; global_config: any }) {
   if (is_text_node(node)) {
     return;
   }
@@ -177,7 +171,7 @@ function lint(node: Node, _config: unknown, { report, global_config }: { report:
   const style: false | "spaces" | "tabs" | "mixed" = global_config["indent-style"] || "spaces"; // TODO: Get rid of false
   const width: false | number = global_config["indent-width"] || false; // TODO: Add default value?
 
-  check_node_indent(node, { style, width }, width as number * level, report);
+  check_node_indent(node, { style, width }, (width as number) * level, report);
 }
 
 export default {

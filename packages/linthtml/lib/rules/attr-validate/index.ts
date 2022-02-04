@@ -6,8 +6,9 @@ const RULE_NAME = "attr-validate";
 
 function get_open_raw({ open }: Node) {
   const open_raw = open.raw as string;
-  return open_raw.replace(/^</, "")
-    .replace((new RegExp(`^${open.chars} `)), "")
+  return open_raw
+    .replace(/^</, "")
+    .replace(new RegExp(`^${open.chars} `), "")
     .replace(/\/?>$/, "");
 }
 

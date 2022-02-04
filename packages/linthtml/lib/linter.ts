@@ -19,24 +19,23 @@ function raw_ignore_regex(html: string, options: LegacyLinterConfig | LinterConf
     return html;
   }
   // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
-  return html.replace((new RegExp(ignore as string | RegExp, "gm")), function(match) {
+  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }
 
 function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig): InlineConfig {
-  const merged_config: InlineConfig = Object.keys(new_config)
-    .reduce((merged_config, rule_name) => {
-      if (base_config[rule_name]) {
-        merged_config[rule_name] = {
-          ...base_config[rule_name],
-          ...new_config[rule_name]
-        };
-      } else {
-        merged_config[rule_name] = new_config[rule_name];
-      }
-      return merged_config;
-    }, {} as InlineConfig);
+  const merged_config: InlineConfig = Object.keys(new_config).reduce((merged_config, rule_name) => {
+    if (base_config[rule_name]) {
+      merged_config[rule_name] = {
+        ...base_config[rule_name],
+        ...new_config[rule_name]
+      };
+    } else {
+      merged_config[rule_name] = new_config[rule_name];
+    }
+    return merged_config;
+  }, {} as InlineConfig);
   return {
     ...base_config,
     ...merged_config
@@ -74,8 +73,9 @@ export default class Linter {
     html = raw_ignore_regex(html, this.config.config);
 
     const dom = this.parse_fn(html);
-    const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules)
-      .map(name => this.config.activated_rules[name]);
+    const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
+      (name) => this.config.activated_rules[name]
+    );
     const domIssues = this.lint_DOM(activated_rules, dom);
     let issues: Issue[] = [...domIssues, ...this.reset_rules()];
 
@@ -89,22 +89,21 @@ export default class Linter {
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {
     const issues: Issue[] = [];
     // merge with report in call_rule_lint ?
-    function report_inline_config(data: { code: string, position: Range, meta?: any }) {
+    function report_inline_config(data: { code: string; position: Range; meta?: any }) {
       const meta = {
         ...data.meta,
         severity: "error",
         code: data.code
       };
 
-      issues.push(new Issue(
-        "inline_config",
-        data.position,
-        meta
-      ));
+      issues.push(new Issue("inline_config", data.position, meta));
     }
 
     const getIssues = (node: Node, parent_inline_config: InlineConfig): Issue[] => {
-      let issues = rules.reduce((issues, rule) => [...issues, ...this.call_rule_lint(rule, node, parent_inline_config)], [] as Issue[]);
+      let issues = rules.reduce(
+        (issues, rule) => [...issues, ...this.call_rule_lint(rule, node, parent_inline_config)],
+        [] as Issue[]
+      );
       if (node.children && node.children.length > 0) {
         let inline_config = {
           ...parent_inline_config
@@ -130,7 +129,7 @@ export default class Linter {
   // TODO: Remove after v1
   private call_rule_lint(rule: ActiveRuleDefinition, node: Node, inline_config: InlineConfig): Issue[] {
     const issues: Issue[] = [];
-    function report(data: { code: string, position: Range, meta?: any, message?: string }) {
+    function report(data: { code: string; position: Range; meta?: any; message?: string }) {
       const meta = {
         ...data.meta,
         severity: rule.severity,
@@ -138,13 +137,10 @@ export default class Linter {
         message: data.message
       };
 
-      issues.push(new Issue(
-        rule.name,
-        data.position,
-        meta
-      ));
+      issues.push(new Issue(rule.name, data.position, meta));
     }
-    if (inline_config[rule.name]?.disabled === true) { // inline_config[rule.name]?.disabled
+    if (inline_config[rule.name]?.disabled === true) {
+      // inline_config[rule.name]?.disabled
       return issues;
     }
 
@@ -157,7 +153,11 @@ export default class Linter {
         }
       : this.config.legacy_config;
 
-    rule.lint(node, rule_config, { report, rules: this.config.activated_rules, global_config });
+    rule.lint(node, rule_config, {
+      report,
+      rules: this.config.activated_rules,
+      global_config
+    });
     return issues;
   }
 

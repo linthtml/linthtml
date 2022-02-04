@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | table-req-caption", function() {
+describe("legacy linter | table-req-caption", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should report an error when \"<table>\" does not have a \"<caption>\"", async function() {
+  it('Should report an error when "<table>" does not have a "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table>";
 
@@ -15,7 +15,7 @@ describe("legacy linter | table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when \"<caption>\" is not a child of \"<table>\"", async function() {
+  it('Should report an error when "<caption>" is not a child of "<table>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table><td><caption>Hello</caption></td></table>";
 
@@ -23,7 +23,7 @@ describe("legacy linter | table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when \"<caption>\" is a sibling of \"<table>\"", async function() {
+  it('Should report an error when "<caption>" is a sibling of "<table>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table><caption>Hello</caption>";
 
@@ -31,7 +31,7 @@ describe("legacy linter | table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report as many error as \"<table>\" without \"<caption>\"", async function() {
+  it('Should report as many error as "<table>" without "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table><table></table>";
 
@@ -39,7 +39,7 @@ describe("legacy linter | table-req-caption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report any error for \"<table>\" with \"<caption>\"", async function() {
+  it('Should not report any error for "<table>" with "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table><caption>Caption></table><table><td></td><td></td><caption>Caption</caption></table>";
 
@@ -48,13 +48,11 @@ describe("legacy linter | table-req-caption", function() {
   });
 });
 
-describe("table-req-caption", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("table-req-caption", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should report an error when \"<table>\" does not have a \"<caption>\"", async function() {
+  it('Should report an error when "<table>" does not have a "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table>";
 
@@ -62,7 +60,7 @@ describe("table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when \"<caption>\" is not a child of \"<table>\"", async function() {
+  it('Should report an error when "<caption>" is not a child of "<table>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table><td><caption>Hello</caption></td></table>";
 
@@ -70,7 +68,7 @@ describe("table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when \"<caption>\" is a sibling of \"<table>\"", async function() {
+  it('Should report an error when "<caption>" is a sibling of "<table>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table><caption>Hello</caption>";
 
@@ -78,7 +76,7 @@ describe("table-req-caption", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report as many error as \"<table>\" without \"<caption>\"", async function() {
+  it('Should report as many error as "<table>" without "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table></table><table></table>";
 
@@ -86,7 +84,7 @@ describe("table-req-caption", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report any error for \"<table>\" with \"<caption>\"", async function() {
+  it('Should not report any error for "<table>" with "<caption>"', async function () {
     const linter = createLinter({ "table-req-caption": true });
     const html = "<table><caption>Caption></table><table><td></td><td></td><caption>Caption</caption></table>";
 

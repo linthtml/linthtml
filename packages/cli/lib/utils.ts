@@ -15,7 +15,9 @@ function displayBetaVersionMessage() {
   if (isBetaVersion() === true) {
     console.log("");
     console.log(chalk`{yellow 🚧🚧 You"re using a beta version 🚧🚧}`);
-    console.log(chalk`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`);
+    console.log(
+      chalk`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`
+    );
   }
 }
 
@@ -33,21 +35,13 @@ type Issue = {
   rule: string;
   data: unknown;
   message: string;
-}
+};
 
 type Report = {
   fileName: string;
   issues: Issue[];
   config_path?: string;
   preset?: string;
-}
-
-export {
-  Issue,
-  Report,
-  isBetaVersion,
-  displayBetaVersionMessage,
-  exitProcess,
-  EXIT_CODE_ERROR,
-  EXIT_CODE_NORMAL
 };
+
+export { Issue, Report, isBetaVersion, displayBetaVersionMessage, exitProcess, EXIT_CODE_ERROR, EXIT_CODE_NORMAL };
