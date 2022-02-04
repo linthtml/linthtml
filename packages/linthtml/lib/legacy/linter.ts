@@ -7,6 +7,7 @@ import { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config";
 import { Node, Document } from "@linthtml/dom-utils/lib/dom_elements";
 import Issue from "../issue";
 import { is_comment_node } from "@linthtml/dom-utils";
+import { flatten } from "../utils/array";
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column
@@ -80,7 +81,7 @@ export default class Linter {
       issues = issues.slice(0, this.config.maxerr);
     }
 
-    return Promise.resolve(issues.flat());
+    return Promise.resolve(issues);
   }
 
   // Here ignore ts error as "dom" is special rule.
@@ -90,11 +91,11 @@ export default class Linter {
   }
 
   resetRules(opts?: unknown) {
-    return this.rules.getAllRules().map(function(rule) {
+    const rules = this.rules.getAllRules().map((rule) => {
       const r = rule.end && rule.end(opts);
       return r || [];
-    })
-      .flat();
+    });
+    return flatten(rules);
   }
 
   setupInlineConfigs(dom: Document): Issue[] {
