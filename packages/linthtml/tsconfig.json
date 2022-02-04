@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
+  "ts-node": {
+    "ignore": [
+      "(?:^|/)node_modules/",
+      "/fixtures/.*\\.js" // Force ts-node to ignore js fixture files during tests
+    ]
+  },
   "compilerOptions": {
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
     "rootDir": "lib"
@@ -9,5 +15,5 @@
   }, {
     "path": "../dom-utils"
   }],
-  "include": ["./lib/**/*.ts"] /* What about the bin folder? */
+  "include": ["./lib/**/*.ts"]
 }
