@@ -6,6 +6,7 @@ import CustomError from "./utils/custom-errors";
 
 import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config";
 import { Document, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
+import { flatten } from "./utils/array";
 
 /**
  * Apply the raw-ignore-regex option.
@@ -123,7 +124,7 @@ export default class Linter {
       inline_config = merge_inline_config(inline_config, extracted_inline_config);
       return getIssues(node, inline_config);
     });
-    return [...issues, ...rules_issues.flat()];
+    return [...issues, ...flatten(rules_issues)];
   }
 
   // TODO: Remove after v1
