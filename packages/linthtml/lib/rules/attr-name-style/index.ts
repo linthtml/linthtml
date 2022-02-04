@@ -10,16 +10,18 @@ const { isRegExp } = types;
 // TODO: Deprecate "attr-name-ignore-regex" "rule" and add a setting to ignore attribute in this rule
 const RULE_NAME = "attr-name-style";
 
-function lint(node: Node, format: string | RegExp, { report, global_config }: { report: reportFunction, global_config: LegacyLinterConfig }) {
+function lint(
+  node: Node,
+  format: string | RegExp,
+  { report, global_config }: { report: reportFunction; global_config: LegacyLinterConfig }
+) {
   if (is_tag_node(node)) {
     // const format = config[this.name];
     // TODO: Remove after `raw-ignore-text` refacto
     let attributes = node.attributes.filter(({ name }) => /^¤+$/.test(name.chars) === false);
     const ignore = global_config["attr-name-ignore-regex"];
     if (ignore) {
-      const R_ignore = isRegExp(ignore)
-        ? ignore
-        : new RegExp(ignore);
+      const R_ignore = isRegExp(ignore) ? ignore : new RegExp(ignore);
       attributes = attributes.filter(({ name }) => match_format(R_ignore, name.chars) === false);
     }
 

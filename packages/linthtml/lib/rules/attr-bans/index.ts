@@ -7,9 +7,10 @@ const { isRegExp } = types;
 
 const RULE_NAME = "attr-bans";
 function validateConfig(config: unknown) {
-  const typeError = (type: string) => `Configuration for rule "${RULE_NAME}" is invalid: Expected string, RegExp or (string|RegExp)[] got ${type}`;
+  const typeError = (type: string) =>
+    `Configuration for rule "${RULE_NAME}" is invalid: Expected string, RegExp or (string|RegExp)[] got ${type}`;
   if (Array.isArray(config)) {
-    config.forEach(attr => {
+    config.forEach((attr) => {
       const type = typeof attr;
       if (type !== "string" && isRegExp(attr) === false) {
         throw new Error(typeError(`${type}[]`));
@@ -25,7 +26,7 @@ function validateConfig(config: unknown) {
 
 function mut_config(options: any | any[]): any[] {
   if (Array.isArray(options)) {
-    return options.map(option => {
+    return options.map((option) => {
       const type = typeof option;
       if (type === "string") {
         return option.toLowerCase();
@@ -48,7 +49,7 @@ function mut_config(options: any | any[]): any[] {
 function lint(node: Node, config: unknown, { report }: { report: reportFunction }) {
   if (is_tag_node(node)) {
     const banned_attrs = mut_config(config);
-    banned_attrs.forEach(banned => {
+    banned_attrs.forEach((banned) => {
       const attributes = node.attributes.filter(({ name }) => {
         const attribute_name = name.chars.toLowerCase();
         if (isRegExp(banned)) {
@@ -56,7 +57,7 @@ function lint(node: Node, config: unknown, { report }: { report: reportFunction 
         }
         return attribute_name === banned;
       });
-      attributes.forEach(attribute =>
+      attributes.forEach((attribute) =>
         report({
           code: "E001",
           position: attribute.loc,

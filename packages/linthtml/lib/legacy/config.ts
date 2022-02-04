@@ -24,7 +24,8 @@ export default class Config {
   /**
    * Get a rule by name.
    */
-  getRule(ruleName: string): LegacyRuleDefinition { // Template type for rule name?
+  getRule(ruleName: string): LegacyRuleDefinition {
+    // Template type for rule name?
     return this.rulesMap[ruleName];
   }
 
@@ -137,26 +138,23 @@ export default class Config {
    * Values will be replaced with parsed versions.
    */
   initOptions(opts: Record<string, unknown>) {
-    this.getAllRules()
-      .forEach(function(rule) {
-        rule.subscribers = [];
-      });
+    this.getAllRules().forEach(function (rule) {
+      rule.subscribers = [];
+    });
 
-    Object.values(this.options)
-      .forEach(function(o) {
-        o.active = false;
-      });
+    Object.values(this.options).forEach(function (o) {
+      o.active = false;
+    });
 
-    Object.keys(opts)
-      .forEach((name) => {
-        if (!(name in this.options)) {
-          throw new Error(`Rule "${name}" does not exist`);
-        }
-        const value = opts[name];
-        if (value !== false) {
-          this.setOption(name, value);
-        }
-      });
+    Object.keys(opts).forEach((name) => {
+      if (!(name in this.options)) {
+        throw new Error(`Rule "${name}" does not exist`);
+      }
+      const value = opts[name];
+      if (value !== false) {
+        this.setOption(name, value);
+      }
+    });
   }
 
   /**
@@ -181,16 +179,16 @@ export default class Config {
   setOptionObj(option: LegacyRuleOption, value: unknown) {
     const active = value !== false && value !== undefined;
     if (active !== option.active) {
-      this.onAllSubs(
-        option,
-        option.rules,
-        (active ? this.addSubscriber : this.removeSubscriber).bind(this)
-      );
+      this.onAllSubs(option, option.rules, (active ? this.addSubscriber : this.removeSubscriber).bind(this));
       option.active = active;
     }
   }
 
-  onAllSubs(obj: LegacyRuleOption, subs: string[], action: (rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) => void) {
+  onAllSubs(
+    obj: LegacyRuleOption,
+    subs: string[],
+    action: (rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) => void
+  ) {
     subs.forEach((parentName) => {
       if (this.rulesMap[parentName]) {
         action(this.rulesMap[parentName], obj);

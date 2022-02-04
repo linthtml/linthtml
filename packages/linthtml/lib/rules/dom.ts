@@ -22,11 +22,7 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
           message: data.message
         };
 
-        issues.push(new Issue(
-          rule.name,
-          data.position,
-          meta
-        ));
+        issues.push(new Issue(rule.name, data.position, meta));
       }
     };
   }
@@ -36,9 +32,13 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
       [rule.name]: rule
     };
   }, {});
-  rules.forEach(rule => {
+  rules.forEach((rule) => {
     const rule_config = global_config[rule.name];
-    rule.lint(element, rule_config, { report: report(rule), rules: activated_rules, global_config });
+    rule.lint(element, rule_config, {
+      report: report(rule),
+      rules: activated_rules,
+      global_config
+    });
   });
   return issues;
 }
@@ -52,23 +52,21 @@ function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfi
    */
   inlineConfigs.reset(opts);
 
-  const getIssues = function(element: Node) {
+  const getIssues = function (element: Node) {
     // fast-forwards inlineConfig.current to whatever it should be at this index.
     inlineConfigs.getOptsAtIndex(element.startIndex as number);
 
     let issues = apply_rules(subs, element, inlineConfigs.current);
 
     if (element.children && element.children.length > 0) {
-      element.children.forEach(function(child) {
+      element.children.forEach(function (child) {
         issues = issues.concat(getIssues(child));
       });
     }
     return issues;
   };
 
-  const issues = dom.children.length
-    ? dom.children.map(getIssues)
-    : [];
+  const issues = dom.children.length ? dom.children.map(getIssues) : [];
   return flatten(issues);
 }
 

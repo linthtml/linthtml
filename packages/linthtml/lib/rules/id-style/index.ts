@@ -10,7 +10,11 @@ const { isRegExp } = types;
 const RULE_NAME = "id-style";
 
 // TODO: Check behavoir with empty id attribute
-function lint(node: Node, format: string | RegExp, { report, global_config }: { report: reportFunction, global_config: any }) {
+function lint(
+  node: Node,
+  format: string | RegExp,
+  { report, global_config }: { report: reportFunction; global_config: any }
+) {
   if (is_tag_node(node) && format !== "none") {
     const ignore: undefined | string | RegExp = global_config["id-class-ignore-regex"];
 
@@ -21,13 +25,11 @@ function lint(node: Node, format: string | RegExp, { report, global_config }: { 
       .filter(({ value }) => value && /^¤+$/.test(value.raw as string) === false);
 
     if (ignore) {
-      const R = isRegExp(ignore)
-        ? ignore
-        : new RegExp(ignore);
+      const R = isRegExp(ignore) ? ignore : new RegExp(ignore);
       attributes = attributes.filter(({ value }) => value && R.test(value.chars) === false); // raw or chars ?
     }
 
-    attributes.forEach(attribute => {
+    attributes.forEach((attribute) => {
       const id = attribute.value?.chars as string;
       if (match_format(format, id) === false) {
         report({

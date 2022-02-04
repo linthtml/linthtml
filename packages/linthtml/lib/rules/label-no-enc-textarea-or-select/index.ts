@@ -5,15 +5,10 @@ import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 const RULE_NAME = "label-no-enc-textarea-or-select";
 
 function find_select_textarea(node: Node): boolean {
-  if (
-    is_tag_node(node) &&
-    (["select", "textarea"].indexOf(node.name) !== -1)
-  ) {
+  if (is_tag_node(node) && ["select", "textarea"].indexOf(node.name) !== -1) {
     return true;
   }
-  return node.children
-    ? node.children.some(find_select_textarea)
-    : false;
+  return node.children ? node.children.some(find_select_textarea) : false;
 }
 
 function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {

@@ -10,16 +10,19 @@ import globby from "globby";
 import ignore from "ignore";
 import Issue from "./issue";
 
-const DEFAULT_EXCLUDED_FOLDERS = [
-  "!node_modules/"
-];
+const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
-export type FileLinter = { file_path: string; preset: string | undefined; config_path: string | undefined; linter: LegacyLinter; };
+export type FileLinter = {
+  file_path: string;
+  preset: string | undefined;
+  config_path: string | undefined;
+  linter: LegacyLinter;
+};
 
 /**
  * The linthtml namespace.
  */
-const linthtml = function(html: string, config: LegacyLinterConfig | LinterConfig): Promise<Issue[]> {
+const linthtml = function (html: string, config: LegacyLinterConfig | LinterConfig): Promise<Issue[]> {
   if (config?.rules !== undefined) {
     const linter = new Linter(config as LinterConfig);
     return linter.lint(html);
@@ -72,7 +75,7 @@ function filter_ignored_files(file_paths: string[], ignore_pattern: string | str
   return ignorer.filter(file_paths);
 }
 
-function read_dot_ignore_file() : string | undefined {
+function read_dot_ignore_file(): string | undefined {
   const ignore_file_path = path.join(process.cwd(), ".linthtmlignore");
   if (fs.existsSync(ignore_file_path)) {
     return fs.readFileSync(ignore_file_path).toString();
@@ -88,7 +91,14 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] | undefi
   return ignorer.ignores(file_path);
 }
 
-function create_file_linter(file_path: string, config: { preset?: string, filepath?: string, config: LegacyLinterConfig | LinterConfig }): FileLinter {
+function create_file_linter(
+  file_path: string,
+  config: {
+    preset?: string;
+    filepath?: string;
+    config: LegacyLinterConfig | LinterConfig;
+  }
+): FileLinter {
   return {
     file_path,
     preset: config.preset,
@@ -103,11 +113,11 @@ function create_file_linter(file_path: string, config: { preset?: string, filepa
  * @param {string[]} globs - An array of globs
  * @param {string} [config_path] - Path the config file that will be use to create configure the linters
  */
-linthtml.create_linters_for_files = function(globs: string[], config_path?: string): FileLinter[] {
+linthtml.create_linters_for_files = function (globs: string[], config_path?: string): FileLinter[] {
   if (config_path) {
     const config = config_from_path(config_path);
     const files = get_files_to_lint(globs, config.config);
-    return files.map(file_path => create_file_linter(file_path, config));
+    return files.map((file_path) => create_file_linter(file_path, config));
   }
   const files = get_files_to_lint(globs);
   return files.reduce((files_to_lint, file_path) => {
@@ -128,7 +138,7 @@ linthtml.create_linters_for_files = function(globs: string[], config_path?: stri
   }, [] as FileLinter[]);
 };
 
-linthtml.from_config_path = function(config_path: string): Linter | LegacyLinter {
+linthtml.from_config_path = function (config_path: string): Linter | LegacyLinter {
   const config = config_from_path(config_path);
   return linthtml.fromConfig(config.config);
 };

@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | focusable-tabindex-style", function() {
+describe("legacy linter | focusable-tabindex-style", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should report errors for tag with positive tabindex", async function() {
+  it("Should report errors for tag with positive tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="foo" tabindex="5">
@@ -18,7 +18,7 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error for tag without tabindex attribute", async function() {
+  it("Should not report any error for tag without tabindex attribute", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="foo">
@@ -29,7 +29,7 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report an error for tag with negative tabindex", async function() {
+  it("Should not report an error for tag with negative tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5">
@@ -40,7 +40,7 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error per tag with a positive tabindex", async function() {
+  it("Should report an error per tag with a positive tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5">
@@ -55,7 +55,7 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should ignore disabled tag", async function() {
+  it("Should ignore disabled tag", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5" disabled>
@@ -66,7 +66,7 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report error for non interactive elements", async function() {
+  it("Should report error for non interactive elements", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <div tabindex="5"></div>
@@ -77,13 +77,11 @@ describe("legacy linter | focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(1);
   });
 });
-describe("focusable-tabindex-style", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("focusable-tabindex-style", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should report errors for tag with positive tabindex", async function() {
+  it("Should report errors for tag with positive tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="foo" tabindex="5">
@@ -94,7 +92,7 @@ describe("focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should not report any error for tag without tabindex attribute", async function() {
+  it("Should not report any error for tag without tabindex attribute", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="foo">
@@ -105,7 +103,7 @@ describe("focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report an error for tag with negative tabindex", async function() {
+  it("Should not report an error for tag with negative tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5">
@@ -116,7 +114,7 @@ describe("focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error per tag with positive tabindex", async function() {
+  it("Should report an error per tag with positive tabindex", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5">
@@ -131,7 +129,7 @@ describe("focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should ignore disabled tag", async function() {
+  it("Should ignore disabled tag", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <input type="text" name="bar" tabindex="-5" disabled>
@@ -142,7 +140,7 @@ describe("focusable-tabindex-style", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report error for non interactive elements", async function() {
+  it("Should report error for non interactive elements", async function () {
     const linter = createLinter({ "focusable-tabindex-style": true });
     const html = `
       <div tabindex="5"></div>

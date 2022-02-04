@@ -7,7 +7,7 @@ const RULE_NAME = "attr-no-dup";
 function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {
   if (is_tag_node(node)) {
     const attributes_map = new Map<string, NodeAttribute>();
-    node.attributes.forEach(attribute => {
+    node.attributes.forEach((attribute) => {
       const name = attribute.name.chars.toLowerCase();
       if (attributes_map.has(name)) {
         report({

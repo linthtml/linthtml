@@ -2,8 +2,8 @@ import { expect } from "chai";
 // TODO: Remove .default after typescript migration
 import Config from "../lib/legacy/config";
 
-describe("Legacy Config", function() {
-  beforeEach(function() {
+describe("Legacy Config", function () {
+  beforeEach(function () {
     this.config = new Config([]);
     this.baseRule = { name: "base" };
     this.rule = {
@@ -16,27 +16,27 @@ describe("Legacy Config", function() {
     };
   });
 
-  it("should be a function", function() {
+  it("should be a function", function () {
     expect(Config).to.be.an.instanceOf(Function);
   });
 
-  describe("getRule", function() {
-    it("should return undefined for nonexistent rule", function() {
+  describe("getRule", function () {
+    it("should return undefined for nonexistent rule", function () {
       const rule = this.config.getRule("nonexistent");
 
       expect(rule).to.be.a("undefined");
     });
   });
 
-  describe("initialize", function() {
-    it("should initialize rules", function() {
+  describe("initialize", function () {
+    it("should initialize rules", function () {
       const config = new Config([this.baseRule, this.rule]);
 
       expect(config.getRule(this.rule.name)).to.be.eql(this.rule);
       expect(config.getRule(this.baseRule.name)).to.be.eql(this.baseRule);
     });
 
-    it("should get options from a rule", function() {
+    it("should get options from a rule", function () {
       this.rule.options = [this.option];
       const config = new Config([this.baseRule, this.rule]);
 
@@ -44,8 +44,8 @@ describe("Legacy Config", function() {
     });
   });
 
-  describe("addRule", function() {
-    it("should add a rule", function() {
+  describe("addRule", function () {
+    it("should add a rule", function () {
       this.config.addRule(this.rule);
 
       const addedRule = this.config.getRule(this.rule.name);
@@ -53,7 +53,7 @@ describe("Legacy Config", function() {
       expect(addedRule).to.be.equal(this.rule);
     });
 
-    it("should initialize the rule", function() {
+    it("should initialize the rule", function () {
       this.config.addRule({ name: "test" });
 
       const addedRule = this.config.getRule("test");
@@ -63,14 +63,14 @@ describe("Legacy Config", function() {
       expect(addedRule.subscribers).to.deep.equal([]);
     });
 
-    it("should not initialize the same rule twice", function() {
+    it("should not initialize the same rule twice", function () {
       this.config.addRule(this.rule);
       this.rule.subscribers = ["test"];
       this.config.addRule(this.rule);
       expect(this.rule.subscribers).to.be.eql(["test"]);
     });
 
-    it("should remove a previous rule", function() {
+    it("should remove a previous rule", function () {
       const oldRule = {
         name: this.rule.name
       };
@@ -83,7 +83,7 @@ describe("Legacy Config", function() {
       expect(addedRule).to.be.equal(this.rule);
     });
 
-    it("should remove a previous rule's subcriptions", function() {
+    it("should remove a previous rule's subcriptions", function () {
       this.config.addRule(this.baseRule);
       this.config.addRule(this.rule);
       this.config.addOption(this.option);
@@ -100,8 +100,8 @@ describe("Legacy Config", function() {
     });
   });
 
-  describe("removeRule", function() {
-    it("should remove a rule", function() {
+  describe("removeRule", function () {
+    it("should remove a rule", function () {
       this.config.addRule(this.rule);
       this.config.removeRule(this.rule.name);
 
@@ -110,13 +110,13 @@ describe("Legacy Config", function() {
       expect(addedRule).to.be.a("undefined");
     });
 
-    it("should not throw when removing a nonregistered rule", function() {
+    it("should not throw when removing a nonregistered rule", function () {
       this.config.removeRule("nonexistent");
     });
   });
 
-  describe("addOption", function() {
-    it("should add an option", function() {
+  describe("addOption", function () {
+    it("should add an option", function () {
       this.config.addOption(this.option);
 
       const addedOption = this.config.options[this.option.name];
@@ -124,7 +124,7 @@ describe("Legacy Config", function() {
       expect(addedOption).to.be.equal(this.option);
     });
 
-    it("should initialize the option", function() {
+    it("should initialize the option", function () {
       this.config.addOption({ name: "test" });
 
       const addedOption = this.config.options.test;
@@ -133,7 +133,7 @@ describe("Legacy Config", function() {
       expect(addedOption.rules).to.be.eql(["test"]);
     });
 
-    it("should not initialize the same option twice", function() {
+    it("should not initialize the same option twice", function () {
       this.config.addOption(this.option);
       this.option.active = true;
       this.config.addOption(this.option);
@@ -195,15 +195,15 @@ describe("Legacy Config", function() {
   //   });
   // });
 
-  describe("removeOption", function() {
-    it("should remove the option", function() {
+  describe("removeOption", function () {
+    it("should remove the option", function () {
       this.config.addOption(this.option);
       this.config.removeOption(this.option.name);
 
       expect(this.config.options[this.option.name]).to.be.undefined;
     });
 
-    it("should remove the option's subcriptions", function() {
+    it("should remove the option's subcriptions", function () {
       this.config.addRule(this.baseRule);
       this.config.addRule(this.rule);
       this.config.addOption(this.option);
@@ -213,7 +213,7 @@ describe("Legacy Config", function() {
       expect(this.baseRule.subscribers).to.be.eql([]);
     });
 
-    it("should not fail on nonexistent option", function() {
+    it("should not fail on nonexistent option", function () {
       this.config.removeOption("nonexistent");
     });
   });

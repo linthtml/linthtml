@@ -3,12 +3,12 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legay linter | indent-style", function() {
+describe("legay linter | indent-style", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  describe("\"tabs\" style", function() {
-    it("Should not report any error for tab indent", async function() {
+  describe('"tabs" style', function () {
+    it("Should not report any error for tab indent", async function () {
       const linter = createLinter({ "indent-style": "tabs" });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -16,7 +16,7 @@ describe("legay linter | indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for space indent", async function() {
+    it("Should report an error for space indent", async function () {
       const linter = createLinter({ "indent-style": "tabs" });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -44,8 +44,8 @@ describe("legay linter | indent-style", function() {
     });
   });
 
-  describe("\"spaces\" style", function() {
-    it("Should not report any error for space indent", async function() {
+  describe('"spaces" style', function () {
+    it("Should not report any error for space indent", async function () {
       const linter = createLinter({ "indent-style": "spaces" });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -53,7 +53,7 @@ describe("legay linter | indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for tab indent", async function() {
+    it("Should report an error for tab indent", async function () {
       const linter = createLinter({ "indent-style": "spaces" });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -81,8 +81,8 @@ describe("legay linter | indent-style", function() {
     });
   });
 
-  describe("\"nonmixed\" style", function() {
-    it("Should not report any error for space indent", async function() {
+  describe('"nonmixed" style', function () {
+    it("Should not report any error for space indent", async function () {
       const linter = createLinter({ "indent-style": "nonmixed" });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -90,7 +90,7 @@ describe("legay linter | indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for tab indent", async function() {
+    it("Should not report any error for tab indent", async function () {
       const linter = createLinter({ "indent-style": "nonmixed" });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -98,7 +98,7 @@ describe("legay linter | indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when tabs and spaces are mixed on the same line", async function() {
+    it("Should report an error when tabs and spaces are mixed on the same line", async function () {
       const linter = createLinter({ "indent-style": "nonmixed" });
       const html = "<div>\n\t <p>foo</p>\n</div>";
 
@@ -126,36 +126,31 @@ describe("legay linter | indent-style", function() {
     });
   });
 
-  it("Should throw an error if not given a string as config", function() {
+  it("Should throw an error if not given a string as config", function () {
     const linter = createLinter({ "indent-style": true });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"indent-style\" is invalid: Expected string got boolean");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "indent-style" is invalid: Expected string got boolean'
+    );
   });
 
-  it("Should throw an error if not given a valid string as config", function() {
+  it("Should throw an error if not given a valid string as config", function () {
     const linter = createLinter({ "indent-style": "foo" });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"indent-style\" is invalid: \"foo\" is not accepted. Accepted values are \"tabs\", \"spaces\" and \"nonmixed\".");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
+    );
   });
 });
 
-describe("indent-style", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("indent-style", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  describe("\"tabs\" style", function() {
-    it("Should not report any error for tab indent", async function() {
+  describe('"tabs" style', function () {
+    it("Should not report any error for tab indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ]
+        "indent-style": [true, "tabs"]
       });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -163,12 +158,9 @@ describe("indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for space indent", async function() {
+    it("Should report an error for space indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ]
+        "indent-style": [true, "tabs"]
       });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -196,13 +188,10 @@ describe("indent-style", function() {
     });
   });
 
-  describe("\"spaces\" style", function() {
-    it("Should not report any error for space indent", async function() {
+  describe('"spaces" style', function () {
+    it("Should not report any error for space indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "spaces"
-        ]
+        "indent-style": [true, "spaces"]
       });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -210,12 +199,9 @@ describe("indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error for tab indent", async function() {
+    it("Should report an error for tab indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "spaces"
-        ]
+        "indent-style": [true, "spaces"]
       });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -243,13 +229,10 @@ describe("indent-style", function() {
     });
   });
 
-  describe("\"nonmixed\" style", function() {
-    it("Should not report any error for space indent", async function() {
+  describe('"nonmixed" style', function () {
+    it("Should not report any error for space indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "nonmixed"
-        ]
+        "indent-style": [true, "nonmixed"]
       });
       const html = "<div>\n <p>foo</p>\n</div>";
 
@@ -257,12 +240,9 @@ describe("indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should not report any error for tab indent", async function() {
+    it("Should not report any error for tab indent", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "nonmixed"
-        ]
+        "indent-style": [true, "nonmixed"]
       });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
@@ -270,12 +250,9 @@ describe("indent-style", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when tabs and spaces are mixed on the same line", async function() {
+    it("Should report an error when tabs and spaces are mixed on the same line", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "nonmixed"
-        ]
+        "indent-style": [true, "nonmixed"]
       });
       const html = "<div>\n\t <p>foo</p>\n</div>";
 
@@ -303,28 +280,22 @@ describe("indent-style", function() {
     });
   });
 
-  it("Should throw an error if not given a string as config", function() {
+  it("Should throw an error if not given a string as config", function () {
     const config = {
-      "indent-style": [
-        true,
-        true
-      ] as [boolean, unknown]
+      "indent-style": [true, true] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"indent-style\" is invalid: Expected string got boolean");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "indent-style" is invalid: Expected string got boolean'
+    );
   });
 
-  it("Should throw an error if not given a valid string as config", function() {
+  it("Should throw an error if not given a valid string as config", function () {
     const config = {
-      "indent-style": [
-        true,
-        "foo"
-      ] as [boolean, unknown]
+      "indent-style": [true, "foo"] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"indent-style\" is invalid: \"foo\" is not accepted. Accepted values are \"tabs\", \"spaces\" and \"nonmixed\".");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
+    );
   });
 });
 

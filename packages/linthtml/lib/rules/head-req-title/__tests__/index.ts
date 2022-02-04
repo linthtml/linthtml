@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | head-req-title", function() {
+describe("legacy linter | head-req-title", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report any error when the head title is present", async function() {
+  it("Should not report any error when the head title is present", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -21,7 +21,7 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when the head title is not present", async function() {
+  it("Should report an error when the head title is not present", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -34,7 +34,7 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when the head title is empty", async function() {
+  it("Should report an error when the head title is empty", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -48,8 +48,8 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  describe("Multiple <title>", function() {
-    it("Should not report any error when one title is not empty", async function() {
+  describe("Multiple <title>", function () {
+    it("Should not report any error when one title is not empty", async function () {
       const linter = createLinter({ "head-req-title": true });
       const html = `
       <html>
@@ -64,7 +64,7 @@ describe("legacy linter | head-req-title", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report any errors when all titles are empty", async function() {
+    it("Should report any errors when all titles are empty", async function () {
       const linter = createLinter({ "head-req-title": true });
       const html = `
       <html>
@@ -80,13 +80,11 @@ describe("legacy linter | head-req-title", function() {
     });
   });
 });
-describe("legacy linter | head-req-title", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("legacy linter | head-req-title", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report any error when the head title is present", async function() {
+  it("Should not report any error when the head title is present", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -100,7 +98,7 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when the head title is not present", async function() {
+  it("Should report an error when the head title is not present", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -113,7 +111,7 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report an error when the head title is empty", async function() {
+  it("Should report an error when the head title is empty", async function () {
     const linter = createLinter({ "head-req-title": true });
     const html = `
     <html>
@@ -127,8 +125,8 @@ describe("legacy linter | head-req-title", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  describe("Multiple <title>", function() {
-    it("Should not report any error when one title is not empty", async function() {
+  describe("Multiple <title>", function () {
+    it("Should not report any error when one title is not empty", async function () {
       const linter = createLinter({ "head-req-title": true });
       const html = `
       <html>
@@ -143,7 +141,7 @@ describe("legacy linter | head-req-title", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report any errors when all titles are empty", async function() {
+    it("Should report any errors when all titles are empty", async function () {
       const linter = createLinter({ "head-req-title": true });
       const html = `
       <html>

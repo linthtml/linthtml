@@ -5,32 +5,37 @@ import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 import path from "path";
 import fs from "fs";
 
-describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
+describe('legacy linter | "indent-style" + "indent-width"', function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  describe("\"tabs\" style", function() {
-    it("Should not report any error when the correct number of tabs is used", async function() {
-      const linter = createLinter({ "indent-style": "tabs", "indent-width": 1 });
+  describe('"tabs" style', function () {
+    it("Should not report any error when the correct number of tabs is used", async function () {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 1
+      });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
-    it("Should not report any error when the correct number of tabs is used (complex)", async function() {
-      const linter = createLinter({ "indent-style": "tabs", "indent-width": 1 });
-      const html = [
-        "<div>",
-        "\t<h2>Foo</h2> <!-- a comment -->",
-        "</div>"
-      ].join("\n");
+    it("Should not report any error when the correct number of tabs is used (complex)", async function () {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 1
+      });
+      const html = ["<div>", "\t<h2>Foo</h2> <!-- a comment -->", "</div>"].join("\n");
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when an incorrect number of tabs is used (to many)", async function() {
-      const linter = createLinter({ "indent-style": "tabs", "indent-width": 1 });
+    it("Should report an error when an incorrect number of tabs is used (to many)", async function () {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 1
+      });
       const html = "<div>\n\t\t<p>foo\n</p>\n</div>";
 
       const issues = await linter.lint(html);
@@ -55,8 +60,11 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
       });
     });
 
-    it("Should report an error when an incorrect number of tabs is used (not enought)", async function() {
-      const linter = createLinter({ "indent-style": "tabs", "indent-width": 2 });
+    it("Should report an error when an incorrect number of tabs is used (not enought)", async function () {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 2
+      });
       const html = "<div>\n\t<p>foo\n</p>\n</div>";
 
       const issues = await linter.lint(html);
@@ -82,17 +90,23 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
     });
   });
 
-  describe("\"spaces\" style", function() {
-    it("Should not report any error when the correct number of spaces is used", async function() {
-      const linter = createLinter({ "indent-style": "spaces", "indent-width": 2 });
+  describe('"spaces" style', function () {
+    it("Should not report any error when the correct number of spaces is used", async function () {
+      const linter = createLinter({
+        "indent-style": "spaces",
+        "indent-width": 2
+      });
       const html = "<div>\n  <p>foo</p>\n</div>";
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when an incorrect number of spaces is used (to many)", async function() {
-      const linter = createLinter({ "indent-style": "spaces", "indent-width": 1 });
+    it("Should report an error when an incorrect number of spaces is used (to many)", async function () {
+      const linter = createLinter({
+        "indent-style": "spaces",
+        "indent-width": 1
+      });
       const html = "<div>\n  <p>foo\n</p>\n</div>";
 
       const issues = await linter.lint(html);
@@ -117,8 +131,11 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
       });
     });
 
-    it("Should report an error when an incorrect number of spaces is used (not enought)", async function() {
-      const linter = createLinter({ "indent-style": "spaces", "indent-width": 2 });
+    it("Should report an error when an incorrect number of spaces is used (not enought)", async function () {
+      const linter = createLinter({
+        "indent-style": "spaces",
+        "indent-width": 2
+      });
       const html = "<div>\n <p>foo\n</p>\n</div>";
 
       const issues = await linter.lint(html);
@@ -143,12 +160,12 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
       });
     });
   });
-  it("Should report an error when closing tag does not have the indent as the opening tag", async function() {
-    const linter = createLinter({ "indent-style": "spaces", "indent-width": 2 });
-    const html = [
-      "<div>",
-      "  </div>"
-    ].join("\n");
+  it("Should report an error when closing tag does not have the indent as the opening tag", async function () {
+    const linter = createLinter({
+      "indent-style": "spaces",
+      "indent-width": 2
+    });
+    const html = ["<div>", "  </div>"].join("\n");
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
@@ -172,8 +189,11 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
     });
   });
 
-  it("Should not report any errors (real exemple)", async function() {
-    const linter = createLinter({ "indent-style": "spaces", "indent-width": 2 });
+  it("Should not report any errors (real exemple)", async function () {
+    const linter = createLinter({
+      "indent-style": "spaces",
+      "indent-width": 2
+    });
     const html = fs.readFileSync(path.resolve(__dirname, "fixtures/valid.html")).toString("utf8");
 
     const issues = await linter.lint(html);
@@ -181,85 +201,64 @@ describe("legacy linter | \"indent-style\" + \"indent-width\"", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report errors (real exemple)", async function() {
-    const linter = createLinter({ "indent-style": "spaces", "indent-width": 2 });
+  it("Should report errors (real exemple)", async function () {
+    const linter = createLinter({
+      "indent-style": "spaces",
+      "indent-width": 2
+    });
     const html = fs.readFileSync(path.resolve(__dirname, "fixtures/invalid.html")).toString("utf8");
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(6); // TODO: check all errors
   });
 
-  it("Should throw an error if not given a number as config", function() {
+  it("Should throw an error if not given a number as config", function () {
     const linter = createLinter({ "indent-width": "foo" });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"indent-width\" is invalid: Expected number got string");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "indent-width" is invalid: Expected number got string'
+    );
   });
 
-  it("Should throw an error if not given a positive number as config", function() {
+  it("Should throw an error if not given a positive number as config", function () {
     const linter = createLinter({ "indent-width": -1 });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"indent-width\" is invalid: Only positive indent value are allowed");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
+    );
   });
 });
 
-describe("\"indent-style\" + \"indent-width\"", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe('"indent-style" + "indent-width"', function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  describe("\"tabs\" style", function() {
-    it("Should not report any error when the correct number of tabs is used", async function() {
+  describe('"tabs" style', function () {
+    it("Should not report any error when the correct number of tabs is used", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ],
-        "indent-width": [
-          true,
-          1
-        ]
+        "indent-style": [true, "tabs"],
+        "indent-width": [true, 1]
       });
       const html = "<div>\n\t<p>foo</p>\n</div>";
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
-    it("Should not report any error when the correct number of tabs is used (complex)", async function() {
+    it("Should not report any error when the correct number of tabs is used (complex)", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ],
-        "indent-width": [
-          true,
-          1
-        ]
+        "indent-style": [true, "tabs"],
+        "indent-width": [true, 1]
       });
-      const html = [
-        "<div>",
-        "\t<h2>Foo</h2> <!-- a comment -->",
-        "</div>"
-      ].join("\n");
+      const html = ["<div>", "\t<h2>Foo</h2> <!-- a comment -->", "</div>"].join("\n");
 
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when an incorrect number of tabs is used (to many)", async function() {
+    it("Should report an error when an incorrect number of tabs is used (to many)", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ],
-        "indent-width": [
-          true,
-          1
-        ]
+        "indent-style": [true, "tabs"],
+        "indent-width": [true, 1]
       });
       const html = "<div>\n\t\t<p>foo\n</p>\n</div>";
 
@@ -285,16 +284,10 @@ describe("\"indent-style\" + \"indent-width\"", function() {
       });
     });
 
-    it("Should report an error when an incorrect number of tabs is used (not enought)", async function() {
+    it("Should report an error when an incorrect number of tabs is used (not enought)", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "tabs"
-        ],
-        "indent-width": [
-          true,
-          2
-        ]
+        "indent-style": [true, "tabs"],
+        "indent-width": [true, 2]
       });
       const html = "<div>\n\t<p>foo\n</p>\n</div>";
 
@@ -321,17 +314,11 @@ describe("\"indent-style\" + \"indent-width\"", function() {
     });
   });
 
-  describe("\"spaces\" style", function() {
-    it("Should not report any error when the correct number of spaces is used", async function() {
+  describe('"spaces" style', function () {
+    it("Should not report any error when the correct number of spaces is used", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "spaces"
-        ],
-        "indent-width": [
-          true,
-          2
-        ]
+        "indent-style": [true, "spaces"],
+        "indent-width": [true, 2]
       });
       const html = "<div>\n  <p>foo</p>\n</div>";
 
@@ -339,16 +326,10 @@ describe("\"indent-style\" + \"indent-width\"", function() {
       expect(issues).to.have.lengthOf(0);
     });
 
-    it("Should report an error when an incorrect number of spaces is used (to many)", async function() {
+    it("Should report an error when an incorrect number of spaces is used (to many)", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "spaces"
-        ],
-        "indent-width": [
-          true,
-          1
-        ]
+        "indent-style": [true, "spaces"],
+        "indent-width": [true, 1]
       });
       const html = "<div>\n  <p>foo\n</p>\n</div>";
 
@@ -374,16 +355,10 @@ describe("\"indent-style\" + \"indent-width\"", function() {
       });
     });
 
-    it("Should report an error when an incorrect number of spaces is used (not enought)", async function() {
+    it("Should report an error when an incorrect number of spaces is used (not enought)", async function () {
       const linter = createLinter({
-        "indent-style": [
-          true,
-          "spaces"
-        ],
-        "indent-width": [
-          true,
-          2
-        ]
+        "indent-style": [true, "spaces"],
+        "indent-width": [true, 2]
       });
       const html = "<div>\n <p>foo\n</p>\n</div>";
 
@@ -410,21 +385,12 @@ describe("\"indent-style\" + \"indent-width\"", function() {
     });
   });
 
-  it("Should report an error when closing tag does not have the indent as the opening tag", async function() {
+  it("Should report an error when closing tag does not have the indent as the opening tag", async function () {
     const linter = createLinter({
-      "indent-style": [
-        true,
-        "spaces"
-      ],
-      "indent-width": [
-        true,
-        2
-      ]
+      "indent-style": [true, "spaces"],
+      "indent-width": [true, 2]
     });
-    const html = [
-      "<div>",
-      "  </div>"
-    ].join("\n");
+    const html = ["<div>", "  </div>"].join("\n");
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
@@ -448,16 +414,10 @@ describe("\"indent-style\" + \"indent-width\"", function() {
     });
   });
 
-  it("Should not report any errors (real exemple)", async function() {
+  it("Should not report any errors (real exemple)", async function () {
     const linter = createLinter({
-      "indent-style": [
-        true,
-        "spaces"
-      ],
-      "indent-width": [
-        true,
-        2
-      ]
+      "indent-style": [true, "spaces"],
+      "indent-width": [true, 2]
     });
     const html = fs.readFileSync(path.resolve(__dirname, "fixtures/valid.html")).toString("utf8");
 
@@ -465,16 +425,10 @@ describe("\"indent-style\" + \"indent-width\"", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report errors (real exemple)", async function() {
+  it("Should report errors (real exemple)", async function () {
     const linter = createLinter({
-      "indent-style": [
-        true,
-        "spaces"
-      ],
-      "indent-width": [
-        true,
-        2
-      ]
+      "indent-style": [true, "spaces"],
+      "indent-width": [true, 2]
     });
     const html = fs.readFileSync(path.resolve(__dirname, "fixtures/invalid.html")).toString("utf8");
 
@@ -482,28 +436,22 @@ describe("\"indent-style\" + \"indent-width\"", function() {
     expect(issues).to.have.lengthOf(6); // TODO: check all errors
   });
 
-  it("Should throw an error if not given a number as config", function() {
+  it("Should throw an error if not given a number as config", function () {
     const config = {
-      "indent-width": [
-        true,
-        "foo"
-      ] as [boolean, unknown]
+      "indent-width": [true, "foo"] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"indent-width\" is invalid: Expected number got string");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "indent-width" is invalid: Expected number got string'
+    );
   });
 
-  it("Should throw an error if not given a positive number as config", function() {
+  it("Should throw an error if not given a positive number as config", function () {
     const config = {
-      "indent-width": [
-        true,
-        -1
-      ] as [boolean, unknown]
+      "indent-width": [true, -1] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"indent-width\" is invalid: Only positive indent value are allowed");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
+    );
   });
 });
 

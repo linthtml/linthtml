@@ -22,9 +22,7 @@ function buildAllowedOptions(allowedOptions: meow.AnyFlags) {
 }
 
 function cliOption(opt: string) {
-  return opt.length === 1
-    ? `"-${opt}"`
-    : `"--${kebabCase(opt)}"`;
+  return opt.length === 1 ? `"-${opt}"` : `"--${kebabCase(opt)}"`;
 }
 
 function buildMessageLine(invalid: string) {
@@ -34,7 +32,7 @@ function buildMessageLine(invalid: string) {
 export default function checkInvalidCLIOptions(allowedOptions: meow.AnyFlags, inputOptions: meow.AnyFlags) {
   const allOptions = buildAllowedOptions(allowedOptions);
   return Object.keys(inputOptions)
-    .filter(opt => !allOptions.includes(opt))
+    .filter((opt) => !allOptions.includes(opt))
     .reduce((msg, invalid) => {
       return msg + buildMessageLine(invalid);
     }, "");

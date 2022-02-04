@@ -11,7 +11,7 @@ export type InlineConfigIndex = {
   [key: string]: unknown;
   rules?: any[];
   end: number;
-}
+};
 
 /**
  * An inline configuration class is created to hold each inline configuration
@@ -54,13 +54,11 @@ export default class InlineConfig {
    */
   applyConfig(config: InlineConfigIndex) {
     const previous = { end: -1 };
-    config.rules?.forEach(rule => {
+    config.rules?.forEach((rule) => {
       const isprev = rule.value === "$previous";
       if (rule.type === "rule") {
-        const rules = rule.name === "ALL"
-          ? Object.keys(this.current)
-          : [rule.name];
-        rules.forEach(name => this.setOption(name, isprev ? this.previous[name] : rule.value, previous));
+        const rules = rule.name === "ALL" ? Object.keys(this.current) : [rule.name];
+        rules.forEach((name) => this.setOption(name, isprev ? this.previous[name] : rule.value, previous));
         /* istanbul ignore else */
       }
     });
@@ -80,7 +78,7 @@ export default class InlineConfig {
     } else {
       this.indexConfigs
         .slice(index + 1, newIndex + 1)
-        .filter(x => !!x)
+        .filter((x) => !!x)
         .forEach(this.applyConfig, this);
       index = newIndex;
     }
@@ -119,11 +117,7 @@ export default class InlineConfig {
 
       key_values.forEach((pair: any) => {
         // TODO More precise line/column numbers
-        const r = this.parsePair(
-          pair.name,
-          pair.value,
-          node.loc
-        );
+        const r = this.parsePair(pair.name, pair.value, node.loc);
         // @ts-ignore
         (r.code ? issues : settings).push(r);
       });
@@ -133,25 +127,19 @@ export default class InlineConfig {
       rules_name.forEach((rule_name: string) => {
         if (rule_name !== "ALL" && !this.config.hasOption(rule_name)) {
           issues.push(
-            new Issue(
-              "inline_config",
-              node.loc,
-              {
-                code: "INLINE_02",
-                rule: "INLINE_02",
-                data: {
-                  rule_name: rule_name
-                }
+            new Issue("inline_config", node.loc, {
+              code: "INLINE_02",
+              rule: "INLINE_02",
+              data: {
+                rule_name: rule_name
               }
-            )
+            })
           );
         }
         settings.push({
           type: "rule",
           name: rule_name,
-          value: instruction_type === "enable"
-            ? "$previous"
-            : false
+          value: instruction_type === "enable" ? "$previous" : false
         });
       });
     }
@@ -184,22 +172,18 @@ export default class InlineConfig {
 
     const nameRegex = /^[a-zA-Z0-9-_]+$/;
     if (!nameRegex.test(name)) {
-      return new Issue(
-        "inline_config",
-        pos,
-        {
-          code: "E051",
-          rule: "INLINE_03",
-          data: {
-            name: name
-          }
+      return new Issue("inline_config", pos, {
+        code: "E051",
+        rule: "INLINE_03",
+        data: {
+          name: name
         }
-      );
+      });
     }
 
     // Strip quotes and replace single quotes with double quotes
     const squote = "'";
-    const dquote = "\""; // Single and double quote, for sanity
+    const dquote = '"'; // Single and double quote, for sanity
     if (value[0] === squote || value[0] === dquote) {
       value = value.substr(1, value.length - 2);
     }
@@ -213,33 +197,25 @@ export default class InlineConfig {
       parsed = "$previous";
     } else {
       if (!this.config.hasOption(name)) {
-        return new Issue(
-          "inline_config",
-          pos,
-          {
-            code: "INLINE_02",
-            rule: "INLINE_02",
-            data: {
-              rule_name: name
-            }
+        return new Issue("inline_config", pos, {
+          code: "INLINE_02",
+          rule: "INLINE_02",
+          data: {
+            rule_name: name
           }
-        );
+        });
       }
       try {
         parsed = JSON.parse(value);
       } catch (e) {
         if (!nameRegex.test(value)) {
-          return new Issue(
-            "inline_config",
-            pos,
-            {
-              code: "INLINE_03",
-              rule: "INLINE_03",
-              data: {
-                rule_configuration: value
-              }
+          return new Issue("inline_config", pos, {
+            code: "INLINE_03",
+            rule: "INLINE_03",
+            data: {
+              rule_configuration: value
             }
-          );
+          });
         }
         parsed = value;
       }
