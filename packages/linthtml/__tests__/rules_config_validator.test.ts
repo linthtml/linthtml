@@ -107,6 +107,7 @@ describe("Rules config validators", function() {
       const fn = create_list_value_validator("foo", []);
       expect(fn).to.be.an.instanceOf(Function);
     });
+    /* eslint-disable-next-line @typescript-eslint/no-empty-function */
     [1, () => {}, [], {}, null, undefined, true].forEach(_ => {
       it("validation fn throw an error if a string or a regexp is not provided in input", function() {
         const fn = create_list_value_validator("foo", []);
