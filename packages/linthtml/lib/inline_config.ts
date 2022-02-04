@@ -11,9 +11,9 @@ import { reportFunction } from "./read-config";
 export type InlineInstructionConfig = {
   config?: unknown;
   disabled?: boolean;
-}
+};
 
-export type InlineConfig = { [rule_name: string]: InlineInstructionConfig }
+export type InlineConfig = { [rule_name: string]: InlineInstructionConfig };
 
 function is_string_config(str: string): boolean {
   return /^("|')/.test(str) && /("|')$/.test(str);
@@ -37,11 +37,7 @@ function is_likely_inline_config(node: Node): boolean {
  */
 function check_instruction(text: string): void | never {
   const instruction = (/^linthtml-(\w+)(?:$|\s)/.exec(text) as RegExpExecArray)[1];
-  const instruction_types = [
-    "configure",
-    "enable",
-    "disable"
-  ];
+  const instruction_types = ["configure", "enable", "disable"];
   if (instruction_types.indexOf(instruction) === -1) {
     throw new CustomError("INLINE_01", { instruction });
   }
@@ -49,23 +45,22 @@ function check_instruction(text: string): void | never {
 
 // don't catch things like `rule rule_2="x"` (rule_2 extracted but not rule)
 // ' x=y - ' => extract config "y -" should be y only
-function extract_rule_config(text: string): { rule_name: string, rule_configuration: string }[] {
+function extract_rule_config(text: string): { rule_name: string; rule_configuration: string }[] {
   const R = /((?:\s|)\w+[-\w]*=)/g;
   const matches = [];
   let match;
   while ((match = R.exec(text)) !== null) {
     matches.push(match);
   }
-  return matches.reverse()
-    .map(match => {
-      const rule_name = match[0].replace("=", "").trim();
-      const rule_configuration = text.slice(match.index).replace(match[0], "");
-      text = text.slice(0, match.index);
-      return {
-        rule_name,
-        rule_configuration
-      };
-    });
+  return matches.reverse().map((match) => {
+    const rule_name = match[0].replace("=", "").trim();
+    const rule_configuration = text.slice(match.index).replace(match[0], "");
+    text = text.slice(0, match.index);
+    return {
+      rule_name,
+      rule_configuration
+    };
+  });
 }
 
 function parse_config(rule_configuration: string): unknown | never {
@@ -81,7 +76,11 @@ function parse_config(rule_configuration: string): unknown | never {
   }
 }
 
-function generate_inline_instruction(rule_name: string, rule_configuration: unknown, linter_config: Config): InlineInstructionConfig {
+function generate_inline_instruction(
+  rule_name: string,
+  rule_configuration: unknown,
+  linter_config: Config
+): InlineInstructionConfig {
   let rule;
   try {
     rule = linter_config.getRule(rule_name);
@@ -90,15 +89,11 @@ function generate_inline_instruction(rule_name: string, rule_configuration: unkn
   }
   if (typeof rule_configuration === "boolean" || rule_configuration === "off") {
     return {
-      disabled: rule_configuration === "off"
-        ? true
-        : !rule_configuration
+      disabled: rule_configuration === "off" ? true : !rule_configuration
     };
   }
   try {
-    rule_configuration = rule.configTransform
-      ? rule.configTransform(rule_configuration)
-      : rule_configuration;
+    rule_configuration = rule.configTransform ? rule.configTransform(rule_configuration) : rule_configuration;
     if (rule.validateConfig) {
       rule.validateConfig(rule_configuration);
     }
@@ -111,7 +106,9 @@ function generate_inline_instruction(rule_name: string, rule_configuration: unkn
 }
 
 function get_instruction_meta(text: string, linter_config: Config): InlineConfig {
-  const [, instruction_type, instruction_meta] = (/^linthtml-(enable|disable|configure)(?:\s+(.*)|$)/.exec(text)) as RegExpExecArray;
+  const [, instruction_type, instruction_meta] = /^linthtml-(enable|disable|configure)(?:\s+(.*)|$)/.exec(
+    text
+  ) as RegExpExecArray;
   if (instruction_type === "configure") {
     const rules_configurations = instruction_meta
       ? extract_rule_config(instruction_meta) // report error if only rule_name and nothing else

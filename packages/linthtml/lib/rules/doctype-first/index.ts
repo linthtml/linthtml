@@ -30,18 +30,12 @@ function lint(node: Node, mode: string, { report }: { report: reportFunction }) 
   // @ts-ignore
   this.passedFirst = true;
 
-  if (
-    is_directive_node(node) &&
-    node.name.toUpperCase() === "!DOCTYPE"
-  ) {
+  if (is_directive_node(node) && node.name.toUpperCase() === "!DOCTYPE") {
     return;
   }
 
   // If the option is 'smart', fail only if a head tag is present.
-  if (
-    mode === "smart" &&
-    !(is_tag_node(node) && node.name.toLowerCase() === "head")
-  ) {
+  if (mode === "smart" && !(is_tag_node(node) && node.name.toLowerCase() === "head")) {
     return;
   }
 

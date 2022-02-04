@@ -6,7 +6,7 @@ import { LegacyLinterConfig } from "../read-config";
 const none = (() => {
   const keys = Object.keys(presetsDefault);
   const obj: LegacyLinterConfig = {};
-  keys.forEach(key => {
+  keys.forEach((key) => {
     obj[key] = false;
   });
   return obj;

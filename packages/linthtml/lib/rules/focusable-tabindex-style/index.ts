@@ -10,20 +10,13 @@ function is_linkable(node: Element) {
 }
 
 function is_focusable_node(node: Element) {
-  const isFocusableNatively =
-    ["button", "input", "select", "textarea"].indexOf(node.name) !== -1;
+  const isFocusableNatively = ["button", "input", "select", "textarea"].indexOf(node.name) !== -1;
 
-  return (
-    isFocusableNatively || is_linkable(node) || has_non_empty_attribute(node, "tabindex")
-  );
+  return isFocusableNatively || is_linkable(node) || has_non_empty_attribute(node, "tabindex");
 }
 
 function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {
-  if (
-    is_tag_node(node) &&
-    is_focusable_node(node) &&
-    has_attribute(node, "disabled") === false
-  ) {
+  if (is_tag_node(node) && is_focusable_node(node) && has_attribute(node, "disabled") === false) {
     const tabindex = attribute_value(node, "tabindex");
     if (tabindex && parseInt(tabindex.chars, 10) > 0) {
       report({

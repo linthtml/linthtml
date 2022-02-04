@@ -13,41 +13,29 @@ import { flatten } from "./utils/array";
  * Return the modified html, and a function that recovers line/column
  * numbers of issues.
  */
-function raw_ignore_regex(
-  html: string,
-  options: LegacyLinterConfig | LinterConfig
-): string {
+function raw_ignore_regex(html: string, options: LegacyLinterConfig | LinterConfig): string {
   const ignore = options["raw-ignore-regex"];
   if (!ignore) {
     return html;
   }
   // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
-  return html.replace(
-    new RegExp(ignore as string | RegExp, "gm"),
-    function(match) {
-      return match.replace(/[^\n\t\n\r]/g, "¤");
-    }
-  );
+  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
+    return match.replace(/[^\n\t\n\r]/g, "¤");
+  });
 }
 
-function merge_inline_config(
-  base_config: InlineConfig,
-  new_config: InlineConfig
-): InlineConfig {
-  const merged_config: InlineConfig = Object.keys(new_config).reduce(
-    (merged_config, rule_name) => {
-      if (base_config[rule_name]) {
-        merged_config[rule_name] = {
-          ...base_config[rule_name],
-          ...new_config[rule_name]
-        };
-      } else {
-        merged_config[rule_name] = new_config[rule_name];
-      }
-      return merged_config;
-    },
-    {} as InlineConfig
-  );
+function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig): InlineConfig {
+  const merged_config: InlineConfig = Object.keys(new_config).reduce((merged_config, rule_name) => {
+    if (base_config[rule_name]) {
+      merged_config[rule_name] = {
+        ...base_config[rule_name],
+        ...new_config[rule_name]
+      };
+    } else {
+      merged_config[rule_name] = new_config[rule_name];
+    }
+    return merged_config;
+  }, {} as InlineConfig);
   return {
     ...base_config,
     ...merged_config
@@ -85,9 +73,9 @@ export default class Linter {
     html = raw_ignore_regex(html, this.config.config);
 
     const dom = this.parse_fn(html);
-    const activated_rules: ActiveRuleDefinition[] = Object.keys(
-      this.config.activated_rules
-    ).map((name) => this.config.activated_rules[name]);
+    const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
+      (name) => this.config.activated_rules[name]
+    );
     const domIssues = this.lint_DOM(activated_rules, dom);
     let issues: Issue[] = [...domIssues, ...this.reset_rules()];
 
@@ -101,7 +89,7 @@ export default class Linter {
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {
     const issues: Issue[] = [];
     // merge with report in call_rule_lint ?
-    function report_inline_config(data: { code: string, position: Range, meta?: any }) {
+    function report_inline_config(data: { code: string; position: Range; meta?: any }) {
       const meta = {
         ...data.meta,
         severity: "error",
@@ -111,15 +99,9 @@ export default class Linter {
       issues.push(new Issue("inline_config", data.position, meta));
     }
 
-    const getIssues = (
-      node: Node,
-      parent_inline_config: InlineConfig
-    ): Issue[] => {
+    const getIssues = (node: Node, parent_inline_config: InlineConfig): Issue[] => {
       let issues = rules.reduce(
-        (issues, rule) => [
-          ...issues,
-          ...this.call_rule_lint(rule, node, parent_inline_config)
-        ],
+        (issues, rule) => [...issues, ...this.call_rule_lint(rule, node, parent_inline_config)],
         [] as Issue[]
       );
       if (node.children && node.children.length > 0) {
@@ -127,15 +109,8 @@ export default class Linter {
           ...parent_inline_config
         };
         node.children.forEach((child: Node) => {
-          const extracted_inline_config = extract_inline_config(
-            child,
-            this.config,
-            report_inline_config
-          );
-          inline_config = merge_inline_config(
-            inline_config,
-            extracted_inline_config
-          );
+          const extracted_inline_config = extract_inline_config(child, this.config, report_inline_config);
+          inline_config = merge_inline_config(inline_config, extracted_inline_config);
           issues = [...issues, ...getIssues(child, inline_config)];
         });
       }
@@ -144,28 +119,17 @@ export default class Linter {
 
     let inline_config: InlineConfig = {};
     const rules_issues: Issue[][] = dom.children.map((node: Node) => {
-      const extracted_inline_config = extract_inline_config(
-        node,
-        this.config,
-        report_inline_config
-      );
-      inline_config = merge_inline_config(
-        inline_config,
-        extracted_inline_config
-      );
+      const extracted_inline_config = extract_inline_config(node, this.config, report_inline_config);
+      inline_config = merge_inline_config(inline_config, extracted_inline_config);
       return getIssues(node, inline_config);
     });
     return [...issues, ...flatten(rules_issues)];
   }
 
   // TODO: Remove after v1
-  private call_rule_lint(
-    rule: ActiveRuleDefinition,
-    node: Node,
-    inline_config: InlineConfig
-  ): Issue[] {
+  private call_rule_lint(rule: ActiveRuleDefinition, node: Node, inline_config: InlineConfig): Issue[] {
     const issues: Issue[] = [];
-    function report(data: { code: string, position: Range, meta?: any, message?: string }) {
+    function report(data: { code: string; position: Range; meta?: any; message?: string }) {
       const meta = {
         ...data.meta,
         severity: rule.severity,
@@ -180,8 +144,7 @@ export default class Linter {
       return issues;
     }
 
-    const rule_config =
-      inline_config[rule.name]?.config ?? this.config.legacy_config[rule.name];
+    const rule_config = inline_config[rule.name]?.config ?? this.config.legacy_config[rule.name];
 
     const global_config = inline_config[rule.name]?.config
       ? {

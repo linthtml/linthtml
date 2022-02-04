@@ -11,10 +11,12 @@ function print_position({ position: { start } }: Issue, maxLine: number, maxColu
 }
 
 function print_level({ severity }: { severity: string }) {
-  return `${{
-    warning: "yellow warning",
-    error: "red error"
-  }[severity]}`;
+  return `${
+    {
+      warning: "yellow warning",
+      error: "red error"
+    }[severity]
+  }`;
 }
 
 export default function print_file_report(report: Report) {
@@ -33,7 +35,7 @@ export default function print_file_report(report: Report) {
     msg: string;
     level: string;
     rule: string;
-  }
+  };
   const issues: CliIssue[] = report.issues.map((issue: Issue) => {
     const msg = renderIssue(issue);
     const positionTxt = print_position(issue, maxLine, maxColumn);

@@ -4,195 +4,132 @@ import { expect } from "chai";
 import { Element } from "@linthtml/dom-utils/lib/dom_elements";
 import parse from "../lib";
 
-describe("HTML Parser", function() {
-  it("Tags positions are correct (nesting)", function() {
-    const { children } = parse(
-      [
-        "<body>",
-        "  <div a=\"jofwei\">",
-        "    TextTextText",
-        "  </div>",
-        "</body>"
-      ].join("\n")
-    );
-    expect(children[0].open.loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 1,
-          column: 1
-        },
-        end: {
-          line: 1,
-          column: 7
-        }
-      });
-    expect(children[0]?.close?.loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 5,
-          column: 1
-        },
-        end: {
-          line: 5,
-          column: 8
-        }
-      });
-    expect(children[0].children[1].open.loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 2,
-          column: 3
-        },
-        end: {
-          line: 2,
-          column: 19
-        }
-      });
-    expect(children[0]?.children[1]?.close?.loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 4,
-          column: 3
-        },
-        end: {
-          line: 4,
-          column: 9
-        }
-      });
+describe("HTML Parser", function () {
+  it("Tags positions are correct (nesting)", function () {
+    const { children } = parse(["<body>", '  <div a="jofwei">', "    TextTextText", "  </div>", "</body>"].join("\n"));
+    expect(children[0].open.loc).to.deep.equal({
+      start: {
+        line: 1,
+        column: 1
+      },
+      end: {
+        line: 1,
+        column: 7
+      }
+    });
+    expect(children[0]?.close?.loc).to.deep.equal({
+      start: {
+        line: 5,
+        column: 1
+      },
+      end: {
+        line: 5,
+        column: 8
+      }
+    });
+    expect(children[0].children[1].open.loc).to.deep.equal({
+      start: {
+        line: 2,
+        column: 3
+      },
+      end: {
+        line: 2,
+        column: 19
+      }
+    });
+    expect(children[0]?.children[1]?.close?.loc).to.deep.equal({
+      start: {
+        line: 4,
+        column: 3
+      },
+      end: {
+        line: 4,
+        column: 9
+      }
+    });
   });
   // TODO: check tag open end position different line
 
-  it("Tags positions are correct (siblings)", function() {
-    const { children } = parse(
-      [
-        "<div></div>",
-        "<div></div>",
-        "<div></div>"
-      ].join("\n")
-    );
-    expect(children)
-      .to
-      .have
-      .lengthOf(5, "3 divs and 2 text node are extracted");
-    expect(children[0].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 1,
-          column: 1
-        },
-        end: {
-          line: 1,
-          column: 12
-        }
-      });
-    expect(children[2].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 2,
-          column: 1
-        },
-        end: {
-          line: 2,
-          column: 12
-        }
-      });
-    expect(children[4].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 3,
-          column: 1
-        },
-        end: {
-          line: 3,
-          column: 12
-        }
-      });
+  it("Tags positions are correct (siblings)", function () {
+    const { children } = parse(["<div></div>", "<div></div>", "<div></div>"].join("\n"));
+    expect(children).to.have.lengthOf(5, "3 divs and 2 text node are extracted");
+    expect(children[0].loc).to.deep.equal({
+      start: {
+        line: 1,
+        column: 1
+      },
+      end: {
+        line: 1,
+        column: 12
+      }
+    });
+    expect(children[2].loc).to.deep.equal({
+      start: {
+        line: 2,
+        column: 1
+      },
+      end: {
+        line: 2,
+        column: 12
+      }
+    });
+    expect(children[4].loc).to.deep.equal({
+      start: {
+        line: 3,
+        column: 1
+      },
+      end: {
+        line: 3,
+        column: 12
+      }
+    });
   });
 
-  it("Correctly extract doctype position", function() {
+  it("Correctly extract doctype position", function () {
     const { children } = parse("<!DOCTYPE html>");
-    expect(children)
-      .to
-      .have
-      .lengthOf(1);
-    expect(children[0].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 1,
-          column: 1
-        },
-        end: {
-          line: 1,
-          column: 16
-        }
-      });
+    expect(children).to.have.lengthOf(1);
+    expect(children[0].loc).to.deep.equal({
+      start: {
+        line: 1,
+        column: 1
+      },
+      end: {
+        line: 1,
+        column: 16
+      }
+    });
   });
 
-  it("Correctly extract doctype position when there's a comment before", function() {
-    const { children } = parse(
-      [
-        "<!-- foo -->",
-        "<!DOCTYPE html>"
-      ].join("\n")
-    );
-    expect(children)
-      .to
-      .have
-      .lengthOf(3, "1 comment, 1 text node and the doctype are extracted");
-    expect(children[0].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 1,
-          column: 1
-        },
-        end: {
-          line: 1,
-          column: 13
-        }
-      });
-    expect(children[2].loc)
-      .to
-      .deep
-      .equal({
-        start: {
-          line: 2,
-          column: 1
-        },
-        end: {
-          line: 2,
-          column: 16
-        }
-      });
+  it("Correctly extract doctype position when there's a comment before", function () {
+    const { children } = parse(["<!-- foo -->", "<!DOCTYPE html>"].join("\n"));
+    expect(children).to.have.lengthOf(3, "1 comment, 1 text node and the doctype are extracted");
+    expect(children[0].loc).to.deep.equal({
+      start: {
+        line: 1,
+        column: 1
+      },
+      end: {
+        line: 1,
+        column: 13
+      }
+    });
+    expect(children[2].loc).to.deep.equal({
+      start: {
+        line: 2,
+        column: 1
+      },
+      end: {
+        line: 2,
+        column: 16
+      }
+    });
   });
 
-  it("should correctly extract all attributes", function() {
+  it("should correctly extract all attributes", function () {
     const { children } = parse(
-      [
-        "<body>",
-        "  <div class=\"hello\" id=\"identityDiv\" class=\"goodbye\">",
-        "  </div>",
-        "</body>"
-      ].join("\n")
+      ["<body>", '  <div class="hello" id="identityDiv" class="goodbye">', "  </div>", "</body>"].join("\n")
     );
-    const div = <Element> children[0].children[1];
+    const div = <Element>children[0].children[1];
 
     expect(div.attributes).to.have.lengthOf(3);
     const [class_1, id, class_2] = div.attributes;
@@ -233,7 +170,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(class_1?.value?.chars).to.equal("hello");
-    expect(class_1?.value?.raw).to.be.equal("\"hello\"");
+    expect(class_1?.value?.raw).to.be.equal('"hello"');
     expect(class_1?.value?.loc).to.deep.equal({
       start: {
         line: 2,
@@ -281,7 +218,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(id?.value?.chars).to.equal("identityDiv");
-    expect(id?.value?.raw).to.be.equal("\"identityDiv\"");
+    expect(id?.value?.raw).to.be.equal('"identityDiv"');
     expect(id?.value?.loc).to.deep.equal({
       start: {
         line: 2,
@@ -329,7 +266,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(class_2?.value?.chars).to.equal("goodbye");
-    expect(class_2?.value?.raw).to.be.equal("\"goodbye\"");
+    expect(class_2?.value?.raw).to.be.equal('"goodbye"');
     expect(class_2?.value?.loc).to.deep.equal({
       start: {
         line: 2,
@@ -342,19 +279,11 @@ describe("HTML Parser", function() {
     });
   });
 
-  it("should correctly extract all attributes on multiple lines", function() {
+  it("should correctly extract all attributes on multiple lines", function () {
     const { children } = parse(
-      [
-        "<body>",
-        "  <div",
-        "    class=\"hello\"",
-        "    id=\"identityDiv\"",
-        "  >",
-        "  </div>",
-        "</body>"
-      ].join("\n")
+      ["<body>", "  <div", '    class="hello"', '    id="identityDiv"', "  >", "  </div>", "</body>"].join("\n")
     );
-    const div = <Element> children[0].children[1];
+    const div = <Element>children[0].children[1];
 
     expect(div.attributes).to.have.lengthOf(2);
     const [_class, id] = div.attributes;
@@ -385,7 +314,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(_class?.value?.chars).to.equal("hello");
-    expect(_class?.value?.raw).to.be.equal("\"hello\"");
+    expect(_class?.value?.raw).to.be.equal('"hello"');
     expect(_class?.value?.loc).to.deep.equal({
       start: {
         line: 3,
@@ -423,7 +352,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(id?.value?.chars).to.equal("identityDiv");
-    expect(id?.value?.raw).to.be.equal("\"identityDiv\"");
+    expect(id?.value?.raw).to.be.equal('"identityDiv"');
     expect(id?.value?.loc).to.deep.equal({
       start: {
         line: 4,
@@ -436,19 +365,11 @@ describe("HTML Parser", function() {
     });
   });
 
-  it("should correctly extract attribute with value on multiline", function() {
+  it("should correctly extract attribute with value on multiline", function () {
     const { children } = parse(
-      [
-        "<body>",
-        "  <div",
-        "    class=\"hello",
-        "      identityDiv\"",
-        "  >",
-        "  </div>",
-        "</body>"
-      ].join("\n")
+      ["<body>", "  <div", '    class="hello', '      identityDiv"', "  >", "  </div>", "</body>"].join("\n")
     );
-    const div = <Element> children[0].children[1];
+    const div = <Element>children[0].children[1];
 
     expect(div.attributes).to.have.lengthOf(1);
     const [_class] = div.attributes;
@@ -490,7 +411,7 @@ describe("HTML Parser", function() {
       }
     });
     expect(_class?.value?.chars).to.equal("hello\n      identityDiv");
-    expect(_class?.value?.raw).to.be.equal("\"hello\n      identityDiv\"");
+    expect(_class?.value?.raw).to.be.equal('"hello\n      identityDiv"');
     expect(_class?.value?.loc).to.deep.equal({
       start: {
         line: 3,

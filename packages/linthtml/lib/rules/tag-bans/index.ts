@@ -5,9 +5,10 @@ import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 const RULE_NAME = "tag-bans";
 
 function validateConfig(options: unknown) {
-  const typeError = (type: string) => `Configuration for rule "${RULE_NAME}" is invalid: Expected string or string[] got ${type}`;
+  const typeError = (type: string) =>
+    `Configuration for rule "${RULE_NAME}" is invalid: Expected string or string[] got ${type}`;
   if (Array.isArray(options)) {
-    return options.forEach(option => {
+    return options.forEach((option) => {
       const type = typeof option;
       if (type !== "string") {
         throw new Error(typeError(`${type}[]`));
@@ -21,7 +22,7 @@ function validateConfig(options: unknown) {
 
 function mut_config(options: string | string[]): string[] {
   if (Array.isArray(options)) {
-    return options.map(option => option.toLowerCase());
+    return options.map((option) => option.toLowerCase());
   }
   if (typeof options === "string") {
     options = [options.toLowerCase()];

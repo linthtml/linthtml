@@ -17,14 +17,13 @@ function lint(node: Node, format: "cr" | "lf" | "crlf", { report }: { report: re
     const lines = get_lines(node, true).filter(({ text }) => !formats[format].test(text));
 
     Object.keys(formats)
-      .filter(_ => _ !== format)
-      .forEach(format => {
-        lines.filter(({ text }) => formats[format as "cr" | "lf" | "crlf"].test(text))
-          .forEach(line => {
+      .filter((_) => _ !== format)
+      .forEach((format) => {
+        lines
+          .filter(({ text }) => formats[format as "cr" | "lf" | "crlf"].test(text))
+          .forEach((line) => {
             const start_line = node.loc.start.line + line.offset;
-            const start_column = line.offset === 0
-              ? node.loc.start.column
-              : 1;
+            const start_column = line.offset === 0 ? node.loc.start.column : 1;
             report({
               code: "E015",
               position: {

@@ -4,12 +4,7 @@ import chalk from "chalk";
 import ora from "ora";
 import meow from "meow";
 
-import {
-  Report,
-  Issue,
-  exitProcess,
-  EXIT_CODE_ERROR
-} from "./utils";
+import { Report, Issue, exitProcess, EXIT_CODE_ERROR } from "./utils";
 
 import checkInvalidCLIOptions from "./check-invalid-cli-options";
 import print_file_report from "./print-file-report";
@@ -44,7 +39,8 @@ const cliOptions = {
       type: "string",
       alias: "c"
     },
-    color: { // no need to add `no-color` it"s automatic same for colorization too (no need to do anything)
+    color: {
+      // no need to add `no-color` it"s automatic same for colorization too (no need to do anything)
       type: "boolean",
       default: true
     },
@@ -81,11 +77,11 @@ export default function cli(argv: string[]) {
   // Add format flag (json, yaml, rc) to command
   // Add legacy flag to command
   if (cli.flags.init) {
-    return init_command()
-      .then(() => exitProcess());
+    return init_command().then(() => exitProcess());
   }
 
-  if (cli.flags.printConfig !== undefined) { // convert to command and throw deprecation warning for flag
+  if (cli.flags.printConfig !== undefined) {
+    // convert to command and throw deprecation warning for flag
     return print_config_command(cli.flags.printConfig as string);
   }
 
@@ -114,7 +110,7 @@ async function lint(input: string[], config_path: string) {
   try {
     lintSpinner.start();
     let reports: Report[] = await Promise.all(files_linters.map(lintFile));
-    reports = reports.filter(report => report.issues.length > 0);
+    reports = reports.filter((report) => report.issues.length > 0);
     lintSpinner.succeed("Files analyzed");
     printReports(reports);
   } catch (error: any) {
@@ -137,15 +133,23 @@ function printReports(reports: Report[]) {
       .filter((report) => report.issues.length > 0)
       .reduce((acc: Issue[], { issues }) => [...acc, ...issues], []);
 
-    const errorsCount = issues.reduce((count, issue) => issue.severity === "error" ? count + 1 : count, 0);
-    const warningCount = issues.reduce((count, issue) => issue.severity === "warning" ? count + 1 : count, 0);
+    const errorsCount = issues.reduce((count, issue) => (issue.severity === "error" ? count + 1 : count), 0);
+    const warningCount = issues.reduce((count, issue) => (issue.severity === "warning" ? count + 1 : count), 0);
     const problemsCount = errorsCount + warningCount;
 
     if (errorsCount > 0) {
-      console.log(chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+      console.log(
+        chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+          errorsCount > 1 ? "errors" : "error"
+        }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
+      );
       return exitProcess(EXIT_CODE_ERROR);
     }
-    console.log(chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${errorsCount > 1 ? "errors" : "error"}, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`);
+    console.log(
+      chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+        errorsCount > 1 ? "errors" : "error"
+      }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
+    );
   } else {
     console.log("✨  There's no problem, good job 👏");
   }

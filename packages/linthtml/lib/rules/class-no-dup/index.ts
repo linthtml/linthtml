@@ -11,17 +11,19 @@ function filterClasses(classes: string[], options: LegacyLinterConfig) {
   let ignore = options["id-class-ignore-regex"];
 
   // TODO: Remove after `raw-ignore-text` refacto
-  classes = classes.filter(_ => /^¤+$/.test(_) === false);
+  classes = classes.filter((_) => /^¤+$/.test(_) === false);
   if (ignore) {
-    ignore = isRegExp(ignore)
-      ? ignore
-      : new RegExp(ignore);
-    classes = classes.filter(_class => !(ignore as RegExp).test(_class));
+    ignore = isRegExp(ignore) ? ignore : new RegExp(ignore);
+    classes = classes.filter((_class) => !(ignore as RegExp).test(_class));
   }
   return classes;
 }
 
-function lint(node: Node, _config: unknown, { report, global_config }: { report: reportFunction, global_config: LegacyLinterConfig }) {
+function lint(
+  node: Node,
+  _config: unknown,
+  { report, global_config }: { report: reportFunction; global_config: LegacyLinterConfig }
+) {
   if (is_tag_node(node) && has_attribute(node, "class")) {
     const class_attribute = attribute_value(node, "class") as CharValue;
     let classes = filterClasses(get_classes(class_attribute), global_config);

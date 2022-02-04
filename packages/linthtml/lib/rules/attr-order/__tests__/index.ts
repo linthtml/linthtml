@@ -3,19 +3,21 @@ import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 
-describe("legacy linter | attr-order", function() {
+describe("legacy linter | attr-order", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report errors when attributes are in the correct order", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "height", "width"] });
+  it("Should not report errors when attributes are in the correct order", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "height", "width"]
+    });
     const html = "<img class='test' src='test.gif' height='200' width='300'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should fail when attribute order is reversed", async function() {
+  it("Should fail when attribute order is reversed", async function () {
     const linter = createLinter({ "attr-order": ["class", "src"] });
     const html = "<img src='test.gif' class='test' />";
 
@@ -23,8 +25,10 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report one error per misplaced attribute", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "height", "width"] });
+  it("Should report one error per misplaced attribute", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "height", "width"]
+    });
     const html = "<img height='200' src='test.gif' class='test' width='300'/>";
 
     // should report error for src and class but not width
@@ -32,47 +36,57 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report error for attributes that are not present", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "height", "width"] });
+  it("Should not report error for attributes that are not present", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "height", "width"]
+    });
     const html = "<img src='test.gif' height='200'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report additional errors for attributes which are not present", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "height", "width"] });
+  it("Should not report additional errors for attributes which are not present", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "height", "width"]
+    });
     const html = "<img src='test.gif' class='test'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should be case insensitive (OK)", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "HEIGHT", "width"] });
+  it("Should be case insensitive (OK)", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "HEIGHT", "width"]
+    });
     const html = "<img CLASS='test' src='test.gif' height='200' width='300'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should be case insensitive (KO)", async function() {
-    const linter = createLinter({ "attr-order": ["class", "src", "HEIGHT", "width"] });
+  it("Should be case insensitive (KO)", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", "src", "HEIGHT", "width"]
+    });
     const html = "<img src='test.gif' CLASS='test' height='200' width='300'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should workds for attributes without value", async function() {
-    const linter = createLinter({ "attr-order": ["type", "aria-label", "disabled"] });
+  it("Should workds for attributes without value", async function () {
+    const linter = createLinter({
+      "attr-order": ["type", "aria-label", "disabled"]
+    });
     const html = "<input disabled type='checkbox' aria-label='A checkbox'/>";
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should accept Regexp as config (OK)", async function() {
+  it("Should accept Regexp as config (OK)", async function () {
     const linter = createLinter({ "attr-order": ["class", /^.*$/] });
     const html = "<img class='test' src='test.gif' height='200' width='300'/>";
 
@@ -81,7 +95,7 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept Regexp as config (KO)", async function() {
+  it("Should accept Regexp as config (KO)", async function () {
     const linter = createLinter({ "attr-order": ["class", /^.*$/] });
     const html = "<img src='test.gif' class='test' height='200' width='300'/>";
 
@@ -90,8 +104,10 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should accept multiple Regexp as config (OK)", async function() {
-    const linter = createLinter({ "attr-order": ["class", /^data-.*$/, /^.*$/] });
+  it("Should accept multiple Regexp as config (OK)", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", /^data-.*$/, /^.*$/]
+    });
     const html = "<img class='test' data-x src='test.gif' height='200' width='300'/>";
 
     // class then everything else
@@ -99,8 +115,10 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept multiple Regexp as config (KO)", async function() {
-    const linter = createLinter({ "attr-order": ["class", /^data-.*$/, /^.*$/] });
+  it("Should accept multiple Regexp as config (KO)", async function () {
+    const linter = createLinter({
+      "attr-order": ["class", /^data-.*$/, /^.*$/]
+    });
     const html = "<img data-x class='test' src='test.gif' height='200' width='300'/>";
 
     // class then everything else
@@ -108,35 +126,30 @@ describe("legacy linter | attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should throw an error when an invalid config is provided", function() {
+  it("Should throw an error when an invalid config is provided", function () {
     const linter = createLinter({ "attr-order": ["class", 3] });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"attr-order\" is invalid: Expected (string|RegExp)[] got number[]");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "attr-order" is invalid: Expected (string|RegExp)[] got number[]'
+    );
   });
 
-  it("Should throw an error when an invalid config is provided (string only)", function() {
+  it("Should throw an error when an invalid config is provided (string only)", function () {
     const linter = createLinter({ "attr-order": "class" });
     const html = "";
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"attr-order\" is invalid: Expected (string|RegExp)[] got string");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "attr-order" is invalid: Expected (string|RegExp)[] got string'
+    );
   });
 });
 
-describe("attr-order", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("attr-order", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report errors when attributes are in the correct order", async function() {
+  it("Should not report errors when attributes are in the correct order", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "height", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "height", "width"]]
     });
     const html = "<img class='test' src='test.gif' height='200' width='300'/>";
 
@@ -144,12 +157,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should fail when attribute order is reversed", async function() {
+  it("Should fail when attribute order is reversed", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src"]
-      ]
+      "attr-order": [true, ["class", "src"]]
     });
     const html = "<img src='test.gif' class='test' />";
 
@@ -157,12 +167,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should report one error per misplaced attribute", async function() {
+  it("Should report one error per misplaced attribute", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "height", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "height", "width"]]
     });
     const html = "<img height='200' src='test.gif' class='test' width='300'/>";
 
@@ -170,12 +177,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should not report error for attributes that are not present", async function() {
+  it("Should not report error for attributes that are not present", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "height", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "height", "width"]]
     });
     const html = "<img src='test.gif' height='200'/>";
 
@@ -183,12 +187,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should not report additional errors for attributes which are not present", async function() {
+  it("Should not report additional errors for attributes which are not present", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "height", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "height", "width"]]
     });
     const html = "<img src='test.gif' class='test'/>";
 
@@ -196,12 +197,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should be case insensitive (OK)", async function() {
+  it("Should be case insensitive (OK)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "HEIGHT", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "HEIGHT", "width"]]
     });
     const html = "<img CLASS='test' src='test.gif' height='200' width='300'/>";
 
@@ -209,12 +207,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should be case insensitive (HTML attributes) (KO)", async function() {
+  it("Should be case insensitive (HTML attributes) (KO)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", "src", "height", "width"]
-      ]
+      "attr-order": [true, ["class", "src", "height", "width"]]
     });
     const html = "<img src='test.gif' CLASS='test' height='200' width='300'/>";
 
@@ -222,12 +217,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should be case insensitive (HTML attributes and config) (KO)", async function() {
+  it("Should be case insensitive (HTML attributes and config) (KO)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["CLASS", "src", "HEIGHT", "width"]
-      ]
+      "attr-order": [true, ["CLASS", "src", "HEIGHT", "width"]]
     });
     const html = "<img src='test.gif' CLASS='test' height='200' width='300'/>";
 
@@ -235,12 +227,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report errors for angular like attributes (*ngIf)", async function() {
+  it("Report errors for angular like attributes (*ngIf)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["*ngIf", "class"]
-      ]
+      "attr-order": [true, ["*ngIf", "class"]]
     });
     const html = "<div class='item' *ngIf='bar'></div>";
 
@@ -248,12 +237,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report errors for angular like attributes ([ngClass])", async function() {
+  it("Report errors for angular like attributes ([ngClass])", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["[ngClass]", "class"]
-      ]
+      "attr-order": [true, ["[ngClass]", "class"]]
     });
     const html = "<div class='table' [ngClass]='foo'></div>";
 
@@ -261,12 +247,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should workds for attributes without value", async function() {
+  it("Should workds for attributes without value", async function () {
     const linter = createLinter({
-      "attr-order": [
-        "error",
-        ["type", "aria-label", "disabled"]
-      ]
+      "attr-order": ["error", ["type", "aria-label", "disabled"]]
     });
     const html = "<input disabled type='checkbox' aria-label='A checkbox'/>";
 
@@ -274,12 +257,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should accept Regexp as config (OK)", async function() {
+  it("Should accept Regexp as config (OK)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", /^.*$/]
-      ]
+      "attr-order": [true, ["class", /^.*$/]]
     });
     const html = "<img class='test' src='test.gif' height='200' width='300'/>";
 
@@ -288,12 +268,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept Regexp as config (KO)", async function() {
+  it("Should accept Regexp as config (KO)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", /^.*$/]
-      ]
+      "attr-order": [true, ["class", /^.*$/]]
     });
     const html = "<img src='test.gif' class='test' height='200' width='300'/>";
 
@@ -302,12 +279,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should accept multiple Regexp as config (OK)", async function() {
+  it("Should accept multiple Regexp as config (OK)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", /^data-.*$/, /^.*$/]
-      ]
+      "attr-order": [true, ["class", /^data-.*$/, /^.*$/]]
     });
     const html = "<img class='test' data-x src='test.gif' height='200' width='300'/>";
 
@@ -316,12 +290,9 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should accept multiple Regexp as config (KO)", async function() {
+  it("Should accept multiple Regexp as config (KO)", async function () {
     const linter = createLinter({
-      "attr-order": [
-        true,
-        ["class", /^data-.*$/, /^.*$/]
-      ]
+      "attr-order": [true, ["class", /^data-.*$/, /^.*$/]]
     });
     const html = "<img data-x class='test' src='test.gif' height='200' width='300'/>";
 
@@ -330,27 +301,21 @@ describe("attr-order", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should throw an error when an invalid config is provided", function() {
+  it("Should throw an error when an invalid config is provided", function () {
     const config = {
-      "attr-order": [
-        true,
-        ["class", 3]
-      ] as [boolean, unknown]
+      "attr-order": [true, ["class", 3]] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"attr-order\" is invalid: Expected (string|RegExp)[] got number[]");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "attr-order" is invalid: Expected (string|RegExp)[] got number[]'
+    );
   });
 
-  it("Should throw an error when an invalid config is provided (string only)", function() {
+  it("Should throw an error when an invalid config is provided (string only)", function () {
     const config = {
-      "attr-order": [
-        true,
-        "class"
-      ] as [boolean, unknown]
+      "attr-order": [true, "class"] as [boolean, unknown]
     };
-    expect(() => createLinter(config))
-      .to
-      .throw("Configuration for rule \"attr-order\" is invalid: Expected (string|RegExp)[] got string");
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "attr-order" is invalid: Expected (string|RegExp)[] got string'
+    );
   });
 });

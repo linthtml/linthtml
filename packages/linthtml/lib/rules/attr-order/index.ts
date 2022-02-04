@@ -8,9 +8,10 @@ const { isRegExp } = types;
 const RULE_NAME = "attr-order";
 // TODO: Use validator
 function validateConfig(options: unknown) {
-  const typeError = (type: string) => `Configuration for rule "${RULE_NAME}" is invalid: Expected (string|RegExp)[] got ${type}`;
+  const typeError = (type: string) =>
+    `Configuration for rule "${RULE_NAME}" is invalid: Expected (string|RegExp)[] got ${type}`;
   if (Array.isArray(options)) {
-    options = options.map(option => {
+    options = options.map((option) => {
       const type = typeof option;
       if (type === "string") {
         return option.toLowerCase();
@@ -26,7 +27,7 @@ function validateConfig(options: unknown) {
 }
 
 function mut_config(options: (RegExp | string)[]) {
-  return options.map(option => {
+  return options.map((option) => {
     if (isRegExp(option)) {
       return option;
     }
@@ -45,18 +46,18 @@ function lint(node: Node, config: (string | RegExp)[], { report }: { report: rep
 
   // Improve algo
   const attributes: Record<string, NodeAttribute> = {};
-  (node as Element).attributes.forEach(attribute => {
+  (node as Element).attributes.forEach((attribute) => {
     const name = attribute.name.chars.toLowerCase();
     if (attributes[name] === undefined) {
       attributes[name] = attribute;
     }
   });
 
-  order.forEach(function(name) {
+  order.forEach(function (name) {
     if (isRegExp(name)) {
       const prevpos = lastpos;
       const prevname = lastname;
-      Object.keys(attributes).forEach(function(attribute_name) {
+      Object.keys(attributes).forEach(function (attribute_name) {
         if (matched[attribute_name] || !name.test(attribute_name)) {
           return;
         }

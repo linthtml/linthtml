@@ -9,7 +9,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     if (node.name === "figure") {
       // get the children of this figure
       const children = node.children;
-      const has_caption = children.find(child => (child as Element).name === "figcaption");
+      const has_caption = children.find((child) => (child as Element).name === "figcaption");
       if (has_caption === undefined) {
         report({
           code: "E032",

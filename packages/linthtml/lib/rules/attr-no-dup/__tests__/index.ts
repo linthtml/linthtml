@@ -3,35 +3,35 @@ import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 
-describe("legacy linter | attr-no-dup", function() {
+describe("legacy linter | attr-no-dup", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report an error when an attribute is not duplicated", async function() {
+  it("Should not report an error when an attribute is not duplicated", async function () {
     const linter = createLinter({ "attr-no-dup": true });
-    const html = "<div class=\"foo\"></div>";
+    const html = '<div class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when an attribute is duplicated", async function() {
+  it("Should report an error when an attribute is duplicated", async function () {
     const linter = createLinter({ "attr-no-dup": true });
-    const html = "<div class=\"foo\" class=\"foo\"></div>";
+    const html = '<div class="foo" class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should catch multiple duplicates in one element", async function() {
+  it("Should catch multiple duplicates in one element", async function () {
     const linter = createLinter({ "attr-no-dup": true });
-    const html = "<div class=\"foo\" class=\"foo\" id=\"bar\" id=\"bar\"></div>";
+    const html = '<div class="foo" class="foo" id="bar" id="bar"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should catch duplicates on multiple elements", async function() {
+  it("Should catch duplicates on multiple elements", async function () {
     const linter = createLinter({ "attr-no-dup": true });
     const html = "<div class='foo' class='foo'><p id='bar' id='bar'>Text</p></div>";
 
@@ -39,7 +39,7 @@ describe("legacy linter | attr-no-dup", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should be case insensitive", async function() {
+  it("Should be case insensitive", async function () {
     const linter = createLinter({ "attr-no-dup": true });
     const html = "<div class='foo' Class='foo'></div>";
 
@@ -47,7 +47,7 @@ describe("legacy linter | attr-no-dup", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should throw an error when an invalid config is provided", function() {
+  it("Should throw an error when an invalid config is provided", function () {
     const linter = createLinter({ "attr-no-dup": "toto" });
     const html = `
       <div
@@ -55,48 +55,46 @@ describe("legacy linter | attr-no-dup", function() {
         id>
       </div>
     `;
-    expect(() => linter.lint(html))
-      .to
-      .throw("Configuration for rule \"attr-no-dup\" is invalid: Expected boolean got string");
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "attr-no-dup" is invalid: Expected boolean got string'
+    );
   });
 });
-describe("attr-no-dup", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("attr-no-dup", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report an error when an attribute is not duplicated", async function() {
+  it("Should not report an error when an attribute is not duplicated", async function () {
     const linter = createLinter({
       "attr-no-dup": true
     });
-    const html = "<div class=\"foo\"></div>";
+    const html = '<div class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Should report an error when an attribute is duplicated", async function() {
+  it("Should report an error when an attribute is duplicated", async function () {
     const linter = createLinter({
       "attr-no-dup": true
     });
-    const html = "<div class=\"foo\" class=\"foo\"></div>";
+    const html = '<div class="foo" class="foo"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Should catch multiple duplicates in one element", async function() {
+  it("Should catch multiple duplicates in one element", async function () {
     const linter = createLinter({
       "attr-no-dup": true
     });
-    const html = "<div class=\"foo\" class=\"foo\" id=\"bar\" id=\"bar\"></div>";
+    const html = '<div class="foo" class="foo" id="bar" id="bar"></div>';
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should catch duplicates on multiple elements", async function() {
+  it("Should catch duplicates on multiple elements", async function () {
     const linter = createLinter({
       "attr-no-dup": true
     });
@@ -106,7 +104,7 @@ describe("attr-no-dup", function() {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should be case insensitive", async function() {
+  it("Should be case insensitive", async function () {
     const linter = createLinter({
       "attr-no-dup": true
     });

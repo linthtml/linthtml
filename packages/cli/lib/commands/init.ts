@@ -30,24 +30,30 @@ const GENERATORS = {
 };
 
 export default async function init_command(): Promise<void> {
-  const response: { format: "JavaScript" | "YAML" | "JSON", legacy: boolean } = await inquirer.prompt([{
-    type: "list",
-    name: "format",
-    message: "What format do you want your config file to be in?",
-    default: "Javascript",
-    choices: ["JavaScript", "YAML", "JSON"]
-  }, {
-    type: "list",
-    name: "legacy",
-    message: "Do you want to use the new config format or the legacy?",
-    choices: [{
-      name: "New format",
-      value: false
-    }, {
-      name: "Legacy (inherited from HTMLLint)",
-      value: true
-    }]
-  }]);
+  const response: { format: "JavaScript" | "YAML" | "JSON"; legacy: boolean } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "format",
+      message: "What format do you want your config file to be in?",
+      default: "Javascript",
+      choices: ["JavaScript", "YAML", "JSON"]
+    },
+    {
+      type: "list",
+      name: "legacy",
+      message: "Do you want to use the new config format or the legacy?",
+      choices: [
+        {
+          name: "New format",
+          value: false
+        },
+        {
+          name: "Legacy (inherited from HTMLLint)",
+          value: true
+        }
+      ]
+    }
+  ]);
 
   const config_file = GENERATORS[response.format];
   console.log();

@@ -9,8 +9,8 @@ const RULE_NAME = "title-max-len";
 function lint(node: Node, max_length: number, { report }: { report: reportFunction }) {
   if (is_tag_node(node) && node.name === "title") {
     const text = node.children
-      .filter(child => is_text_node(child))
-      .map(child => (child as Text).data)
+      .filter((child) => is_text_node(child))
+      .map((child) => (child as Text).data)
       .join("");
     if (text.length > max_length) {
       report({

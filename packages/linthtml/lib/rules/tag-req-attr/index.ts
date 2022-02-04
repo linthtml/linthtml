@@ -11,16 +11,18 @@ function validateConfig(options: unknown) {
   return options;
 }
 // TODO: Cleanup config validation
-function lint(node: Node, tags: Record<string, { name:string, allowEmpty: boolean }[]>, { report }: { report: reportFunction }) {
+function lint(
+  node: Node,
+  tags: Record<string, { name: string; allowEmpty: boolean }[]>,
+  { report }: { report: reportFunction }
+) {
   if (is_tag_node(node)) {
     for (const tagName in tags) {
       if (tagName === node.name) {
         const requiredAttributes = tags[tagName];
 
         requiredAttributes.forEach(({ name, allowEmpty }) => {
-          allowEmpty = typeof allowEmpty === "undefined"
-            ? false
-            : allowEmpty;
+          allowEmpty = typeof allowEmpty === "undefined" ? false : allowEmpty;
 
           if (!has_attribute(node, name) || !has_non_empty_attribute(node, name, allowEmpty)) {
             report({

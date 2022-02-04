@@ -3,11 +3,11 @@ import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | label-no-enc-textarea-or-select", function() {
+describe("legacy linter | label-no-enc-textarea-or-select", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Report an error when there's a <select> inside a <label>", async function() {
+  it("Report an error when there's a <select> inside a <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -23,7 +23,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <textarea> inside a <label>", async function() {
+  it("Report an error when there's a <textarea> inside a <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -35,7 +35,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <select> inside a <label> (deep nesting)", async function() {
+  it("Report an error when there's a <select> inside a <label> (deep nesting)", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -55,7 +55,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function() {
+  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -71,7 +71,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function() {
+  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>foo</label>
@@ -87,13 +87,11 @@ describe("legacy linter | label-no-enc-textarea-or-select", function() {
   });
 });
 
-describe("label-no-enc-textarea-or-select", function() {
-  function createLinter(rules: {
-    [rule_name: string]: RuleConfig
-  }) {
+describe("label-no-enc-textarea-or-select", function () {
+  function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Report an error when there's a <select> inside a <label>", async function() {
+  it("Report an error when there's a <select> inside a <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -109,7 +107,7 @@ describe("label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <textarea> inside a <label>", async function() {
+  it("Report an error when there's a <textarea> inside a <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -121,7 +119,7 @@ describe("label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <select> inside a <label> (deep nesting)", async function() {
+  it("Report an error when there's a <select> inside a <label> (deep nesting)", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -141,7 +139,7 @@ describe("label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function() {
+  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>
@@ -157,7 +155,7 @@ describe("label-no-enc-textarea-or-select", function() {
     expect(issues).to.have.lengthOf(1);
   });
 
-  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function() {
+  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function () {
     const linter = createLinter({ "label-no-enc-textarea-or-select": true });
     const html = `
     <label>foo</label>
