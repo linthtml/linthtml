@@ -66,5 +66,9 @@
   "private": false,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "volta": {
+    "node": "12.22.10",
+    "npm": "7.24.2"
+  }
 }
