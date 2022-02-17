@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.9.0-beta.1) (2022-02-17)
+
+### Refactor 🧰
+
+Move to monorepo and split codebase into 4 packages:
+
+- `@linthtml/cli` - The cli part of LintHTML.
+- `@linhtml/dom-utils` - Collection of utils functions to manipulate and check HTML nodes, it's used internally by the rules and the HTML parser.
+- `@linthtml/html-parser` - The HTML parser used internally to parse HTML content and get return an AST.
+- `@linthtml/linthtml` - The core package, it contains all rules, the linter and the config management.
+
+All packages have also been migrated to Typescript.
+
 ## [0.8.4](https://github.com/linthtml/linthtml/compare/v0.8.3...v0.8.4) (2021-12-17)
 
 ### Fix
