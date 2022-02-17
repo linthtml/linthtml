@@ -1,40 +1,53 @@
 # Changelog
 
+## [0.9.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.9.0-beta.1) (2022-02-17)
+
+### Refactor 🧰
+
+Move to monorepo and split codebase into 4 packages:
+
+- `@linthtml/cli` - The cli part of LintHTML.
+- `@linhtml/dom-utils` - Collection of utils functions to manipulate and check HTML nodes, it's used internally by the rules and the HTML parser.
+- `@linthtml/html-parser` - The HTML parser used internally to parse HTML content and get return an AST.
+- `@linthtml/linthtml` - The core package, it contains all rules, the linter and the config management.
+
+All packages have also been migrated to Typescript.
+
 ## [0.8.6](https://github.com/linthtml/linthtml/compare/v0.8.5...v0.8.6) (2022-03-25)
 
 ### Fix
 
-* Remove ignoreFiles property from config in legacy linter ([3eb7972](https://github.com/linthtml/linthtml/commit/3eb79721a7af6569d549ff6c99ad74f9db04b123))
+- Remove ignoreFiles property from config in legacy linter ([3eb7972](https://github.com/linthtml/linthtml/commit/3eb79721a7af6569d549ff6c99ad74f9db04b123))
 
 ## [0.8.5](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.8.5) (2021-03-08)
 
 ### Fix
 
-* Stop reporting error for `--prin-config` option
+- Stop reporting error for `--prin-config` option
 
 ## [0.8.4](https://github.com/linthtml/linthtml/compare/v0.8.3...v0.8.4) (2021-12-17)
 
 ### Fix
 
-* preserve and use ignoreFiles property in config files ([089b781](https://github.com/linthtml/linthtml/commit/089b7811576d782f8ada2587f8f3c9955e9c4203))
+- preserve and use ignoreFiles property in config files ([089b781](https://github.com/linthtml/linthtml/commit/089b7811576d782f8ada2587f8f3c9955e9c4203))
 
 ## [0.8.3](https://github.com/linthtml/linthtml/compare/v0.8.2...v0.8.3) (2021-12-13)
 
 ### Fix
 
-* Correctly load plugin's rules ([dbeb654](https://github.com/linthtml/linthtml/commit/dbeb654006a3b44b84313c83a72013a411a7148e))
+- Correctly load plugin's rules ([dbeb654](https://github.com/linthtml/linthtml/commit/dbeb654006a3b44b84313c83a72013a411a7148e))
 
 ## [0.8.2](https://github.com/linthtml/linthtml/compare/v0.8.1...v0.8.2) (2021-11-29)
 
 ### Fix
 
-* [#413](https://github.com/linthtml/linthtml/issues/413) `attr-order` can now check order for attributes without values ([17dabcb](https://github.com/linthtml/linthtml/commit/17dabcbaa0f4e5cb5cb5eef932ab6b7057436636))
+- [#413](https://github.com/linthtml/linthtml/issues/413) `attr-order` can now check order for attributes without values ([17dabcb](https://github.com/linthtml/linthtml/commit/17dabcbaa0f4e5cb5cb5eef932ab6b7057436636))
 
 ## [0.8.1](https://github.com/linthtml/linthtml/compare/v0.8.0...v0.8.1) (2021-11-27)
 
 ### Fix
 
-* [#413](https://github.com/linthtml/linthtml/issues/413) lowercase attr-order config correctly ([78ca538](https://github.com/linthtml/linthtml/commit/78ca5384ccd6f30361a1223674902b2b95c26703))
+- [#413](https://github.com/linthtml/linthtml/issues/413) lowercase attr-order config correctly ([78ca538](https://github.com/linthtml/linthtml/commit/78ca5384ccd6f30361a1223674902b2b95c26703))
 
 ## v0.8.0
 
@@ -75,7 +88,7 @@ To learn more about Plugins read [the documentation page](./docs/plugins.md).
 ```html
 <div>
   foo
-   <span>bar</span>
+  <span>bar</span>
   <!-- Now the previous node is correctly handle and this report an error -->
 </div>
 ```
@@ -159,9 +172,7 @@ Move nested rules into their own folder. The code for rules like `indent-width`,
 - Rule `indent-width` no longer report an error for such HTML
 
 ```html
-<script
-  src="http://link.com"
-></script>
+<script src="http://link.com"></script>
 ```
 
 ## v0.6.2
@@ -188,10 +199,10 @@ Shareable configuration can be extended in a `.linthtmlrc*` file using the keywo
 
 ```json
 {
-    "extends": "my-linthtml-config",
-    "rules": {
-      // ...
-    }
+  "extends": "my-linthtml-config",
+  "rules": {
+    // ...
+  }
 }
 ```
 
@@ -268,10 +279,10 @@ Shareable configuration can be extended in a `.linthtmlrc*` file using the keywo
 
 ```json
 {
-    "extends": "my-linthtml-config",
-    "rules": {
-      // ...
-    }
+  "extends": "my-linthtml-config",
+  "rules": {
+    // ...
+  }
 }
 ```
 
@@ -302,7 +313,7 @@ Add the rule `no-surrounding-whitespace` disallowing the presence of encapsulati
 For example the following code will report an error:
 
 ```html
-<p>  A simple text with whitespaces before</p>
+<p>A simple text with whitespaces before</p>
 ```
 
 You can find more informations in the [rule doc](./lib/rules/no-surrounding-whitespace/README.md).
@@ -319,14 +330,14 @@ For example, the following patterns will now print errors in the console.
 
 ```
 // Valid string values are "error", "warning" and "off"
-"rule-name": "foo" 
+"rule-name": "foo"
 
 // Only string, boolean and array are accepted
-"rule-name": 1 
+"rule-name": 1
 "rule-name": {}
 
 // If an array is provided, the first value should be a valid string or a boolean
-"rule-name": [1, rule_config] 
+"rule-name": [1, rule_config]
 "rule-name": ["foo", rule_config]
 "rule-name": [{}]
 
@@ -404,6 +415,7 @@ All nodes now include a property `loc` containing start and end position (line/c
 Rule [`lang`](./lib/rules/lang/README.md) now support simplified Chinese and traditional Chinese.
 
 Use the following codes in your `linthtmlrc` file.
+
 - `zh-cmn-Hans`: simplified Chinese
 - `zh-cmn-Hant`: traditional Chinese
 
@@ -433,7 +445,7 @@ It's now possible to specify a list of list files to ignore using `.linthtmligno
 ### Improvements 🔧
 
 - Change `focusable-tabindex-style` rule behavior, now this rules report errors if a node has a tabindex greater than 0.
-`frame` tag are now listed as self closing elements.
+  `frame` tag are now listed as self closing elements.
 - Improve error message for rules `indent-size` and `indent-style`.
 
 ### Fix 🛠️
@@ -482,7 +494,7 @@ Improve error message for rules `indent-size` and `indent-style`
 
 #### [CLI] Improve the `init` command
 
-Give the possiblitie to selet the output format between `JS`, `JSON` and `YAML` and to generate a config file in the 
+Give the possiblitie to selet the output format between `JS`, `JSON` and `YAML` and to generate a config file in the
 legacy format (like HTMLLint) or in the new format (introduced in the [v0.3.0](#v0.3.0))
 
 ## v0.3.2
@@ -547,7 +559,7 @@ The CLI's output for the issues as been improved and now everythings is properly
 ## v0.3.0-beta.1
 
 - [FEATURE] New config format (more details [here](./docs/migrations.md#030-upgrade-guide))
-- [FEATURE][CLI] Warning message when running beta version
+- [FEATURE][cli] Warning message when running beta version
 
 - [REFACTOR] Get rid of some meta rules.
 
@@ -584,9 +596,7 @@ The CLI's output for the issues as been improved and now everythings is properly
 - [FIX] `indent-width` stop reporting error for this html
 
 ```html
-<p>
-  foo<span>bar</span>
-</p>
+<p>foo<span>bar</span></p>
 ```
 
 - [FIX] `attr-no-unsafe-char` Allow new line, spaces, tabs... in attributes
