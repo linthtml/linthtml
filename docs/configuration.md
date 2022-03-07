@@ -4,7 +4,7 @@ _⚠️ this is only for the new [config format](https://github.com/linthtml/lin
 
 LintHTML use [cosmiconfig](https://davidtheclark/cosmiconfig) to find and load your configuration. It will looks for the following possible sources:
 
-- a `linthtml` property in `package.json`
+- a `linthtmlConfig` property in `package.json`
 - a `.linthtmlrc`, `.linthtmlrc.json` or `.linthtmlrc.yml` file
 - a `.linthtmlrc.js` file exporting a JS object
 
