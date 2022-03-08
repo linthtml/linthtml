@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.5](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.8.5) (2021-03-08)
+
+### Fix
+
+* Stop reporting error for `--prin-config` option
+
 ## [0.8.4](https://github.com/linthtml/linthtml/compare/v0.8.3...v0.8.4) (2021-12-17)
 
 ### Fix
