@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "bulk-require": "1.0.1",
-    "chalk": "4.1.1",
+    "chalk": "5.0.0",
     "cosmiconfig": "7.0.0",
     "global-modules": "^2.0.0",
     "globby": "^11.0.2",
