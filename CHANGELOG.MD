@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.6](https://github.com/linthtml/linthtml/compare/v0.8.5...v0.8.6) (2022-03-25)
+
+### Fix
+
+* Remove ignoreFiles property from config in legacy linter ([3eb7972](https://github.com/linthtml/linthtml/commit/3eb79721a7af6569d549ff6c99ad74f9db04b123))
+
 ## [0.8.5](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.8.5) (2021-03-08)
 
 ### Fix
