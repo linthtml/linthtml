@@ -25,3 +25,7 @@ npm-debug.log
 
 packages/*/dist/
 packages/*/tsconfig.tsbuildinfo
+
+doc/docs/rules/
+
+doc/docs/index.md
