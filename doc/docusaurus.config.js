@@ -22,18 +22,15 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/"
+          breadcrumbs: false,
+          routeBasePath: "/",
+          path: "docs",
+          sidebarPath: "./sidebars.json"
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")
-        }
+        },
+        blog: false
       })
     ]
   ],
@@ -49,13 +46,12 @@ const config = {
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Docs"
+            to: "/",
+            label: "Docs",
+            position: "left"
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/linthtml/linthtml",
             label: "GitHub",
             position: "right"
           }
@@ -65,13 +61,7 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro"
-              }
-            ]
+            title: "Docs"
           },
           {
             title: "Community",
@@ -94,12 +84,8 @@ const config = {
             title: "More",
             items: [
               {
-                label: "Blog",
-                to: "/blog"
-              },
-              {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus"
+                href: "https://github.com/linthtml/linthtml"
               }
             ]
           }

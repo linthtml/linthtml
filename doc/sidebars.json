@@ -1,0 +1,19 @@
+{
+  "docs": [
+    "index",
+    {
+      "User guide": [
+        "user-guide/installation-and-usage",
+        "user-guide/configuration",
+        "user-guide/ignore-code",
+        {
+          "type": "category",
+          "label": "Rules",
+          "items": [
+            "user-guide/rules/list"
+          ]
+        }
+      ]
+    }
+  ]
+}
