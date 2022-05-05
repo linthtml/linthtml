@@ -1,3 +1,8 @@
+---
+title: Installation and Usage
+sidebar_label: Installation and Usage
+---
+
 # Installation and Usage
 
 Although the installation and usage instructions given in the general README are suitable for most use cases, there might be some situations in which you might prefer the alternative methods explained in here.

@@ -1,4 +1,9 @@
-# Working with Custom Parsers
+---
+title:  Writing custom Parsers
+sidebar_label:  Writing custom Parsers
+---
+
+# Writing custom Parsers
 
 If you want to use your own parser and provide additional capabilities for your rules, you can specify your own custom parser.
 The parser should expose, as default, a single function that take the source code as the first argument. <!-- , and an optional configuration object as the second argument (provided as parserOptions in a config file). -->

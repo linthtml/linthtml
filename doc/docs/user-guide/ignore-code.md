@@ -1,4 +1,9 @@
-# Ignore code
+---
+title: Ignoring code
+sidebar_label: Ignoring code
+---
+
+# Ignoring code
 
 You can ignore :
 
