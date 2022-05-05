@@ -1,3 +1,8 @@
+---
+title:  Writing plugins
+sidebar_label:  Writing plugins
+---
+
 # Add custom Rules using Plugins
 
 Each plugin is an npm module with a name.
@@ -41,8 +46,8 @@ The source file for a rule exports an object with the following properties.
 * `lint` (function) this function will be called for every nodes in the abstract syntax tree (AST as defined [here](./custom-parser#the-ast-specification)) for the documents that are linted.
   This function receive in input 3 parameters:
   
-  * `node` ([node spec](./custom-parser#the-ast-specification) the node traversed.
-  * `rule_config` (any) the config for the rule. By default, it's the rule config defined in the `linthtmlrc.*` files but it can also be the config overrides defined in an [inline instruction](../README.md#inline-configuration)
+  * `node` ([node spec](./custom-parser#the-ast-specification) the node traversed).
+  * `rule_config` (any) the config for the rule. By default, it's the rule config defined in the `linthtmlrc.*` files but it can also be the config overrides defined in an [inline instruction](../index.md#inline-configuration)
   * `options` (object) this parameter contains the following property:
     * `report` (function) this is the function to use to report a lint issue. This function takes as argument the following object
       * `position` (Position see [here](./custom-parser#the-ast-specification)) Location of the issue

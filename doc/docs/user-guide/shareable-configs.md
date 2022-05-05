@@ -1,3 +1,8 @@
+---
+title: Shareable Configs
+sidebar_label: Shareable Configs
+---
+
 # Shareable Configs
 
 The configuration that you have in your `.linthtmlrc` file is an important part of your project, and as such, you may want to share it with other projects or people. Shareable configs allow you to publish your configuration settings on [npm](https://www.npmjs.com/) and have others download and use it in their LintHTML projects.
