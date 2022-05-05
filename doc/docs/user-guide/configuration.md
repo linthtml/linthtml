@@ -1,3 +1,8 @@
+---
+title: Configuration
+sidebar_label: Configuration
+---
+
 # Configuration
 
 _⚠️ this is only for the new [config format](https://github.com/linthtml/linthtml/releases#new-config-file-format) introduced in the 0.3.0_
