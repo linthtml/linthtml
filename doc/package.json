@@ -7,12 +7,12 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start --no-open",
-    "build": "docusaurus build",
+    "start": "npm run gen-doc; docusaurus start --no-open",
+    "build": "npm run gen-doc; docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
+    "serve": "npm run gen-doc; docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "gen-doc": "node ./scripts/generate-doc.mjs"
@@ -49,9 +49,5 @@
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"
-  },
-  "volta": {
-    "node": "14.19.1",
-    "npm": "7.24.2"
   }
 }
