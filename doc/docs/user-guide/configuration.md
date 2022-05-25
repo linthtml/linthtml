@@ -23,7 +23,7 @@ The configuration object has the following properties:
 
 ## Activate rules
 
-Rules determine what the linter looks for and test. All rules are listed here [rules](./rules.md).
+Rules determine what the linter looks for and test. All rules are listed here [rules](./rules/list.md).
 The `rules` property is an object whose keys are rule names and values are rule configuration. For example:
 
 ```json
@@ -86,7 +86,7 @@ The `rules` property can do any of the following to extend (or override) the set
 
 ### Using a shareable configuration package
 
-A [shareable configuration](./shareable-configuration) is an npm package that exports a configuration object. Make sure the package has been installed in a directory where LintHTML can require it.
+A [shareable configuration](./shareable-configs.md) is an npm package that exports a configuration object. Make sure the package has been installed in a directory where LintHTML can require it.
 
 The `linthtml --init` command can create a configuration so you can extend a popular style guide (for example, `@linhtml/config-xxx`).
 
@@ -126,7 +126,7 @@ Example of a configuration file in JSON format:
 By default, LintHTML uses [htmlparser2](https://github.com/fb55/htmlparser2) as its parser but with a custom AST format in output. You can optionally specify that a different parser should be used in your configuration file so long as the parser meets the following requirements:
 
 1. It must be a Node module loadable from the config file where the parser is used. Usually, this means you should install the parser package separately using npm.
-2. It must conform to the parser [interface](./custom-parser.md).
+2. It must conform to the parser [interface](../developer-guide/custom-parser.md).
 
 To indicate the npm module to use as your parser, specify it using the `parser` option in your `.linthtmlrc` file.
 For example, the following specifies to use `linthtml-pug` parser:
@@ -159,4 +159,4 @@ For example:
 }
 ```
 
-To learn more about Plugins and how to expose rules read the [Plugins documentation page](./plugins.md).
+To learn more about Plugins and how to expose rules read the [Plugins documentation page](../developer-guide/plugins.md).
