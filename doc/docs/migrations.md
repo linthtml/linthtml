@@ -27,7 +27,7 @@ You might want to remove the rules `indent-delta` and `indent-width-cont` from t
 
 ### Inline config
 
-Since the release [0.5.0](./https://github.com/linthtml/linthtml/releases/tag/0.5.0) it's no longer possible to use presets in inline config.
+Since the release [0.5.0](https://github.com/linthtml/linthtml/releases/tag/0.5.0) it's no longer possible to use presets in inline config.
 The following no longer work.
 
 ```html
