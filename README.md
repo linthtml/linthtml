@@ -35,7 +35,7 @@ npx linthtml 'yourfile.html'
 npx linthtml 'src/**/*.html'
 ```
 
-If you want to read about alternative installation and usage methods, have a look at the extended section in [docs/installation_and_usage.md](docs/installation_and_usage.md).
+If you want to read about alternative installation and usage methods, have a look to the [installation and usage](./doc/docs/user-guide/installation-and-usage.md) page in the documentation.
 
 ## Migrate from htmllint
 
@@ -56,13 +56,13 @@ npm install @linthtml/linthtml --save-dev
 
 ## Rules
 
-The list of current rules and deprecations can be found in [docs/rules.md](docs/rules.md).
+The list of current rules and deprecations can be found in [here](./doc/docs/user-guide/rules/list.md).
 
 ### Global Configuration
 
 By default, LintHTML will look for a `JSON`, `YAML`, or `JavaScript` file named `.linthtmlrc.*` or a `linthtmlConfig` section in `package.json`.
 Anyway, you can specify a custom configuration file using the `--config` option when running LintHTML in the command line.
-See our documentation about [configuration](./docs/configuration.md) to see how to configure rules, use custom parser, plugins...
+See our documentation about [configuration](./doc/docs/user-guide/configuration.md) to see how to configure rules, use custom parser, plugins...
 
 ### Inline Configuration
 

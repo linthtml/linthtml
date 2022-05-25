@@ -7,14 +7,15 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --no-open",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "gen-doc": "node ./scripts/generate-doc.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.18",
@@ -26,7 +27,9 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "glob": "^8.0.1"
+    "glob": "^8.0.1",
+    "remark": "^14.0.2",
+    "unist-util-visit": "^4.1.0"
   },
   "browserslist": {
     "production": [
