@@ -14,7 +14,7 @@ There're two ways to set a value for this config:
   }
   ```
 
-2. If you use the [new config format](../../../docs/configuration.md), this setting need to be configured at the root level of the config file.
+2. If you use the [new config format](../../../../../doc/docs/user-guide/configuration.md), this setting need to be configured at the root level of the config file.
 
   ```json
   {
