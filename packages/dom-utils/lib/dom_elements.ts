@@ -51,7 +51,8 @@ interface MyExtendedNode {
   open: CharValue;
   close: CharValue | undefined;
 }
-export function ExtendedNode<TBase extends Constructor>(
+/** @hidden */
+function ExtendedNode<TBase extends Constructor>(
   Base: TBase
 ): {
   new (...args: any[]): MyExtendedNode;
