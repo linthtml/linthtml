@@ -3,10 +3,10 @@ import { Text } from "domhandler";
 import { Node } from "./dom_elements";
 import { is_text_node } from "./tags";
 
-export type TextLine = {
+export interface TextLine {
   text: string;
   offset: number;
-};
+}
 
 export function get_lines(node: Text, include_EOL = false): TextLine[] {
   const { data } = node;
