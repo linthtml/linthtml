@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const path = require("path");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -51,6 +52,11 @@ const config = {
             position: "left"
           },
           {
+            to: "api",
+            label: "API",
+            position: "left"
+          },
+          {
             href: "https://github.com/linthtml/linthtml",
             label: "GitHub",
             position: "right"
@@ -61,7 +67,24 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme
       }
-    })
+    }),
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc-api",
+      {
+        projectRoot: path.join(__dirname, ".."),
+        // Monorepo
+        packages: [
+          {
+            path: "packages/dom-utils",
+            entry: {
+              index: "lib/index.ts"
+            }
+          }
+        ]
+      }
+    ]
+  ]
 };
 
 module.exports = config;

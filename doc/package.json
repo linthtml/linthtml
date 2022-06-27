@@ -18,8 +18,8 @@
     "gen-doc": "node ./scripts/generate-doc.mjs"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.18",
-    "@docusaurus/preset-classic": "2.0.0-beta.18",
+    "@docusaurus/core": "2.0.0-beta.21",
+    "@docusaurus/preset-classic": "2.0.0-beta.21",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.3.1",
@@ -27,6 +27,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "docusaurus-plugin-typedoc-api": "^2.0.1",
     "glob": "^8.0.1",
     "remark": "^14.0.2",
     "unist-util-visit": "^4.1.0"
