@@ -12,12 +12,12 @@ import Issue from "./issue";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
-export type FileLinter = {
+export interface FileLinter {
   file_path: string;
   preset: string | undefined;
   config_path: string | undefined;
   linter: LegacyLinter;
-};
+}
 
 /**
  * The linthtml namespace.

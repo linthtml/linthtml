@@ -8,12 +8,14 @@ import { reportFunction } from "./read-config";
 // config "false", "off" disable rule
 // Rest is treated as rule config
 
-export type InlineInstructionConfig = {
+export interface InlineInstructionConfig {
   config?: unknown;
   disabled?: boolean;
-};
+}
 
-export type InlineConfig = { [rule_name: string]: InlineInstructionConfig };
+export interface InlineConfig {
+  [rule_name: string]: InlineInstructionConfig;
+}
 
 function is_string_config(str: string): boolean {
   return /^("|')/.test(str) && /("|')$/.test(str);
