@@ -8,6 +8,7 @@
 /* eslint-disable-next-line no-useless-escape */
 const attrRegex = /(\s*)([^ "'>=\^\/]+)((\s*=\s*)((?:"[^"]*")|(?:'[^']*')|(?:\S+)))?/g;
 
+/** @hidden */
 export function parse_HTML_attributes(attributes: string) {
   const ret = [];
   let match;
