@@ -31,6 +31,6 @@ const VOID_NODES = [
   "polygon"
 ];
 
-export function is_void_node({ name }: Element): boolean {
-  return VOID_NODES.indexOf(name.toLowerCase()) !== -1;
+export function is_void_node(node: Element): boolean {
+  return VOID_NODES.indexOf(node.name.toLowerCase()) !== -1;
 }

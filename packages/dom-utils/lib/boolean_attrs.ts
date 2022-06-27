@@ -1,3 +1,4 @@
+/** @hidden */
 /* eslint-disable array-element-newline */
 const BOOLEAN_ATTRIBUTES = [
   "allowfullscreen",
