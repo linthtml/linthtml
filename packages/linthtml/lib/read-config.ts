@@ -17,7 +17,7 @@ export type reportFunction = (data: { code: string; position: Range; meta?: any;
 
 // TODO: Move every types in the same file?
 // TODO: RuleDefinition<ConfigType> ?
-export type RuleDefinition = {
+export interface RuleDefinition {
   name: string;
   lint: (
     node: Node,
@@ -35,7 +35,7 @@ export type RuleDefinition = {
   configTransform?: (option: unknown) => unknown; // remove for v1
   filter?: string[]; // remove for v1
   end?: (opts?: unknown) => Issue[]; // remove for v1
-};
+}
 
 export type ActiveRuleDefinition = RuleDefinition & {
   severity: "warning" | "error";
@@ -69,22 +69,23 @@ export type LinterConfig = {
   };
 };
 
-export type PluginConfig = {
+export interface PluginConfig {
   rules?: RuleDefinition[];
-};
+}
 
 export type LegacyRuleOption = Partial<RuleDefinition> & {
   name: string;
   active?: boolean;
   rules: string[];
 };
+
 export type LegacyRuleDefinition = RuleDefinition & {
   options: LegacyRuleOption[];
   on: string;
   subscribers: LegacyRuleDefinition[];
 };
 
-export type LegacyLinterConfig = {
+export interface LegacyLinterConfig {
   maxerr?: number;
   "text-ignore-regex"?: string | RegExp | false;
   "raw-ignore-regex"?: string | RegExp | false;
@@ -93,13 +94,13 @@ export type LegacyLinterConfig = {
   "line-max-len-ignore-regex"?: string | RegExp | false;
 
   [rule_name: string]: boolean | unknown;
-};
+}
 
-export type ExtractConfigResult = {
+export interface ExtractConfigResult {
   filepath: string;
   isEmpty?: boolean | undefined;
   config: LinterConfig | LegacyLinterConfig;
-};
+}
 
 function get_module_path(basedir: string, module_name: string): string | never {
   // 1. Try to resolve from the provided directory

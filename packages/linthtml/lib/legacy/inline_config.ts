@@ -7,11 +7,11 @@ import { Comment, Range } from "@linthtml/dom-utils/lib/dom_elements";
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
 
-export type InlineConfigIndex = {
+export interface InlineConfigIndex {
   [key: string]: unknown;
   rules?: any[];
   end: number;
-};
+}
 
 /**
  * An inline configuration class is created to hold each inline configuration
