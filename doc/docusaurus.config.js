@@ -7,9 +7,9 @@ const path = require("path");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
-  url: "https://your-docusaurus-test-site.com",
+  title: "LintHTML HTML linter",
+  tagline: "",
+  url: "https://linthtml.vercel.app",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -40,11 +40,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "My Site",
-        logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg"
-        },
+        title: "LintHTML",
+        // logo: {
+        //   alt: "My Site Logo",
+        //   src: "img/logo.png"
+        // },
         items: [
           {
             to: "/",
