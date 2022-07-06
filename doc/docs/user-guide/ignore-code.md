@@ -3,14 +3,45 @@ title: Ignoring code
 sidebar_label: Ignoring code
 ---
 
-# Ignoring code
-
 You can ignore :
 
-<!-- - within files -->
+- within files
 - entire files
 
-<!-- ## Within files -->
+## Within files
+
+You can temporarily turn off rules using special comments in the HTML file. For example, you can either turn all the rules off:
+
+```html
+<!-- linthtml-disable -->
+<p>All rules are disabled here</p>
+<!-- linthtml-enable -->
+<p>All rules are enabled here</p>
+```
+
+Or you can turn off individual rules:
+
+- turn off the `attr-bans` rule
+
+```html
+<!-- linthtml-disable attr-bans -->
+```
+
+- turn on the `attr-bans` rule
+
+```html
+<!-- linthtml-enable attr-bans -->
+```
+
+_⚠️ you can only turn on rules that have been deactivated by an inline config_
+
+Multiple rules can be provided to the instructions as long as they are separated by a `,`.
+
+```html
+<!-- linthtml-disable attr-bans,indent-style,id-style -->
+<!-- Spaces can be added to improve readability -->
+<!-- linthtml-disable attr-bans, indent-style, id-style -->
+```
 
 ## Entire files
 
