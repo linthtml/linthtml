@@ -122,36 +122,6 @@ _⚠️ works only with the legacy config at the moment_
 
 It's worth noting that inline configurations only affect the file they're on, so if they are not explicitly reversed with the `$previous` value, they will just apply until the end of the file.
 
-#### Disable/Enable instructions
-
-The `disable` and `enable` instructions only deactivate and activate rules for a specific part of a document.
-
-Some examples:
-
-* turn off the `attr-bans` rule
-
-```html
-<!-- linthtml-disable attr-bans -->
-```
-
-* turn on the `attr-bans` rule
-
-```html
-<!-- linthtml-enable attr-bans -->
-```
-
-_⚠️ you can only turn on rules that have been deactivated by an inline config_
-
-Multiple rules can be provided to the instructions as long as they are separated by a `,`.
-
-```html
-<!-- linthtml-disable attr-bans,indent-style,id-style -->
-<!-- Spaces can be added to improve readability -->
-<!-- linthtml-disable attr-bans, indent-style, id-style -->
-```
-
-When no rules are provided to the instructions, the instructions will affect all rules available for the document that is analysed.
-
 ## Ecosystem
 
 Apart from the built-in CLI, you might want to use some of the following tools to integrate LintHTML in different scenarios:
