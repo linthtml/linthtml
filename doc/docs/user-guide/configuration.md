@@ -3,7 +3,7 @@ title: Configuration
 sidebar_label: Configuration
 ---
 
-_⚠️ this is only for the new [config format](https://github.com/linthtml/linthtml/releases#new-config-file-format) introduced in the 0.3.0_
+_⚠️ this is only for the new config format added in the version [0.3.0](https://github.com/linthtml/linthtml/releases/tag/0.3.0)_
 
 LintHTML use [cosmiconfig](https://davidtheclark/cosmiconfig) to find and load your configuration. It will looks for the following possible sources:
 
@@ -16,8 +16,8 @@ You can use the `--config` option to manually target a config file.
 The configuration object has the following properties:
 
 - `rules` - [Contains the list of activated rules and their config](#activate-rules)
-- `ignoreFiles` - [Can be used to exclude files from linting](#ignore-files)
-- `extends` - [Use shared configurations](#extending-configuration-files)
+- `ignoreFiles` - [Can be used to exclude files from linting](#exclude-files-from-linting)
+- `extends` - [Use shared configurations](#using-a-shareable-configuration-package)
 
 ## Activate rules
 
@@ -123,7 +123,7 @@ Example of a configuration file in JSON format:
 
 By default, LintHTML uses [htmlparser2](https://github.com/fb55/htmlparser2) as its parser but with a custom AST format in output. You can optionally specify that a different parser should be used in your configuration file so long as the parser meets the following requirements:
 
-1. It must be a Node module loadable from the config file where the parser is used. Usually, this means you should install the parser package separately using npm.
+1. It must be a Node module, loadable from the config file where the parser is used. Usually, this means you should install the parser package separately using npm.
 2. It must conform to the parser [interface](../developer-guide/custom-parser.md).
 
 To indicate the npm module to use as your parser, specify it using the `parser` option in your `.linthtmlrc` file.
