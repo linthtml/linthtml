@@ -1,5 +1,5 @@
 import { reportFunction, RuleDefinition } from "../../read-config";
-import { is_text_node, get_lines } from "@linthtml/dom-utils";
+import { is_text_node, get_text_lines } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
 import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
@@ -14,7 +14,7 @@ const formats = {
 // TODO: Check what happen if no format provided
 function lint(node: Node, format: "cr" | "lf" | "crlf", { report }: { report: reportFunction }) {
   if (is_text_node(node)) {
-    const lines = get_lines(node, true).filter(({ text }) => !formats[format].test(text));
+    const lines = get_text_lines(node, true).filter(({ text }) => !formats[format].test(text));
 
     Object.keys(formats)
       .filter((_) => _ !== format)

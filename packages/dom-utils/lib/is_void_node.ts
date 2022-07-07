@@ -31,6 +31,10 @@ const VOID_NODES = [
   "polygon"
 ];
 
+/**
+ * Check if a node is a void element. A void element is an element which can't have any content
+ * @see [HTML spec](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)
+ */
 export function is_void_node(node: Element): boolean {
   return VOID_NODES.indexOf(node.name.toLowerCase()) !== -1;
 }

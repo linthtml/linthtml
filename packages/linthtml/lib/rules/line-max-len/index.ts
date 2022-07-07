@@ -1,4 +1,4 @@
-import { is_text_node, has_parent_node, get_lines } from "@linthtml/dom-utils";
+import { is_text_node, has_parent_node, get_text_lines } from "@linthtml/dom-utils";
 import { reportFunction, RuleDefinition } from "../../read-config";
 import { create_number_validator } from "../../validate_option";
 import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
@@ -18,7 +18,7 @@ function get_helpful_line_positions(node: Node) {
 function check_text_node(node: Text, max_length: number, report: reportFunction) {
   const { sibling_start_line, node_start_line, parent_close_line } = get_helpful_line_positions(node);
 
-  const lines = get_lines(node);
+  const lines = get_text_lines(node);
   lines.forEach(({ offset, text }) => {
     // const len = lineText.length;
     const line_length = offset === 0 ? node.loc.start.column - 1 + text.length : text.length;

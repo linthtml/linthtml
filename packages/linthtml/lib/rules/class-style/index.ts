@@ -1,9 +1,9 @@
 import match_format from "../../utils/check_format";
-import { is_tag_node, attribute_value, get_classes, has_non_empty_attribute } from "@linthtml/dom-utils";
+import { is_tag_node, get_classes, has_non_empty_attribute, get_attribute } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
 import { types } from "util";
 import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
-import { CharValue, Node } from "@linthtml/dom-utils/lib/dom_elements";
+import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
 
 const { isRegExp } = types;
 
@@ -31,7 +31,7 @@ function lint(
   }
   if (is_tag_node(node) && has_non_empty_attribute(node, "class")) {
     // const format = options[this.name] || options["id-class-style"];
-    const class_attribute = attribute_value(node, "class") as CharValue;
+    const class_attribute = get_attribute(node, "class") as NodeAttribute;
     const classes = filterClasses(get_classes(class_attribute), global_config);
 
     classes
@@ -39,7 +39,7 @@ function lint(
       .forEach((_class) =>
         report({
           code: "E011",
-          position: class_attribute.loc, // should be the location of the class and not the class_attribute
+          position: (class_attribute.value as CharValue).loc, // should be the location of the class and not the class_attribute
           meta: {
             data: {
               attribute: "class",
