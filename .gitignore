@@ -23,9 +23,12 @@ npm-debug.log
 
 \.vscode/
 
+# lerna packages
+
+## Typescript generated
 packages/*/dist/
 packages/*/tsconfig.tsbuildinfo
 
+## Generated files for the documentation
 doc/docs/user-guide/rules/list/
-
 doc/docs/index.md
