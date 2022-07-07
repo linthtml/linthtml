@@ -6,7 +6,7 @@ sidebar_label:  Writing plugins
 # Add custom Rules using Plugins
 
 Each plugin is an npm module with a name.
-It's recommanded to use the format `linthtml-plugin-<plugin-name>`. you can also use scoped packages in the format of `@<scope>/linthtml-plugin-<plugin-name>` or even `@<scope>/linthtml-plugin`.
+It's recommanded to use the format `linthtml-plugin-<plugin-name>`. You can also use scoped packages in the format of `@<scope>/linthtml-plugin-<plugin-name>` or even `@<scope>/linthtml-plugin`.
 
 ## Expose Rules in Plugins
 
@@ -52,4 +52,4 @@ The source file for a rule exports an object with the following properties.
     * `report` (function) this is the function to use to report a lint issue. This function takes as argument the following object
       * `position` (Position see [here](./custom-parser#the-ast-specification)) Location of the issue
       * `message` (string) Message describing the issue
-    * `global_config` (object) _deprecated_ An object containing the config of all activated rules.
+    * `global_config` (object) [_deprecated_] An object containing the config of all activated rules.
