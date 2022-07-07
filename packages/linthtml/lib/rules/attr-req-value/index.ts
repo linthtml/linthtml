@@ -11,7 +11,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     attributes.forEach((attribute) => {
       const name = attribute.name.chars.toLowerCase();
 
-      if (!has_non_empty_attribute(node, name) && !is_boolean_attribute(name)) {
+      if (!has_non_empty_attribute(node, name) && !is_boolean_attribute(attribute)) {
         report({
           code: "E006",
           position: attribute.loc,
