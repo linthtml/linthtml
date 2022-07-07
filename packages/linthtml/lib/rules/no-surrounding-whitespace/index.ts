@@ -1,4 +1,4 @@
-import { is_text_node, has_parent_node, get_lines, TextLine } from "@linthtml/dom-utils";
+import { is_text_node, has_parent_node, get_text_lines, TextLine } from "@linthtml/dom-utils";
 import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
 import { reportFunction, RuleDefinition } from "../../read-config";
 
@@ -80,7 +80,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     return;
   }
 
-  const lines = get_lines(node);
+  const lines = get_text_lines(node);
 
   lines.forEach((line) => {
     if (should_report_before_error(node, line)) {

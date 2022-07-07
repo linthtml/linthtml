@@ -1,4 +1,7 @@
 /** @hidden */
+
+import { NodeAttribute } from "./dom_elements";
+
 /* eslint-disable array-element-newline */
 const BOOLEAN_ATTRIBUTES = [
   "allowfullscreen",
@@ -48,9 +51,8 @@ const BOOLEAN_ATTRIBUTES = [
   "visible"
 ];
 
-// should consume a NodeAttribute in the same file as other atrribute related function
-function is_boolean_attribute(name: string) {
-  return BOOLEAN_ATTRIBUTES.indexOf(name.toLowerCase()) >= 0;
+function is_boolean_attribute(attribute: NodeAttribute) {
+  return BOOLEAN_ATTRIBUTES.indexOf(attribute.name.chars.toLowerCase()) >= 0;
 }
 
 export { is_boolean_attribute, BOOLEAN_ATTRIBUTES };

@@ -14,7 +14,7 @@ const LABELABLE_NODES = [
 ];
 
 /**
- * Returns whether or not an html element can be associated with a
+ * Returns whether or not an HTML element can be associated with a
  * label element.
  */
 export function is_labelable(node: Node): boolean {
