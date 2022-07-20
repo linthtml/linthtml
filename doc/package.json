@@ -27,7 +27,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "docusaurus-plugin-typedoc-api": "^2.0.1",
+    "docusaurus-plugin-typedoc-api": "2.0.1",
     "glob": "^8.0.1",
     "remark": "^14.0.2",
     "unist-util-visit": "^4.1.0"
