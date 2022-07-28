@@ -1,5 +1,15 @@
 # Changelog
 
+# [0.9.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-07-28)
+
+### Refactor
+
+All packages have been migrated to Typescript. Thanks to Typescript some bugs havee been found and corrected.
+
+### Docs
+
+There's now an online documentation for [LintHTML](http://linthtml.vercel.app/)
+
 ## [0.9.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.9.0-beta.1) (2022-02-17)
 
 ### Refactor 🧰
