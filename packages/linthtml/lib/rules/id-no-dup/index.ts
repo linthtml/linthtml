@@ -13,7 +13,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     }
     // node has a duplicate id
     // @ts-ignore
-    const saved_id: CharValue = this.table[id.chars];
+    const saved_id: CharValue = this.idMap.get(id.chars);
     if (saved_id) {
       report({
         code: "E012",
@@ -30,14 +30,14 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     // if we haven't seen the id before, remember it
     // and pass the node
     // @ts-ignore
-    this.table[id.chars] = id;
+    this.idMap.set(id.chars, id);
   }
 }
 
 function end() {
   // wipe previous table
   // @ts-ignore
-  this.table = {};
+  this.idMap = new Map<string, CharValue>();
   return [];
 }
 
@@ -46,5 +46,5 @@ export default {
   lint,
   end,
   // @ts-ignore
-  table: {} // TODO: Convert rules to class to fix this issue?
+  idMap: new Map<string, CharValue>() // TODO: Convert rules to class to fix this issue?
 } as RuleDefinition;
