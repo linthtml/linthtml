@@ -13,47 +13,47 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm test
+  #     - run: npm test
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - name: publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-        run: |
-          version="$(bin/linthtml.js --version)" 
-          if [[ $version == *"-beta"* ]]; then
-            npm publish --access public --tag beta
-          else
-            npm publish --access public
-          fi
+  # publish-npm:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #         registry-url: https://registry.npmjs.org/
+  #     - run: npm ci
+  #     - name: publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+  #       run: |
+  #         version="$(bin/linthtml.js --version)"
+  #         if [[ $version == *"-beta"* ]]; then
+  #           npm publish --access public --tag beta
+  #         else
+  #           npm publish --access public
+  #         fi
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@linthtml'
-      - run: npm ci
-      - name: publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          version="$(bin/linthtml.js --version)" 
-          if [[ $version == *"-beta"* ]]; then
-            npm publish --access public --tag beta
-          else
-            npm publish --access public
-          fi
+  # publish-gpr:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
+  #         registry-url: https://npm.pkg.github.com/
+  #         scope: '@linthtml'
+  #     - run: npm ci
+  #     - name: publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #       run: |
+  #         version="$(bin/linthtml.js --version)"
+  #         if [[ $version == *"-beta"* ]]; then
+  #           npm publish --access public --tag beta
+  #         else
+  #           npm publish --access public
+  #         fi
