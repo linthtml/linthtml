@@ -1,6 +1,27 @@
 # Changelog
 
-# [0.9.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-07-28)
+# [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-08-26)
+
+### Breaking 💥
+
+Drop support for node 10 and node 12.
+
+### Refactor 🧰
+
+Move to monorepo and split codebase into 4 packages:
+
+- `@linthtml/cli` - The cli part of LintHTML.
+- `@linhtml/dom-utils` - Collection of utils functions to manipulate and check HTML nodes, it's used internally by the rules and the HTML parser.
+- `@linthtml/html-parser` - The HTML parser used internally to parse HTML content and get return an AST.
+- `@linthtml/linthtml` - The core package, it contains all rules, the linter and the config management.
+
+All packages have also been migrated to Typescript.
+
+### Bug Fixes
+
+- Rule `id-no-dup`, stop reporting error for id like `toString`
+
+## [0.9.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-07-28)
 
 ### Refactor
 
@@ -33,7 +54,7 @@ All packages have also been migrated to Typescript.
 
 ### Fix
 
-- Stop reporting error for `--prin-config` option
+- Stop reporting error for `--print-config` option
 
 ## [0.8.4](https://github.com/linthtml/linthtml/compare/v0.8.3...v0.8.4) (2021-12-17)
 
