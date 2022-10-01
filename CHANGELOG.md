@@ -1,6 +1,11 @@
 # Changelog
+# [](https://github.com/linthtml/linthtml/compare/v0.9.1...v0.9.2) (2022-10-01)
 
-# [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-08-26)
+### Bug Fixes
+
+* correct check ignoreFiles
+
+# [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0) (2022-08-26)
 
 ### Breaking 💥
 
@@ -21,7 +26,7 @@ All packages have also been migrated to Typescript.
 
 - Rule `id-no-dup`, stop reporting error for id like `toString`
 
-## [0.9.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.8.6...v) (2022-07-28)
+## [0.9.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0-beta.2) (2022-07-28)
 
 ### Refactor
 
@@ -31,7 +36,7 @@ All packages have been migrated to Typescript. Thanks to Typescript some bugs ha
 
 There's now an online documentation for [LintHTML](http://linthtml.vercel.app/)
 
-## [0.9.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.8.4...v0.9.0-beta.1) (2022-02-17)
+## [0.9.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0-beta.1) (2022-02-17)
 
 ### Refactor 🧰
 
