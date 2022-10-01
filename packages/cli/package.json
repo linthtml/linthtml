@@ -27,7 +27,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "chalk": "4.1.1",
+    "chalk": "5.0.1",
     "inquirer": "^8.1.1",
     "js-yaml": "^3.14.0",
     "kebabcase": "1.0.1",
