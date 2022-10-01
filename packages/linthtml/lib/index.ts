@@ -83,8 +83,8 @@ function read_dot_ignore_file(): string | undefined {
   return undefined;
 }
 
-function should_ignore_file(file_path: string, ignore_pattern: string[] | undefined) {
-  if (ignore_pattern === undefined) {
+function should_ignore_file(file_path: string, ignore_pattern: string[]  = []) {
+  if (ignore_pattern.length === 0) {
     return false;
   }
   const ignorer = ignore().add(ignore_pattern);
@@ -121,18 +121,14 @@ linthtml.create_linters_for_files = function (globs: string[], config_path?: str
   }
   const files = get_files_to_lint(globs);
   return files.reduce((files_to_lint, file_path) => {
-    let config: any = find_local_config(file_path);
-
-    // TODO find a way to replace any
-    if (!config) {
-      config = {
-        config: presets.default as LinterConfig | LegacyLinterConfig,
-        preset: "default"
-      };
+    // if no config, fallback to presets as before
+    const local_config = find_local_config(file_path) ?? {
+      config: presets.default as LinterConfig | LegacyLinterConfig,
+      preset: "default"
     }
-    // if no config fallback to presets as before
-    if (!should_ignore_file(file_path, config.config.ignoreFiles as string[] | undefined)) {
-      return files_to_lint.concat(create_file_linter(file_path, config));
+    
+    if (!should_ignore_file(file_path, local_config.config.ignoreFiles as string[])) {
+      return files_to_lint.concat(create_file_linter(file_path, local_config));
     }
     return files_to_lint;
   }, [] as FileLinter[]);
