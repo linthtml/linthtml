@@ -1,11 +1,18 @@
 # Changelog
-# [](https://github.com/linthtml/linthtml/compare/v0.9.1...v0.9.2) (2022-10-01)
+
+## [0.9.3](https://github.com/linthtml/linthtml/compare/v0.9.3...v0.9.2) (2022-10-08)
+
+### Bug Fixes
+
+* bring back error messages into @linthtml/linthtml package ([ab667f9](https://github.com/linthtml/linthtml/commit/ab667f952d81480f170c7d2803f50b9e2f281800)). Fix [vscode-linhtml#322](https://github.com/linthtml/vscode-linthtml/issues/322)
+
+## [0.9.2](https://github.com/linthtml/linthtml/compare/v0.9.1...v0.9.2) (2022-10-01)
 
 ### Bug Fixes
 
 * Correct ignoreFiles options check. Fix the error `path should be a path.relative()d string` reported when using the legacy config foramt and the the vscode extension.
 
-# [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0) (2022-08-26)
+## [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0) (2022-08-26)
 
 ### Breaking 💥
 

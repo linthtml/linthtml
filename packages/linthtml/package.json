@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/linthtml",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "LintHTML core package",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
@@ -20,13 +20,21 @@
   ],
   "typesVersions": {
     "*": {
-      "dist/index.d.ts": [ "dist/index.d.ts" ],
-      "*": [ "dist/*" ]
+      "dist/index.d.ts": [
+        "dist/index.d.ts"
+      ],
+      "*": [
+        "dist/*"
+      ]
     }
   },
   "exports": {
-    ".": [ "./dist/index.js" ],
-    "./messages": [ "./dist/messages.js" ]
+    ".": [
+      "./dist/index.js"
+    ],
+    "./messages": [
+      "./dist/messages.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -41,7 +49,7 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/cli": "^0.9.0",
+    "@linthtml/cli": "^0.9.3",
     "@linthtml/dom-utils": "^0.9.0",
     "@linthtml/html-parser": "^0.9.0",
     "bulk-require": "1.0.1",
