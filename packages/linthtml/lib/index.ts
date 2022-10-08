@@ -144,7 +144,8 @@ linthtml.Linter = Linter;
 linthtml.LegacyLinter = LegacyLinter;
 linthtml.rules = rules;
 linthtml.presets = presets;
+linthtml.messages = messages;
 
 export default linthtml;
 
-export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig, messages };
+export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };
