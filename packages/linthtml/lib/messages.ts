@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { Range } from "@linthtml/dom-utils/lib/dom_elements";
-import { Issue } from "./utils";
+import type { Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type Issue from "./issue";
 
 export const CORE_ERRORS: { [code: string]: (meta?: any) => string } = {
   "01": (meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta.config_path}}`,

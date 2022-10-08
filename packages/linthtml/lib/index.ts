@@ -3,6 +3,7 @@ import Linter from "./linter";
 import LegacyLinter from "./legacy/linter";
 import { presets } from "./presets";
 import rules from "./rules";
+import * as messages from "./messages";
 
 import path from "path";
 import fs from "fs";
@@ -83,7 +84,7 @@ function read_dot_ignore_file(): string | undefined {
   return undefined;
 }
 
-function should_ignore_file(file_path: string, ignore_pattern: string[]  = []) {
+function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
   if (ignore_pattern.length === 0) {
     return false;
   }
@@ -125,8 +126,8 @@ linthtml.create_linters_for_files = function (globs: string[], config_path?: str
     const local_config = find_local_config(file_path) ?? {
       config: presets.default as LinterConfig | LegacyLinterConfig,
       preset: "default"
-    }
-    
+    };
+
     if (!should_ignore_file(file_path, local_config.config.ignoreFiles as string[])) {
       return files_to_lint.concat(create_file_linter(file_path, local_config));
     }
@@ -146,4 +147,4 @@ linthtml.presets = presets;
 
 export default linthtml;
 
-export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };
+export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig, messages };
