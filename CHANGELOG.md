@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* correct check ignoreFiles
+* Correct ignoreFiles options check. Fix the error `path should be a path.relative()d string` reported when using the legacy config foramt and the the vscode extension.
 
 # [0.9.0](https://github.com/linthtml/linthtml/compare/v0.8.6...v0.9.0) (2022-08-26)
 
