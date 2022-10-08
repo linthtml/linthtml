@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type Issue from "@linthtml/linthtml/issue";
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
@@ -27,16 +27,6 @@ function exitProcess(is_errored: typeof EXIT_CODE_ERROR | typeof EXIT_CODE_NORMA
   return process.exit(exit_code);
 }
 
-// TODO: Global type or import from `@linthtml/linthtml`
-type Issue = {
-  severity: "warning" | "error";
-  position: Range;
-  code: string;
-  rule: string;
-  data: unknown;
-  message: string;
-};
-
 type Report = {
   fileName: string;
   issues: Issue[];
@@ -44,4 +34,4 @@ type Report = {
   preset?: string;
 };
 
-export { Issue, Report, isBetaVersion, displayBetaVersionMessage, exitProcess, EXIT_CODE_ERROR, EXIT_CODE_NORMAL };
+export { Report, isBetaVersion, displayBetaVersionMessage, exitProcess, EXIT_CODE_ERROR, EXIT_CODE_NORMAL };

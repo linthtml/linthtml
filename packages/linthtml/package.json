@@ -18,6 +18,16 @@
     "bin",
     "dist"
   ],
+  "typesVersions": {
+    "*": {
+      "dist/index.d.ts": [ "dist/index.d.ts" ],
+      "*": [ "dist/*" ]
+    }
+  },
+  "exports": {
+    ".": [ "./dist/index.js" ],
+    "./messages": [ "./dist/messages.js" ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/linthtml/linthtml.git"

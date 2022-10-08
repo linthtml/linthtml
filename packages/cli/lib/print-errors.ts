@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import * as messages from "./messages";
+import * as messages from "@linthtml/linthtml/messages";
 
 export default function print_errors(error: { code: string; meta: unknown; message: string }) {
   if (error.code) {
