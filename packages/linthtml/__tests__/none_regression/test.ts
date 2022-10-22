@@ -5,7 +5,7 @@ import linthtml from "../../lib";
 
 import legacy_config from "./legacy_config";
 import new_config from "./config";
-import { LegacyLinterConfig } from "../../lib/read-config";
+import type { LegacyLinterConfig } from "../../lib/read-config";
 
 const html = fs.readFileSync(path.resolve(__dirname, "index.html")).toString("utf8");
 

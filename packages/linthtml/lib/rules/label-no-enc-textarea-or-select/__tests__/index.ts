@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
-import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import type { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | label-no-enc-textarea-or-select", function () {
   function createLinter(config: LegacyLinterConfig) {

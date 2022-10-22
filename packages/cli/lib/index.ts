@@ -4,7 +4,8 @@ import chalk from "chalk";
 import ora from "ora";
 import meow from "meow";
 
-import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils";
+import type { Report } from "./utils";
+import { exitProcess, EXIT_CODE_ERROR } from "./utils";
 
 import checkInvalidCLIOptions from "./check-invalid-cli-options";
 import print_file_report from "./print-file-report";
@@ -13,7 +14,8 @@ import print_config_command from "./commands/print-config";
 import printErrors from "./print-errors";
 
 // @ts-ignore
-import linthtml, { FileLinter } from "@linthtml/linthtml";
+import type { FileLinter } from "@linthtml/linthtml";
+import linthtml from "@linthtml/linthtml";
 import type Issue from "@linthtml/linthtml/issue";
 
 const cliOptions = {

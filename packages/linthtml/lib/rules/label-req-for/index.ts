@@ -1,6 +1,6 @@
-import { reportFunction, RuleDefinition } from "../../read-config";
+import type { reportFunction, RuleDefinition } from "../../read-config";
 import { is_labelable, is_tag_node, has_attribute, attribute_value } from "@linthtml/dom-utils";
-import { CharValue, Element, Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { CharValue, Element, Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "label-req-for";
 

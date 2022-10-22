@@ -3,9 +3,9 @@ import parse from "@linthtml/html-parser";
 import Config from "./config";
 import InlineConfig from "./inline_config";
 import rules from "../rules";
-import { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config";
-import { Node, Document } from "@linthtml/dom-utils/lib/dom_elements";
-import Issue from "../issue";
+import type { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config";
+import type { Node, Document } from "@linthtml/dom-utils/lib/dom_elements";
+import type Issue from "../issue";
 import { is_comment_node } from "@linthtml/dom-utils";
 import { flatten } from "../utils/array";
 /**

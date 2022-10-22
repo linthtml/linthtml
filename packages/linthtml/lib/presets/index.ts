@@ -1,7 +1,7 @@
 import presetsDefault from "./default";
 import presetsA11y from "./accessibility";
 import presetsValidate from "./validate";
-import { LegacyLinterConfig } from "../read-config";
+import type { LegacyLinterConfig } from "../read-config";
 
 const none = (() => {
   const keys = Object.keys(presetsDefault);

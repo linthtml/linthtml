@@ -1,6 +1,6 @@
 /* eslint-disable array-element-newline */
 
-import { CharValue } from "./dom_elements";
+import type { CharValue } from "./dom_elements";
 
 // List of ISO 639-1 language codes
 const LANG_CODES = [

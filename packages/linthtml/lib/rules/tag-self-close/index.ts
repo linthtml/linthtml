@@ -1,7 +1,7 @@
 import { is_void_node, is_tag_node, is_self_closing } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config";
+import type { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "tag-self-close";
 

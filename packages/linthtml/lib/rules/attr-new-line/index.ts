@@ -1,6 +1,6 @@
-import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+import type { Element, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import type { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "attr-new-line";
 

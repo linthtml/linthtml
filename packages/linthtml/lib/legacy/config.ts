@@ -1,6 +1,6 @@
 import { is_boolean } from "../validate_option";
 import pull from "lodash.pull";
-import { LegacyRuleDefinition, LegacyRuleOption } from "../read-config";
+import type { LegacyRuleDefinition, LegacyRuleOption } from "../read-config";
 
 /**
  * The config object stores all possible rules and options and manages

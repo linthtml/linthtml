@@ -1,4 +1,4 @@
-import { RuleDefinition } from "../../read-config";
+import type { RuleDefinition } from "../../read-config";
 import { create_string_or_regexp_validator } from "../../validate_option";
 
 const RULE_NAME = "attr-name-ignore-regex";

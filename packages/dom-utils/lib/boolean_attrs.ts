@@ -1,6 +1,6 @@
 /** @hidden */
 
-import { NodeAttribute } from "./dom_elements";
+import type { NodeAttribute } from "./dom_elements";
 
 /* eslint-disable array-element-newline */
 const BOOLEAN_ATTRIBUTES = [

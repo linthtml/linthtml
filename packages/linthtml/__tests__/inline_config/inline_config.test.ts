@@ -3,7 +3,7 @@ import { extract_inline_config } from "../../lib/inline_config";
 import { expect } from "chai";
 import Config from "../../lib/config";
 import linthtml from "../../lib/index";
-import { LegacyRuleDefinition, RuleDefinition } from "../../lib/read-config";
+import type { LegacyRuleDefinition, RuleDefinition } from "../../lib/read-config";
 
 const fooRule: RuleDefinition = {
   name: "foo",

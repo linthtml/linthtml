@@ -1,6 +1,6 @@
 import { is_tag_node, attribute_has_value } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config";
+import type { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "link-req-noopener";
 

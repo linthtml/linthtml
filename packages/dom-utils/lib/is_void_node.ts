@@ -1,4 +1,4 @@
-import { Element } from "./dom_elements";
+import type { Element } from "./dom_elements";
 
 const VOID_NODES = [
   "area",

@@ -5,7 +5,7 @@ import { expect } from "chai";
 // TODO: Remove .default after typescript migration
 import linthtml from "../lib";
 import { presets } from "../lib/presets";
-import { LegacyLinterConfig } from "../lib/read-config";
+import type { LegacyLinterConfig } from "../lib/read-config";
 
 function createLinter(config: LegacyLinterConfig) {
   return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);

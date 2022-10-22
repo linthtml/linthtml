@@ -1,6 +1,6 @@
 import { has_non_empty_attribute, is_comment_node, is_text_node, is_tag_node } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import type { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "button-req-content";
 

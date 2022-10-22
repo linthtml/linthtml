@@ -1,4 +1,4 @@
-import { Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type { Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 export default class Issue {
   code: string;

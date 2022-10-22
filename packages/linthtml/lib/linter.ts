@@ -1,11 +1,13 @@
 import Config from "./config";
-import { extract_inline_config, InlineConfig } from "./inline_config";
+import type { InlineConfig } from "./inline_config";
+import { extract_inline_config } from "./inline_config";
 import rules from "./rules";
 import Issue from "./issue";
 import CustomError from "./utils/custom-errors";
 
-import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config";
-import { Document, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config";
+import { get_module_path } from "./read-config";
+import type { Document, Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 import { flatten } from "./utils/array";
 
 /**

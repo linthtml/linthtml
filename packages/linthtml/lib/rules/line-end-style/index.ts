@@ -1,7 +1,7 @@
-import { reportFunction, RuleDefinition } from "../../read-config";
+import type { reportFunction, RuleDefinition } from "../../read-config";
 import { is_text_node, get_text_lines } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const RULE_NAME = "line-end-style";
 

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import type { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 

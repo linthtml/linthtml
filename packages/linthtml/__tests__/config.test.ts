@@ -1,7 +1,7 @@
 import { expect } from "chai";
 // TODO: Remove .default after typescript migration
 import Config from "../lib/config";
-import { LegacyRuleDefinition, RuleDefinition } from "../lib/read-config";
+import type { LegacyRuleDefinition, RuleDefinition } from "../lib/read-config";
 import rules from "../lib/rules";
 
 describe("Config", function () {

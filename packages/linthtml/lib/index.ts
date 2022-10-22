@@ -9,7 +9,7 @@ import path from "path";
 import fs from "fs";
 import globby from "globby";
 import ignore from "ignore";
-import Issue from "./issue";
+import type Issue from "./issue";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
