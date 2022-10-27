@@ -2,7 +2,7 @@ import { expect } from "chai";
 import Linter from "../lib/legacy/linter";
 import ConstRule from "./fixtures/const_rule";
 import FreeOptionsRule from "../lib/rules/free-options";
-import { LegacyLinterConfig } from "../lib/read-config";
+import type { LegacyLinterConfig } from "../lib/read-config";
 
 describe("LegacyLinter", function () {
   function createLinter(...config: LegacyLinterConfig[]) {

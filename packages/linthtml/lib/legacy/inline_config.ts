@@ -1,8 +1,8 @@
 // @ts-ignore
 import { parse_HTML_attributes } from "@linthtml/dom-utils";
 import Issue from "../issue";
-import Config from "./config";
-import { Comment, Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type Config from "./config";
+import type { Comment, Range } from "@linthtml/dom-utils/lib/dom_elements";
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order

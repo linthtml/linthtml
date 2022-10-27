@@ -3,7 +3,7 @@ import Linter from "../lib/linter";
 import Config from "../lib/config";
 import rewiremock from "rewiremock/node";
 import path from "path";
-import { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../lib/read-config";
+import type { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../lib/read-config";
 
 const foo: RuleDefinition = {
   name: "foo",

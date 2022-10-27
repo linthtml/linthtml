@@ -2,8 +2,8 @@ import match_format from "../../utils/check_format";
 import { is_tag_node, get_classes, has_non_empty_attribute, get_attribute } from "@linthtml/dom-utils";
 import { create_list_value_validator } from "../../validate_option";
 import { types } from "util";
-import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
-import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+import type { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
+import type { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
 
 const { isRegExp } = types;
 

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
-import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import type { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
 describe("legacy linter | link-min-length-4", function () {
   function createLinter(config: LegacyLinterConfig) {

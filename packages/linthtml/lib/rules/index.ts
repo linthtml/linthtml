@@ -1,7 +1,7 @@
 // Export an array of all rules.
 // @ts-ignore
 import bulk from "bulk-require";
-import { LegacyRuleDefinition } from "../read-config";
+import type { LegacyRuleDefinition } from "../read-config";
 
 // All modules in this directory excluding this file
 // const rulesExport2: Record<string, {default: LegacyRuleDefinition}> = bulk(__dirname, "!(index.ts)");

@@ -1,4 +1,4 @@
-import { Node } from "./dom_elements";
+import type { Node } from "./dom_elements";
 import { attribute_has_value, is_tag_node } from "./tags";
 
 // these elements are *labelable elements* according to the HTML spec

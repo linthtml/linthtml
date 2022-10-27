@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
 // TODO find solution to remove dist/lib
-import { Element } from "@linthtml/dom-utils/lib/dom_elements";
+import type { Element } from "@linthtml/dom-utils/lib/dom_elements";
 import parse from "../lib";
 
 describe("HTML Parser", function () {

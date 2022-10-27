@@ -1,7 +1,8 @@
 import Issue from "../issue";
-import { Document, Node } from "@linthtml/dom-utils/lib/dom_elements";
-import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config";
-import { LegacyLinterConfig, RuleDefinition } from "../read-config";
+import type { Document, Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { InlineConfigIndex } from "../legacy/inline_config";
+import type InlineConfig from "../legacy/inline_config";
+import type { LegacyLinterConfig, RuleDefinition } from "../read-config";
 import { flatten } from "../utils/array";
 
 // TODO: remove .default after typescript migration

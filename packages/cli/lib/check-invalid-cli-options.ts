@@ -2,7 +2,7 @@
 import kebabCase from "lodash.kebabcase";
 import chalk from "chalk";
 import { EOL } from "os";
-import meow from "meow";
+import type meow from "meow";
 
 function buildAllowedOptions(allowedOptions: meow.AnyFlags) {
   let options = Object.keys(allowedOptions);

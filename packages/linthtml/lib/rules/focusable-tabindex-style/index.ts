@@ -1,6 +1,6 @@
 import { is_tag_node, has_attribute, has_non_empty_attribute, attribute_value } from "@linthtml/dom-utils";
-import { Element, Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import type { Element, Node } from "@linthtml/dom-utils/lib/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config";
 
 const RULE_NAME = "focusable-tabindex-style";
 
