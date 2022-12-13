@@ -46,9 +46,10 @@ function check_instruction(text: string): void | never {
 }
 
 // don't catch things like `rule rule_2="x"` (rule_2 extracted but not rule)
+// don't catch things like `my/rule="x"` (rule extracted but not my/rule)
 // ' x=y - ' => extract config "y -" should be y only
 function extract_rule_config(text: string): { rule_name: string; rule_configuration: string }[] {
-  const R = /((?:\s|)\w+[-\w]*=)/g;
+  const R = /((?:\s|)\w+[-//\w]*=)/g;
   const matches = [];
   let match;
   while ((match = R.exec(text)) !== null) {
@@ -111,11 +112,11 @@ function get_instruction_meta(text: string, linter_config: Config): InlineConfig
   const [, instruction_type, instruction_meta] = /^linthtml-(enable|disable|configure)(?:\s+(.*)|$)/.exec(
     text
   ) as RegExpExecArray;
+
   if (instruction_type === "configure") {
     const rules_configurations = instruction_meta
       ? extract_rule_config(instruction_meta) // report error if only rule_name and nothing else
       : [];
-
     return rules_configurations.reduce((configurations: InlineConfig, { rule_name, rule_configuration }) => {
       // there's an extra pair of "|' for string configuration that need to be removed before using JSON.parse
       const cleaned_rule_configuration = parse_config(rule_configuration);
@@ -127,7 +128,6 @@ function get_instruction_meta(text: string, linter_config: Config): InlineConfig
   const rules = instruction_meta
     ? instruction_meta.trim().split(/\s*,\s*/)
     : Object.keys(linter_config.activated_rules); // If no rules provided then enable/disabled all activated rules
-
   return rules.reduce((configurations: InlineConfig, rule_name) => {
     configurations[rule_name] = generate_inline_instruction(rule_name, instruction_type === "enable", linter_config);
     return configurations;
