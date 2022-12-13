@@ -4,6 +4,7 @@ import { expect } from "chai";
 import Config from "../../lib/config";
 import linthtml from "../../lib/index";
 import { LegacyRuleDefinition, RuleDefinition } from "../../lib/read-config";
+import path from "path";
 
 const fooRule: RuleDefinition = {
   name: "foo",
@@ -602,5 +603,24 @@ describe("inline_config with linter", function () {
     `;
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
+  });
+});
+
+describe("inline_config with linter + plugin rule", function () {
+  it("rules from plugin can be configured using inline config", async function () {
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const linter = linthtml.from_config_path(config_path);
+    const html = ["Some text", "<!-- linthtml-configure my-plugin/rule=false -->", "<div></div>"].join("\n");
+
+    const issues = await linter.lint(html);
+    expect(issues).to.have.lengthOf(1); // One error for the text tag "Some text"
+  });
+  it("rules from plugin can be disabled using inline config", async function () {
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const linter = linthtml.from_config_path(config_path);
+    const html = ["Some text", "<!-- linthtml-disable my-plugin/rule -->", "<div></div>"].join("\n");
+
+    const issues = await linter.lint(html);
+    expect(issues).to.have.lengthOf(1); // One error for the text tag "Some text"
   });
 });
