@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.4](https://github.com/linthtml/linthtml/compare/v0.9.3...v0.9.4) (2022-12-15)
+
+### Bug Fixes
+
+* [@linthtml/linhtml] Correct rule name extract in inline_config "parser" ([#493](https://github.com/linthtml/linthtml/pull/493))
+
 ## [0.9.3](https://github.com/linthtml/linthtml/compare/v0.9.3...v0.9.2) (2022-10-08)
 
 ### Bug Fixes
