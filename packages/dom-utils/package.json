@@ -23,7 +23,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register '__tests__/*.ts' --bail",
+    "test": "mocha",
     "build": "tsc --build"
   },
   "dependencies": {
