@@ -4,5 +4,7 @@
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,
     "rootDir": "lib"
   },
-  "include": ["./lib/*.ts"]
+  "files": [],
+  "include": ["./lib/**/*.ts"],
+  "exclude": ["./lib/__tests__/**"]
 }
