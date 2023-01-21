@@ -7,13 +7,16 @@
     ]
   },
   "compilerOptions": {
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
     "rootDir": "lib"
   },
-  "references": [{
-    "path": "../html-parser"
-  }, {
-    "path": "../dom-utils"
-  }],
+  "references": [
+    {
+      "path": "../html-parser"
+    },
+    {
+      "path": "../dom-utils"
+    }
+  ],
   "include": ["./lib/**/*.ts"]
 }
