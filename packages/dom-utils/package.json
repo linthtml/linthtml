@@ -23,7 +23,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha",
+    "test": "mocha --project ./tsconfig.test.json",
     "build": "tsc --build"
   },
   "dependencies": {

@@ -4,10 +4,12 @@
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,
     "rootDir": "lib"
   },
-  "include": ["./lib/*.ts"],
   "references": [
     {
       "path": "../dom-utils"
     }
-  ]
+  ],
+  "files": [],
+  "include": ["./lib/**/*.ts"],
+  "exclude": ["./lib/__tests__/**"]
 }
