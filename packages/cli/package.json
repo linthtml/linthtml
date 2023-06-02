@@ -40,9 +40,6 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash.kebabcase": "^4.1.6"
   },
-  "peerDependencies": {
-    "@linthtml/linthtml": "file:../linthtml"
-  },
   "publishConfig": {
     "access": "public"
   },
