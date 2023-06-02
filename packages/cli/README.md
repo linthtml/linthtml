@@ -4,6 +4,6 @@
 
 ## Usage
 
-You probably shouldn't, at least directly.
+⚠️ This package cannot be install alone.
 
-Install [LintHTML](https://www.npmjs.com/package/@linthtml/linthtml) for access to the `LintHTML` CLI.
+Instead install [LintHTML](https://www.npmjs.com/package/@linthtml/linthtml) for access to the `LintHTML` CLI.
