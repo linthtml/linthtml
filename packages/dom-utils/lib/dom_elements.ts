@@ -95,6 +95,7 @@ function ExtendedNode<TBase extends Constructor>(
 // Change NodeWithChildren type for children
 export class Node extends ExtendedNode(NodeWithChildren) {
   parent: NodeWithChildren | null = null;
+  // eslint-disable-next-line no-use-before-define
   children: Node[] = []; // {Node[]}
 }
 /**
