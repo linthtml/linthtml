@@ -4,28 +4,30 @@ import fs from "fs";
 import chalk from "chalk";
 import inquirer from "inquirer";
 
+import type { LegacyLinterConfig, LinterConfig } from "@linthtml/linthtml/read-config";
+
 const default_config = {
-  maxerr: false,
   "text-ignore-regex": false,
   "raw-ignore-regex": false,
   "attr-name-ignore-regex": false,
   "id-class-ignore-regex": false,
   "line-max-len-ignore-regex": false,
   rules: {}
-};
+} satisfies LinterConfig;
 
 const GENERATORS = {
   JavaScript: {
     name: ".linthtmlrc.js",
-    generate_content: (content: any) => `module.exports = ${JSON.stringify(content, null, "\t")}`
+    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
+      `module.exports = ${JSON.stringify(content, null, "\t")}`
   },
   JSON: {
     name: ".linthtmlrc.json",
-    generate_content: (content: any) => JSON.stringify(content, null, "\t")
+    generate_content: (content: LinterConfig | LegacyLinterConfig) => JSON.stringify(content, null, "\t")
   },
   YAML: {
     name: ".linthtmlrc.yaml",
-    generate_content: (content: any) => yaml.dump(content)
+    generate_content: (content: LinterConfig | LegacyLinterConfig) => yaml.dump(content)
   }
 };
 

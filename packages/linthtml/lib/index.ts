@@ -29,7 +29,6 @@ const linthtml = function (html: string, config: LegacyLinterConfig | LinterConf
     return linter.lint(html);
   }
   const linter = new LegacyLinter(null, config as LegacyLinterConfig);
-  // @ts-ignore
   return linter.lint(html);
 };
 
@@ -71,7 +70,6 @@ function filter_ignored_files(file_paths: string[], ignore_pattern: string | str
     return file_paths;
   }
 
-  // @ts-ignore
   const ignorer = ignore().add(ignore_pattern);
   return ignorer.filter(file_paths);
 }

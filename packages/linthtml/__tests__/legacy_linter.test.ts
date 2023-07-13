@@ -2,7 +2,7 @@ import { expect } from "chai";
 import Linter from "../lib/legacy/linter";
 import ConstRule from "./fixtures/const_rule";
 import FreeOptionsRule from "../lib/rules/free-options";
-import { LegacyLinterConfig } from "../lib/read-config";
+import { LegacyLinterConfig, LegacyRuleDefinition } from "../lib/read-config";
 
 describe("LegacyLinter", function () {
   function createLinter(...config: LegacyLinterConfig[]) {
@@ -10,11 +10,13 @@ describe("LegacyLinter", function () {
       name: "dom",
       lint: function () {
         return [];
-      }
-    };
+      },
+      options: [],
+      subscribers: [],
+      on: ""
+    } satisfies LegacyRuleDefinition;
     return new Linter(
       [
-        // @ts-ignore
         dom,
         // @ts-ignore
         FreeOptionsRule
@@ -28,7 +30,7 @@ describe("LegacyLinter", function () {
   });
 
   describe("lint", function () {
-    const rule: any = new ConstRule([
+    const rule = new ConstRule([
       {
         msg: "this is a test",
         index: 4,
@@ -46,8 +48,7 @@ describe("LegacyLinter", function () {
     ]);
 
     it("Should throw an error when given a nonexistent option", function () {
-      // @ts-ignore
-      expect(() => createLinter(null, { nonopt: 7 }).lint("f\nfff")).to.throw('Rule "nonopt" does not exist');
+      expect(() => createLinter({ nonopt: 7 }).lint("f\nfff")).to.throw('Rule "nonopt" does not exist');
     });
 
     it("should return correct line and column numbers", async function () {
@@ -73,7 +74,7 @@ describe("LegacyLinter", function () {
     });
 
     it("Should throw an error for non-integer config for maxerr", function () {
-      // @ts-ignore
+      // @ts-expect-error Test that config validation throw error is maxerr is not valid
       expect(() => createLinter({ maxerr: "five" }).lint("")).to.throw(
         'Configuration for rule "maxerr" is invalid: Expected number got string'
       );

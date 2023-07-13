@@ -1,11 +1,12 @@
 import chalk from "chalk";
 import * as messages from "@linthtml/linthtml/messages";
 
-export default function print_errors(error: { code: string; meta: unknown; message: string }) {
+export type CliError = { code?: string; meta?: Record<string, unknown>; message: string; fileName: string };
+
+export default function print_errors(error: CliError) {
   if (error.code) {
     const [type, code] = error.code.split("-");
-    // @ts-ignore
-    const error_message = messages[`${type}_ERRORS`][code];
+    const error_message = messages[`${type as "CORE"}_ERRORS`][code];
     return console.log(chalk`{red Error:} ${error_message(error.meta)}`);
   }
   return console.log(chalk`{red ${error.message}}`);

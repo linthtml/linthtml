@@ -2,6 +2,7 @@ import { is_comment_node } from "@linthtml/dom-utils";
 import CustomError from "./utils/custom-errors";
 import { Comment, Node } from "@linthtml/dom-utils/lib/dom_elements";
 import Config from "./config";
+import type { NonExistingRule } from "./config";
 import { reportFunction } from "./read-config";
 // inline_config 0.2
 //
@@ -87,8 +88,8 @@ function generate_inline_instruction(
   let rule;
   try {
     rule = linter_config.getRule(rule_name);
-  } catch ({ rule_name }) {
-    throw new CustomError("INLINE_02", { rule_name });
+  } catch (error) {
+    throw new CustomError("INLINE_02", { rule_name: (error as NonExistingRule).rule_name });
   }
   if (typeof rule_configuration === "boolean" || rule_configuration === "off") {
     return {
@@ -103,8 +104,8 @@ function generate_inline_instruction(
     return {
       config: rule_configuration
     };
-  } catch (error: any) {
-    throw new CustomError("INLINE_04", { rule_name, error: error.message });
+  } catch (error) {
+    throw new CustomError("INLINE_04", { rule_name, error: (error as Error).message });
   }
 }
 
@@ -145,12 +146,12 @@ export function extract_inline_config(node: Node, linter_config: Config, report:
   try {
     check_instruction(data);
     return get_instruction_meta(data, linter_config);
-  } catch (error: any) {
+  } catch (error) {
     report({
-      code: error.code,
+      code: (error as CustomError).code,
       position: node.loc,
       meta: {
-        data: error.meta
+        data: (error as CustomError).meta
       }
     });
     return {};

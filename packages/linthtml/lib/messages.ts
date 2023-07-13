@@ -1,26 +1,26 @@
 import chalk from "chalk";
-import type { Range } from "@linthtml/dom-utils/lib/dom_elements";
+import type { CharValue, Range } from "@linthtml/dom-utils/lib/dom_elements";
 import type Issue from "./issue";
 
-export const CORE_ERRORS: { [code: string]: (meta?: any) => string } = {
-  "01": (meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta.config_path}}`,
-  "02": (meta) => chalk`{red Error:} Cannot find the config file {underline ${meta.config_path}}`,
-  "03": (meta) => chalk`{red Error:} Cannot find module "${meta.module_name}" to extends`,
+export const CORE_ERRORS: { [code: string]: (meta?: Record<string, unknown>) => string } = {
+  "01": (meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta?.config_path}}`,
+  "02": (meta) => chalk`{red Error:} Cannot find the config file {underline ${meta?.config_path}}`,
+  "03": (meta) => chalk`{red Error:} Cannot find module "${meta?.module_name}" to extends`,
   "04": (meta) =>
-    chalk`{red Error:} Failed to load parser "${meta.module_name}". Cannot find module "${meta.module_name}"`,
-  "05": (meta) => chalk`{red Error:} Cannot find plugin "${meta.module_name}", make sure it's installed locally.`,
+    chalk`{red Error:} Failed to load parser "${meta?.module_name}". Cannot find module "${meta?.module_name}"`,
+  "05": (meta) => chalk`{red Error:} Cannot find plugin "${meta?.module_name}", make sure it's installed locally.`,
   "06": (meta) =>
-    chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
+    chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta?.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
   "07": (meta) =>
-    chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+    chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
   "08": (meta) =>
-    chalk`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta.rule_name}" from plugin "${meta.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+    chalk`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
   "09": () => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
-};
+} as const;
 
 // TODO: add the possibility to use chalk ?
 export const errors: {
-  [code: string]: (meta: any, position: Range) => string;
+  [code: string]: (meta: Record<string, unknown>, position: Range) => string;
 } = {
   E000: (/* data */) => "not a valid error code",
   E001: (data) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
@@ -44,10 +44,10 @@ export const errors: {
   E017: (data) => `Invalid case for tag <${data.name}>, tag names must be written in lowercase`,
   E018: (data) => `Void element should ${data.expect} close itself`,
   E019: (/* data */) => 'The label has no attribute "for"',
-  E020: (/* data */) => 'The Label does not have a "for" attribute or a labeable child',
+  E020: (/* data */) => 'The Label does not have a "for" attribute or a labelable child',
   E021: (data) =>
     `There's no element with an id matching the one provided to the "for" attribute. Provided id is "${data.id}"`,
-  E022: (data) => `The element with the id "${data.id}" is not labeable`,
+  E022: (data) => `The element with the id "${data.id}" is not labelable`,
   E023: (data) => `${data.part} contains ${data.desc}: ${data.chars}`,
   E024: (data, { start }) => {
     return `Incorrect indentation for \`${data.tagName}\` beginning at L${start.line}:C${start.column}. Expected indentation of ${data.expected_indentation} ${data.expected_type} but found ${data.current_indentation} ${data.current_type}.`;
@@ -58,7 +58,10 @@ export const errors: {
   E027: (/* data */) => "The <head> tag must contain a title",
   E028: (data) => `The <head> tag can only contain one title: ${data.num} given`,
   E029: (data) => `Title "${data.title}" exceeds maximum length of ${data.maxlength}`,
-  E030: ({ open }) => `Tag close does not match opened tag at C${open.loc.start.line}:L${open.loc.start.column}`,
+  E030: ({ open }) =>
+    `Tag close does not match opened tag at C${(open as CharValue).loc.start.line}:L${
+      (open as CharValue).loc.start.column
+    }`,
   E031: (/* data */) => "Table must have captions (<caption>) for accessibility",
   E032: (/* data */) => "Tag <figure> must contains a <figcaption> tag for accessibility",
   E033: (data) => `Input with id "${data.idValue}" has no associated label`,
@@ -88,8 +91,8 @@ export const errors: {
     `Expected from ${data.expectedMin} to ${data.expectedMax} levels of indentation. ${data.value} levels instead`,
   E057: (data) => `Mandatory attribute "${data.attribute}" is missing in tag <${data.tag}>`,
   E058: (/* data */) => 'Links should with `target="blank"` should define `rel="noopener"`',
-  E059: (data) =>
-    `Link text should have at least 4 chars, current text "${data.content}" has a length of ${data.content.length}`,
+  E059: ({ content }) =>
+    `Link text should have at least 4 chars, current text "${content}" has a length of ${(content as string).length}`,
   E060: (/* data */) => 'Input elements with type "button", "submit" and "reset" must have a value or title attribute.',
   E061: (/* data */) => "Each button element must have a text content.",
   E062: (/* data */) => "A <label> element should not encapsulate select and textarea elements.",
@@ -101,7 +104,7 @@ export const errors: {
   INLINE_03: ({ rule_configuration }) =>
     `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON global`,
   INLINE_04: ({ rule_name, error }) => `linthtml-configure instruction for rule \`${rule_name}\` is not valid. ${error}`
-};
+} as const;
 
 // Error code INLINE-xx
 // module.exports.INLINE_ERRORS = {

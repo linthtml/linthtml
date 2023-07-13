@@ -17,7 +17,7 @@ function lint(
   }: {
     report: reportFunction;
     rules: Record<string, ActiveRuleDefinition>;
-    global_config: any;
+    global_config: Record<string, unknown>;
   }
 ) {
   if (Boolean(rules["id-style"]) === false && rules["id-class-style"]) {

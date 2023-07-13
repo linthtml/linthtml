@@ -74,7 +74,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
       position: node.open.loc,
       meta: {
         data: {
-          id: id
+          id
         }
       }
     });
@@ -84,7 +84,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
       position: node.open.loc,
       meta: {
         data: {
-          id: id
+          id
         }
       }
     });

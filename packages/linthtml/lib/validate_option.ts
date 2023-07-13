@@ -13,9 +13,9 @@ export function is_boolean(rule_name: string) {
 }
 
 export function create_string_or_regexp_validator(rule_name: string, allow_empty_string = true) {
-  return function (option: any): string | RegExp | never {
+  return function (option: unknown): string | RegExp | never {
     if ((typeof option === "string" && (allow_empty_string || option !== "")) || isRegExp(option) === true) {
-      return option;
+      return option as string | RegExp;
     }
     if (!allow_empty_string && typeof option === "string") {
       throw new Error(`Configuration for rule "${rule_name}" is invalid: You provide an empty string value.`);
@@ -38,12 +38,12 @@ export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg?: true
-): (option: any) => option is (string | RegExp) | never;
+): (option: unknown) => option is (string | RegExp) | never;
 export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg: false
-): (option: any) => option is string | never;
+): (option: unknown) => option is string | never;
 export function create_list_value_validator(rule_name: string, values: string[], allow_reg = true) {
   const type_error = (rule_name: string, option: unknown) =>
     `Configuration for rule "${rule_name}" is invalid: Expected string${
@@ -53,7 +53,7 @@ export function create_list_value_validator(rule_name: string, values: string[],
     throw new Error("You must provide a array of string"); // CORE error message?
   }
   // TODO: need same rule without regexp
-  return function (option: any) {
+  return function (option: unknown) {
     if (typeof option !== "string" && (allow_reg === false || isRegExp(option) === false)) {
       throw new Error(type_error(rule_name, option));
     }

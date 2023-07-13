@@ -1,4 +1,4 @@
-import { DomHandler } from "htmlparser2";
+import { DomHandler, ElementType } from "htmlparser2";
 // TODO: remove
 import {
   is_void_node,
@@ -90,8 +90,7 @@ export default class Handler extends DomHandler {
   }
 
   // TODO: Use quote?
-  // @ts-ignore
-  onattribute(name: string, value: string, quote?: string | undefined | null): void {
+  onattribute(name: string, value: string /*, quote?: string | undefined | null */): void {
     const attribute = this.__createAttributeNode(name, value);
     this.attributes.push(attribute);
   }
