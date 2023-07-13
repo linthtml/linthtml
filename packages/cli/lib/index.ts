@@ -101,7 +101,7 @@ async function lint(input: string[], config_path: string) {
     return exitProcess(EXIT_CODE_ERROR);
   }
 
-  const lintSpinner = ora("Analysing files");
+  const lintSpinner = ora("Analyzing files");
   try {
     lintSpinner.start();
     let reports: Report[] = await Promise.all(files_linters.map(lintFile));
@@ -111,7 +111,7 @@ async function lint(input: string[], config_path: string) {
   } catch (error) {
     lintSpinner.fail();
     console.log();
-    console.log(chalk`An error occured while analysing {underline ${(error as CliError).fileName}}`);
+    console.log(chalk`An error occurred while analyzing {underline ${(error as CliError).fileName}}`);
     console.log();
     printErrors(error as CliError);
     // Needed after printErrors?
