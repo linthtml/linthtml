@@ -10,9 +10,8 @@ import checkInvalidCLIOptions from "./check-invalid-cli-options";
 import print_file_report from "./print-file-report";
 import init_command from "./commands/init";
 import print_config_command from "./commands/print-config";
-import printErrors from "./print-errors";
+import printErrors, { CliError } from "./print-errors";
 
-// @ts-ignore
 import linthtml, { FileLinter } from "@linthtml/linthtml";
 import type Issue from "@linthtml/linthtml/issue";
 
@@ -60,14 +59,10 @@ const cliOptions = {
       type: "boolean"
     }
   }
-};
+} satisfies meow.Options<meow.AnyFlags>;
 
 export default function cli(argv: string[]) {
-  // TODO: Fix?
-  // @ts-ignore
-  cliOptions.argv = argv;
-  // @ts-ignore
-  const cli = meow(cliOptions);
+  const cli = meow({ ...cliOptions, argv });
   const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as meow.AnyFlags, cli.flags as meow.AnyFlags);
   if (invalidOptionsMessage) {
     process.stderr.write(invalidOptionsMessage);
@@ -94,16 +89,15 @@ export default function cli(argv: string[]) {
   return lint(cli.input, cli.flags.config as string);
 }
 
-// @ts-ignore
 async function lint(input: string[], config_path: string) {
   let files_linters = [];
   const searchSpinner = ora("Searching for files").start();
   try {
     files_linters = await linthtml.create_linters_for_files(input, config_path);
     searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
-  } catch (error: any) {
+  } catch (error) {
     searchSpinner.fail();
-    printErrors(error);
+    printErrors(error as CliError);
     return exitProcess(EXIT_CODE_ERROR);
   }
 
@@ -114,13 +108,14 @@ async function lint(input: string[], config_path: string) {
     reports = reports.filter((report) => report.issues.length > 0);
     lintSpinner.succeed("Files analyzed");
     printReports(reports);
-  } catch (error: any) {
+  } catch (error) {
     lintSpinner.fail();
     console.log();
-    console.log(chalk`An error occured while analysing {underline ${error.fileName}}`);
+    console.log(chalk`An error occured while analysing {underline ${(error as CliError).fileName}}`);
     console.log();
-    printErrors(error);
-    console.log(chalk`{red ${error.message}}`);
+    printErrors(error as CliError);
+    // Needed after printErrors?
+    console.log(chalk`{red ${(error as CliError).message}}`);
     return exitProcess(EXIT_CODE_ERROR);
   }
 }
@@ -157,8 +152,8 @@ function printReports(reports: Report[]) {
   return exitProcess();
 }
 
-// TODO imporve
-async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> {
+// TODO improve
+async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> | never {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
     const issues = await linter.lint(file_content);
@@ -168,8 +163,8 @@ async function lintFile({ file_path, linter, config_path, preset }: FileLinter):
       config_path,
       preset
     };
-  } catch (error: any) {
-    error.fileName = file_path;
+  } catch (error) {
+    (error as CliError).fileName = file_path;
     throw error;
   }
 }

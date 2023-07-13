@@ -1,4 +1,3 @@
-// @ts-ignore
 import parse from "@linthtml/html-parser";
 import Config from "./config";
 import InlineConfig from "./inline_config";
@@ -78,7 +77,7 @@ export default class Linter {
 
   // Here ignore ts error as "dom" is special rule.
   lintDom(dom: Document, opts: unknown): Issue[] {
-    // @ts-ignore
+    // @ts-expect-error dom rule return an array (legacy code)
     return this.rules.getRule("dom").lint(dom, opts, this.inlineConfig);
   }
 

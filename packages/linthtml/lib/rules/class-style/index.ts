@@ -43,7 +43,7 @@ function lint(
           meta: {
             data: {
               attribute: "class",
-              format: format,
+              format,
               value: _class
             }
           }

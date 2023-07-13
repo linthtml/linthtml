@@ -8,7 +8,7 @@ import {
   LegacyRuleOption
 } from "./read-config";
 
-class NonExistingRule extends Error {
+export class NonExistingRule extends Error {
   constructor(public rule_name: string) {
     super(`Rule "${rule_name}" does not exist.`);
     this.name = "NonExistingRule";
@@ -16,7 +16,7 @@ class NonExistingRule extends Error {
   }
 }
 
-class InvalidRuleConfig extends Error {
+export class InvalidRuleConfig extends Error {
   constructor(message: string) {
     super(message);
     this.name = "InvalidRuleConfig";
@@ -28,7 +28,7 @@ function is_valid_string(str: string): boolean {
 }
 
 // TODO: Create ENUM for severity?
-function get_severity(config: any): "error" | "warning" {
+function get_severity(config: RuleConfig): "error" | "warning" {
   switch (typeof config) {
     case "boolean":
       return "error";
@@ -170,12 +170,12 @@ export default class Config {
     }
   }
 
-  generateLegacyConfig(config: any): LegacyLinterConfig {
-    const o: any = {};
-    const keys = Object.keys(config.rules);
+  generateLegacyConfig(config: LinterConfig): LegacyLinterConfig {
+    const o: Record<string, unknown> = {};
+    const keys = Object.keys(config.rules ?? {});
     keys.forEach((rule_name) => {
       const rule = this.getRule(rule_name);
-      const newConfig = config.rules[rule_name];
+      const newConfig = (config.rules as Record<string, RuleConfig>)[rule_name];
       let rule_config = extract_rule_config(newConfig, rule_name);
       if (rule_config === null) {
         rule_config = newConfig;

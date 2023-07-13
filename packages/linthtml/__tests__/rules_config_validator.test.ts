@@ -75,12 +75,12 @@ describe("Rules config validators", function () {
 
   describe("String list validators", function () {
     it("create validator function throw an error if nothing is provide in input", function () {
-      // @ts-ignore
+      // @ts-expect-error Testing rule validation
       expect(() => create_list_value_validator("foo")).to.throw("You must provide a array of string");
     });
 
     it("create validator function throw an error if not provided with an array of string", function () {
-      // @ts-ignore
+      // @ts-expect-error Testing rule validation
       expect(() => create_list_value_validator("foo", ["foo", 1])).to.throw("You must provide a array of string");
     });
     it("create a validation function", function () {

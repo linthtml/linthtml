@@ -5,18 +5,18 @@ export default class Issue {
   position: Range;
   rule: string;
   message: string;
-  data: unknown = {};
+  data: Record<string, unknown> = {};
   severity: "error" | "warning" = "error";
 
-  // TODO: CHECK why options.rule
+  // TODO: CHECK why options.rule (legacy, need to be removed)
   constructor(
     rule_name: string,
     position: Range,
     options: {
       code: string;
-      rule: string;
+      rule?: string;
       message?: string;
-      data?: unknown;
+      data?: Record<string, unknown>;
       severity?: "error" | "warning";
     }
   ) {

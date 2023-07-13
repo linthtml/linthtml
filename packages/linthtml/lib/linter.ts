@@ -47,7 +47,8 @@ function get_parser(config: LinterConfig): (html: string) => Document {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
       return require(parser_module);
-    } catch (error: any) {
+    } catch (error) {
+      // @ts-expect-error system error with meta object
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
@@ -89,12 +90,12 @@ export default class Linter {
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {
     const issues: Issue[] = [];
     // merge with report in call_rule_lint ?
-    function report_inline_config(data: { code: string; position: Range; meta?: any }) {
+    function report_inline_config(data: { code: string; position: Range; meta?: Record<string, unknown> }) {
       const meta = {
         ...data.meta,
         severity: "error",
         code: data.code
-      };
+      } as const;
 
       issues.push(new Issue("inline_config", data.position, meta));
     }
@@ -129,13 +130,13 @@ export default class Linter {
   // TODO: Remove after v1
   private call_rule_lint(rule: ActiveRuleDefinition, node: Node, inline_config: InlineConfig): Issue[] {
     const issues: Issue[] = [];
-    function report(data: { code: string; position: Range; meta?: any; message?: string }) {
+    function report(data: { code: string; position: Range; meta?: Record<string, unknown>; message?: string }) {
       const meta = {
         ...data.meta,
         severity: rule.severity,
         code: data.code,
         message: data.message
-      };
+      } as const;
 
       issues.push(new Issue(rule.name, data.position, meta));
     }

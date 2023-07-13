@@ -1,4 +1,3 @@
-// @ts-ignore
 import { parse_HTML_attributes } from "@linthtml/dom-utils";
 import Issue from "../issue";
 import Config from "./config";
@@ -9,7 +8,7 @@ let index = 0; // index used for making sure configs are sent in order
 
 export interface InlineConfigIndex {
   [key: string]: unknown;
-  rules?: any[];
+  rules?: Array<{ type: string; value: string | boolean; name: string }>;
   end: number;
 }
 
@@ -42,8 +41,8 @@ export default class InlineConfig {
     previous[name] = this.current[name];
     try {
       this.current[name] = this.config.setOption(name, value);
-    } catch (error: any) {
-      let message = error.message;
+    } catch (error) {
+      let message = (error as Error).message;
       message = message.replace(/^Configuration/, "Inline configuration");
       throw new Error(message);
     }
@@ -102,7 +101,7 @@ export default class InlineConfig {
    */
   feedComment(node: Comment) {
     const issues: Issue[] = [];
-    const settings: any[] = [];
+    const settings: Array<{ type: string; value: string | boolean; name: string }> = [];
     const line = node.data;
     const match = line.match(/[\s]*linthtml-(configure|disable|enable)[\s]+(.*)/);
 
@@ -115,7 +114,7 @@ export default class InlineConfig {
     if (instruction_type === "configure") {
       const key_values = parse_HTML_attributes(match[2]);
 
-      key_values.forEach((pair: any) => {
+      key_values.forEach((pair) => {
         // TODO More precise line/column numbers
         const r = this.parsePair(pair.name, pair.value, node.loc);
         // @ts-ignore
@@ -131,7 +130,7 @@ export default class InlineConfig {
               code: "INLINE_02",
               rule: "INLINE_02",
               data: {
-                rule_name: rule_name
+                rule_name
               }
             })
           );
@@ -176,7 +175,7 @@ export default class InlineConfig {
         code: "E051",
         rule: "INLINE_03",
         data: {
-          name: name
+          name
         }
       });
     }
@@ -221,6 +220,6 @@ export default class InlineConfig {
       }
     }
 
-    return { type: "rule", name: name, value: parsed };
+    return { type: "rule", name, value: parsed };
   }
 }

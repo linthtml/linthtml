@@ -75,7 +75,8 @@ describe("Config", function () {
         const rule_config = {
           "attr-bans": "foo"
         };
-        // @ts-ignore
+
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected string value "foo"'
         );
@@ -90,7 +91,7 @@ describe("Config", function () {
             foo: "bar"
           }
         };
-        // @ts-ignore
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected value "{"foo":"bar"}"'
         );
@@ -101,7 +102,7 @@ describe("Config", function () {
         const rule_config = {
           "attr-bans": []
         };
-        // @ts-ignore
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected value "undefined"'
         );
@@ -162,7 +163,7 @@ describe("Config", function () {
         const rule_config = {
           "attr-bans": []
         };
-        // @ts-ignore
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected value "undefined"'
         );
@@ -173,7 +174,7 @@ describe("Config", function () {
         const rule_config = {
           "attr-bans": [1]
         };
-        // @ts-ignore
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected value "1"'
         );
@@ -184,7 +185,7 @@ describe("Config", function () {
         const rule_config = {
           "attr-bans": 1
         };
-        // @ts-ignore
+        // @ts-expect-error provided config is invalid and the test is validating that
         expect(() => config.setRuleConfig(rule, rule_config)).to.throw(
           'Invalid Config for rule "attr-bans" - Unexpected value "1"'
         );
@@ -225,12 +226,20 @@ describe("Config", function () {
       const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": ["error"]
-      };
+      } as const;
       // @ts-ignore
       expect(() => config.setRuleConfig(rule, rule_config)).to.not.throw();
     });
     describe("Rule validation", function () {
       it('Should call "validateConfig" if rule declare the function', function (done) {
+        const rule_config = {
+          foo: [
+            "error",
+            {
+              bar: "bar"
+            }
+          ] as ["error", unknown]
+        } as const;
         const foo: RuleDefinition = {
           name: "foo",
           // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -242,8 +251,13 @@ describe("Config", function () {
             done();
           }
         };
+
         const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
+        config.setRuleConfig(rule, rule_config);
+      });
+
+      it('Should call "configTransform" if rule declare the function', function (done) {
         const rule_config = {
           foo: [
             "error",
@@ -251,16 +265,13 @@ describe("Config", function () {
               bar: "bar"
             }
           ] as ["error", unknown]
-        };
-        config.setRuleConfig(rule, rule_config);
-      });
-
-      it('Should call "configTransform" if rule declare the function', function (done) {
+        } as const;
         const foo: RuleDefinition = {
           name: "foo",
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
-          configTransform(config: any) {
+          configTransform(config) {
+            // @ts-ignore
             return config.bar;
           },
           validateConfig(config) {
@@ -272,14 +283,6 @@ describe("Config", function () {
 
         const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
-        const rule_config = {
-          foo: [
-            "error",
-            {
-              bar: "bar"
-            }
-          ] as ["error", unknown]
-        };
         config.setRuleConfig(rule, rule_config);
       });
     });

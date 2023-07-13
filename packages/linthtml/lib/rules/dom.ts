@@ -4,14 +4,13 @@ import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config";
 import { LegacyLinterConfig, RuleDefinition } from "../read-config";
 import { flatten } from "../utils/array";
 
-// TODO: remove .default after typescript migration
-
 function apply_rules(rules: RuleDefinition[], element: Node, global_config: LegacyLinterConfig) {
   const issues: Issue[] = [];
   if (!rules) {
     return [];
   }
   function report(rule: RuleDefinition) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (data: any) => {
       if (Array.isArray(data)) {
         issues.push(...data);

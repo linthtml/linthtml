@@ -2,7 +2,7 @@ import { types } from "util";
 
 const { isRegExp } = types;
 
-const formats: any = {
+const formats: Record<string, RegExp> = {
   lowercase: /^[a-z\d]+$/,
   underscore: /^[a-z\d]+(_[a-z\d]+)*$/,
   dash: /^[a-z\d]+(-[a-z\d]+)*$/,
