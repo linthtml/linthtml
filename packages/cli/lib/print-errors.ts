@@ -7,7 +7,7 @@ export default function print_errors(error: CliError) {
   if (error.code) {
     const [type, code] = error.code.split("-");
     const error_message = messages[`${type as "CORE"}_ERRORS`][code];
-    return console.log(chalk`{red Error:} ${error_message(error.meta)}`);
+    return console.log(error_message(error.meta));
   }
   return console.log(chalk`{red ${error.message}}`);
 }
