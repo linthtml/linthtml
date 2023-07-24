@@ -28,7 +28,7 @@
   "license": "ISC",
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
-    "@commitlint/cli": "^13.1.0",
+    "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^13.1.0",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
