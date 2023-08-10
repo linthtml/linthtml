@@ -2,6 +2,7 @@ import { expect } from "chai";
 import rewiremock from "rewiremock/node";
 import path from "path";
 import { config_from_path, find_local_config } from "../../lib/read-config";
+import type { LinterConfig } from "../../lib/read-config";
 
 describe("Get config from path", function () {
   it("Report an error if path provided does not exist", function () {
@@ -151,10 +152,10 @@ describe("Load plugins", function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
     const { config } = config_from_path(config_path);
-    expect(config.plugins).to.deep.equal([plugin_path]);
-    expect(config.plugins_rules).to.not.be.null;
-    expect((config.plugins_rules as any)["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
-    expect((config.plugins_rules as any)["my-plugin/rule"].lint).to.be.a("function");
+    expect((config as LinterConfig).plugins).to.deep.equal([plugin_path]);
+    expect((config as LinterConfig).plugins_rules).to.not.be.null;
+    expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
+    expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"].lint).to.be.a("function");
   });
   it("Throw an error when plugins rules property is not an array", function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");

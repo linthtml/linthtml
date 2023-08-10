@@ -37,6 +37,7 @@ const BOOLEAN_ATTRIBUTES = [
   "nowrap",
   "open",
   "pauseonexit",
+  "playsinline",
   "readonly",
   "required",
   "reversed",

@@ -163,13 +163,17 @@ function node_indentation_level(node: Node, level = 0): number {
   return node_indentation_level(node.parent as Node, level + 1);
 }
 
-function lint(node: Node, _config: unknown, { report, global_config }: { report: reportFunction; global_config: any }) {
+function lint(
+  node: Node,
+  _config: unknown,
+  { report, global_config }: { report: reportFunction; global_config: Record<string, unknown> }
+) {
   if (is_text_node(node)) {
     return;
   }
   const level = node_indentation_level(node);
-  const style: false | "spaces" | "tabs" | "mixed" = global_config["indent-style"] || "spaces"; // TODO: Get rid of false
-  const width: false | number = global_config["indent-width"] || false; // TODO: Add default value?
+  const style = (global_config["indent-style"] as false | "spaces" | "tabs" | "mixed") || "spaces"; // TODO: Get rid of false
+  const width = (global_config["indent-width"] as false | number) || false; // TODO: Add default value?
 
   check_node_indent(node, { style, width }, (width as number) * level, report);
 }

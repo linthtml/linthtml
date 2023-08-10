@@ -32,7 +32,7 @@ function lint(node: Node, format: string, { report }: { report: reportFunction }
         position: attribute.loc,
         meta: {
           data: {
-            format: format
+            format
           }
         }
       });

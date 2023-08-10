@@ -70,8 +70,9 @@ describe("Config", function () {
       new Linter({
         parser: "foo"
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       expect(error).to.be.a("CustomError").to.have.property("code", "CORE-04");
+      // @ts-expect-error system error
       expect(error.meta).to.deep.equal({
         module_name: "foo"
       });

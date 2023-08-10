@@ -13,10 +13,10 @@ const RULE_NAME = "id-style";
 function lint(
   node: Node,
   format: string | RegExp,
-  { report, global_config }: { report: reportFunction; global_config: any }
+  { report, global_config }: { report: reportFunction; global_config: Record<string, unknown> }
 ) {
   if (is_tag_node(node) && format !== "none") {
-    const ignore: undefined | string | RegExp = global_config["id-class-ignore-regex"];
+    const ignore = global_config["id-class-ignore-regex"] as undefined | string | RegExp;
 
     // TODO: Remove after `raw-ignore-text` refacto
     let attributes = node.attributes
@@ -38,7 +38,7 @@ function lint(
           meta: {
             data: {
               attribute: "id",
-              format: format,
+              format,
               value: id
             }
           }

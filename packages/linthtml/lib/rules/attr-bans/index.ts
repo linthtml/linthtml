@@ -5,6 +5,7 @@ import { Node } from "@linthtml/dom-utils/lib/dom_elements";
 
 const { isRegExp } = types;
 
+type Rule_Config = string | Array<string | RegExp> | RegExp | boolean;
 const RULE_NAME = "attr-bans";
 function validateConfig(config: unknown) {
   const typeError = (type: string) =>
@@ -24,11 +25,10 @@ function validateConfig(config: unknown) {
   throw new Error(typeError(typeof config));
 }
 
-function mut_config(options: any | any[]): any[] {
+function mut_config(options: Rule_Config): Array<string | RegExp> {
   if (Array.isArray(options)) {
     return options.map((option) => {
-      const type = typeof option;
-      if (type === "string") {
+      if (typeof option === "string") {
         return option.toLowerCase();
       }
       if (isRegExp(option)) {
@@ -43,10 +43,11 @@ function mut_config(options: any | any[]): any[] {
   if (typeof options === "boolean") {
     options = [];
   }
+
   return options;
 }
 
-function lint(node: Node, config: unknown, { report }: { report: reportFunction }) {
+function lint(node: Node, config: Rule_Config, { report }: { report: reportFunction }) {
   if (is_tag_node(node)) {
     const banned_attrs = mut_config(config);
     banned_attrs.forEach((banned) => {

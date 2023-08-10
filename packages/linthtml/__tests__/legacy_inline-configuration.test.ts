@@ -147,7 +147,7 @@ describe("inline-configuration", function () {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
+      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
     });
 
     it("Should report an error on invalid option value", async function () {
@@ -298,7 +298,7 @@ describe("inline-configuration", function () {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
+      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
     });
 
     it("enable instructions in report an error for nonexistent rule name", async function () {
@@ -308,7 +308,7 @@ describe("inline-configuration", function () {
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(1);
       expect(issues[0].code).to.equal("INLINE_02");
-      expect((issues[0].data as any).rule_name).to.equal("id-no-no-ad");
+      expect(issues[0].data.rule_name).to.equal("id-no-no-ad");
     });
 
     it("enable instruction restore previous configuration", async function () {

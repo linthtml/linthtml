@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.5](https://github.com/linthtml/linthtml/compare/v0.9.4...v0.9.5) (2023-06-02)
+
+### Bug Fixes
+
+* [@linthtml/cli] Remove peer deps to `@linthtml/linthtml` to fix npm ci ([#501](https://github.com/linthtml/linthtml/issues/501))
+
 ## [0.9.4](https://github.com/linthtml/linthtml/compare/v0.9.3...v0.9.4) (2022-12-15)
 
 ### Bug Fixes
@@ -702,3 +708,14 @@ _close #55_
 
 - Integrated command line tool
 - 55 [Rules](./docs/rules)
+# [](https://github.com/linthtml/linthtml/compare/v0.9.4...v) (2023-06-02)
+
+
+### Bug Fixes
+
+* **cli:** Remove @lintmlt/linthtml peer deps ([1d5cb92](https://github.com/linthtml/linthtml/commit/1d5cb92c5f29afd9ddf7271e6450936917063147))
+* Correct gitkraken autoCrlf mess ([113ef60](https://github.com/linthtml/linthtml/commit/113ef60de66fdc0e338027e81edd75d459b4fb93))
+* run eslint --fix ([ce3800a](https://github.com/linthtml/linthtml/commit/ce3800aba1f8e93556b8a049937d9037bf62a995))
+
+
+

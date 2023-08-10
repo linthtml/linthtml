@@ -42,7 +42,7 @@ export class Position {
 }
 
 // TODO: Fix type
-/* eslint-disable-next-line @typescript-eslint/ban-types */
+/* eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 type ExtendedNode<T> = new () => T;
@@ -55,6 +55,7 @@ interface MyExtendedNode {
 function ExtendedNode<TBase extends Constructor>(
   Base: TBase
 ): {
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   new (...args: any[]): MyExtendedNode;
   prototype: MyExtendedNode;
 } & TBase {
@@ -95,6 +96,7 @@ function ExtendedNode<TBase extends Constructor>(
 // Change NodeWithChildren type for children
 export class Node extends ExtendedNode(NodeWithChildren) {
   parent: NodeWithChildren | null = null;
+  // eslint-disable-next-line no-use-before-define
   children: Node[] = []; // {Node[]}
 }
 /**

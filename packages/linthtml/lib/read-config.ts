@@ -13,7 +13,12 @@ import { Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
-export type reportFunction = (data: { code: string; position: Range; meta?: any; message?: string }) => void;
+export type reportFunction = (data: {
+  code: string;
+  position: Range;
+  meta?: Record<string, unknown>;
+  message?: string;
+}) => void;
 
 // TODO: Move every types in the same file?
 // TODO: RuleDefinition<ConfigType> ?
@@ -26,10 +31,10 @@ export interface RuleDefinition {
       report: reportFunction;
       // eslint-disable-next-line no-use-before-define
       rules: Record<string, ActiveRuleDefinition>;
-      global_config: any;
+      global_config: Record<string, unknown>;
     }
   ) => void;
-  // TODO: Why <T> ?
+  // TODO: Why <T> ? T should be on RuleDefinition
   validateConfig?: <T>(option: T) => void | never;
 
   configTransform?: (option: unknown) => unknown; // remove for v1
@@ -45,6 +50,7 @@ export type ActiveRuleDefinition = RuleDefinition & {
 export type RuleSeverity = "warning" | "error";
 export type RuleActivation = boolean | RuleSeverity | "off";
 
+// TODO: Fix type (["error"] is reporting typescript error in tests)
 export type RuleConfig = RuleActivation | [RuleActivation] | [RuleActivation, unknown];
 
 // TODO: Remove boolean type for x-regex config
