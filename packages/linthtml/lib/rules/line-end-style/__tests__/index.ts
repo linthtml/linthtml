@@ -117,16 +117,13 @@ describe("legacy linter | line-end-style", () => {
     });
   });
 
-  it(
-    "Should not report any error for just one line without end char",
-    async () => {
-      const linter = createLinter({ "line-end-style": "lf" });
-      const html = "<p>foo</p>";
+  it("Should not report any error for just one line without end char", async () => {
+    const linter = createLinter({ "line-end-style": "lf" });
+    const html = "<p>foo</p>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should throw an error for invalid config (not valid type)", () => {
     const linter = createLinter({ "line-end-style": 0 });
@@ -214,18 +211,15 @@ describe("line-end-style", () => {
     });
   });
 
-  it(
-    "Should not report any error for just one line without end char",
-    async () => {
-      const linter = createLinter({
-        "line-end-style": [true, "lf"]
-      });
-      const html = "<p>foo</p>";
+  it("Should not report any error for just one line without end char", async () => {
+    const linter = createLinter({
+      "line-end-style": [true, "lf"]
+    });
+    const html = "<p>foo</p>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should throw an error for invalid config (not valid type)", () => {
     const config = {

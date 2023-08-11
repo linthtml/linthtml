@@ -7,45 +7,33 @@ describe("legacy linter | tag-self-close", () => {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
 
-  it(
-    'Should report an error for not closed self closed tags when "tag-self-close" is set to "always"',
-    async () => {
-      const linter = createLinter({ "tag-self-close": "always" });
-      const html = "<img>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it('Should report an error for not closed self closed tags when "tag-self-close" is set to "always"', async () => {
+    const linter = createLinter({ "tag-self-close": "always" });
+    const html = "<img>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    'Should not report an error for closed self closed tags when "tag-self-close" is set to "always"',
-    async () => {
-      const linter = createLinter({ "tag-self-close": "always" });
-      const html = "<img/>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it('Should not report an error for closed self closed tags when "tag-self-close" is set to "always"', async () => {
+    const linter = createLinter({ "tag-self-close": "always" });
+    const html = "<img/>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    'Should report an error for closed self closed tags when "tag-self-close" is set to "never"',
-    async () => {
-      const linter = createLinter({ "tag-self-close": "never" });
-      const html = "<img>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it('Should report an error for closed self closed tags when "tag-self-close" is set to "never"', async () => {
+    const linter = createLinter({ "tag-self-close": "never" });
+    const html = "<img>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    'Should not report an error for not closed self closed tags when "tag-self-close" is set to "never"',
-    async () => {
-      const linter = createLinter({ "tag-self-close": "never" });
-      const html = "<img/>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it('Should not report an error for not closed self closed tags when "tag-self-close" is set to "never"', async () => {
+    const linter = createLinter({ "tag-self-close": "never" });
+    const html = "<img/>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should throw an error for an invalid config", () => {
     const linter = createLinter({ "tag-self-close": true });
@@ -69,53 +57,41 @@ describe("tag-self-close", () => {
     return linthtml.fromConfig({ rules });
   }
 
-  it(
-    'Should report an error for not closed self closed tags when "tag-self-close" is set to "always"',
-    async () => {
-      const linter = createLinter({
-        "tag-self-close": [true, "always"]
-      });
-      const html = "<img>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it('Should report an error for not closed self closed tags when "tag-self-close" is set to "always"', async () => {
+    const linter = createLinter({
+      "tag-self-close": [true, "always"]
+    });
+    const html = "<img>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    'Should not report an error for closed self closed tags when "tag-self-close" is set to "always"',
-    async () => {
-      const linter = createLinter({
-        "tag-self-close": [true, "always"]
-      });
-      const html = "<img/>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it('Should not report an error for closed self closed tags when "tag-self-close" is set to "always"', async () => {
+    const linter = createLinter({
+      "tag-self-close": [true, "always"]
+    });
+    const html = "<img/>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    'Should report an error for closed self closed tags when "tag-self-close" is set to "never"',
-    async () => {
-      const linter = createLinter({
-        "tag-self-close": [true, "never"]
-      });
-      const html = "<img>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it('Should report an error for closed self closed tags when "tag-self-close" is set to "never"', async () => {
+    const linter = createLinter({
+      "tag-self-close": [true, "never"]
+    });
+    const html = "<img>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    'Should not report an error for not closed self closed tags when "tag-self-close" is set to "never"',
-    async () => {
-      const linter = createLinter({
-        "tag-self-close": [true, "never"]
-      });
-      const html = "<img/>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it('Should not report an error for not closed self closed tags when "tag-self-close" is set to "never"', async () => {
+    const linter = createLinter({
+      "tag-self-close": [true, "never"]
+    });
+    const html = "<img/>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should throw an error for an invalid config", () => {
     const config = {

@@ -22,26 +22,21 @@ describe("legacy linter | label-no-enc-textarea-or-select", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Report an error when there's a <textarea> inside a <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <textarea> inside a <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <textarea></textarea>
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report an error when there's a <select> inside a <label> (deep nesting)",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <select> inside a <label> (deep nesting)", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <div>
           <div>
@@ -55,16 +50,13 @@ describe("legacy linter | label-no-enc-textarea-or-select", () => {
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report an error when there's a <textarea> inside a <label> (deep nesting)",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <div>
           <div>
@@ -74,16 +66,13 @@ describe("legacy linter | label-no-enc-textarea-or-select", () => {
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report nothing when the <select> or the <textarea> in not inside the <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>foo</label>
       <select>
         <option value="bar">bar</option>
@@ -92,10 +81,9 @@ describe("legacy linter | label-no-enc-textarea-or-select", () => {
       <textarea></textarea>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 describe("label-no-enc-textarea-or-select", () => {
@@ -118,26 +106,21 @@ describe("label-no-enc-textarea-or-select", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Report an error when there's a <textarea> inside a <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <textarea> inside a <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <textarea></textarea>
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report an error when there's a <select> inside a <label> (deep nesting)",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <select> inside a <label> (deep nesting)", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <div>
           <div>
@@ -151,16 +134,13 @@ describe("label-no-enc-textarea-or-select", () => {
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report an error when there's a <textarea> inside a <label> (deep nesting)",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>
         <div>
           <div>
@@ -170,16 +150,13 @@ describe("label-no-enc-textarea-or-select", () => {
       </label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Report nothing when the <select> or the <textarea> in not inside the <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
+  it("Report nothing when the <select> or the <textarea> in not inside the <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
       <label>foo</label>
       <select>
         <option value="bar">bar</option>
@@ -188,8 +165,7 @@ describe("label-no-enc-textarea-or-select", () => {
       <textarea></textarea>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });

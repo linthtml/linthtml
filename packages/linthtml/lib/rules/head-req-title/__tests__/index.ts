@@ -6,11 +6,9 @@ describe("legacy linter | head-req-title", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should not report any error when the head title is present",
-    async () => {
-      const linter = createLinter({ "head-req-title": true });
-      const html = `
+  it("Should not report any error when the head title is present", async () => {
+    const linter = createLinter({ "head-req-title": true });
+    const html = `
       <html>
         <head>
           <title>Title!</title>
@@ -18,10 +16,9 @@ describe("legacy linter | head-req-title", () => {
       </html>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report an error when the head title is not present", async () => {
     const linter = createLinter({ "head-req-title": true });
@@ -86,11 +83,9 @@ describe("legacy linter | head-req-title", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should not report any error when the head title is present",
-    async () => {
-      const linter = createLinter({ "head-req-title": true });
-      const html = `
+  it("Should not report any error when the head title is present", async () => {
+    const linter = createLinter({ "head-req-title": true });
+    const html = `
       <html>
         <head>
           <title>Title!</title>
@@ -98,10 +93,9 @@ describe("legacy linter | head-req-title", () => {
       </html>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report an error when the head title is not present", async () => {
     const linter = createLinter({ "head-req-title": true });

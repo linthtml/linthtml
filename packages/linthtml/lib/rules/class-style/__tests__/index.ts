@@ -93,31 +93,25 @@ describe("legacy linter | class-style", () => {
     });
   });
 
-  it(
-    "Should fallback to `id-class-style` if `class-style` is false",
-    async () => {
-      const linter = createLinter({
-        "class-style": false,
-        "id-class-style": "lowercase"
-      });
-      const html = '<div class="FOO bar-foo"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+  it("Should fallback to `id-class-style` if `class-style` is false", async () => {
+    const linter = createLinter({
+      "class-style": false,
+      "id-class-style": "lowercase"
+    });
+    const html = '<div class="FOO bar-foo"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
-  it(
-    "Should not fallback to `id-class-style` if `class-style` is set to `none`",
-    async () => {
-      const linter = createLinter({
-        "class-style": "none",
-        "id-class-style": "lowercase"
-      });
-      const html = '<div class="FOO bar-foo"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not fallback to `id-class-style` if `class-style` is set to `none`", async () => {
+    const linter = createLinter({
+      "class-style": "none",
+      "id-class-style": "lowercase"
+    });
+    const html = '<div class="FOO bar-foo"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Rule should not fail if class attribute has no value", async () => {
     const linter = createLinter({ "class-style": "dash" });
@@ -281,31 +275,25 @@ describe("class-style", () => {
     });
   });
 
-  it(
-    "Should fallback to `id-class-style` if `class-style` is false",
-    async () => {
-      const linter = createLinter({
-        "class-style": false,
-        "id-class-style": [true, "lowercase"]
-      });
-      const html = '<div class="FOO bar-foo"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+  it("Should fallback to `id-class-style` if `class-style` is false", async () => {
+    const linter = createLinter({
+      "class-style": false,
+      "id-class-style": [true, "lowercase"]
+    });
+    const html = '<div class="FOO bar-foo"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
-  it(
-    "Should not fallback to `id-class-style` if `class-style` is set to `none`",
-    async () => {
-      const linter = createLinter({
-        "class-style": [true, "none"],
-        "id-class-style": [true, "lowercase"]
-      });
-      const html = '<div class="FOO bar-foo"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not fallback to `id-class-style` if `class-style` is set to `none`", async () => {
+    const linter = createLinter({
+      "class-style": [true, "none"],
+      "id-class-style": [true, "lowercase"]
+    });
+    const html = '<div class="FOO bar-foo"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   // Not a rule for the new linter
   // it("Should throw an error if `id-class-ignore-regex` is empty", function() {

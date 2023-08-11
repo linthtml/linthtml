@@ -22,16 +22,13 @@ describe("legacy linter | attr-validate", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report an error for self-closing tags with no space before",
-    async () => {
-      const linter = createLinter({ "attr-validate": true });
-      const html = '<meta charset="utf-8"/>';
+  it("Should not report an error for self-closing tags with no space before", async () => {
+    const linter = createLinter({ "attr-validate": true });
+    const html = '<meta charset="utf-8"/>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 describe("attr-validate", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -53,16 +50,13 @@ describe("attr-validate", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report an error for self-closing tags with no space before",
-    async () => {
-      const linter = createLinter({ "attr-validate": true });
-      const html = '<meta charset="utf-8"/>';
+  it("Should not report an error for self-closing tags with no space before", async () => {
+    const linter = createLinter({ "attr-validate": true });
+    const html = '<meta charset="utf-8"/>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 // module.exports = [

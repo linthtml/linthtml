@@ -22,16 +22,13 @@ describe("legacy linter | attr-req-value", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error when an attribute didn't have a value",
-    async () => {
-      const linter = createLinter({ "attr-req-value": true });
-      const html = "<div class></div>";
+  it("Should report an error when an attribute didn't have a value", async () => {
+    const linter = createLinter({ "attr-req-value": true });
+    const html = "<div class></div>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   // It's not an issue. Browsers convert `class= id="bar"` in `class="id=bar"`
   // it("Should report an error when an attribute didn't have a value (with an equal sign)", async function() {
@@ -96,16 +93,13 @@ describe("attr-req-value", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error when an attribute didn't have a value",
-    async () => {
-      const linter = createLinter({ "attr-req-value": true });
-      const html = "<div class></div>";
+  it("Should report an error when an attribute didn't have a value", async () => {
+    const linter = createLinter({ "attr-req-value": true });
+    const html = "<div class></div>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   // it("Should report an error when an attribute didn't have a value (with an equal sign)", async function() {
   //   const linter = createLinter({ "attr-req-value": true });

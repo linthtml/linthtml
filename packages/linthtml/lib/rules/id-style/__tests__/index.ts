@@ -104,31 +104,25 @@ describe("legacy linter | id-style", () => {
     });
   });
 
-  it(
-    "Should fallback to `id-class-style` if `id-style` is false",
-    async () => {
-      const linter = createLinter({
-        "id-style": false,
-        "id-class-style": "lowercase"
-      });
-      const html = '<div id="FOO"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should fallback to `id-class-style` if `id-style` is false", async () => {
+    const linter = createLinter({
+      "id-style": false,
+      "id-class-style": "lowercase"
+    });
+    const html = '<div id="FOO"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Should not fallback to `id-class-style` if `id-style` is set to `none`",
-    async () => {
-      const linter = createLinter({
-        "id-style": "none",
-        "id-class-style": "lowercase"
-      });
-      const html = '<div id="FOO"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not fallback to `id-class-style` if `id-style` is set to `none`", async () => {
+    const linter = createLinter({
+      "id-style": "none",
+      "id-class-style": "lowercase"
+    });
+    const html = '<div id="FOO"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should throw an error if `id-class-ignore-regex` is empty", () => {
     const linter = createLinter({
@@ -159,16 +153,13 @@ describe("legacy linter | id-style", () => {
     );
   });
 
-  it(
-    "should throw an error if rule config is provided with an invalid format",
-    () => {
-      const linter = createLinter({ "id-style": "foo" });
+  it("should throw an error if rule config is provided with an invalid format", () => {
+    const linter = createLinter({ "id-style": "foo" });
 
-      expect(() => linter.lint("")).toThrow(
-        'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
-      );
-    }
-  );
+    expect(() => linter.lint("")).toThrow(
+      'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
+    );
+  });
 });
 
 describe("id-style", () => {
@@ -312,31 +303,25 @@ describe("id-style", () => {
     expect(() => linter.lint(html)).not.toThrow();
   });
 
-  it(
-    "Should fallback to `id-class-style` if `id-style` is false",
-    async () => {
-      const linter = createLinter({
-        "id-style": false,
-        "id-class-style": [true, "lowercase"]
-      });
-      const html = '<div id="FOO"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should fallback to `id-class-style` if `id-style` is false", async () => {
+    const linter = createLinter({
+      "id-style": false,
+      "id-class-style": [true, "lowercase"]
+    });
+    const html = '<div id="FOO"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Should not fallback to `id-class-style` if `id-style` is set to `none`",
-    async () => {
-      const linter = createLinter({
-        "id-style": [true, "none"],
-        "id-class-style": [true, "lowercase"]
-      });
-      const html = '<div id="FOO"></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not fallback to `id-class-style` if `id-style` is set to `none`", async () => {
+    const linter = createLinter({
+      "id-style": [true, "none"],
+      "id-class-style": [true, "lowercase"]
+    });
+    const html = '<div id="FOO"></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("should throw an error if rule config is empty", () => {
     const config = {
@@ -348,16 +333,13 @@ describe("id-style", () => {
     );
   });
 
-  it(
-    "should throw an error if rule config is provided with an invalid format",
-    () => {
-      const config = {
-        "id-style": [true, "foo"] as [boolean, unknown]
-      };
+  it("should throw an error if rule config is provided with an invalid format", () => {
+    const config = {
+      "id-style": [true, "foo"] as [boolean, unknown]
+    };
 
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
-      );
-    }
-  );
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
+    );
+  });
 });

@@ -17,19 +17,16 @@ describe("legacy linter | focusable-tabindex-style", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Should not report any error for tag without tabindex attribute",
-    async () => {
-      const linter = createLinter({ "focusable-tabindex-style": true });
-      const html = `
+  it("Should not report any error for tag without tabindex attribute", async () => {
+    const linter = createLinter({ "focusable-tabindex-style": true });
+    const html = `
         <input type="text" name="foo">
         <label for="foo">Foo input</label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should not report an error for tag with negative tabindex", async () => {
     const linter = createLinter({ "focusable-tabindex-style": true });
@@ -94,19 +91,16 @@ describe("focusable-tabindex-style", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Should not report any error for tag without tabindex attribute",
-    async () => {
-      const linter = createLinter({ "focusable-tabindex-style": true });
-      const html = `
+  it("Should not report any error for tag without tabindex attribute", async () => {
+    const linter = createLinter({ "focusable-tabindex-style": true });
+    const html = `
         <input type="text" name="foo">
         <label for="foo">Foo input</label>
       `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should not report an error for tag with negative tabindex", async () => {
     const linter = createLinter({ "focusable-tabindex-style": true });

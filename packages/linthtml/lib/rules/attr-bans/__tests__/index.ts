@@ -57,15 +57,12 @@ describe("legacy linter | attr-bans", () => {
     );
   });
 
-  it(
-    "Should report an error when the 'style' attribute is present",
-    async () => {
-      const linter = createLinter({ "attr-bans": ["style"] });
-      const html = '<button style="color: red;"></button>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error when the 'style' attribute is present", async () => {
+    const linter = createLinter({ "attr-bans": ["style"] });
+    const html = '<button style="color: red;"></button>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });
 describe("attr-bans", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -133,15 +130,12 @@ describe("attr-bans", () => {
     );
   });
 
-  it(
-    "Should report an error when the 'style' attribute is present",
-    async () => {
-      const linter = createLinter({
-        "attr-bans": [true, "style"]
-      });
-      const html = '<button style="color: red;"></button>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error when the 'style' attribute is present", async () => {
+    const linter = createLinter({
+      "attr-bans": [true, "style"]
+    });
+    const html = '<button style="color: red;"></button>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });

@@ -45,17 +45,14 @@ describe("raw-ignore-regex", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "should not cause any error inside attributes work across line break",
-    async () => {
-      const linter = createLinter(presets.default, {
-        "raw-ignore-regex": /{{.*}}/
-      });
-      const html = '<p class="a {{ if $bar "bar" . }} c {{else}} b{{ /if }}">foo</p>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("should not cause any error inside attributes work across line break", async () => {
+    const linter = createLinter(presets.default, {
+      "raw-ignore-regex": /{{.*}}/
+    });
+    const html = '<p class="a {{ if $bar "bar" . }} c {{else}} b{{ /if }}">foo</p>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("should not cause any error inside on multiline", async () => {
     const linter = createLinter(presets.default, {

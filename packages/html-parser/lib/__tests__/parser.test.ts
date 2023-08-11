@@ -97,33 +97,30 @@ describe("HTML Parser", () => {
     });
   });
 
-  it(
-    "Correctly extract doctype position when there's a comment before",
-    () => {
-      const { children } = parse(["<!-- foo -->", "<!DOCTYPE html>"].join("\n"));
-      expect(children).toHaveLength(3);
-      expect(children[0].loc).toEqual({
-        start: {
-          line: 1,
-          column: 1
-        },
-        end: {
-          line: 1,
-          column: 13
-        }
-      });
-      expect(children[2].loc).toEqual({
-        start: {
-          line: 2,
-          column: 1
-        },
-        end: {
-          line: 2,
-          column: 16
-        }
-      });
-    }
-  );
+  it("Correctly extract doctype position when there's a comment before", () => {
+    const { children } = parse(["<!-- foo -->", "<!DOCTYPE html>"].join("\n"));
+    expect(children).toHaveLength(3);
+    expect(children[0].loc).toEqual({
+      start: {
+        line: 1,
+        column: 1
+      },
+      end: {
+        line: 1,
+        column: 13
+      }
+    });
+    expect(children[2].loc).toEqual({
+      start: {
+        line: 2,
+        column: 1
+      },
+      end: {
+        line: 2,
+        column: 16
+      }
+    });
+  });
 
   it("should correctly extract all attributes", () => {
     const { children } = parse(
