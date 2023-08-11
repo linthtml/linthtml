@@ -1,6 +1,7 @@
 import Config from "../legacy/config";
 
 describe("Legacy Config", () => {
+  /* eslint-disable-next-line */
   let testContext: any;
 
   beforeEach(() => {
