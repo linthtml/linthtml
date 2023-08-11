@@ -1,13 +1,12 @@
-import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | html-valid-content-model", function () {
+describe("legacy linter | html-valid-content-model", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should report an error for every invalid child", async function () {
+  it("Should report an error for every invalid child", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <html>
@@ -19,10 +18,10 @@ describe("legacy linter | html-valid-content-model", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(3);
+    expect(issues).toHaveLength(3);
   });
 
-  it("Should not report any error when <html> is missing", async function () {
+  it("Should not report any error when <html> is missing", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <head></head>
@@ -33,68 +32,74 @@ describe("legacy linter | html-valid-content-model", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should not report any error when <head> and <body> are in the correct order", async function () {
+  it(
+    "Should not report any error when <head> and <body> are in the correct order",
+    async () => {
+      const linter = createLinter({ "html-valid-content-model": true });
+      const html = `
+        <html>
+          <head></head>
+          <body></body>
+        </html>
+      `;
+
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
+
+  it(
+    "Should report an error when <head> and <body> are not in the correct order",
+    async () => {
+      const linter = createLinter({ "html-valid-content-model": true });
+      const html = `
+        <html>
+          <body></body>
+          <head></head>
+        </html>
+      `;
+
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
+
+  it("Should accept only one <head> as child", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <html>
         <head></head>
+        <head></head>
+        <head></head>
+      </html>
+    `;
+
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
+
+  it("Should accept only one <body> as child", async () => {
+    const linter = createLinter({ "html-valid-content-model": true });
+    const html = `
+      <html>
+        <body></body>
+        <body></body>
         <body></body>
       </html>
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
-
-  it("Should report an error when <head> and <body> are not in the correct order", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <body></body>
-        <head></head>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
-
-  it("Should accept only one <head> as child", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <head></head>
-        <head></head>
-        <head></head>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
-  });
-
-  it("Should accept only one <body> as child", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <body></body>
-        <body></body>
-        <body></body>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).toHaveLength(2);
   });
 });
-describe("html-valid-content-model", function () {
+describe("html-valid-content-model", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should report an error for every invalid child", async function () {
+  it("Should report an error for every invalid child", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <html>
@@ -105,10 +110,10 @@ describe("html-valid-content-model", function () {
       </html>
     `;
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(3);
+    expect(issues).toHaveLength(3);
   });
 
-  it("Should not report any error when <html> is missing", async function () {
+  it("Should not report any error when <html> is missing", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <head></head>
@@ -119,60 +124,66 @@ describe("html-valid-content-model", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should not report any error when <head> and <body> are in the correct order", async function () {
+  it(
+    "Should not report any error when <head> and <body> are in the correct order",
+    async () => {
+      const linter = createLinter({ "html-valid-content-model": true });
+      const html = `
+        <html>
+          <head></head>
+          <body></body>
+        </html>
+      `;
+
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
+
+  it(
+    "Should report an error when <head> and <body> are not in the correct order",
+    async () => {
+      const linter = createLinter({ "html-valid-content-model": true });
+      const html = `
+        <html>
+          <body></body>
+          <head></head>
+        </html>
+      `;
+
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
+
+  it("Should accept only one <head> as child", async () => {
     const linter = createLinter({ "html-valid-content-model": true });
     const html = `
       <html>
         <head></head>
+        <head></head>
+        <head></head>
+      </html>
+    `;
+
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
+
+  it("Should accept only one <body> as child", async () => {
+    const linter = createLinter({ "html-valid-content-model": true });
+    const html = `
+      <html>
+        <body></body>
+        <body></body>
         <body></body>
       </html>
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
-
-  it("Should report an error when <head> and <body> are not in the correct order", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <body></body>
-        <head></head>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
-
-  it("Should accept only one <head> as child", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <head></head>
-        <head></head>
-        <head></head>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
-  });
-
-  it("Should accept only one <body> as child", async function () {
-    const linter = createLinter({ "html-valid-content-model": true });
-    const html = `
-      <html>
-        <body></body>
-        <body></body>
-        <body></body>
-      </html>
-    `;
-
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).toHaveLength(2);
   });
 });

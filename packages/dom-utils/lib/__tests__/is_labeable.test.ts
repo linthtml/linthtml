@@ -1,5 +1,3 @@
-import { describe, it } from "mocha";
-import { expect } from "chai";
 import { is_labelable } from "..";
 import { NodeAttribute, Position, CharValue, Range, Element } from "../dom_elements";
 import { ElementType } from "domelementtype";
@@ -20,7 +18,7 @@ function generate_node_attribute(name: string, value?: string) {
   return new NodeAttribute(name_char, name_loc, 0);
 }
 
-describe("is_labeable", function () {
+describe("is_labeable", () => {
   [
     "button",
     "input", // if not in the hidden state
@@ -30,17 +28,17 @@ describe("is_labeable", function () {
     "select",
     "textarea"
   ].forEach((tag) => {
-    it(`should return true for "${tag}" element`, function () {
+    it(`should return true for "${tag}" element`, () => {
       const node = new Element(tag, [], [], ElementType.Tag);
 
       const output = is_labelable(node);
-      expect(output).to.be.true;
+      expect(output).toBe(true);
     });
   });
-  it("should return false for hidden input element", function () {
+  it("should return false for hidden input element", () => {
     const node = new Element("input", [generate_node_attribute("type", "hidden")], [], ElementType.Tag);
 
     const output = is_labelable(node);
-    expect(output).to.be.false;
+    expect(output).toBe(false);
   });
 });

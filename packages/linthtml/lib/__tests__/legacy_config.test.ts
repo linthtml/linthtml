@@ -1,143 +1,147 @@
-import { expect } from "chai";
-// TODO: Remove .default after typescript migration
 import Config from "../legacy/config";
 
-describe("Legacy Config", function () {
-  beforeEach(function () {
-    this.config = new Config([]);
-    this.baseRule = { name: "base" };
-    this.rule = {
+describe("Legacy Config", () => {
+  let testContext: any;
+
+  beforeEach(() => {
+    testContext = {};
+  });
+
+  beforeEach(() => {
+    testContext.config = new Config([]);
+    testContext.baseRule = { name: "base" };
+    testContext.rule = {
       name: "therule",
       on: "base"
     };
-    this.option = {
+    testContext.option = {
       name: "theoption",
       rules: ["therule"]
     };
   });
 
-  it("should be a function", function () {
-    expect(Config).to.be.an.instanceOf(Function);
+  it("should be a function", () => {
+    expect(Config).toBeInstanceOf(Function);
   });
 
-  describe("getRule", function () {
-    it("should return undefined for nonexistent rule", function () {
-      const rule = this.config.getRule("nonexistent");
+  describe("getRule", () => {
+    it("should return undefined for nonexistent rule", () => {
+      const rule = testContext.config.getRule("nonexistent");
 
-      expect(rule).to.be.a("undefined");
-    });
-  });
-
-  describe("initialize", function () {
-    it("should initialize rules", function () {
-      const config = new Config([this.baseRule, this.rule]);
-
-      expect(config.getRule(this.rule.name)).to.be.eql(this.rule);
-      expect(config.getRule(this.baseRule.name)).to.be.eql(this.baseRule);
-    });
-
-    it("should get options from a rule", function () {
-      this.rule.options = [this.option];
-      const config = new Config([this.baseRule, this.rule]);
-
-      expect(config.options[this.option.name]).to.be.eql(this.option);
+      expect(rule).toBeUndefined();
     });
   });
 
-  describe("addRule", function () {
-    it("should add a rule", function () {
-      this.config.addRule(this.rule);
+  describe("initialize", () => {
+    it("should initialize rules", () => {
+      const config = new Config([testContext.baseRule, testContext.rule]);
 
-      const addedRule = this.config.getRule(this.rule.name);
-
-      expect(addedRule).to.be.equal(this.rule);
+      expect(config.getRule(testContext.rule.name)).toEqual(testContext.rule);
+      expect(config.getRule(testContext.baseRule.name)).toEqual(testContext.baseRule);
     });
 
-    it("should initialize the rule", function () {
-      this.config.addRule({ name: "test" });
+    it("should get options from a rule", () => {
+      testContext.rule.options = [testContext.option];
+      const config = new Config([testContext.baseRule, testContext.rule]);
 
-      const addedRule = this.config.getRule("test");
+      expect(config.options[testContext.option.name]).toEqual(testContext.option);
+    });
+  });
 
-      expect(addedRule.name).to.equal("test");
-      expect(addedRule.on).to.equal("dom", "Default value for 'on' should be 'dom'");
-      expect(addedRule.subscribers).to.deep.equal([]);
+  describe("addRule", () => {
+    it("should add a rule", () => {
+      testContext.config.addRule(testContext.rule);
+
+      const addedRule = testContext.config.getRule(testContext.rule.name);
+
+      expect(addedRule).toBe(testContext.rule);
     });
 
-    it("should not initialize the same rule twice", function () {
-      this.config.addRule(this.rule);
-      this.rule.subscribers = ["test"];
-      this.config.addRule(this.rule);
-      expect(this.rule.subscribers).to.be.eql(["test"]);
+    it("should initialize the rule", () => {
+      testContext.config.addRule({ name: "test" });
+
+      const addedRule = testContext.config.getRule("test");
+
+      expect(addedRule.name).toBe("test");
+      expect(addedRule.on).toBe("dom");
+      expect(addedRule.subscribers).toEqual([]);
     });
 
-    it("should remove a previous rule", function () {
+    it("should not initialize the same rule twice", () => {
+      testContext.config.addRule(testContext.rule);
+      testContext.rule.subscribers = ["test"];
+      testContext.config.addRule(testContext.rule);
+      expect(testContext.rule.subscribers).toEqual(["test"]);
+    });
+
+    it("should remove a previous rule", () => {
       const oldRule = {
-        name: this.rule.name
+        name: testContext.rule.name
       };
 
-      this.config.addRule(oldRule);
-      this.config.addRule(this.rule);
+      testContext.config.addRule(oldRule);
+      testContext.config.addRule(testContext.rule);
 
-      const addedRule = this.config.getRule(this.rule.name);
+      const addedRule = testContext.config.getRule(testContext.rule.name);
 
-      expect(addedRule).to.be.equal(this.rule);
+      expect(addedRule).toBe(testContext.rule);
     });
 
-    it("should remove a previous rule's subcriptions", function () {
-      this.config.addRule(this.baseRule);
-      this.config.addRule(this.rule);
-      this.config.addOption(this.option);
-      this.config.setOption(this.option.name, true);
+    it("should remove a previous rule's subcriptions", () => {
+      testContext.config.addRule(testContext.baseRule);
+      testContext.config.addRule(testContext.rule);
+      testContext.config.addOption(testContext.option);
+      testContext.config.setOption(testContext.option.name, true);
 
       const newRule = {
-        name: this.rule.name,
+        name: testContext.rule.name,
         subscribers: []
       };
-      this.config.addRule(newRule);
+      testContext.config.addRule(newRule);
 
-      expect(newRule.subscribers).to.be.eql([this.option]);
-      expect(this.baseRule.subscribers).to.be.eql([]);
+      expect(newRule.subscribers).toEqual([testContext.option]);
+      expect(testContext.baseRule.subscribers).toEqual([]);
     });
   });
 
-  describe("removeRule", function () {
-    it("should remove a rule", function () {
-      this.config.addRule(this.rule);
-      this.config.removeRule(this.rule.name);
+  describe("removeRule", () => {
+    it("should remove a rule", () => {
+      testContext.config.addRule(testContext.rule);
+      testContext.config.removeRule(testContext.rule.name);
 
-      const addedRule = this.config.getRule(this.rule.name);
+      const addedRule = testContext.config.getRule(testContext.rule.name);
 
-      expect(addedRule).to.be.a("undefined");
+      expect(addedRule).toBeUndefined();
     });
 
-    it("should not throw when removing a nonregistered rule", function () {
-      this.config.removeRule("nonexistent");
+    it("should not throw when removing a nonregistered rule", () => {
+      testContext.config.removeRule("nonexistent");
     });
   });
 
-  describe("addOption", function () {
-    it("should add an option", function () {
-      this.config.addOption(this.option);
+  describe("addOption", () => {
+    it("should add an option", () => {
+      testContext.config.addOption(testContext.option);
 
-      const addedOption = this.config.options[this.option.name];
+      const addedOption = testContext.config.options[testContext.option.name];
 
-      expect(addedOption).to.be.equal(this.option);
+      expect(addedOption).toBe(testContext.option);
     });
 
-    it("should initialize the option", function () {
-      this.config.addOption({ name: "test" });
+    it("should initialize the option", () => {
+      testContext.config.addOption({ name: "test" });
 
-      const addedOption = this.config.options.test;
+      const addedOption = testContext.config.options.test;
 
-      expect(addedOption.name).to.be.eql("test");
-      expect(addedOption.rules).to.be.eql(["test"]);
+      expect(addedOption.name).toEqual("test");
+      expect(addedOption.rules).toEqual(["test"]);
     });
 
-    it("should not initialize the same option twice", function () {
-      this.config.addOption(this.option);
-      this.option.active = true;
-      this.config.addOption(this.option);
-      expect(this.option.active).to.be.eql(true);
+    it("should not initialize the same option twice", () => {
+      testContext.config.addOption(testContext.option);
+      testContext.option.active = true;
+      testContext.config.addOption(testContext.option);
+      expect(testContext.option.active).toEqual(true);
     });
 
     // No longer working because rules can only subscribe to the "dom" rule
@@ -195,26 +199,26 @@ describe("Legacy Config", function () {
   //   });
   // });
 
-  describe("removeOption", function () {
-    it("should remove the option", function () {
-      this.config.addOption(this.option);
-      this.config.removeOption(this.option.name);
+  describe("removeOption", () => {
+    it("should remove the option", () => {
+      testContext.config.addOption(testContext.option);
+      testContext.config.removeOption(testContext.option.name);
 
-      expect(this.config.options[this.option.name]).to.be.undefined;
+      expect(testContext.config.options[testContext.option.name]).toBeUndefined();
     });
 
-    it("should remove the option's subcriptions", function () {
-      this.config.addRule(this.baseRule);
-      this.config.addRule(this.rule);
-      this.config.addOption(this.option);
-      this.config.setOption(this.option.name, true);
-      this.config.removeOption(this.option.name);
-      expect(this.rule.subscribers).to.be.eql([]);
-      expect(this.baseRule.subscribers).to.be.eql([]);
+    it("should remove the option's subcriptions", () => {
+      testContext.config.addRule(testContext.baseRule);
+      testContext.config.addRule(testContext.rule);
+      testContext.config.addOption(testContext.option);
+      testContext.config.setOption(testContext.option.name, true);
+      testContext.config.removeOption(testContext.option.name);
+      expect(testContext.rule.subscribers).toEqual([]);
+      expect(testContext.baseRule.subscribers).toEqual([]);
     });
 
-    it("should not fail on nonexistent option", function () {
-      this.config.removeOption("nonexistent");
+    it("should not fail on nonexistent option", () => {
+      testContext.config.removeOption("nonexistent");
     });
   });
 });
