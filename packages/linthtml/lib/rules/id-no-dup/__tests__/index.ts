@@ -1,21 +1,23 @@
-import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | id-no-dup", function () {
+describe("legacy linter | id-no-dup", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report an error when there's no duplicated id", async function () {
-    const linter = createLinter({ "id-no-dup": true });
-    const html = '<div id="foo"></div>';
+  it(
+    "Should not report an error when there's no duplicated id",
+    async () => {
+      const linter = createLinter({ "id-no-dup": true });
+      const html = '<div id="foo"></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report errors when there's duplicated id", async function () {
+  it("Should report errors when there's duplicated id", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id="foo"></div>
@@ -23,10 +25,10 @@ describe("legacy linter | id-no-dup", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues).toHaveLength(1);
   });
 
-  it("Should catch multiple duplicates id", async function () {
+  it("Should catch multiple duplicates id", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id="foo"></div>
@@ -36,16 +38,16 @@ describe("legacy linter | id-no-dup", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).toHaveLength(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>
     `;
 
-    expect(() => linter.lint(html)).to.not.throw();
+    expect(() => linter.lint(html)).not.toThrow();
   });
 
   // TODO: should ignore trailing/leading space ?
@@ -65,19 +67,22 @@ describe("legacy linter | id-no-dup", function () {
   // });
 });
 
-describe("id-no-dup", function () {
+describe("id-no-dup", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report an error when there's no duplicated id", async function () {
-    const linter = createLinter({ "id-no-dup": true });
-    const html = '<div id="foo"></div>';
+  it(
+    "Should not report an error when there's no duplicated id",
+    async () => {
+      const linter = createLinter({ "id-no-dup": true });
+      const html = '<div id="foo"></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report errors when there's duplicated id", async function () {
+  it("Should report errors when there's duplicated id", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id="foo"></div>
@@ -85,10 +90,10 @@ describe("id-no-dup", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues).toHaveLength(1);
   });
 
-  it("Should catch multiple duplicates id", async function () {
+  it("Should catch multiple duplicates id", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id="foo"></div>
@@ -98,16 +103,16 @@ describe("id-no-dup", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).toHaveLength(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", async () => {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>
     `;
 
-    expect(() => linter.lint(html)).to.not.throw();
+    expect(() => linter.lint(html)).not.toThrow();
   });
 
   // TODO: should ignore trailing/leading space ?

@@ -1,63 +1,80 @@
-import { expect } from "chai";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 
-describe("legacy linter | attr-validate", function () {
+describe("legacy linter | attr-validate", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should report an error when given malformed attributes", async function () {
-    const linter = createLinter({ "attr-req-value": true });
-    const html = '<div class="large id="title"></div>';
+  it(
+    "Should report an error when given malformed attributes",
+    async () => {
+      const linter = createLinter({ "attr-req-value": true });
+      const html = '<div class="large id="title"></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report only one error per malformed attributes", async function () {
-    const linter = createLinter({ "attr-validate": true });
-    const html = '<div class=large"><p class=="bold">text</p></div>';
+  it(
+    "Should report only one error per malformed attributes",
+    async () => {
+      const linter = createLinter({ "attr-validate": true });
+      const html = '<div class=large"><p class=="bold">text</p></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(2);
+    }
+  );
 
-  it("Should not report an error for self-closing tags with no space before", async function () {
-    const linter = createLinter({ "attr-validate": true });
-    const html = '<meta charset="utf-8"/>';
+  it(
+    "Should not report an error for self-closing tags with no space before",
+    async () => {
+      const linter = createLinter({ "attr-validate": true });
+      const html = '<meta charset="utf-8"/>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 });
-describe("attr-validate", function () {
+describe("attr-validate", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should report an error when given malformed attributes", async function () {
-    const linter = createLinter({ "attr-validate": true });
-    const html = '<div class="large id="title"></div>';
+  it(
+    "Should report an error when given malformed attributes",
+    async () => {
+      const linter = createLinter({ "attr-validate": true });
+      const html = '<div class="large id="title"></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report only one error per malformed attributes", async function () {
-    const linter = createLinter({ "attr-validate": true });
-    const html = '<div class=large"><p class=="bold">text</p></div>';
+  it(
+    "Should report only one error per malformed attributes",
+    async () => {
+      const linter = createLinter({ "attr-validate": true });
+      const html = '<div class=large"><p class=="bold">text</p></div>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(2);
+    }
+  );
 
-  it("Should not report an error for self-closing tags with no space before", async function () {
-    const linter = createLinter({ "attr-validate": true });
-    const html = '<meta charset="utf-8"/>';
+  it(
+    "Should not report an error for self-closing tags with no space before",
+    async () => {
+      const linter = createLinter({ "attr-validate": true });
+      const html = '<meta charset="utf-8"/>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 });
 
 // module.exports = [

@@ -1,35 +1,40 @@
-import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | label-req-for", function () {
+describe("legacy linter | label-req-for", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report any error when label has for value matching an existing input id", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <input type="radio" id="foo">
-    `;
+  it(
+    "Should not report any error when label has for value matching an existing input id",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <input type="radio" id="foo">
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error when label has for value not matching an existing input id", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <input type="radio" id="bar">
-    `;
+  it(
+    "Should report an error when label has for value not matching an existing input id",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <input type="radio" id="bar">
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should be able to deal with multiple label/input", async function () {
+  it("Should be able to deal with multiple label/input", async () => {
     const linter = createLinter({ "label-req-for": true });
     const html = `
       <label for="foo">Foo</label>
@@ -39,91 +44,109 @@ describe("legacy linter | label-req-for", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should not report any error event when label+input are not siblings", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-    <input type="text" id="bar"/>
-      <label for="foo">Foo</label>
-      <label for="bar">Bar</label>
-      <input type="text" id="foo"/>
-    `;
+  it(
+    "Should not report any error event when label+input are not siblings",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+      <input type="text" id="bar"/>
+        <label for="foo">Foo</label>
+        <label for="bar">Bar</label>
+        <input type="text" id="foo"/>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error when label without for has a input has child node", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">
-        Foo
-        <div>
-          <input type="text" id="foo"/>
-        </div>
-      </label>
-    `;
+  it(
+    "Should not report any error when label without for has a input has child node",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">
+          Foo
+          <div>
+            <input type="text" id="foo"/>
+          </div>
+        </label>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error when label without for doesnt't have any labelable node has child", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">
-        Foo
-        <div>
-          Bar
-        </div>
-      </label>
-    `;
+  it(
+    "Should report an error when label without for doesnt't have any labelable node has child",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">
+          Foo
+          <div>
+            Bar
+          </div>
+        </label>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report an error when label has for value matching an none labelable node", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <p id="foo">Text content</p>
-    `;
+  it(
+    "Should report an error when label has for value matching an none labelable node",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <p id="foo">Text content</p>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 });
 
-describe("label-req-for", function () {
+describe("label-req-for", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report any error when label has for value matching an existing input id", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <input type="radio" id="foo">
-    `;
+  it(
+    "Should not report any error when label has for value matching an existing input id",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <input type="radio" id="foo">
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error when label has for value not matching an existing input id", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <input type="radio" id="bar">
-    `;
+  it(
+    "Should report an error when label has for value not matching an existing input id",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <input type="radio" id="bar">
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should be able to deal with multiple label/input", async function () {
+  it("Should be able to deal with multiple label/input", async () => {
     const linter = createLinter({ "label-req-for": true });
     const html = `
       <label for="foo">Foo</label>
@@ -133,60 +156,72 @@ describe("label-req-for", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should not report any error event when label+input are not siblings", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-    <input type="text" id="bar"/>
-      <label for="foo">Foo</label>
-      <label for="bar">Bar</label>
-      <input type="text" id="foo"/>
-    `;
+  it(
+    "Should not report any error event when label+input are not siblings",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+      <input type="text" id="bar"/>
+        <label for="foo">Foo</label>
+        <label for="bar">Bar</label>
+        <input type="text" id="foo"/>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error when label without for has a input has child node", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">
-        Foo
-        <div>
-          <input type="text" id="foo"/>
-        </div>
-      </label>
-    `;
+  it(
+    "Should not report any error when label without for has a input has child node",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">
+          Foo
+          <div>
+            <input type="text" id="foo"/>
+          </div>
+        </label>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error when label without for doesnt't have any labelable node has child", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">
-        Foo
-        <div>
-          Bar
-        </div>
-      </label>
-    `;
+  it(
+    "Should report an error when label without for doesnt't have any labelable node has child",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">
+          Foo
+          <div>
+            Bar
+          </div>
+        </label>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report an error when label has for value matching an none labelable node", async function () {
-    const linter = createLinter({ "label-req-for": true });
-    const html = `
-      <label for="foo">Foo</label>
-      <p id="foo">Text content</p>
-    `;
+  it(
+    "Should report an error when label has for value matching an none labelable node",
+    async () => {
+      const linter = createLinter({ "label-req-for": true });
+      const html = `
+        <label for="foo">Foo</label>
+        <p id="foo">Text content</p>
+      `;
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 });

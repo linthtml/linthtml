@@ -1,159 +1,206 @@
-import { expect } from "chai";
 import linthtml from "../../../index";
 import { presets } from "../../../presets";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
 
-describe("legacy linter | input-req-label", function () {
+describe("legacy linter | input-req-label", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it("Should not report any error for label only", async function () {
+  it("Should not report any error for label only", async () => {
     const linter = createLinter({ "input-req-label": true });
     const html = "<label>Label</label>";
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should report an error if the text input has no attached label (parent node)", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="text">';
+  it(
+    "Should report an error if the text input has no attached label (parent node)",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="text">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should not report any error if the text input has an attached label (parent node)", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label><span>Foo</span><input type="text"></label>';
+  it(
+    "Should not report any error if the text input has an attached label (parent node)",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label><span>Foo</span><input type="text"></label>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error if the input has a id without a matching label node", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label for="foo">Foo</label><input type="text" id="bar">';
+  it(
+    "Should report an error if the input has a id without a matching label node",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label for="foo">Foo</label><input type="text" id="bar">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should not report any error if the input has a id with a matching label node", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label for="foo">Foo</label><input type="text" id="foo">';
+  it(
+    "Should not report any error if the input has a id with a matching label node",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label for="foo">Foo</label><input type="text" id="foo">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error for hidden input without label", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="hidden">';
+  it(
+    "Should not report any error for hidden input without label",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="hidden">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error for button input with a value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button" value="Click me">';
+  it(
+    "Should not report any error for button input with a value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button" value="Click me">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error for button input without a value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button">';
+  it(
+    "Should report an error for button input without a value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report an error for button input without an empty value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button" value="">';
+  it(
+    "Should report an error for button input without an empty value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button" value="">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 });
-describe("input-req-label", function () {
+describe("input-req-label", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it("Should not report any error for label only", async function () {
+  it("Should not report any error for label only", async () => {
     const linter = createLinter({ "input-req-label": true });
     const html = "<label>Label</label>";
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).toHaveLength(0);
   });
 
-  it("Should report an error if the text input has no attached label (parent node)", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="text">';
+  it(
+    "Should report an error if the text input has no attached label (parent node)",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="text">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should not report any error if the text input has an attached label (parent node)", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label><span>Foo</span><input type="text"></label>';
+  it(
+    "Should not report any error if the text input has an attached label (parent node)",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label><span>Foo</span><input type="text"></label>';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error if the input has a id without a matching label node", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label for="foo">Foo</label><input type="text" id="bar">';
+  it(
+    "Should report an error if the input has a id without a matching label node",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label for="foo">Foo</label><input type="text" id="bar">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should not report any error if the input has a id with a matching label node", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<label for="foo">Foo</label><input type="text" id="foo">';
+  it(
+    "Should not report any error if the input has a id with a matching label node",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<label for="foo">Foo</label><input type="text" id="foo">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error for hidden input without label", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="hidden">';
+  it(
+    "Should not report any error for hidden input without label",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="hidden">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should not report any error for button input with a value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button" value="Click me">';
+  it(
+    "Should not report any error for button input with a value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button" value="Click me">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    }
+  );
 
-  it("Should report an error for button input without a value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button">';
+  it(
+    "Should report an error for button input without a value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 
-  it("Should report an error for button input without an empty value", async function () {
-    const linter = createLinter({ "input-req-label": true });
-    const html = '<input type="button" value="">';
+  it(
+    "Should report an error for button input without an empty value",
+    async () => {
+      const linter = createLinter({ "input-req-label": true });
+      const html = '<input type="button" value="">';
 
-    const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
-  });
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    }
+  );
 });
 
 // module.exports = [

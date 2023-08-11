@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import Linter from "../linter";
 import Config from "../config";
 import rewiremock from "rewiremock/node";
@@ -24,8 +23,8 @@ const foo: RuleDefinition = {
   }
 };
 
-describe("Config", function () {
-  it('Should report an issue with the "error" severity', async function () {
+describe("Config", () => {
+  it('Should report an issue with the "error" severity', async () => {
     const rule_config: Record<string, RuleConfig> = {
       foo: "error"
     };
@@ -34,9 +33,9 @@ describe("Config", function () {
       rules: rule_config
     });
     const issues = await linter.lint("<div></div>");
-    expect(issues[0].severity).to.equal("error");
+    expect(issues[0].severity).toBe("error");
   });
-  it('Should report an issue with the "warning" severity', async function () {
+  it('Should report an issue with the "warning" severity', async () => {
     const rule_config: Record<string, RuleConfig> = {
       foo: "warning"
     };
@@ -46,14 +45,14 @@ describe("Config", function () {
     });
 
     const issues = await linter.lint("<div></div>");
-    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].severity).toBe("warning");
   });
 
-  it("A custom parser can be provided", async function (done) {
+  it("A custom parser can be provided", async done => {
     const config_path = path.join(__dirname, "fixtures", "custom-parser.js");
     rewiremock.overrideEntryPoint(module);
     rewiremock(config_path).with(function (html: string) {
-      expect(html).to.equal("foo");
+      expect(html).toBe("foo");
       rewiremock.disable();
       done();
       return [];
@@ -64,18 +63,21 @@ describe("Config", function () {
     });
     linter.lint("foo");
   });
-  it("should report an error when provided with an unexisting parser", async function () {
-    try {
-      // eslint-disable-next-line no-new
-      new Linter({
-        parser: "foo"
-      });
-    } catch (error: unknown) {
-      expect(error).to.be.a("CustomError").to.have.property("code", "CORE-04");
-      // @ts-expect-error system error
-      expect(error.meta).to.deep.equal({
-        module_name: "foo"
-      });
+  it(
+    "should report an error when provided with an unexisting parser",
+    async () => {
+      try {
+        // eslint-disable-next-line no-new
+        new Linter({
+          parser: "foo"
+        });
+      } catch (error: unknown) {
+        expect(error).to.be.a("CustomError").toHaveProperty("code", "CORE-04");
+        // @ts-expect-error system error
+        expect(error.meta).toEqual({
+          module_name: "foo"
+        });
+      }
     }
-  });
+  );
 });
