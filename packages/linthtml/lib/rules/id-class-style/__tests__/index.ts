@@ -131,16 +131,13 @@ describe("legacy linter | id-style", () => {
     );
   });
 
-  it(
-    "should throw an error if rule config is provided with an invalid format",
-    () => {
-      const linter = createLinter({ "id-style": "foo" });
+  it("should throw an error if rule config is provided with an invalid format", () => {
+    const linter = createLinter({ "id-style": "foo" });
 
-      expect(() => linter.lint("")).toThrow(
-        'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
-      );
-    }
-  );
+    expect(() => linter.lint("")).toThrow(
+      'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
+    );
+  });
 });
 
 describe("id-style", () => {
@@ -294,16 +291,13 @@ describe("id-style", () => {
     );
   });
 
-  it(
-    "should throw an error if rule config is provided with an invalid format",
-    () => {
-      const config = {
-        "id-style": [true, "foo"] as [boolean, unknown]
-      };
+  it("should throw an error if rule config is provided with an invalid format", () => {
+    const config = {
+      "id-style": [true, "foo"] as [boolean, unknown]
+    };
 
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
-      );
-    }
-  );
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "id-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem"'
+    );
+  });
 });

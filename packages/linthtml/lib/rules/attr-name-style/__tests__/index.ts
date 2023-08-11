@@ -16,15 +16,12 @@ describe("legacy linter | attr-name-style", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should not report anything for correctly styled attribute names",
-    async () => {
-      const linter = createLinter({ "attr-name-style": "lowercase" });
-      const html = '<div abc="" fowj0wo3=""></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not report anything for correctly styled attribute names", async () => {
+    const linter = createLinter({ "attr-name-style": "lowercase" });
+    const html = '<div abc="" fowj0wo3=""></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should ignore ignored attributes", async () => {
     const linter = createLinter({
@@ -44,15 +41,12 @@ describe("legacy linter | attr-name-style", () => {
   });
 
   describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({ "attr-name-style": "lowercase" });
-        const html = '<div foo=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({ "attr-name-style": "lowercase" });
+      const html = '<div foo=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({ "attr-name-style": "lowercase" });
@@ -62,15 +56,12 @@ describe("legacy linter | attr-name-style", () => {
     });
   });
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({ "attr-name-style": "dash" });
-        const html = '<div foo-bar=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({ "attr-name-style": "dash" });
+      const html = '<div foo-bar=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({ "attr-name-style": "dash" });
@@ -89,15 +80,12 @@ describe("legacy linter | attr-name-style", () => {
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({ "attr-name-style": /^[0-9a-o]+$/ });
-        const html = '<div foo=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({ "attr-name-style": /^[0-9a-o]+$/ });
+      const html = '<div foo=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({ "attr-name-style": /^[0-9a-o]+$/ });
@@ -107,15 +95,12 @@ describe("legacy linter | attr-name-style", () => {
     });
   });
   describe("'camel' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({ "attr-name-style": "camel" });
-        const html = '<div FooBar=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({ "attr-name-style": "camel" });
+      const html = '<div FooBar=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({ "attr-name-style": "camel" });
@@ -142,17 +127,14 @@ describe("attr-name-style", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should not report anything for correctly styled attribute names",
-    async () => {
-      const linter = createLinter({
-        "attr-name-style": [true, "lowercase"]
-      });
-      const html = '<div abc="" fowj0wo3=""></div>';
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not report anything for correctly styled attribute names", async () => {
+    const linter = createLinter({
+      "attr-name-style": [true, "lowercase"]
+    });
+    const html = '<div abc="" fowj0wo3=""></div>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should ignore ignored attributes", async () => {
     const linter = linthtml.fromConfig({
@@ -176,17 +158,14 @@ describe("attr-name-style", () => {
   });
 
   describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({
-          "attr-name-style": [true, "lowercase"]
-        });
-        const html = '<div foo=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({
+        "attr-name-style": [true, "lowercase"]
+      });
+      const html = '<div foo=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({
@@ -198,17 +177,14 @@ describe("attr-name-style", () => {
     });
   });
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({
-          "attr-name-style": [true, "dash"]
-        });
-        const html = '<div foo-bar=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({
+        "attr-name-style": [true, "dash"]
+      });
+      const html = '<div foo-bar=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({
@@ -230,17 +206,14 @@ describe("attr-name-style", () => {
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({
-          "attr-name-style": [true, /^[0-9a-o]+$/]
-        });
-        const html = '<div foo=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({
+        "attr-name-style": [true, /^[0-9a-o]+$/]
+      });
+      const html = '<div foo=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({
@@ -252,17 +225,14 @@ describe("attr-name-style", () => {
     });
   });
   describe("'camel' format", () => {
-    it(
-      "Should not report an error for attributes with valid format",
-      async () => {
-        const linter = createLinter({
-          "attr-name-style": [true, "camel"]
-        });
-        const html = '<div FooBar=""></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for attributes with valid format", async () => {
+      const linter = createLinter({
+        "attr-name-style": [true, "camel"]
+      });
+      const html = '<div FooBar=""></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for attributes with invalid format", async () => {
       const linter = createLinter({

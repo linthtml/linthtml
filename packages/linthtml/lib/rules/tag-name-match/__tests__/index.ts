@@ -13,15 +13,12 @@ describe("legacy linter | tag-name-match", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error for not matching open/close tags (different case)",
-    async () => {
-      const linter = createLinter({ "tag-name-match": true });
-      const html = "<body></Body>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error for not matching open/close tags (different case)", async () => {
+    const linter = createLinter({ "tag-name-match": true });
+    const html = "<body></Body>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });
 
 describe("tag-name-match", () => {
@@ -35,13 +32,10 @@ describe("tag-name-match", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error for not matching open/close tags (different case)",
-    async () => {
-      const linter = createLinter({ "tag-name-match": true });
-      const html = "<body></Body>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error for not matching open/close tags (different case)", async () => {
+    const linter = createLinter({ "tag-name-match": true });
+    const html = "<body></Body>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });

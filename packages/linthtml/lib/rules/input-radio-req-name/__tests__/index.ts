@@ -22,16 +22,13 @@ describe("legacy linter | input-radio-req-name", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Should report an error for radio input with an empty name value",
-    async () => {
-      const linter = createLinter({ "input-radio-req-name": true });
-      const html = '<input type="radio" name="">';
+  it("Should report an error for radio input with an empty name value", async () => {
+    const linter = createLinter({ "input-radio-req-name": true });
+    const html = '<input type="radio" name="">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should not report any error if input with no type", async () => {
     const linter = createLinter({ "input-radio-req-name": true });
@@ -77,16 +74,13 @@ describe("legacy linter | input-radio-req-name", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Should report an error for radio input with an empty name value",
-    async () => {
-      const linter = createLinter({ "input-radio-req-name": true });
-      const html = '<input type="radio" name="">';
+  it("Should report an error for radio input with an empty name value", async () => {
+    const linter = createLinter({ "input-radio-req-name": true });
+    const html = '<input type="radio" name="">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should not report any error if input with no type", async () => {
     const linter = createLinter({ "input-radio-req-name": true });

@@ -97,35 +97,32 @@ describe("legay linter | indent-style", () => {
       expect(issues).toHaveLength(0);
     });
 
-    it(
-      "Should report an error when tabs and spaces are mixed on the same line",
-      async () => {
-        const linter = createLinter({ "indent-style": "nonmixed" });
-        const html = "<div>\n\t <p>foo</p>\n</div>";
+    it("Should report an error when tabs and spaces are mixed on the same line", async () => {
+      const linter = createLinter({ "indent-style": "nonmixed" });
+      const html = "<div>\n\t <p>foo</p>\n</div>";
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-        expect(issues[0].code).toBe("E024");
-        expect(issues[0].rule).toBe("indent-style");
-        expect(issues[0].position).toEqual({
-          start: {
-            line: 2,
-            column: 3
-          },
-          end: {
-            line: 2,
-            column: 13
-          }
-        });
-        expect(issues[0].data).toEqual({
-          current_indentation: 3,
-          current_type: "mixed",
-          expected_indentation: 0,
-          expected_type: "nonmixed",
-          tagName: "p"
-        });
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+      expect(issues[0].code).toBe("E024");
+      expect(issues[0].rule).toBe("indent-style");
+      expect(issues[0].position).toEqual({
+        start: {
+          line: 2,
+          column: 3
+        },
+        end: {
+          line: 2,
+          column: 13
+        }
+      });
+      expect(issues[0].data).toEqual({
+        current_indentation: 3,
+        current_type: "mixed",
+        expected_indentation: 0,
+        expected_type: "nonmixed",
+        tagName: "p"
+      });
+    });
   });
 
   it("Should throw an error if not given a string as config", () => {
@@ -252,37 +249,34 @@ describe("indent-style", () => {
       expect(issues).toHaveLength(0);
     });
 
-    it(
-      "Should report an error when tabs and spaces are mixed on the same line",
-      async () => {
-        const linter = createLinter({
-          "indent-style": [true, "nonmixed"]
-        });
-        const html = "<div>\n\t <p>foo</p>\n</div>";
+    it("Should report an error when tabs and spaces are mixed on the same line", async () => {
+      const linter = createLinter({
+        "indent-style": [true, "nonmixed"]
+      });
+      const html = "<div>\n\t <p>foo</p>\n</div>";
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-        expect(issues[0].code).toBe("E024");
-        expect(issues[0].rule).toBe("indent-style");
-        expect(issues[0].position).toEqual({
-          start: {
-            line: 2,
-            column: 3
-          },
-          end: {
-            line: 2,
-            column: 13
-          }
-        });
-        expect(issues[0].data).toEqual({
-          current_indentation: 3,
-          current_type: "mixed",
-          expected_indentation: 0,
-          expected_type: "nonmixed",
-          tagName: "p"
-        });
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+      expect(issues[0].code).toBe("E024");
+      expect(issues[0].rule).toBe("indent-style");
+      expect(issues[0].position).toEqual({
+        start: {
+          line: 2,
+          column: 3
+        },
+        end: {
+          line: 2,
+          column: 13
+        }
+      });
+      expect(issues[0].data).toEqual({
+        current_indentation: 3,
+        current_type: "mixed",
+        expected_indentation: 0,
+        expected_type: "nonmixed",
+        tagName: "p"
+      });
+    });
   });
 
   it("Should throw an error if not given a string as config", () => {

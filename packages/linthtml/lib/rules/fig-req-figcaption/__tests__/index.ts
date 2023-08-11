@@ -43,11 +43,9 @@ describe("legacy linter | fig-req-figcaption", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report any error when figcaption is the last child",
-    async () => {
-      const linter = createLinter({ "fig-req-figcaption": true });
-      const html = `
+  it("Should not report any error when figcaption is the last child", async () => {
+    const linter = createLinter({ "fig-req-figcaption": true });
+    const html = `
         <figure>
           <p>1</p>  
           <p>2</p>  
@@ -55,13 +53,12 @@ describe("legacy linter | fig-req-figcaption", () => {
         </figure>
       `;
 
-      // TODO: assert messages
-      // first should be "figure without figcaption"
-      // second should be "figcaption without figcaption"
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    // TODO: assert messages
+    // first should be "figure without figcaption"
+    // second should be "figcaption without figcaption"
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 describe("fig-req-figcaption", () => {
@@ -105,11 +102,9 @@ describe("fig-req-figcaption", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report any error when figcaption is the last child",
-    async () => {
-      const linter = createLinter({ "fig-req-figcaption": true });
-      const html = `
+  it("Should not report any error when figcaption is the last child", async () => {
+    const linter = createLinter({ "fig-req-figcaption": true });
+    const html = `
         <figure>
           <p>1</p>  
           <p>2</p>  
@@ -117,11 +112,10 @@ describe("fig-req-figcaption", () => {
         </figure>
       `;
 
-      // TODO: assert messages
-      // first should be "figure without figcaption"
-      // second should be "figcaption without figcaption"
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    // TODO: assert messages
+    // first should be "figure without figcaption"
+    // second should be "figcaption without figcaption"
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
