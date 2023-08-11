@@ -17,7 +17,7 @@ function parse_comment(html: string) {
 }
 
 describe("inline_config extraction", () => {
-  it("report an error when instruction does not exist", done => {
+  it("report an error when instruction does not exist", (done) => {
     function report({ code, position, meta }: Parameters<reportFunction>[0]) {
       expect(code).toBe("INLINE_01");
       expect(position).toEqual({
@@ -38,7 +38,7 @@ describe("inline_config extraction", () => {
   });
 
   describe("Configure instruction", () => {
-    it("report an error when configuration target a nonexistent rule ", done => {
+    it("report an error when configuration target a nonexistent rule ", (done) => {
       const config = new Config();
       function report({ code, position, meta }: Parameters<reportFunction>[0]) {
         expect(code).toBe("INLINE_02");
@@ -83,20 +83,17 @@ describe("inline_config extraction", () => {
       expect(inline_config.foo).toEqual({ config: 2 });
     });
 
-    it(
-      "return an inline config object for valid inline config (json object)",
-      () => {
-        function report() {
-          throw new Error("Report function should not be called for valid inline config");
-        }
-        const config = new Config([fooRule as LegacyRuleDefinition]);
-        const comment = parse_comment('<!-- linthtml-configure foo={"bar": "fix"} -->');
-        const inline_config = extract_inline_config(comment, config, report);
-
-        expect(inline_config.foo).toBeDefined();
-        expect(inline_config.foo).toEqual({ config: { bar: "fix" } });
+    it("return an inline config object for valid inline config (json object)", () => {
+      function report() {
+        throw new Error("Report function should not be called for valid inline config");
       }
-    );
+      const config = new Config([fooRule as LegacyRuleDefinition]);
+      const comment = parse_comment('<!-- linthtml-configure foo={"bar": "fix"} -->');
+      const inline_config = extract_inline_config(comment, config, report);
+
+      expect(inline_config.foo).toBeDefined();
+      expect(inline_config.foo).toEqual({ config: { bar: "fix" } });
+    });
 
     it("return an inline config object for valid inline config (array)", () => {
       function report() {
@@ -110,20 +107,17 @@ describe("inline_config extraction", () => {
       expect(inline_config.foo).toEqual({ config: ["bar"] });
     });
 
-    it(
-      "return an inline config object for valid inline config (boolean)",
-      () => {
-        function report() {
-          throw new Error("Report function should not be called for valid inline config");
-        }
-        const config = new Config([fooRule as LegacyRuleDefinition]);
-        const comment = parse_comment("<!-- linthtml-configure foo=true -->");
-        const inline_config = extract_inline_config(comment, config, report);
-
-        expect(inline_config.foo).toBeDefined();
-        expect(inline_config.foo).toEqual({ disabled: false });
+    it("return an inline config object for valid inline config (boolean)", () => {
+      function report() {
+        throw new Error("Report function should not be called for valid inline config");
       }
-    );
+      const config = new Config([fooRule as LegacyRuleDefinition]);
+      const comment = parse_comment("<!-- linthtml-configure foo=true -->");
+      const inline_config = extract_inline_config(comment, config, report);
+
+      expect(inline_config.foo).toBeDefined();
+      expect(inline_config.foo).toEqual({ disabled: false });
+    });
 
     it("flag rule as disabled if inline config is false", () => {
       function report() {
@@ -186,7 +180,7 @@ describe("inline_config extraction", () => {
     });
 
     describe("configuration format", () => {
-      it("report an error for invalid string (no quotes)", done => {
+      it("report an error for invalid string (no quotes)", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -207,7 +201,7 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it("report an error for empty config (nothing after =)", done => {
+      it("report an error for empty config (nothing after =)", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -228,7 +222,7 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it("report an error for invalid object config", done => {
+      it("report an error for invalid object config", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -251,7 +245,7 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it("report an error for invalid array config", done => {
+      it("report an error for invalid array config", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -272,7 +266,7 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it("report an error for invalid json object (no quotes on keys)", done => {
+      it("report an error for invalid json object (no quotes on keys)", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -295,7 +289,7 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it("report an error for invalid json", done => {
+      it("report an error for invalid json", (done) => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
           expect(code).toBe("INLINE_03");
@@ -318,45 +312,42 @@ describe("inline_config extraction", () => {
         extract_inline_config(comment, config, report);
       });
 
-      it(
-        "report an error if configuration does not pass rule validation",
-        done => {
-          const foo: RuleDefinition = {
-            name: "foo",
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            lint() {},
-            validateConfig() {
-              throw Error("not valid");
-            }
-          };
-          const config = new Config([foo as LegacyRuleDefinition]);
-          function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-            expect(code).toBe("INLINE_04");
-            expect(position).toEqual({
-              start: {
-                line: 1,
-                column: 1
-              },
-              end: {
-                line: 1,
-                column: 38
-              }
-            });
-            expect(meta).toEqual({
-              data: { rule_name: "foo", error: "not valid" }
-            });
-            done();
+      it("report an error if configuration does not pass rule validation", (done) => {
+        const foo: RuleDefinition = {
+          name: "foo",
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          lint() {},
+          validateConfig() {
+            throw Error("not valid");
           }
-          const comment = parse_comment("<!-- linthtml-configure foo='bar' -->");
-          extract_inline_config(comment, config, report);
+        };
+        const config = new Config([foo as LegacyRuleDefinition]);
+        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
+          expect(code).toBe("INLINE_04");
+          expect(position).toEqual({
+            start: {
+              line: 1,
+              column: 1
+            },
+            end: {
+              line: 1,
+              column: 38
+            }
+          });
+          expect(meta).toEqual({
+            data: { rule_name: "foo", error: "not valid" }
+          });
+          done();
         }
-      );
+        const comment = parse_comment("<!-- linthtml-configure foo='bar' -->");
+        extract_inline_config(comment, config, report);
+      });
     });
   });
 
   ["enable", "disable"].forEach((instruction) => {
     describe(`${instruction} instruction`, () => {
-      it("report an error when configuration target a nonexistent rule ", done => {
+      it("report an error when configuration target a nonexistent rule ", (done) => {
         const config = new Config();
         const html = `<!-- linthtml-${instruction} foo -->`;
         function report({ code, position, meta }: Parameters<reportFunction>[0]) {
@@ -420,45 +411,42 @@ describe("inline_config extraction", () => {
         });
       });
 
-      it(
-        "return an inline for each activated rules when no rules are listed after the instruction",
-        () => {
-          function report() {
-            throw new Error("Report function should not be called for valid inline config");
-          }
-          const config = new Config(
-            [
-              fooRule as LegacyRuleDefinition,
-              {
-                name: "bar",
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                lint() {},
-                options: [],
-                on: "",
-                subscribers: []
-              }
-            ],
-            {
-              // active provided rules
-              rules: {
-                bar: true,
-                foo: true
-              }
-            }
-          );
-          const comment = parse_comment(`<!-- linthtml-${instruction} -->`);
-          const inline_config = extract_inline_config(comment, config, report);
-          expect(inline_config.foo).toBeDefined();
-          expect(inline_config.foo).toEqual({
-            disabled: instruction === "disable"
-          });
-
-          expect(inline_config.bar).toBeDefined();
-          expect(inline_config.bar).toEqual({
-            disabled: instruction === "disable"
-          });
+      it("return an inline for each activated rules when no rules are listed after the instruction", () => {
+        function report() {
+          throw new Error("Report function should not be called for valid inline config");
         }
-      );
+        const config = new Config(
+          [
+            fooRule as LegacyRuleDefinition,
+            {
+              name: "bar",
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              lint() {},
+              options: [],
+              on: "",
+              subscribers: []
+            }
+          ],
+          {
+            // active provided rules
+            rules: {
+              bar: true,
+              foo: true
+            }
+          }
+        );
+        const comment = parse_comment(`<!-- linthtml-${instruction} -->`);
+        const inline_config = extract_inline_config(comment, config, report);
+        expect(inline_config.foo).toBeDefined();
+        expect(inline_config.foo).toEqual({
+          disabled: instruction === "disable"
+        });
+
+        expect(inline_config.bar).toBeDefined();
+        expect(inline_config.bar).toEqual({
+          disabled: instruction === "disable"
+        });
+      });
     });
   });
 });
@@ -507,122 +495,104 @@ describe("inline_config with linter", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "(configure instruction) inline config affect siblings after declaration",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {
-          "attr-bans": [true, "align"]
-        }
-      });
+  it("(configure instruction) inline config affect siblings after declaration", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {
+        "attr-bans": [true, "align"]
+      }
+    });
 
-      const html = `
+    const html = `
         <div align><div>
         <!-- linthtml-configure attr-bans="off" -->
         <div align></div>
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "(enable|disable instruction) inline config affect siblings after declaration",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {
-          "attr-bans": [true, "align"]
-        }
-      });
+  it("(enable|disable instruction) inline config affect siblings after declaration", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {
+        "attr-bans": [true, "align"]
+      }
+    });
 
-      const html = `
+    const html = `
         <div align><div>
         <!-- linthtml-disable attr-bans -->
         <div align></div>
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "inline_config only affect rules that are activated at the linter creation",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {}
-      });
+  it("inline_config only affect rules that are activated at the linter creation", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {}
+    });
 
-      const html = `
+    const html = `
         <!-- linthtml-configure attr-bans=["align"] -->
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "(configure instruction) inline_config can deactivate/activate rules",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {
-          "attr-bans": [true, "align"]
-        }
-      });
+  it("(configure instruction) inline_config can deactivate/activate rules", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {
+        "attr-bans": [true, "align"]
+      }
+    });
 
-      const html = `
+    const html = `
         <!-- linthtml-configure attr-bans=false -->
         <div align></div>
         <!-- linthtml-configure attr-bans=true -->
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "(enable|disable instruction) inline_config can deactivate/activate rules",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {
-          "attr-bans": [true, "align"]
-        }
-      });
+  it("(enable|disable instruction) inline_config can deactivate/activate rules", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {
+        "attr-bans": [true, "align"]
+      }
+    });
 
-      const html = `
+    const html = `
         <!-- linthtml-disable attr-bans -->
         <div align></div>
         <!-- linthtml-enable attr-bans -->
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "enable|disable instructions only enable/disable rules and restore previous rules config",
-    async () => {
-      const linter = linthtml.fromConfig({
-        rules: {
-          "attr-bans": true
-        }
-      });
+  it("enable|disable instructions only enable/disable rules and restore previous rules config", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {
+        "attr-bans": true
+      }
+    });
 
-      const html = `
+    const html = `
         <!-- linthtml-configure attr-bans="align" -->
         <!-- linthtml-disable attr-bans -->
         <div align></div>
         <!-- linthtml-enable attr-bans -->
         <div align></div>
       `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });
 
 describe("inline_config with linter + plugin rule", () => {

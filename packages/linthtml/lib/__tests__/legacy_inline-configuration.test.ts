@@ -31,12 +31,9 @@ const html = `
 describe("inline-configuration", () => {
   // Tests for inlineConfig internals
   // Should instantiate an object rather than using the prototype
-  it(
-    "should throw when indices are passed to getOptsAtInex out of order",
-    () => {
-      expect(InlineConfig.prototype.getOptsAtIndex.bind(this, -10)).toThrow();
-    }
-  );
+  it("should throw when indices are passed to getOptsAtInex out of order", () => {
+    expect(InlineConfig.prototype.getOptsAtIndex.bind(this, -10)).toThrow();
+  });
   it("should throw when a config is added twice", () => {
     const c = new InlineConfig(new Config([]));
     c.addConfig({ end: 5 });
@@ -89,23 +86,20 @@ describe("inline-configuration", () => {
       // Should report 4 errors with "crlf"
     });
 
-    it(
-      'Should revert to previous (previous) config using "$previous"',
-      async () => {
-        const linter = createLinter({ "line-end-style": "crlf" });
-        const html = [
-          '<!-- linthtml-configure line-end-style="false" --><!-- linthtml-configure line-end-style="$previous" -->\r\n',
-          "<body>\n",
-          "  <p>\r",
-          "    some text\r",
-          "  </p>\r",
-          "</body>\r"
-        ].join("");
+    it('Should revert to previous (previous) config using "$previous"', async () => {
+      const linter = createLinter({ "line-end-style": "crlf" });
+      const html = [
+        '<!-- linthtml-configure line-end-style="false" --><!-- linthtml-configure line-end-style="$previous" -->\r\n',
+        "<body>\n",
+        "  <p>\r",
+        "    some text\r",
+        "  </p>\r",
+        "</body>\r"
+      ].join("");
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(5);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(5);
+    });
 
     it("quotes for values should not be mandatory", async () => {
       const linter = createLinter({ "line-end-style": "crlf" });
@@ -211,47 +205,41 @@ describe("inline-configuration", () => {
       expect(issues).toHaveLength(0);
     });
 
-    it(
-      'instruction can turn off multiple rules when names are separated using ","',
-      async () => {
-        const linter = createLinter({
-          "indent-style": "tabs",
-          "indent-width": 4
-        });
-        const html = [
-          "<!-- linthtml-disable indent-style,indent-width -->",
-          "<body>",
-          "  <p>",
-          "    some text",
-          "  </p>",
-          "</body>"
-        ].join("\n");
+    it('instruction can turn off multiple rules when names are separated using ","', async () => {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 4
+      });
+      const html = [
+        "<!-- linthtml-disable indent-style,indent-width -->",
+        "<body>",
+        "  <p>",
+        "    some text",
+        "  </p>",
+        "</body>"
+      ].join("\n");
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      'instruction can turn off multiple rules when names are separated using "," (+spaces)',
-      async () => {
-        const linter = createLinter({
-          "indent-style": "tabs",
-          "indent-width": 4
-        });
-        const html = [
-          "<!-- linthtml-disable indent-style , indent-width -->",
-          "<body>",
-          "  <p>",
-          "    some text",
-          "  </p>",
-          "</body>"
-        ].join("\n");
+    it('instruction can turn off multiple rules when names are separated using "," (+spaces)', async () => {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 4
+      });
+      const html = [
+        "<!-- linthtml-disable indent-style , indent-width -->",
+        "<body>",
+        "  <p>",
+        "    some text",
+        "  </p>",
+        "</body>"
+      ].join("\n");
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("instruction turn off all rules by default", async () => {
       const linter = createLinter({
@@ -302,31 +290,25 @@ describe("inline-configuration", () => {
       expect(issues).toHaveLength(1);
     });
 
-    it(
-      "disable instructions report an error for nonexistent rule name",
-      async () => {
-        const linter = createLinter({});
-        const html = "<!-- linthtml-disable id-no-no-ad-->";
+    it("disable instructions report an error for nonexistent rule name", async () => {
+      const linter = createLinter({});
+      const html = "<!-- linthtml-disable id-no-no-ad-->";
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-        expect(issues[0].code).toBe("INLINE_02");
-        expect(issues[0].data.rule_name).toBe("id-no-no-ad");
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+      expect(issues[0].code).toBe("INLINE_02");
+      expect(issues[0].data.rule_name).toBe("id-no-no-ad");
+    });
 
-    it(
-      "enable instructions in report an error for nonexistent rule name",
-      async () => {
-        const linter = createLinter({});
-        const html = "<!-- linthtml-disable id-no-no-ad-->";
+    it("enable instructions in report an error for nonexistent rule name", async () => {
+      const linter = createLinter({});
+      const html = "<!-- linthtml-disable id-no-no-ad-->";
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-        expect(issues[0].code).toBe("INLINE_02");
-        expect(issues[0].data.rule_name).toBe("id-no-no-ad");
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+      expect(issues[0].code).toBe("INLINE_02");
+      expect(issues[0].data.rule_name).toBe("id-no-no-ad");
+    });
 
     it("enable instruction restore previous configuration", async () => {
       const linter = createLinter({

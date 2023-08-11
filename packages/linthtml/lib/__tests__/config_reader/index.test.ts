@@ -2,6 +2,7 @@ import rewiremock from "rewiremock/node";
 import path from "path";
 import type { LinterConfig } from "../../read-config";
 import { config_from_path, find_local_config } from "../../read-config";
+import CustomError from "../../utils/custom-errors";
 
 describe("Get config from path", () => {
   it("Report an error if path provided does not exist", () => {
@@ -16,24 +17,21 @@ describe("Get config from path", () => {
     }
   });
 
-  it(
-    "Report an error when there's no config file in the folder provided",
-    () => {
-      let assertions_runned = false;
-      try {
-        config_from_path(__dirname);
-      } catch (error) {
-        expect(error).toBeInstanceOf(CustomError);
-        expect(error).toHaveProperty("code", "CORE-01");
-        expect(error).toHaveProperty("meta", {
-          config_path: __dirname
-        });
-        assertions_runned = true;
-      }
-
-      expect(assertions_runned).toBe(true);
+  it("Report an error when there's no config file in the folder provided", () => {
+    let assertions_runned = false;
+    try {
+      config_from_path(__dirname);
+    } catch (error) {
+      expect(error).toBeInstanceOf(CustomError);
+      expect(error).toHaveProperty("code", "CORE-01");
+      expect(error).toHaveProperty("meta", {
+        config_path: __dirname
+      });
+      assertions_runned = true;
     }
-  );
+
+    expect(assertions_runned).toBe(true);
+  });
 
   it("Return the config object from cosmiconfig if config file exist", () => {
     const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.js");
@@ -42,15 +40,12 @@ describe("Get config from path", () => {
     expect(config).toHaveProperty("filepath", config_path);
   });
 
-  it(
-    "Return the config object from cosmiconfig if there's a config file in the folder provided",
-    () => {
-      const config_path = path.join(__dirname, "fixtures");
-      const config = config_from_path(config_path);
-      expect(config).toHaveProperty("config");
-      expect(config).toHaveProperty("filepath", path.join(config_path, ".linthtmlrc.js"));
-    }
-  );
+  it("Return the config object from cosmiconfig if there's a config file in the folder provided", () => {
+    const config_path = path.join(__dirname, "fixtures");
+    const config = config_from_path(config_path);
+    expect(config).toHaveProperty("config");
+    expect(config).toHaveProperty("filepath", path.join(config_path, ".linthtmlrc.js"));
+  });
 });
 
 // Start by searching in the file folder, then search in the parent folder and the parent folder (...) until it reach the root directory
@@ -60,25 +55,19 @@ describe("Find config file for a file path", () => {
     expect(config).toBeNull();
   });
 
-  it(
-    "Return the config object from cosmiconfig if there's a config file in the file folder",
-    () => {
-      const config_path = path.join(__dirname, "fixtures");
-      const config = find_local_config(config_path);
-      expect(config).toHaveProperty("config");
-      expect(config).toHaveProperty("filepath", path.join(config_path, ".linthtmlrc.js"));
-    }
-  );
+  it("Return the config object from cosmiconfig if there's a config file in the file folder", () => {
+    const config_path = path.join(__dirname, "fixtures");
+    const config = find_local_config(config_path);
+    expect(config).toHaveProperty("config");
+    expect(config).toHaveProperty("filepath", path.join(config_path, ".linthtmlrc.js"));
+  });
 
-  it(
-    "Return the config object from cosmiconfig if there's a config file in parent folder",
-    () => {
-      const config_path = path.join(__dirname, "fixtures", "pages");
-      const config = find_local_config(config_path);
-      expect(config).toHaveProperty("config");
-      expect(config).toHaveProperty("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.js"));
-    }
-  );
+  it("Return the config object from cosmiconfig if there's a config file in parent folder", () => {
+    const config_path = path.join(__dirname, "fixtures", "pages");
+    const config = find_local_config(config_path);
+    expect(config).toHaveProperty("config");
+    expect(config).toHaveProperty("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.js"));
+  });
 });
 
 describe("Load extends config", () => {
@@ -140,23 +129,20 @@ describe("Load extends config", () => {
     });
   });
 
-  it(
-    "Rule settings from config file overrides rule settings form extends",
-    () => {
-      const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.js");
-      const { config } = config_from_path(config_path);
-      expect(config).toEqual({
-        extends: ["./config-attr-bans", "./config-tag-bans"],
-        plugins: [],
-        plugins_rules: {},
-        ignoreFiles: [],
-        rules: {
-          "attr-bans": "off",
-          "tag-bans": [true, "style", "b", "i"]
-        }
-      });
-    }
-  );
+  it("Rule settings from config file overrides rule settings form extends", () => {
+    const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.js");
+    const { config } = config_from_path(config_path);
+    expect(config).toEqual({
+      extends: ["./config-attr-bans", "./config-tag-bans"],
+      plugins: [],
+      plugins_rules: {},
+      ignoreFiles: [],
+      rules: {
+        "attr-bans": "off",
+        "tag-bans": [true, "style", "b", "i"]
+      }
+    });
+  });
 
   // Add function to load_extends from given config object (not only paths)?
 });

@@ -6,180 +6,152 @@ describe("legacy linter | line-no-trailing-whitespace", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should report an error when the line end with a trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "1234 ";
+  it("Should report an error when the line end with a trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "1234 ";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 1,
-          column: 5
-        },
-        end: {
-          line: 1,
-          column: 6
-        }
-      });
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 5
+      },
+      end: {
+        line: 1,
+        column: 6
+      }
+    });
+  });
 
-  it(
-    "Should report an error per line with a trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = `
-      foo 
-      bar `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 2,
-          column: 8
-        },
-        end: {
-          line: 2,
-          column: 9
-        }
-      });
-      expect(issues[1].position).toEqual({
-        start: {
-          line: 3,
-          column: 8
-        },
-        end: {
-          line: 3,
-          column: 9
-        }
-      });
-    }
-  );
+  it("Should report an error per line with a trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = ["foo ", "bar "].join("\n");
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 4
+      },
+      end: {
+        line: 1,
+        column: 5
+      }
+    });
+    expect(issues[1].position).toEqual({
+      start: {
+        line: 2,
+        column: 4
+      },
+      end: {
+        line: 2,
+        column: 5
+      }
+    });
+  });
 
-  it(
-    "Should not report an error when sibling is on the same line",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "foo   <strong>bar</strong> toto";
+  it("Should not report an error when sibling is on the same line", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "foo   <strong>bar</strong> toto";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should not report an error when parent close tag is on the same line",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "<p>foo   </p>";
+  it("Should not report an error when parent close tag is on the same line", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "<p>foo   </p>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should report only on error when line end with multiples trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "foo   ";
+  it("Should report only on error when line end with multiples trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "foo   ";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 1,
-          column: 4
-        },
-        end: {
-          line: 1,
-          column: 7
-        }
-      });
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 4
+      },
+      end: {
+        line: 1,
+        column: 7
+      }
+    });
+  });
 });
 describe("line-no-trailing-whitespace", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should report an error when the line end with a trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "1234 ";
+  it("Should report an error when the line end with a trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "1234 ";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 1,
-          column: 5
-        },
-        end: {
-          line: 1,
-          column: 6
-        }
-      });
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 5
+      },
+      end: {
+        line: 1,
+        column: 6
+      }
+    });
+  });
 
-  it(
-    "Should report an error per line with a trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = `
-      foo 
-      bar `;
+  it("Should report an error per line with a trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = ["foo ", "bar "].join("\n");
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 2,
-          column: 8
-        },
-        end: {
-          line: 2,
-          column: 9
-        }
-      });
-      expect(issues[1].position).toEqual({
-        start: {
-          line: 3,
-          column: 8
-        },
-        end: {
-          line: 3,
-          column: 9
-        }
-      });
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 4
+      },
+      end: {
+        line: 1,
+        column: 5
+      }
+    });
+    expect(issues[1].position).toEqual({
+      start: {
+        line: 2,
+        column: 4
+      },
+      end: {
+        line: 2,
+        column: 5
+      }
+    });
+  });
 
-  it(
-    "Should report only on error when line end with multiples trailing whitespace",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "foo   ";
+  it("Should report only on error when line end with multiples trailing whitespace", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "foo   ";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-      expect(issues[0].position).toEqual({
-        start: {
-          line: 1,
-          column: 4
-        },
-        end: {
-          line: 1,
-          column: 7
-        }
-      });
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+    expect(issues[0].position).toEqual({
+      start: {
+        line: 1,
+        column: 4
+      },
+      end: {
+        line: 1,
+        column: 7
+      }
+    });
+  });
 
   it("Should not report an error", async () => {
     const linter = createLinter({ "line-no-trailing-whitespace": true });
@@ -189,27 +161,21 @@ describe("line-no-trailing-whitespace", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should not report an error when sibling is on the same line",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "foo   <strong>bar</strong> toto";
+  it("Should not report an error when sibling is on the same line", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "foo   <strong>bar</strong> toto";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should not report an error when parent close tag is on the same line",
-    async () => {
-      const linter = createLinter({ "line-no-trailing-whitespace": true });
-      const html = "<p>foo   </p>";
+  it("Should not report an error when parent close tag is on the same line", async () => {
+    const linter = createLinter({ "line-no-trailing-whitespace": true });
+    const html = "<p>foo   </p>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 // module.exports = [

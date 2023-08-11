@@ -6,27 +6,21 @@ describe("legacy linter | line-max-len", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should not report any error when the line does not exceed the max length",
-    async () => {
-      const linter = createLinter({ "line-max-len": 5 });
-      const html = "1234";
+  it("Should not report any error when the line does not exceed the max length", async () => {
+    const linter = createLinter({ "line-max-len": 5 });
+    const html = "1234";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should not report any error when the line length equal the max length",
-    async () => {
-      const linter = createLinter({ "line-max-len": 5 });
-      const html = "12345";
+  it("Should not report any error when the line length equal the max length", async () => {
+    const linter = createLinter({ "line-max-len": 5 });
+    const html = "12345";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should support multilines", async () => {
     const linter = createLinter({ "line-max-len": 5 });
@@ -36,27 +30,21 @@ describe("legacy linter | line-max-len", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error when the line does exceed the max length",
-    async () => {
-      const linter = createLinter({ "line-max-len": 5 });
-      const html = "123456";
+  it("Should report an error when the line does exceed the max length", async () => {
+    const linter = createLinter({ "line-max-len": 5 });
+    const html = "123456";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Should report an error when the line exceed the max length (html tag)",
-    async () => {
-      const linter = createLinter({ "line-max-len": 5 });
-      const html = "<span></span>";
+  it("Should report an error when the line exceed the max length (html tag)", async () => {
+    const linter = createLinter({ "line-max-len": 5 });
+    const html = "<span></span>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report only on error per line (html tag)", async () => {
     const linter = createLinter({ "line-max-len": 5 });
@@ -110,31 +98,25 @@ describe("line-max-len", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should not report any error when the line does not exceed the max length",
-    async () => {
-      const linter = createLinter({
-        "line-max-len": [true, 5]
-      });
-      const html = "1234";
+  it("Should not report any error when the line does not exceed the max length", async () => {
+    const linter = createLinter({
+      "line-max-len": [true, 5]
+    });
+    const html = "1234";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should report an error when the line exceed the max length (html tag)",
-    async () => {
-      const linter = createLinter({
-        "line-max-len": [true, 5]
-      });
-      const html = "<span></span>";
+  it("Should report an error when the line exceed the max length (html tag)", async () => {
+    const linter = createLinter({
+      "line-max-len": [true, 5]
+    });
+    const html = "<span></span>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report only on error per line (html tag)", async () => {
     const linter = createLinter({
@@ -176,18 +158,15 @@ describe("line-max-len", () => {
     expect(issues).toHaveLength(3);
   });
 
-  it(
-    "Should not report any error when the line length equal the max length",
-    async () => {
-      const linter = createLinter({
-        "line-max-len": [true, 5]
-      });
-      const html = "12345";
+  it("Should not report any error when the line length equal the max length", async () => {
+    const linter = createLinter({
+      "line-max-len": [true, 5]
+    });
+    const html = "12345";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should support multilines", async () => {
     const linter = createLinter({
@@ -199,18 +178,15 @@ describe("line-max-len", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should report an error when the line does exceed the max length",
-    async () => {
-      const linter = createLinter({
-        "line-max-len": [true, 5]
-      });
-      const html = "123456";
+  it("Should report an error when the line does exceed the max length", async () => {
+    const linter = createLinter({
+      "line-max-len": [true, 5]
+    });
+    const html = "123456";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should throw an error if not given a number as config", () => {
     const config = {
