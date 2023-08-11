@@ -1,10 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "ts-node": {
-    "ignore": [
-      "(?:^|/)node_modules/",
-      "/fixtures/.*\\.js" // Force ts-node to ignore js fixture files during tests
-    ]
-  },
+
   "exclude": []
 }
