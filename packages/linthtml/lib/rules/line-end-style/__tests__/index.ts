@@ -137,17 +137,14 @@ describe("legacy linter | line-end-style", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const linter = createLinter({ "line-end-style": "foo" });
-      const html = "";
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const linter = createLinter({ "line-end-style": "foo" });
+    const html = "";
 
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "line-end-style" is invalid: "foo" is not accepted. Accepted values are "cr", "lf" and "crlf".'
-      );
-    }
-  );
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "line-end-style" is invalid: "foo" is not accepted. Accepted values are "cr", "lf" and "crlf".'
+    );
+  });
 });
 
 describe("line-end-style", () => {
@@ -239,15 +236,12 @@ describe("line-end-style", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const config = {
-        "line-end-style": [true, "foo"] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "line-end-style" is invalid: "foo" is not accepted. Accepted values are "cr", "lf" and "crlf".'
-      );
-    }
-  );
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const config = {
+      "line-end-style": [true, "foo"] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "line-end-style" is invalid: "foo" is not accepted. Accepted values are "cr", "lf" and "crlf".'
+    );
+  });
 });

@@ -6,16 +6,13 @@ describe("legacy linter | tag-name-lowercase", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should report an error when tags name are not lowercased",
-    async () => {
-      const linter = createLinter({ "tag-name-lowercase": true });
-      const html = "<boDY></boDY>";
+  it("Should report an error when tags name are not lowercased", async () => {
+    const linter = createLinter({ "tag-name-lowercase": true });
+    const html = "<boDY></boDY>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report an error pers tags not lowercased", async () => {
     const linter = createLinter({ "tag-name-lowercase": true });
@@ -25,16 +22,13 @@ describe("legacy linter | tag-name-lowercase", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report an error when tags name are lowercased",
-    async () => {
-      const linter = createLinter({ "tag-name-lowercase": true });
-      const html = "<body></body>";
+  it("Should not report an error when tags name are lowercased", async () => {
+    const linter = createLinter({ "tag-name-lowercase": true });
+    const html = "<body></body>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should ignore directive", async () => {
     const linter = createLinter({ "tag-name-lowercase": true });
@@ -49,16 +43,13 @@ describe("tag-name-lowercase", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should report an error when tags name are not lowercased",
-    async () => {
-      const linter = createLinter({ "tag-name-lowercase": true });
-      const html = "<boDY></boDY>";
+  it("Should report an error when tags name are not lowercased", async () => {
+    const linter = createLinter({ "tag-name-lowercase": true });
+    const html = "<boDY></boDY>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report an error pers tags not lowercased", async () => {
     const linter = createLinter({ "tag-name-lowercase": true });
@@ -68,16 +59,13 @@ describe("tag-name-lowercase", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report an error when tags name are lowercased",
-    async () => {
-      const linter = createLinter({ "tag-name-lowercase": true });
-      const html = "<body></body>";
+  it("Should not report an error when tags name are lowercased", async () => {
+    const linter = createLinter({ "tag-name-lowercase": true });
+    const html = "<body></body>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should ignore directive", async () => {
     const linter = createLinter({ "tag-name-lowercase": true });

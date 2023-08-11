@@ -54,36 +54,27 @@ describe("legacy linter | link-min-length-4", () => {
       expect(issues).toHaveLength(0);
     }
   );
-  it(
-    "Report nothing for links with text content with 4 chars",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="#">AAAA</a>';
+  it("Report nothing for links with text content with 4 chars", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="#">AAAA</a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
-  it(
-    "Report nothing for links with text content with 4 chars",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="#">AAAAA</a>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+  it("Report nothing for links with text content with 4 chars", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="#">AAAAA</a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
-  it(
-    "Report nothing for links with valid text content (nested)",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="https://google.com">span>Google</span></a>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+  it("Report nothing for links with valid text content (nested)", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="https://google.com">span>Google</span></a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 describe("link-min-length-4", () => {
@@ -138,34 +129,25 @@ describe("link-min-length-4", () => {
       expect(issues).toHaveLength(0);
     }
   );
-  it(
-    "Report nothing for links with text content with 4 chars",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="#">AAAA</a>';
+  it("Report nothing for links with text content with 4 chars", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="#">AAAA</a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
-  it(
-    "Report nothing for links with text content with 4 chars",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="#">AAAAA</a>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+  it("Report nothing for links with text content with 4 chars", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="#">AAAAA</a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
-  it(
-    "Report nothing for links with valid text content (nested)",
-    async () => {
-      const linter = createLinter({ "link-min-length-4": true });
-      const html = '<a href="https://google.com">span>Google</span></a>';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+  it("Report nothing for links with valid text content (nested)", async () => {
+    const linter = createLinter({ "link-min-length-4": true });
+    const html = '<a href="https://google.com">span>Google</span></a>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });

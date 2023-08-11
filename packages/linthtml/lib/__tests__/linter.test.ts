@@ -72,7 +72,7 @@ describe("Config", () => {
           parser: "foo"
         });
       } catch (error: unknown) {
-        expect(error).to.be.a("CustomError").toHaveProperty("code", "CORE-04");
+        expect(error).toBeInstanceOf(CustomError).toHaveProperty("code", "CORE-04");
         // @ts-expect-error system error
         expect(error.meta).toEqual({
           module_name: "foo"

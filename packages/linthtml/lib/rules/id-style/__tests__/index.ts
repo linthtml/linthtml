@@ -16,27 +16,21 @@ describe("legacy linter | id-style", () => {
   //   expect(issues).to.have.lengthOf(0);
   // });
 
-  it(
-    "Should not report any error for correctly formatted id",
-    async () => {
-      const linter = createLinter({ "id-style": "lowercase" });
-      const html = '<div id="foo"></div>';
+  it("Should not report any error for correctly formatted id", async () => {
+    const linter = createLinter({ "id-style": "lowercase" });
+    const html = '<div id="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({ "id-style": "lowercase" });
-        const html = '<div id="foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({ "id-style": "lowercase" });
+      const html = '<div id="foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({ "id-style": "lowercase" });
@@ -47,15 +41,12 @@ describe("legacy linter | id-style", () => {
   });
 
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({ "id-style": "dash" });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({ "id-style": "dash" });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({ "id-style": "dash" });
@@ -66,15 +57,12 @@ describe("legacy linter | id-style", () => {
   });
 
   describe("'underscore' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({ "id-style": "underscore" });
-        const html = '<div id="bar_foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({ "id-style": "underscore" });
+      const html = '<div id="bar_foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({ "id-style": "underscore" });
@@ -85,15 +73,12 @@ describe("legacy linter | id-style", () => {
   });
 
   describe("'BEM' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({ "id-style": "bem" });
-        const html = '<div id="block__element"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({ "id-style": "bem" });
+      const html = '<div id="block__element"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({ "id-style": "bem" });
@@ -104,15 +89,12 @@ describe("legacy linter | id-style", () => {
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({ "id-style": /^foo-\d+$/ });
-        const html = '<div id="foo-1"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({ "id-style": /^foo-\d+$/ });
+      const html = '<div id="foo-1"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({ "id-style": /^foo-\d+$/ });
@@ -209,31 +191,25 @@ describe("id-style", () => {
   //   expect(issues).to.have.lengthOf(0);
   // });
 
-  it(
-    "Should not report any error for correctly formatted id",
-    async () => {
+  it("Should not report any error for correctly formatted id", async () => {
+    const linter = createLinter({
+      "id-style": [true, "lowercase"]
+    });
+    const html = '<div id="foo"></div>';
+
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+
+  describe("'lowercase' format", () => {
+    it("Should not report an error for ids with valid format", async () => {
       const linter = createLinter({
         "id-style": [true, "lowercase"]
       });
       const html = '<div id="foo"></div>';
-
       const issues = await linter.lint(html);
       expect(issues).toHaveLength(0);
-    }
-  );
-
-  describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-style": [true, "lowercase"]
-        });
-        const html = '<div id="foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({
@@ -246,17 +222,14 @@ describe("id-style", () => {
   });
 
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-style": [true, "dash"]
-        });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({
+        "id-style": [true, "dash"]
+      });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({
@@ -269,17 +242,14 @@ describe("id-style", () => {
   });
 
   describe("'underscore' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-style": [true, "underscore"]
-        });
-        const html = '<div id="bar_foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({
+        "id-style": [true, "underscore"]
+      });
+      const html = '<div id="bar_foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({
@@ -292,17 +262,14 @@ describe("id-style", () => {
   });
 
   describe("'BEM' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-style": [true, "bem"]
-        });
-        const html = '<div id="block__element"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({
+        "id-style": [true, "bem"]
+      });
+      const html = '<div id="block__element"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({
@@ -315,17 +282,14 @@ describe("id-style", () => {
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for ids with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-style": [true, /^foo-\d+$/]
-        });
-        const html = '<div id="foo-1"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for ids with valid format", async () => {
+      const linter = createLinter({
+        "id-style": [true, /^foo-\d+$/]
+      });
+      const html = '<div id="foo-1"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report an error for ids with invalid format", async () => {
       const linter = createLinter({

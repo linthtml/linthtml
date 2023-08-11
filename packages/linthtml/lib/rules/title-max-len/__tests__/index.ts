@@ -47,16 +47,13 @@ describe("legacy linter | title-max-len", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const linter = createLinter({ "title-max-len": -1 });
-      const html = "";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "title-max-len" is invalid: Only positive indent value are allowed.'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const linter = createLinter({ "title-max-len": -1 });
+    const html = "";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "title-max-len" is invalid: Only positive indent value are allowed.'
+    );
+  });
 });
 
 describe("title-max-len", () => {
@@ -111,15 +108,12 @@ describe("title-max-len", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const config = {
-        "title-max-len": [true, -1] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "title-max-len" is invalid: Only positive indent value are allowed.'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const config = {
+      "title-max-len": [true, -1] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "title-max-len" is invalid: Only positive indent value are allowed.'
+    );
+  });
 });

@@ -76,17 +76,14 @@ describe("legacy linter | lang-style", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const linter = createLinter({ "lang-style": "foo" });
-      const html = "";
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const linter = createLinter({ "lang-style": "foo" });
+    const html = "";
 
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "lang-style" is invalid: Only "case" is accepted as string value'
-      );
-    }
-  );
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "lang-style" is invalid: Only "case" is accepted as string value'
+    );
+  });
 });
 describe("lang-style", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -167,16 +164,13 @@ describe("lang-style", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const config = {
-        "lang-style": [true, "foo"] as [boolean, unknown]
-      };
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const config = {
+      "lang-style": [true, "foo"] as [boolean, unknown]
+    };
 
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "lang-style" is invalid: Only "case" is accepted as string value'
-      );
-    }
-  );
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "lang-style" is invalid: Only "case" is accepted as string value'
+    );
+  });
 });

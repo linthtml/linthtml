@@ -14,20 +14,17 @@ describe("legacy linter | attr-no-unsafe-char", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should not report error for tabs/new_line in attributes",
-    async () => {
-      const linter = createLinter({ "attr-no-unsafe-char": true });
-      const html = `
-        <div class="
-          foo
-          bar">
-        </div>`;
+  it("Should not report error for tabs/new_line in attributes", async () => {
+    const linter = createLinter({ "attr-no-unsafe-char": true });
+    const html = `
+      <div class="
+        foo
+        bar">
+      </div>`;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report error for unsafe char in attributes", async () => {
     const linter = createLinter({ "attr-no-unsafe-char": true });
@@ -58,20 +55,17 @@ describe("attr-no-unsafe-char", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it(
-    "Should not report error for tabs/new_line in attributes",
-    async () => {
-      const linter = createLinter({ "attr-no-unsafe-char": true });
-      const html = `
-        <div class="
-          foo
-          bar">
-        </div>`;
+  it("Should not report error for tabs/new_line in attributes", async () => {
+    const linter = createLinter({ "attr-no-unsafe-char": true });
+    const html = `
+      <div class="
+        foo
+        bar">
+      </div>`;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report error for unsafe char in attributes", async () => {
     const linter = createLinter({ "attr-no-unsafe-char": true });

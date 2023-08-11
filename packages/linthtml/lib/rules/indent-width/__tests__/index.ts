@@ -243,16 +243,13 @@ describe('legacy linter | "indent-style" + "indent-width"', () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const linter = createLinter({ "indent-width": -1 });
-      const html = "";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const linter = createLinter({ "indent-width": -1 });
+    const html = "";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
+    );
+  });
 });
 
 describe('"indent-style" + "indent-width"', () => {
@@ -495,17 +492,14 @@ describe('"indent-style" + "indent-width"', () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const config = {
-        "indent-width": [true, -1] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const config = {
+      "indent-width": [true, -1] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "indent-width" is invalid: Only positive indent value are allowed'
+    );
+  });
 });
 
 // // //shoult report an error

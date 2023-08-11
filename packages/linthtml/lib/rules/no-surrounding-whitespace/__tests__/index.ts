@@ -71,21 +71,18 @@ describe("legacy linter | no-surrounding-whitespace", () => {
     }
   );
 
-  it(
-    "should not report an error for indentation text node",
-    async () => {
-      const linter = createLinter({ "no-surrounding-whitespace": true });
-      const html = `
-      <div>
-        <p>foo</p>
-        bar
-      </div>
-      `;
+  it("should not report an error for indentation text node", async () => {
+    const linter = createLinter({ "no-surrounding-whitespace": true });
+    const html = `
+    <div>
+      <p>foo</p>
+      bar
+    </div>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("should report an error", async () => {
     const linter = createLinter({ "no-surrounding-whitespace": true });
@@ -182,21 +179,18 @@ describe("no-surrounding-whitespace", () => {
     }
   );
 
-  it(
-    "should not report an error for indentation text node",
-    async () => {
-      const linter = createLinter({ "no-surrounding-whitespace": true });
-      const html = `
-      <div>
-        <p>foo</p>
-        bar
-      </div>
-      `;
+  it("should not report an error for indentation text node", async () => {
+    const linter = createLinter({ "no-surrounding-whitespace": true });
+    const html = `
+    <div>
+      <p>foo</p>
+      bar
+    </div>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("should report an error", async () => {
     const linter = createLinter({ "no-surrounding-whitespace": true });

@@ -29,22 +29,19 @@ describe("legacy linter | fig-req-figcaption", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should report two errors when figcaption is a sibling",
-    async () => {
-      const linter = createLinter({ "fig-req-figcaption": true });
-      const html = `
-        <figure></figure>
-        <figcaption></figcaption>
-      `;
+  it("Should report two errors when figcaption is a sibling", async () => {
+    const linter = createLinter({ "fig-req-figcaption": true });
+    const html = `
+      <figure></figure>
+      <figcaption></figcaption>
+    `;
 
-      // TODO: assert messages
-      // first should be "figure without figcaption"
-      // second should be "figcaption without figcaption"
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+    // TODO: assert messages
+    // first should be "figure without figcaption"
+    // second should be "figcaption without figcaption"
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
   it(
     "Should not report any error when figcaption is the last child",
@@ -94,22 +91,19 @@ describe("fig-req-figcaption", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should report two errors when figcaption is a sibling",
-    async () => {
-      const linter = createLinter({ "fig-req-figcaption": true });
-      const html = `
-        <figure></figure>
-        <figcaption></figcaption>
-      `;
+  it("Should report two errors when figcaption is a sibling", async () => {
+    const linter = createLinter({ "fig-req-figcaption": true });
+    const html = `
+      <figure></figure>
+      <figcaption></figcaption>
+    `;
 
-      // TODO: assert messages
-      // first should be "figure without figcaption"
-      // second should be "figcaption without figcaption"
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+    // TODO: assert messages
+    // first should be "figure without figcaption"
+    // second should be "figcaption without figcaption"
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
   it(
     "Should not report any error when figcaption is the last child",

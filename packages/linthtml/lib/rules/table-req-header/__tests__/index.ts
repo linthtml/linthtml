@@ -17,16 +17,13 @@ describe("legacy linter | table-req-header", () => {
     }
   );
 
-  it(
-    'Should not report any error for "<table>" with a "<th>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><tr><th>Header></th></tr></table>";
+  it('Should not report any error for "<table>" with a "<th>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><tr><th>Header></th></tr></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it(
     'Should not report any error for "<table>" with a "<th>" (not first child)',
@@ -61,27 +58,21 @@ describe("legacy linter | table-req-header", () => {
     }
   );
 
-  it(
-    'Should report an error when "<th>" not child of "<tr>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><th>Header></th></table>";
+  it('Should report an error when "<th>" not child of "<tr>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><th>Header></th></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    'Should report an error when no "<th>" in first "<tr>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><tr><td>Data</td></tr><tr><th>Header</th></tr></table>";
+  it('Should report an error when no "<th>" in first "<tr>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><tr><td>Data</td></tr><tr><th>Header</th></tr></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });
 describe("table-req-header", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -98,16 +89,13 @@ describe("table-req-header", () => {
     }
   );
 
-  it(
-    'Should not report any error for "<table>" with a "<th>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><tr><th>Header></th></tr></table>";
+  it('Should not report any error for "<table>" with a "<th>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><tr><th>Header></th></tr></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it(
     'Should not report any error for "<table>" with a "<th>" (not first child)',
@@ -142,25 +130,19 @@ describe("table-req-header", () => {
     }
   );
 
-  it(
-    'Should report an error when "<th>" not child of "<tr>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><th>Header></th></table>";
+  it('Should report an error when "<th>" not child of "<tr>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><th>Header></th></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    'Should report an error when no "<th>" in first "<tr>"',
-    async () => {
-      const linter = createLinter({ "table-req-header": true });
-      const html = "<table><tr><td>Data</td></tr><tr><th>Header</th></tr></table>";
+  it('Should report an error when no "<th>" in first "<tr>"', async () => {
+    const linter = createLinter({ "table-req-header": true });
+    const html = "<table><tr><td>Data</td></tr><tr><th>Header</th></tr></table>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 });

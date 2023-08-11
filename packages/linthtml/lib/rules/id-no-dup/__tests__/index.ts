@@ -6,16 +6,13 @@ describe("legacy linter | id-no-dup", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should not report an error when there's no duplicated id",
-    async () => {
-      const linter = createLinter({ "id-no-dup": true });
-      const html = '<div id="foo"></div>';
+  it("Should not report an error when there's no duplicated id", async () => {
+    const linter = createLinter({ "id-no-dup": true });
+    const html = '<div id="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report errors when there's duplicated id", async () => {
     const linter = createLinter({ "id-no-dup": true });
@@ -71,16 +68,13 @@ describe("id-no-dup", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should not report an error when there's no duplicated id",
-    async () => {
-      const linter = createLinter({ "id-no-dup": true });
-      const html = '<div id="foo"></div>';
+  it("Should not report an error when there's no duplicated id", async () => {
+    const linter = createLinter({ "id-no-dup": true });
+    const html = '<div id="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should report errors when there's duplicated id", async () => {
     const linter = createLinter({ "id-no-dup": true });

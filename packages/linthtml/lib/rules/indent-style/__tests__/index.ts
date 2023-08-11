@@ -136,16 +136,13 @@ describe("legay linter | indent-style", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a valid string as config",
-    () => {
-      const linter = createLinter({ "indent-style": "foo" });
-      const html = "";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
-      );
-    }
-  );
+  it("Should throw an error if not given a valid string as config", () => {
+    const linter = createLinter({ "indent-style": "foo" });
+    const html = "";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
+    );
+  });
 });
 
 describe("indent-style", () => {
@@ -297,17 +294,14 @@ describe("indent-style", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a valid string as config",
-    () => {
-      const config = {
-        "indent-style": [true, "foo"] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
-      );
-    }
-  );
+  it("Should throw an error if not given a valid string as config", () => {
+    const config = {
+      "indent-style": [true, "foo"] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "indent-style" is invalid: "foo" is not accepted. Accepted values are "tabs", "spaces" and "nonmixed".'
+    );
+  });
 });
 
 // // //shoult report an error

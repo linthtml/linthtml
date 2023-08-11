@@ -35,15 +35,12 @@ describe("Get config from path", () => {
     }
   );
 
-  it(
-    "Return the config object from cosmiconfig if config file exist",
-    () => {
-      const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.js");
-      const config = config_from_path(config_path);
-      expect(config).toHaveProperty("config");
-      expect(config).toHaveProperty("filepath", config_path);
-    }
-  );
+  it("Return the config object from cosmiconfig if config file exist", () => {
+    const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.js");
+    const config = config_from_path(config_path);
+    expect(config).toHaveProperty("config");
+    expect(config).toHaveProperty("filepath", config_path);
+  });
 
   it(
     "Return the config object from cosmiconfig if there's a config file in the folder provided",
@@ -174,28 +171,25 @@ describe("Load plugins", () => {
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).toHaveProperty("name", "my-plugin/rule");
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"].lint).toBeInstanceOf(Function);
   });
-  it(
-    "Throw an error when plugins rules property is not an array",
-    () => {
-      const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
-      rewiremock.overrideEntryPoint(module);
-      rewiremock(plugin_path).with({
-        rules: {}
+  it("Throw an error when plugins rules property is not an array", () => {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    rewiremock.overrideEntryPoint(module);
+    rewiremock(plugin_path).with({
+      rules: {}
+    });
+    rewiremock.enable();
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    try {
+      config_from_path(config_path);
+    } catch (error) {
+      expect(error).toBeInstanceOf(CustomError);
+      expect(error).toHaveProperty("code", "CORE-09");
+      expect(error).toHaveProperty("meta", {
+        plugin_name: plugin_path
       });
-      rewiremock.enable();
-      const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
-      try {
-        config_from_path(config_path);
-      } catch (error) {
-        expect(error).toBeInstanceOf(CustomError);
-        expect(error).toHaveProperty("code", "CORE-09");
-        expect(error).toHaveProperty("meta", {
-          plugin_name: plugin_path
-        });
-      }
-      rewiremock.disable();
     }
-  );
+    rewiremock.disable();
+  });
   it("Throw an error when rule does not have a name", () => {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
     rewiremock.overrideEntryPoint(module);

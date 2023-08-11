@@ -35,16 +35,13 @@ describe("legacy linter | tag-bans", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const linter = createLinter({ "tag-bans": ["string", true] });
-      const html = '<button style="color: red;"></button>';
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "tag-bans" is invalid: Expected string or string[] got boolean[]'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const linter = createLinter({ "tag-bans": ["string", true] });
+    const html = '<button style="color: red;"></button>';
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "tag-bans" is invalid: Expected string or string[] got boolean[]'
+    );
+  });
 });
 describe("tag-bans", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -86,15 +83,12 @@ describe("tag-bans", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const config = {
-        "tag-bans": [true, ["string", true]] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "tag-bans" is invalid: Expected string or string[] got boolean[]'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const config = {
+      "tag-bans": [true, ["string", true]] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "tag-bans" is invalid: Expected string or string[] got boolean[]'
+    );
+  });
 });

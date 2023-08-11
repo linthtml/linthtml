@@ -14,125 +14,92 @@ describe("legacy linter | id-style", () => {
   //   expect(issues).to.have.lengthOf(0);
   // });
 
-  it(
-    "Should not report any error for correctly formatted class",
-    async () => {
-      const linter = createLinter({ "id-class-style": "lowercase" });
-      const html = '<div id="foo"></div>';
+  it("Should not report any error for correctly formatted class", async () => {
+    const linter = createLinter({ "id-class-style": "lowercase" });
+    const html = '<div id="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "lowercase" });
-        const html = '<div id="foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({ "id-class-style": "lowercase" });
+      const html = '<div id="foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "lowercase" });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({ "id-class-style": "lowercase" });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "dash" });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({ "id-class-style": "dash" });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "dash" });
-        const html = '<div id="BarFoo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({ "id-class-style": "dash" });
+      const html = '<div id="BarFoo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'underscore' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "underscore" });
-        const html = '<div id="bar_foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({ "id-class-style": "underscore" });
+      const html = '<div id="bar_foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "underscore" });
-        const html = '<div id="BarFoo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({ "id-class-style": "underscore" });
+      const html = '<div id="BarFoo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'BEM' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "bem" });
-        const html = '<div id="block__element"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({ "id-class-style": "bem" });
+      const html = '<div id="block__element"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": "bem" });
-        const html = '<div id="block--modifier--modifier"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({ "id-class-style": "bem" });
+      const html = '<div id="block--modifier--modifier"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": /^foo-\d+$/ });
-        const html = '<div id="foo-1"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({ "id-class-style": /^foo-\d+$/ });
+      const html = '<div id="foo-1"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({ "id-class-style": /^foo-\d+$/ });
-        const html = '<div id="bar-2"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({ "id-class-style": /^foo-\d+$/ });
+      const html = '<div id="bar-2"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   it("Should throw an error if `id-class-ignore-regex` is empty", () => {
@@ -196,147 +163,114 @@ describe("id-style", () => {
   //   expect(issues).to.have.lengthOf(0);
   // });
 
-  it(
-    "Should not report any error for correctly formatted class",
-    async () => {
+  it("Should not report any error for correctly formatted class", async () => {
+    const linter = createLinter({
+      "id-class-style": [true, "lowercase"]
+    });
+    const html = '<div id="foo"></div>';
+
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
+
+  describe("'lowercase' format", () => {
+    it("Should not report an error for classes with valid format", async () => {
       const linter = createLinter({
         "id-class-style": [true, "lowercase"]
       });
       const html = '<div id="foo"></div>';
-
       const issues = await linter.lint(html);
       expect(issues).toHaveLength(0);
-    }
-  );
+    });
 
-  describe("'lowercase' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "lowercase"]
-        });
-        const html = '<div id="foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
-
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "lowercase"]
-        });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "lowercase"]
+      });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'dash' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "dash"]
-        });
-        const html = '<div id="bar-foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "dash"]
+      });
+      const html = '<div id="bar-foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "dash"]
-        });
-        const html = '<div id="BarFoo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "dash"]
+      });
+      const html = '<div id="BarFoo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'underscore' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "underscore"]
-        });
-        const html = '<div id="bar_foo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "underscore"]
+      });
+      const html = '<div id="bar_foo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "underscore"]
-        });
-        const html = '<div id="BarFoo"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "underscore"]
+      });
+      const html = '<div id="BarFoo"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'BEM' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "bem"]
-        });
-        const html = '<div id="block__element"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "bem"]
+      });
+      const html = '<div id="block__element"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, "bem"]
-        });
-        const html = '<div id="block--modifier--modifier"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, "bem"]
+      });
+      const html = '<div id="block--modifier--modifier"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   describe("'regexp' format", () => {
-    it(
-      "Should not report an error for classes with valid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, /^foo-\d+$/]
-        });
-        const html = '<div id="foo-1"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+    it("Should not report an error for classes with valid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, /^foo-\d+$/]
+      });
+      const html = '<div id="foo-1"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
-    it(
-      "Should report an error for classes with invalid format",
-      async () => {
-        const linter = createLinter({
-          "id-class-style": [true, /^foo-\d+$/]
-        });
-        const html = '<div id="bar-2"></div>';
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(1);
-      }
-    );
+    it("Should report an error for classes with invalid format", async () => {
+      const linter = createLinter({
+        "id-class-style": [true, /^foo-\d+$/]
+      });
+      const html = '<div id="bar-2"></div>';
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(1);
+    });
   });
 
   it("Rule should not fail if id attribute has no value", async () => {

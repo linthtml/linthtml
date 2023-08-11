@@ -6,24 +6,21 @@ describe("legacy linter | label-no-enc-textarea-or-select", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Report an error when there's a <select> inside a <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
-      <label>
-        <select>
-          <option value="v1">V1</option>
-          <option value="v2">V2</option>
-          <option value="v3">V3</option>
-        </select>
-      </label>
-      `;
+  it("Report an error when there's a <select> inside a <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
+    <label>
+      <select>
+        <option value="v1">V1</option>
+        <option value="v2">V2</option>
+        <option value="v3">V3</option>
+      </select>
+    </label>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it(
     "Report an error when there's a <textarea> inside a <label>",
@@ -105,24 +102,21 @@ describe("label-no-enc-textarea-or-select", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Report an error when there's a <select> inside a <label>",
-    async () => {
-      const linter = createLinter({ "label-no-enc-textarea-or-select": true });
-      const html = `
-      <label>
-        <select>
-          <option value="v1">V1</option>
-          <option value="v2">V2</option>
-          <option value="v3">V3</option>
-        </select>
-      </label>
-      `;
+  it("Report an error when there's a <select> inside a <label>", async () => {
+    const linter = createLinter({ "label-no-enc-textarea-or-select": true });
+    const html = `
+    <label>
+      <select>
+        <option value="v1">V1</option>
+        <option value="v2">V2</option>
+        <option value="v3">V3</option>
+      </select>
+    </label>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it(
     "Report an error when there's a <textarea> inside a <label>",

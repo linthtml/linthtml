@@ -81,16 +81,13 @@ describe("legacy linter | href-style", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const linter = createLinter({ "href-style": "foo" });
-      const html = "";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const linter = createLinter({ "href-style": "foo" });
+    const html = "";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
+    );
+  });
 });
 describe("href-style", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -188,15 +185,12 @@ describe("href-style", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const config = {
-        "href-style": [true, "foo"] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const config = {
+      "href-style": [true, "foo"] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "href-style" is invalid: "foo" is not accepted. Accepted values are "absolute" and "relative".'
+    );
+  });
 });

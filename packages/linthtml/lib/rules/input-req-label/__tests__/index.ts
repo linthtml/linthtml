@@ -69,27 +69,21 @@ describe("legacy linter | input-req-label", () => {
     }
   );
 
-  it(
-    "Should not report any error for button input with a value",
-    async () => {
-      const linter = createLinter({ "input-req-label": true });
-      const html = '<input type="button" value="Click me">';
+  it("Should not report any error for button input with a value", async () => {
+    const linter = createLinter({ "input-req-label": true });
+    const html = '<input type="button" value="Click me">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should report an error for button input without a value",
-    async () => {
-      const linter = createLinter({ "input-req-label": true });
-      const html = '<input type="button">';
+  it("Should report an error for button input without a value", async () => {
+    const linter = createLinter({ "input-req-label": true });
+    const html = '<input type="button">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it(
     "Should report an error for button input without an empty value",
@@ -169,27 +163,21 @@ describe("input-req-label", () => {
     }
   );
 
-  it(
-    "Should not report any error for button input with a value",
-    async () => {
-      const linter = createLinter({ "input-req-label": true });
-      const html = '<input type="button" value="Click me">';
+  it("Should not report any error for button input with a value", async () => {
+    const linter = createLinter({ "input-req-label": true });
+    const html = '<input type="button" value="Click me">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
-  it(
-    "Should report an error for button input without a value",
-    async () => {
-      const linter = createLinter({ "input-req-label": true });
-      const html = '<input type="button">';
+  it("Should report an error for button input without a value", async () => {
+    const linter = createLinter({ "input-req-label": true });
+    const html = '<input type="button">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it(
     "Should report an error for button input without an empty value",
