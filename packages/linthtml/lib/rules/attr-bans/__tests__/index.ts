@@ -49,16 +49,13 @@ describe("legacy linter | attr-bans", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const linter = createLinter({ "attr-bans": ["string", true] });
-      const html = '<button style="color: red;"></button>';
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "attr-bans" is invalid: Expected string, RegExp or (string|RegExp)[] got boolean[]'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const linter = createLinter({ "attr-bans": ["string", true] });
+    const html = '<button style="color: red;"></button>';
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "attr-bans" is invalid: Expected string, RegExp or (string|RegExp)[] got boolean[]'
+    );
+  });
 
   it(
     "Should report an error when the 'style' attribute is present",
@@ -127,17 +124,14 @@ describe("attr-bans", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const config = {
-        "attr-bans": [true, ["string", true]] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "attr-bans" is invalid: Expected string, RegExp or (string|RegExp)[] got boolean[]'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const config = {
+      "attr-bans": [true, ["string", true]] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "attr-bans" is invalid: Expected string, RegExp or (string|RegExp)[] got boolean[]'
+    );
+  });
 
   it(
     "Should report an error when the 'style' attribute is present",

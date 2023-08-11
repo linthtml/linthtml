@@ -40,15 +40,12 @@ describe("Rules config validators", () => {
       expect(fn(input)).toBe(input);
     });
 
-    it(
-      "can create a validator that does not allow empty string value",
-      () => {
-        const fn = create_string_or_regexp_validator("foo", false);
-        expect(() => fn("")).toThrow(
-          'Configuration for rule "foo" is invalid: You provide an empty string value.'
-        );
-      }
-    );
+    it("can create a validator that does not allow empty string value", () => {
+      const fn = create_string_or_regexp_validator("foo", false);
+      expect(() => fn("")).toThrow(
+        'Configuration for rule "foo" is invalid: You provide an empty string value.'
+      );
+    });
   });
 
   describe("Numbers validator", () => {

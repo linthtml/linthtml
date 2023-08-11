@@ -260,18 +260,15 @@ describe("attr-order", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it(
-    "Report errors for angular like attributes ([ngClass])",
-    async () => {
-      const linter = createLinter({
-        "attr-order": [true, ["[ngClass]", "class"]]
-      });
-      const html = "<div class='table' [ngClass]='foo'></div>";
+  it("Report errors for angular like attributes ([ngClass])", async () => {
+    const linter = createLinter({
+      "attr-order": [true, ["[ngClass]", "class"]]
+    });
+    const html = "<div class='table' [ngClass]='foo'></div>";
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should workds for attributes without value", async () => {
     const linter = createLinter({

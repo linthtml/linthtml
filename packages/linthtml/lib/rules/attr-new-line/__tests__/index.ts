@@ -32,19 +32,16 @@ describe("legacy linter | attr-new-line", () => {
     }
   );
 
-  it(
-    "Should not report errors when attributes are on new lines",
-    async () => {
-      const linter = createLinter({ "attr-new-line": 1 });
-      const html = `
-        <div class="foo"
-              id="bar"
-              attr></div>
-      `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not report errors when attributes are on new lines", async () => {
+    const linter = createLinter({ "attr-new-line": 1 });
+    const html = `
+      <div class="foo"
+            id="bar"
+            attr></div>
+    `;
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it(
     "Should accept less attributes per line than the value defined in the configuration",
@@ -194,21 +191,18 @@ describe("attr-new-line", () => {
     }
   );
 
-  it(
-    "Should not report errors when attributes are on new lines",
-    async () => {
-      const linter = createLinter({
-        "attr-new-line": [true, 1]
-      });
-      const html = `
-        <div class="foo"
-              id="bar"
-              attr></div>
-      `;
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("Should not report errors when attributes are on new lines", async () => {
+    const linter = createLinter({
+      "attr-new-line": [true, 1]
+    });
+    const html = `
+      <div class="foo"
+            id="bar"
+            attr></div>
+    `;
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it(
     "Should accept less attributes per line than the value defined in the configuration",

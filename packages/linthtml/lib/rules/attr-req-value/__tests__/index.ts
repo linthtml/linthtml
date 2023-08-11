@@ -6,16 +6,13 @@ describe("legacy linter | attr-req-value", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "Should not report an error for attribute with a value",
-    async () => {
-      const linter = createLinter({ "attr-req-value": true });
-      const html = '<div class="foo"></div>';
+  it("Should not report an error for attribute with a value", async () => {
+    const linter = createLinter({ "attr-req-value": true });
+    const html = '<div class="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should accept spaces in attributes value", async () => {
     const linter = createLinter({ "attr-req-value": true });
@@ -83,16 +80,13 @@ describe("attr-req-value", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "Should not report an error for attribute with a value",
-    async () => {
-      const linter = createLinter({ "attr-req-value": true });
-      const html = '<div class="foo"></div>';
+  it("Should not report an error for attribute with a value", async () => {
+    const linter = createLinter({ "attr-req-value": true });
+    const html = '<div class="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should accept spaces in attributes value", async () => {
     const linter = createLinter({ "attr-req-value": true });

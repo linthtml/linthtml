@@ -55,16 +55,13 @@ describe("legacy linter | tag-self-close", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const linter = createLinter({ "tag-self-close": "foo" });
-      const html = "<button></button>";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "tag-self-close" is invalid: "foo" is not accepted. Accepted values are "always" and "never".'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const linter = createLinter({ "tag-self-close": "foo" });
+    const html = "<button></button>";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "tag-self-close" is invalid: "foo" is not accepted. Accepted values are "always" and "never".'
+    );
+  });
 });
 
 describe("tag-self-close", () => {
@@ -129,15 +126,12 @@ describe("tag-self-close", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a list of strings as config",
-    () => {
-      const config = {
-        "tag-self-close": [true, "foo"] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "tag-self-close" is invalid: "foo" is not accepted. Accepted values are "always" and "never".'
-      );
-    }
-  );
+  it("Should throw an error if not given a list of strings as config", () => {
+    const config = {
+      "tag-self-close": [true, "foo"] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "tag-self-close" is invalid: "foo" is not accepted. Accepted values are "always" and "never".'
+    );
+  });
 });

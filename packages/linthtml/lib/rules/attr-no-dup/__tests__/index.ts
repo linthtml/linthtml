@@ -17,16 +17,13 @@ describe("legacy linter | attr-no-dup", () => {
     }
   );
 
-  it(
-    "Should report an error when an attribute is duplicated",
-    async () => {
-      const linter = createLinter({ "attr-no-dup": true });
-      const html = '<div class="foo" class="foo"></div>';
+  it("Should report an error when an attribute is duplicated", async () => {
+    const linter = createLinter({ "attr-no-dup": true });
+    const html = '<div class="foo" class="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should catch multiple duplicates in one element", async () => {
     const linter = createLinter({ "attr-no-dup": true });
@@ -82,18 +79,15 @@ describe("attr-no-dup", () => {
     }
   );
 
-  it(
-    "Should report an error when an attribute is duplicated",
-    async () => {
-      const linter = createLinter({
-        "attr-no-dup": true
-      });
-      const html = '<div class="foo" class="foo"></div>';
+  it("Should report an error when an attribute is duplicated", async () => {
+    const linter = createLinter({
+      "attr-no-dup": true
+    });
+    const html = '<div class="foo" class="foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should catch multiple duplicates in one element", async () => {
     const linter = createLinter({

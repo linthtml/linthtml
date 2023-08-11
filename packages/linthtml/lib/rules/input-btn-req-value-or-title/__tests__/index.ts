@@ -6,36 +6,27 @@ describe("legacy linter | input-btn-req-value-or-title", () => {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
-  it(
-    "should fail for an input[button] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="button">';
+  it("should fail for an input[button] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="button">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
-  it(
-    "should fail for an input[submit] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="submit">';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
+  it("should fail for an input[submit] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="submit">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
-  it(
-    "should fail for an input[reset] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="reset">';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
+  it("should fail for an input[reset] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="reset">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
   it("should ignore inputs that are not buttons", async () => {
     const linter = createLinter({ "input-btn-req-value-or-title": true });
     const html = '<input type="radio">';
@@ -76,36 +67,27 @@ describe("input-btn-req-value-or-title", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
-  it(
-    "should fail for an input[button] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="button">';
+  it("should fail for an input[button] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="button">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
-  it(
-    "should fail for an input[submit] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="submit">';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
+  it("should fail for an input[submit] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="submit">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
-  it(
-    "should fail for an input[reset] without value and title",
-    async () => {
-      const linter = createLinter({ "input-btn-req-value-or-title": true });
-      const html = '<input type="reset">';
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
+  it("should fail for an input[reset] without value and title", async () => {
+    const linter = createLinter({ "input-btn-req-value-or-title": true });
+    const html = '<input type="reset">';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
   it("should ignore inputs that are not buttons", async () => {
     const linter = createLinter({ "input-btn-req-value-or-title": true });
     const html = '<input type="radio">';

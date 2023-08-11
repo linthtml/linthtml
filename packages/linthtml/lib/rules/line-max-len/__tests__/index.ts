@@ -98,16 +98,13 @@ describe("legacy linter | line-max-len", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const linter = createLinter({ "line-max-len": -1 });
-      const html = "";
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "line-max-len" is invalid: Only positive indent value are allowed.'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const linter = createLinter({ "line-max-len": -1 });
+    const html = "";
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "line-max-len" is invalid: Only positive indent value are allowed.'
+    );
+  });
 });
 describe("line-max-len", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -224,17 +221,14 @@ describe("line-max-len", () => {
     );
   });
 
-  it(
-    "Should throw an error if not given a positive number as config",
-    () => {
-      const config = {
-        "line-max-len": [true, -1] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "line-max-len" is invalid: Only positive indent value are allowed.'
-      );
-    }
-  );
+  it("Should throw an error if not given a positive number as config", () => {
+    const config = {
+      "line-max-len": [true, -1] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "line-max-len" is invalid: Only positive indent value are allowed.'
+    );
+  });
 });
 
 // module.exports = [

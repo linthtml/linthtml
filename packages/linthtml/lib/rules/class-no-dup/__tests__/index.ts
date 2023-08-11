@@ -17,16 +17,13 @@ describe("legacy linter | class-no-dup", () => {
     }
   );
 
-  it(
-    "Should report errors when there's duplicated classes",
-    async () => {
-      const linter = createLinter({ "class-no-dup": true });
-      const html = '<div class="foo foo"></div>';
+  it("Should report errors when there's duplicated classes", async () => {
+    const linter = createLinter({ "class-no-dup": true });
+    const html = '<div class="foo foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should catch multiple duplicates class", async () => {
     const linter = createLinter({ "class-no-dup": true });
@@ -111,18 +108,15 @@ describe("class-no-dup", () => {
     }
   );
 
-  it(
-    "Should report errors when there's duplicated classes",
-    async () => {
-      const linter = createLinter({
-        "class-no-dup": true
-      });
-      const html = '<div class="foo foo"></div>';
+  it("Should report errors when there's duplicated classes", async () => {
+    const linter = createLinter({
+      "class-no-dup": true
+    });
+    const html = '<div class="foo foo"></div>';
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should catch multiple duplicates class", async () => {
     const linter = createLinter({

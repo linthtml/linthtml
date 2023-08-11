@@ -365,65 +365,62 @@ describe("HTML Parser", () => {
     });
   });
 
-  it(
-    "should correctly extract attribute with value on multiline",
-    () => {
-      const { children } = parse(
-        ["<body>", "  <div", '    class="hello', '      identityDiv"', "  >", "  </div>", "</body>"].join("\n")
-      );
-      const div = <Element>children[0].children[1];
+  it("should correctly extract attribute with value on multiline", () => {
+    const { children } = parse(
+      ["<body>", "  <div", '    class="hello', '      identityDiv"', "  >", "  </div>", "</body>"].join("\n")
+    );
+    const div = <Element>children[0].children[1];
 
-      expect(div.attributes).toHaveLength(1);
-      const [_class] = div.attributes;
+    expect(div.attributes).toHaveLength(1);
+    const [_class] = div.attributes;
 
-      expect(_class.type).toBe("attribute");
-      expect(_class.loc).toEqual({
-        start: {
-          line: 3,
-          column: 5
-        },
-        end: {
-          line: 4,
-          column: 19
-        }
-      });
+    expect(_class.type).toBe("attribute");
+    expect(_class.loc).toEqual({
+      start: {
+        line: 3,
+        column: 5
+      },
+      end: {
+        line: 4,
+        column: 19
+      }
+    });
 
-      expect(_class.name.chars).toBe("class");
-      expect(_class.name.raw).toBeUndefined();
-      expect(_class.name.loc).toEqual({
-        start: {
-          line: 3,
-          column: 5
-        },
-        end: {
-          line: 3,
-          column: 10
-        }
-      });
-      expect(_class?.equal?.chars).toBe("=");
-      expect(_class?.equal?.raw).toBeUndefined(); // should contains `=` + spaces?
-      expect(_class?.equal?.loc).toEqual({
-        start: {
-          line: 3,
-          column: 10
-        },
-        end: {
-          line: 3,
-          column: 11
-        }
-      });
-      expect(_class?.value?.chars).toBe("hello\n      identityDiv");
-      expect(_class?.value?.raw).toBe('"hello\n      identityDiv"');
-      expect(_class?.value?.loc).toEqual({
-        start: {
-          line: 3,
-          column: 11
-        },
-        end: {
-          line: 4,
-          column: 19
-        }
-      });
-    }
-  );
+    expect(_class.name.chars).toBe("class");
+    expect(_class.name.raw).toBeUndefined();
+    expect(_class.name.loc).toEqual({
+      start: {
+        line: 3,
+        column: 5
+      },
+      end: {
+        line: 3,
+        column: 10
+      }
+    });
+    expect(_class?.equal?.chars).toBe("=");
+    expect(_class?.equal?.raw).toBeUndefined(); // should contains `=` + spaces?
+    expect(_class?.equal?.loc).toEqual({
+      start: {
+        line: 3,
+        column: 10
+      },
+      end: {
+        line: 3,
+        column: 11
+      }
+    });
+    expect(_class?.value?.chars).toBe("hello\n      identityDiv");
+    expect(_class?.value?.raw).toBe('"hello\n      identityDiv"');
+    expect(_class?.value?.loc).toEqual({
+      start: {
+        line: 3,
+        column: 11
+      },
+      end: {
+        line: 4,
+        column: 19
+      }
+    });
+  });
 });

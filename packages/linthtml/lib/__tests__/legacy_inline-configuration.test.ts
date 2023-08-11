@@ -43,14 +43,11 @@ describe("inline-configuration", () => {
     expect(c.addConfig.bind(c, { end: 5 })).toThrow();
   });
 
-  it(
-    "should not do anything if no inline config comments exist",
-    async () => {
-      const linter = createLinter({});
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+  it("should not do anything if no inline config comments exist", async () => {
+    const linter = createLinter({});
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   describe("linthml-configure instruction", () => {
     it("should not do anything on an empty tag", async () => {
@@ -199,23 +196,20 @@ describe("inline-configuration", () => {
   });
 
   describe("linthml-(disable|enable) instruction", () => {
-    it(
-      "instruction turn off rule when provided with the name",
-      async () => {
-        const linter = createLinter({ "line-end-style": "crlf" });
-        const html = [
-          "<!-- linthtml-disable line-end-style -->\r\n",
-          "<body>\r\n",
-          "  <p>\r\n",
-          "    some text\r",
-          "  </p>\r\n",
-          "</body>\r\n"
-        ].join("");
+    it("instruction turn off rule when provided with the name", async () => {
+      const linter = createLinter({ "line-end-style": "crlf" });
+      const html = [
+        "<!-- linthtml-disable line-end-style -->\r\n",
+        "<body>\r\n",
+        "  <p>\r\n",
+        "    some text\r",
+        "  </p>\r\n",
+        "</body>\r\n"
+      ].join("");
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it(
       'instruction can turn off multiple rules when names are separated using ","',
@@ -270,27 +264,24 @@ describe("inline-configuration", () => {
       expect(issues).toHaveLength(0);
     });
 
-    it(
-      "rules can be turned on again using the enable instruction",
-      async () => {
-        const linter = createLinter({
-          "indent-style": "tabs",
-          "indent-width": 4
-        });
-        const html = [
-          "<!-- linthtml-disable -->",
-          "<!-- linthtml-enable -->",
-          "<body>",
-          "  <p>",
-          "    some text",
-          "  </p>",
-          "</body>"
-        ].join("\n");
+    it("rules can be turned on again using the enable instruction", async () => {
+      const linter = createLinter({
+        "indent-style": "tabs",
+        "indent-width": 4
+      });
+      const html = [
+        "<!-- linthtml-disable -->",
+        "<!-- linthtml-enable -->",
+        "<body>",
+        "  <p>",
+        "    some text",
+        "  </p>",
+        "</body>"
+      ].join("\n");
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(2);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(2);
+    });
 
     it("only one rules can be turned on again", async () => {
       const linter = createLinter({

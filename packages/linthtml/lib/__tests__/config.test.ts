@@ -13,13 +13,10 @@ describe("Config", () => {
   // let config = new Config(rules);
 
   describe("getRule", () => {
-    it(
-      "Should throw an error when trying to get an unexisting rule",
-      () => {
-        const config = new Config();
-        expect(() => config.getRule("foo")).toThrow('Rule "foo" does not exist.');
-      }
-    );
+    it("Should throw an error when trying to get an unexisting rule", () => {
+      const config = new Config();
+      expect(() => config.getRule("foo")).toThrow('Rule "foo" does not exist.');
+    });
     it("Should return existing rules", () => {
       const config = new Config(rules);
       const rule = config.getRule("attr-bans");
@@ -242,66 +239,60 @@ describe("Config", () => {
       expect(() => config.setRuleConfig(rule, rule_config)).not.toThrow();
     });
     describe("Rule validation", () => {
-      it(
-        'Should call "validateConfig" if rule declare the function',
-        done => {
-          const rule_config = {
-            foo: [
-              "error",
-              {
-                bar: "bar"
-              }
-            ] as ["error", unknown]
-          } as const;
-          const foo: RuleDefinition = {
-            name: "foo",
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            lint() {},
-            validateConfig(config) {
-              expect(config).toBeDefined();
-              // @ts-ignore
-              expect(config.bar).toBe("bar");
-              done();
+      it('Should call "validateConfig" if rule declare the function', done => {
+        const rule_config = {
+          foo: [
+            "error",
+            {
+              bar: "bar"
             }
-          };
+          ] as ["error", unknown]
+        } as const;
+        const foo: RuleDefinition = {
+          name: "foo",
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          lint() {},
+          validateConfig(config) {
+            expect(config).toBeDefined();
+            // @ts-ignore
+            expect(config.bar).toBe("bar");
+            done();
+          }
+        };
 
-          const config = new Config([foo as LegacyRuleDefinition]);
-          const rule = config.getRule("foo");
-          config.setRuleConfig(rule, rule_config);
-        }
-      );
+        const config = new Config([foo as LegacyRuleDefinition]);
+        const rule = config.getRule("foo");
+        config.setRuleConfig(rule, rule_config);
+      });
 
-      it(
-        'Should call "configTransform" if rule declare the function',
-        done => {
-          const rule_config = {
-            foo: [
-              "error",
-              {
-                bar: "bar"
-              }
-            ] as ["error", unknown]
-          } as const;
-          const foo: RuleDefinition = {
-            name: "foo",
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            lint() {},
-            configTransform(config) {
-              // @ts-ignore
-              return config.bar;
-            },
-            validateConfig(config) {
-              expect(config).toBeDefined();
-              expect(config).toBe("bar");
-              done();
+      it('Should call "configTransform" if rule declare the function', done => {
+        const rule_config = {
+          foo: [
+            "error",
+            {
+              bar: "bar"
             }
-          };
+          ] as ["error", unknown]
+        } as const;
+        const foo: RuleDefinition = {
+          name: "foo",
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          lint() {},
+          configTransform(config) {
+            // @ts-ignore
+            return config.bar;
+          },
+          validateConfig(config) {
+            expect(config).toBeDefined();
+            expect(config).toBe("bar");
+            done();
+          }
+        };
 
-          const config = new Config([foo as LegacyRuleDefinition]);
-          const rule = config.getRule("foo");
-          config.setRuleConfig(rule, rule_config);
-        }
-      );
+        const config = new Config([foo as LegacyRuleDefinition]);
+        const rule = config.getRule("foo");
+        config.setRuleConfig(rule, rule_config);
+      });
     });
   });
 
@@ -317,17 +308,14 @@ describe("Config", () => {
       testContext.config.setRuleConfig(rule, rule_config);
       expect(testContext.config.activated_rules["attr-bans"]).toHaveProperty("severity", "error");
     });
-    it(
-      'Rules severity should be set as "error" if "error" is provided',
-      () => {
-        const rule = testContext.config.getRule("attr-bans");
-        const rule_config = {
-          "attr-bans": "error"
-        };
-        testContext.config.setRuleConfig(rule, rule_config);
-        expect(testContext.config.activated_rules["attr-bans"]).toHaveProperty("severity", "error");
-      }
-    );
+    it('Rules severity should be set as "error" if "error" is provided', () => {
+      const rule = testContext.config.getRule("attr-bans");
+      const rule_config = {
+        "attr-bans": "error"
+      };
+      testContext.config.setRuleConfig(rule, rule_config);
+      expect(testContext.config.activated_rules["attr-bans"]).toHaveProperty("severity", "error");
+    });
     it(
       'Rules severity should be set as "warning" if "warning" is provided',
       () => {

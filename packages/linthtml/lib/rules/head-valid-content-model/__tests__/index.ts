@@ -21,20 +21,17 @@ describe("legacy linter | head-valid-content-model", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report any error when <head> is not present",
-    async () => {
-      const linter = createLinter({ "head-valid-content-model": true });
-      const html = `
-      <html>
-        <body></body>
-      </html>
-      `;
+  it("Should not report any error when <head> is not present", async () => {
+    const linter = createLinter({ "head-valid-content-model": true });
+    const html = `
+    <html>
+      <body></body>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should not report any error for valid child element", async () => {
     const linter = createLinter({ "head-valid-content-model": true });
@@ -55,21 +52,18 @@ describe("legacy linter | head-valid-content-model", () => {
     const issues = await linter.lint(html);
     expect(issues).toHaveLength(0);
   });
-  it(
-    "Should not report any error for empty <head> element",
-    async () => {
-      const linter = createLinter({ "head-valid-content-model": true });
-      const html = `
-      <html>
-        <head>
-        </head>
-      </html>
-      `;
+  it("Should not report any error for empty <head> element", async () => {
+    const linter = createLinter({ "head-valid-content-model": true });
+    const html = `
+    <html>
+      <head>
+      </head>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });
 
 describe("head-valid-content-model", () => {
@@ -91,20 +85,17 @@ describe("head-valid-content-model", () => {
     expect(issues).toHaveLength(2);
   });
 
-  it(
-    "Should not report any error when <head> is not present",
-    async () => {
-      const linter = createLinter({ "head-valid-content-model": true });
-      const html = `
-      <html>
-        <body></body>
-      </html>
-      `;
+  it("Should not report any error when <head> is not present", async () => {
+    const linter = createLinter({ "head-valid-content-model": true });
+    const html = `
+    <html>
+      <body></body>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 
   it("Should not report any error for valid child element", async () => {
     const linter = createLinter({ "head-valid-content-model": true });
@@ -125,19 +116,16 @@ describe("head-valid-content-model", () => {
     const issues = await linter.lint(html);
     expect(issues).toHaveLength(0);
   });
-  it(
-    "Should not report any error for empty <head> element",
-    async () => {
-      const linter = createLinter({ "head-valid-content-model": true });
-      const html = `
-      <html>
-        <head>
-        </head>
-      </html>
-      `;
+  it("Should not report any error for empty <head> element", async () => {
+    const linter = createLinter({ "head-valid-content-model": true });
+    const html = `
+    <html>
+      <head>
+      </head>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(0);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(0);
+  });
 });

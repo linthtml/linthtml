@@ -23,21 +23,18 @@ describe("legacy linter | head-req-title", () => {
     }
   );
 
-  it(
-    "Should report an error when the head title is not present",
-    async () => {
-      const linter = createLinter({ "head-req-title": true });
-      const html = `
-      <html>
-        <head>
-        </head>
-      </html>
-      `;
+  it("Should report an error when the head title is not present", async () => {
+    const linter = createLinter({ "head-req-title": true });
+    const html = `
+    <html>
+      <head>
+      </head>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report an error when the head title is empty", async () => {
     const linter = createLinter({ "head-req-title": true });
@@ -54,23 +51,20 @@ describe("legacy linter | head-req-title", () => {
   });
 
   describe("Multiple <title>", () => {
-    it(
-      "Should not report any error when one title is not empty",
-      async () => {
-        const linter = createLinter({ "head-req-title": true });
-        const html = `
-        <html>
-          <head>
-            <title></title>
-            <title>Foo</title>
-          </head>
-        </html>
-        `;
+    it("Should not report any error when one title is not empty", async () => {
+      const linter = createLinter({ "head-req-title": true });
+      const html = `
+      <html>
+        <head>
+          <title></title>
+          <title>Foo</title>
+        </head>
+      </html>
+      `;
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report any errors when all titles are empty", async () => {
       const linter = createLinter({ "head-req-title": true });
@@ -109,21 +103,18 @@ describe("legacy linter | head-req-title", () => {
     }
   );
 
-  it(
-    "Should report an error when the head title is not present",
-    async () => {
-      const linter = createLinter({ "head-req-title": true });
-      const html = `
-      <html>
-        <head>
-        </head>
-      </html>
-      `;
+  it("Should report an error when the head title is not present", async () => {
+    const linter = createLinter({ "head-req-title": true });
+    const html = `
+    <html>
+      <head>
+      </head>
+    </html>
+    `;
 
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
   it("Should report an error when the head title is empty", async () => {
     const linter = createLinter({ "head-req-title": true });
@@ -140,23 +131,20 @@ describe("legacy linter | head-req-title", () => {
   });
 
   describe("Multiple <title>", () => {
-    it(
-      "Should not report any error when one title is not empty",
-      async () => {
-        const linter = createLinter({ "head-req-title": true });
-        const html = `
-        <html>
-          <head>
-            <title></title>
-            <title>Foo</title>
-          </head>
-        </html>
-        `;
+    it("Should not report any error when one title is not empty", async () => {
+      const linter = createLinter({ "head-req-title": true });
+      const html = `
+      <html>
+        <head>
+          <title></title>
+          <title>Foo</title>
+        </head>
+      </html>
+      `;
 
-        const issues = await linter.lint(html);
-        expect(issues).toHaveLength(0);
-      }
-    );
+      const issues = await linter.lint(html);
+      expect(issues).toHaveLength(0);
+    });
 
     it("Should report any errors when all titles are empty", async () => {
       const linter = createLinter({ "head-req-title": true });

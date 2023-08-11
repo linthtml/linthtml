@@ -133,17 +133,14 @@ describe("legacy linter | doctype-first", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const linter = createLinter({ "doctype-first": "foo" });
-      const html = '<div class="bar"></div>';
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const linter = createLinter({ "doctype-first": "foo" });
+    const html = '<div class="bar"></div>';
 
-      expect(() => linter.lint(html)).toThrow(
-        'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
-      );
-    }
-  );
+    expect(() => linter.lint(html)).toThrow(
+      'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
+    );
+  });
 });
 describe("doctype-first", () => {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
@@ -296,15 +293,12 @@ describe("doctype-first", () => {
     );
   });
 
-  it(
-    "Should throw an error for invalid config (not valid string)",
-    () => {
-      const config = {
-        "doctype-first": [true, "foo"] as [boolean, unknown]
-      };
-      expect(() => createLinter(config)).toThrow(
-        'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
-      );
-    }
-  );
+  it("Should throw an error for invalid config (not valid string)", () => {
+    const config = {
+      "doctype-first": [true, "foo"] as [boolean, unknown]
+    };
+    expect(() => createLinter(config)).toThrow(
+      'Configuration for rule "doctype-first" is invalid: Only "smart" is accepted as string value'
+    );
+  });
 });

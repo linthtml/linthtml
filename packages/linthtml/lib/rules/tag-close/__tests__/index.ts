@@ -7,25 +7,19 @@ describe("legacy linter | tag-close", () => {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
 
-  it(
-    "Should report an error for not matching open/close tags",
-    async () => {
-      const linter = createLinter({ "tag-close": true });
-      const html = "<body></div>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error for not matching open/close tags", async () => {
+    const linter = createLinter({ "tag-close": true });
+    const html = "<body></div>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Should report an error per none matching open/close tags",
-    async () => {
-      const linter = createLinter({ "tag-close": true });
-      const html = "<body><p></span></div>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+  it("Should report an error per none matching open/close tags", async () => {
+    const linter = createLinter({ "tag-close": true });
+    const html = "<body><p></span></div>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
   it("Should not report an error for self closing tags", async () => {
     const linter = createLinter({ "tag-close": true });
@@ -47,25 +41,19 @@ describe("tag-close", () => {
     return linthtml.fromConfig({ rules });
   }
 
-  it(
-    "Should report an error for not matching open/close tags",
-    async () => {
-      const linter = createLinter({ "tag-close": true });
-      const html = "<body></div>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(1);
-    }
-  );
+  it("Should report an error for not matching open/close tags", async () => {
+    const linter = createLinter({ "tag-close": true });
+    const html = "<body></div>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(1);
+  });
 
-  it(
-    "Should report an error per none matching open/close tags",
-    async () => {
-      const linter = createLinter({ "tag-close": true });
-      const html = "<body><p></span></div>";
-      const issues = await linter.lint(html);
-      expect(issues).toHaveLength(2);
-    }
-  );
+  it("Should report an error per none matching open/close tags", async () => {
+    const linter = createLinter({ "tag-close": true });
+    const html = "<body><p></span></div>";
+    const issues = await linter.lint(html);
+    expect(issues).toHaveLength(2);
+  });
 
   it("Should not report an error for self closing tags", async () => {
     const linter = createLinter({ "tag-close": true });
