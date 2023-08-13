@@ -21,6 +21,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "jest",
+    "coverage": "jest --coverage",
     "build": "tsc --build"
   },
   "bugs": {
