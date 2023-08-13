@@ -15,8 +15,7 @@
   "scripts": {
     "clean": "lerna run clean; rm -rf packages/**/tsconfig.tsbuildinfo; rm -rf packages/**/dist",
     "lint": "eslint .",
-    "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
-    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",
+    "coverage": "lerna run coverage",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md",
