@@ -35,13 +35,6 @@ jobs:
           npm-version: "9"
       - run: npm ci
       - run: npm run coverage
-      - run: |
-          mv coverage/dom-utils/cobertura-coverage.xml coverage/dom-utils/dom-utils-cobertura-coverage.xml
-          mv coverage/html-parser/cobertura-coverage.xml coverage/html-parser/html-parser-cobertura-coverage.xml
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: packages
-          files: coverage/dom-utils/dom-utils-cobertura-coverage.xml coverage/html-parser/html-parser-cobertura-coverage.xml coverage/linthtml/cobertura-coverage.xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
