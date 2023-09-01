@@ -1,11 +1,9 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "standard"
-  ],
+  "extends": ["eslint:recommended", "standard", "plugin:jest/recommended"],
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
   "parserOptions": {
     "ecmaVersion": 2018
@@ -17,50 +15,33 @@
   },
   "rules": {
     "camelcase": "off",
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "array-element-newline": [
-      "error",
-      "consistent"
-    ],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "array-element-newline": ["error", "consistent"],
     "no-var": "error",
     "newline-per-chained-call": "error",
-    "space-before-function-paren": [
-      "error",
-      "never"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ]
+    "space-before-function-paren": ["error", "never"],
+    "linebreak-style": ["error", "unix"],
+    "jest/no-identical-title": "off"
   },
-  "overrides": [{
-    "files": ["**/*.ts"],
-    "env": {
-      "es2020": true,
-      "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 11,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "@typescript-eslint/ban-ts-comment": "warn"
+  "plugins": ["jest"],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "env": {
+        "es2020": true,
+        "node": true
+      },
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+      },
+      "plugins": ["@typescript-eslint"],
+      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn"
+      }
     }
-  }]
+  ]
 }

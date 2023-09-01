@@ -2,6 +2,7 @@ import linthtml from "../index";
 
 describe("linthtml.rules", () => {
   linthtml.rules.forEach(function (rule) {
+    // eslint-disable-next-line
     describe(rule.name, () => {
       it("should have a name", () => {
         expect(rule).toHaveProperty("name");

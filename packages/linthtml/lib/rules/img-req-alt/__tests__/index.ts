@@ -30,7 +30,7 @@ describe("legacy linter | img-req-alt", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it("Should check only <img> ", async () => {
+  it("Should check only <img>", async () => {
     const linter = createLinter({ "img-req-alt": true });
     const html = '<div alt="">';
 
@@ -103,7 +103,7 @@ describe("img-req-alt", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it("Should check only <img> ", async () => {
+  it("Should check only <img>", async () => {
     const linter = createLinter({ "img-req-alt": true });
     const html = '<div alt="">';
 
