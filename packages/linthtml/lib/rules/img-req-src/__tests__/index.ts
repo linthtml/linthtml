@@ -30,7 +30,7 @@ describe("legacy linter | img-req-src", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it("Should check only <img> ", async () => {
+  it("Should check only <img>", async () => {
     const linter = createLinter({ "img-req-src": true });
     const html = '<div src="">';
 
@@ -66,7 +66,7 @@ describe("img-req-src", () => {
     expect(issues).toHaveLength(1);
   });
 
-  it("Should check only <img> ", async () => {
+  it("Should check only <img>", async () => {
     const linter = createLinter({ "img-req-src": true });
     const html = '<div src="">';
 

@@ -86,6 +86,7 @@ function check_open_close_not_same_line(node: Node, max_length: number, report: 
     node_start_line !== children_start_line &&
     node.loc.start.column - 1 > max_length
   ) {
+    // TODO - Test this branch
     report({
       code: "E040",
       position: {

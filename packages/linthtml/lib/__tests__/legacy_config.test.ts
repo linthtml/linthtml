@@ -116,7 +116,7 @@ describe("Legacy Config", () => {
     });
 
     it("should not throw when removing a nonregistered rule", () => {
-      testContext.config.removeRule("nonexistent");
+      expect(() => testContext.config.removeRule("nonexistent")).not.toThrow();
     });
   });
 
@@ -144,61 +144,7 @@ describe("Legacy Config", () => {
       testContext.config.addOption(testContext.option);
       expect(testContext.option.active).toEqual(true);
     });
-
-    // No longer working because rules can only subscribe to the "dom" rule
-    // it("should maintain active and update subscriptions", function() {
-    //   config.addRule(baseRule);
-    //   config.addRule(rule);
-    //   const option2 = {
-    //     name: option.name,
-    //     rules: [baseRule.name]
-    //   };
-    //   config.addOption(option2);
-    //   config.setOption(option.name, true);
-
-    //   config.addOption(option);
-    //   expect(option.active).to.be.eql(true);
-    //   expect(baseRule.subscribers).to.be.eql([rule]);
-    //   expect(rule.subscribers).to.be.eql([option]);
-
-    //   config.addOption(option2);
-    //   expect(option2.active).to.be.eql(true);
-    //   expect(baseRule.subscribers).to.be.eql([option2]);
-    //   expect(rule.subscribers).to.be.eql([]);
-    // });
   });
-
-  // No longer working because rules can only subscribe to the "dom" rule
-  // describe("setOption", function() {
-  //   it("should subscribe and unsubscribe the rule", function() {
-  //     config.addRule(baseRule);
-  //     config.addRule(rule);
-  //     config.addOption(option);
-
-  //     config.setOption(option.name, true);
-  //     expect(rule.subscribers).to.be.eql([option]);
-  //     expect(baseRule.subscribers).to.be.eql([rule]);
-
-  //     config.setOption(option.name, false);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-
-  //     const option2 = {
-  //       name: "option2",
-  //       rules: option.rules
-  //     };
-  //     config.addOption(option2);
-  //     config.setOption(option.name, true);
-  //     config.setOption(option2.name, true);
-  //     config.setOption(option.name, false);
-  //     expect(rule.subscribers).to.be.eql([option2]);
-  //     expect(baseRule.subscribers).to.be.eql([rule]);
-
-  //     config.setOption(option2.name, false);
-  //     expect(rule.subscribers).to.be.eql([]);
-  //     expect(baseRule.subscribers).to.be.eql([]);
-  //   });
-  // });
 
   describe("removeOption", () => {
     it("should remove the option", () => {
@@ -219,7 +165,7 @@ describe("Legacy Config", () => {
     });
 
     it("should not fail on nonexistent option", () => {
-      testContext.config.removeOption("nonexistent");
+      expect(() => testContext.config.removeOption("nonexistent")).not.toThrow();
     });
   });
 });

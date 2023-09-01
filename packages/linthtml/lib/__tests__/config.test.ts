@@ -102,7 +102,7 @@ describe("Config", () => {
           'Invalid Config for rule "attr-bans" - Unexpected value "{"foo":"bar"}"'
         );
       });
-      it("Should report an error if a js object is provided", () => {
+      it("Should report an error if a an array provided", () => {
         const config = new Config(rules);
         const rule = config.getRule("attr-bans");
         const rule_config = {
@@ -245,7 +245,7 @@ describe("Config", () => {
     });
 
     describe("Rule validation", () => {
-      it('Should call "validateConfig" if rule declare the function', (done) => {
+      it('Should call "validateConfig" if rule declare the function', () => {
         const rule_config = {
           foo: [
             "error",
@@ -255,24 +255,23 @@ describe("Config", () => {
           ] as ["error", unknown]
         } satisfies Record<string, RuleConfig>;
 
+        const validateConfig = jest.fn();
         const foo: RuleDefinition = {
           name: "foo",
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
-          validateConfig(config) {
-            expect(config).toBeDefined();
-            // @ts-ignore
-            expect(config.bar).toBe("bar");
-            done();
-          }
+          validateConfig
         };
 
         const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
         config.setRuleConfig(rule, rule_config);
+        expect(validateConfig).toHaveBeenCalledWith({
+          bar: "bar"
+        });
       });
 
-      it('Should call "configTransform" if rule declare the function', (done) => {
+      it('Should call "configTransform" if rule declare the function', () => {
         const rule_config = {
           foo: [
             "error",
@@ -282,24 +281,20 @@ describe("Config", () => {
           ] as ["error", unknown]
         } satisfies Record<string, RuleConfig>;
 
+        const configTransform = jest.fn();
         const foo: RuleDefinition = {
           name: "foo",
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
-          configTransform(config) {
-            // @ts-ignore
-            return config.bar;
-          },
-          validateConfig(config) {
-            expect(config).toBeDefined();
-            expect(config).toBe("bar");
-            done();
-          }
+          configTransform
         };
 
         const config = new Config([foo as LegacyRuleDefinition]);
         const rule = config.getRule("foo");
         config.setRuleConfig(rule, rule_config);
+        expect(configTransform).toHaveBeenCalledWith({
+          bar: "bar"
+        });
       });
     });
   });

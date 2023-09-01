@@ -46,7 +46,7 @@ describe("legacy linter | input-radio-req-name", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it("Should check only input radio ", async () => {
+  it("Should check only input radio", async () => {
     const linter = createLinter({ "input-radio-req-name": true });
     const html = '<div name="">';
 
@@ -98,7 +98,7 @@ describe("legacy linter | input-radio-req-name", () => {
     expect(issues).toHaveLength(0);
   });
 
-  it("Should check only input radio ", async () => {
+  it("Should check only input radio", async () => {
     const linter = createLinter({ "input-radio-req-name": true });
     const html = '<div name="">';
 

@@ -2,7 +2,7 @@ import parse from "@linthtml/html-parser";
 import { extract_inline_config } from "../../inline_config";
 import Config from "../../config";
 import linthtml from "../../index";
-import type { LegacyRuleDefinition, RuleDefinition, reportFunction } from "../../read-config";
+import type { LegacyRuleDefinition, RuleDefinition } from "../../read-config";
 import path from "path";
 
 const fooRule: RuleDefinition = {
@@ -17,10 +17,15 @@ function parse_comment(html: string) {
 }
 
 describe("inline_config extraction", () => {
-  it("report an error when instruction does not exist", (done) => {
-    function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-      expect(code).toBe("INLINE_01");
-      expect(position).toEqual({
+  it("report an error when instruction does not exist", () => {
+    const reportFn = jest.fn();
+
+    const comment = parse_comment("<!-- linthtml-foo -->");
+    extract_inline_config(comment, new Config(), reportFn);
+
+    expect(reportFn).toHaveBeenCalledWith({
+      code: "INLINE_01",
+      position: {
         start: {
           line: 1,
           column: 1
@@ -29,20 +34,21 @@ describe("inline_config extraction", () => {
           line: 1,
           column: 22
         }
-      });
-      expect(meta).toEqual({ data: { instruction: "foo" } });
-      done();
-    }
-    const comment = parse_comment("<!-- linthtml-foo -->");
-    extract_inline_config(comment, new Config(), report);
+      },
+      meta: { data: { instruction: "foo" } }
+    });
   });
 
   describe("Configure instruction", () => {
-    it("report an error when configuration target a nonexistent rule ", (done) => {
+    it("report an error when configuration target a nonexistent rule", () => {
       const config = new Config();
-      function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-        expect(code).toBe("INLINE_02");
-        expect(position).toEqual({
+      const reportFn = jest.fn();
+      const comment = parse_comment("<!-- linthtml-configure foo=false -->");
+      extract_inline_config(comment, config, reportFn);
+
+      expect(reportFn).toHaveBeenCalledWith({
+        code: "INLINE_02",
+        position: {
           start: {
             line: 1,
             column: 1
@@ -51,12 +57,9 @@ describe("inline_config extraction", () => {
             line: 1,
             column: 38
           }
-        });
-        expect(meta).toEqual({ data: { rule_name: "foo" } });
-        done();
-      }
-      const comment = parse_comment("<!-- linthtml-configure foo=false -->");
-      extract_inline_config(comment, config, report);
+        },
+        meta: { data: { rule_name: "foo" } }
+      });
     });
 
     it("return an inline config object for valid inline config (string)", () => {
@@ -180,11 +183,14 @@ describe("inline_config extraction", () => {
     });
 
     describe("configuration format", () => {
-      it("report an error for invalid string (no quotes)", (done) => {
+      it("report an error for invalid string (no quotes)", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo=bar -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -193,19 +199,19 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 36
             }
-          });
-          expect(meta).toEqual({ data: { rule_configuration: "bar" } });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo=bar -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "bar" } }
+        });
       });
 
-      it("report an error for empty config (nothing after =)", (done) => {
+      it("report an error for empty config (nothing after =)", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo= -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -214,19 +220,19 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 33
             }
-          });
-          expect(meta).toEqual({ data: { rule_configuration: "" } });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo= -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "" } }
+        });
       });
 
-      it("report an error for invalid object config", (done) => {
+      it("report an error for invalid object config", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo={bar:x} -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -235,21 +241,19 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 40
             }
-          });
-          expect(meta).toEqual({
-            data: { rule_configuration: "{bar:x}" }
-          });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo={bar:x} -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "{bar:x}" } }
+        });
       });
 
-      it("report an error for invalid array config", (done) => {
+      it("report an error for invalid array config", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo=[bar] -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -258,19 +262,19 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 38
             }
-          });
-          expect(meta).toEqual({ data: { rule_configuration: "[bar]" } });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo=[bar] -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "[bar]" } }
+        });
       });
 
-      it("report an error for invalid json object (no quotes on keys)", (done) => {
+      it("report an error for invalid json object (no quotes on keys)", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo={bar: 'x'} -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -279,21 +283,19 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 43
             }
-          });
-          expect(meta).toEqual({
-            data: { rule_configuration: "{bar: 'x'}" }
-          });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo={bar: 'x'} -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "{bar: 'x'}" } }
+        });
       });
 
-      it("report an error for invalid json", (done) => {
+      it("report an error for invalid json", () => {
         const config = new Config([fooRule as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_03");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo=[{'foo': 'bar'}}] -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_03",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -302,17 +304,12 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 50
             }
-          });
-          expect(meta).toEqual({
-            data: { rule_configuration: "[{'foo': 'bar'}}]" }
-          });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo=[{'foo': 'bar'}}] -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_configuration: "[{'foo': 'bar'}}]" } }
+        });
       });
 
-      it("report an error if configuration does not pass rule validation", (done) => {
+      it("report an error if configuration does not pass rule validation", () => {
         const foo: RuleDefinition = {
           name: "foo",
           // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -322,9 +319,12 @@ describe("inline_config extraction", () => {
           }
         };
         const config = new Config([foo as LegacyRuleDefinition]);
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_04");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment("<!-- linthtml-configure foo='bar' -->");
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_04",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -333,26 +333,24 @@ describe("inline_config extraction", () => {
               line: 1,
               column: 38
             }
-          });
-          expect(meta).toEqual({
-            data: { rule_name: "foo", error: "not valid" }
-          });
-          done();
-        }
-        const comment = parse_comment("<!-- linthtml-configure foo='bar' -->");
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_name: "foo", error: "not valid" } }
+        });
       });
     });
   });
 
   ["enable", "disable"].forEach((instruction) => {
     describe(`${instruction} instruction`, () => {
-      it("report an error when configuration target a nonexistent rule ", (done) => {
+      it("report an error when configuration target a nonexistent rule", () => {
         const config = new Config();
         const html = `<!-- linthtml-${instruction} foo -->`;
-        function report({ code, position, meta }: Parameters<reportFunction>[0]) {
-          expect(code).toBe("INLINE_02");
-          expect(position).toEqual({
+        const reportFn = jest.fn();
+        const comment = parse_comment(html);
+        extract_inline_config(comment, config, reportFn);
+        expect(reportFn).toHaveBeenCalledWith({
+          code: "INLINE_02",
+          position: {
             start: {
               line: 1,
               column: 1
@@ -361,12 +359,9 @@ describe("inline_config extraction", () => {
               line: 1,
               column: html.length + 1
             }
-          });
-          expect(meta).toEqual({ data: { rule_name: "foo" } });
-          done();
-        }
-        const comment = parse_comment(html);
-        extract_inline_config(comment, config, report);
+          },
+          meta: { data: { rule_name: "foo" } }
+        });
       });
 
       it("return an inline config object for a valid inline config", () => {

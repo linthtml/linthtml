@@ -31,7 +31,7 @@ const html = `
 describe("inline-configuration", () => {
   // Tests for inlineConfig internals
   // Should instantiate an object rather than using the prototype
-  it("should throw when indices are passed to getOptsAtInex out of order", () => {
+  it("should throw when indices are passed to getOptsAtIndex out of order", () => {
     expect(InlineConfig.prototype.getOptsAtIndex.bind(this, -10)).toThrow();
   });
   it("should throw when a config is added twice", () => {
@@ -69,7 +69,7 @@ describe("inline-configuration", () => {
       expect(issues).toHaveLength(0);
     });
 
-    it("should work when used multiple times in a line ", async () => {
+    it("should work when used multiple times in a line", async () => {
       const linter = createLinter({ "line-end-style": "crlf" });
       const html = [
         '<!-- linthtml-configure line-end-style="lf" --><!-- linthtml-configure line-end-style="false" -->\r\n',

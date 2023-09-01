@@ -271,7 +271,6 @@ function add_plugins_rules(cosmiconfig_result: {
     const plugins_rules: Record<string, RuleDefinition> = normalized_plugins.reduce(
       (plugin_rules: Record<string, RuleDefinition>, plugin_name) => {
         const { rules } = load_plugin(plugin_name);
-
         if (rules && !Array.isArray(rules)) {
           throw new CustomError("CORE-09", { plugin_name });
         }
