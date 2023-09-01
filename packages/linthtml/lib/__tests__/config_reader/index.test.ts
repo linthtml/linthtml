@@ -1,4 +1,5 @@
 // TODO: Find a way to reset jest mocks correctly
+// https://jestjs.io/docs/es6-class-mocks#complete-example ?
 import path from "path";
 import type { LinterConfig } from "../../read-config";
 import { config_from_path, find_local_config } from "../../read-config";
