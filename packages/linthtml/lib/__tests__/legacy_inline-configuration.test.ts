@@ -1,7 +1,6 @@
 import InlineConfig from "../legacy/inline_config";
 import Config from "../legacy/config";
 
-// TODO: Remove .default after typescript migration
 import linthtml from "..";
 import { presets } from "../presets";
 import { LegacyLinterConfig } from "../read-config";

@@ -1,4 +1,3 @@
-// TODO: Remove .default after typescript migration
 import linthtml from "../../index";
 import { presets } from "../../presets";
 import { LegacyLinterConfig } from "../../read-config";

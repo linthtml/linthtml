@@ -1,7 +1,6 @@
 import Config from "../config";
 import type { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../read-config";
 import rules from "../rules";
-// TODO: Remove .default after typescript migration
 
 describe("Config", () => {
   // let config = new Config(rules);
