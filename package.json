@@ -27,7 +27,7 @@
   "license": "ISC",
   "devDependencies": {
     "lefthook": "^1.4.9",
-    "@commitlint/cli": "^13.1.0",
+    "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^13.1.0",
     "@types/jest": "^29.5.3",
     "@types/node": "^16.9.1",
