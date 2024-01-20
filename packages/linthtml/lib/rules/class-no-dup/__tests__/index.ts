@@ -1,6 +1,6 @@
-import linthtml from "../../../index";
-import { presets } from "../../../presets";
-import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
+import linthtml from "../../../index.js";
+import { presets } from "../../../presets/index.js";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config.js";
 
 describe("legacy linter | class-no-dup", () => {
   function createLinter(config: LegacyLinterConfig) {

@@ -1,7 +1,7 @@
 import { is_text_node, has_parent_node, get_text_lines } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { create_number_validator } from "../../validate_option";
-import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
+import { create_number_validator } from "../../validate_option.js";
+import { Node, Text } from "@linthtml/dom-utils/dom_elements";
 
 const RULE_NAME = "line-max-len";
 

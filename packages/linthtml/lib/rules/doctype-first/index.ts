@@ -1,6 +1,6 @@
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import { Node } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node, is_text_node, is_directive_node, is_comment_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "doctype-first";
 

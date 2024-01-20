@@ -1,9 +1,9 @@
-import match_format from "../../utils/check_format";
+import match_format from "../../utils/check_format.js";
 import { is_tag_node, get_classes, has_non_empty_attribute, get_attribute } from "@linthtml/dom-utils";
-import { create_list_value_validator } from "../../validate_option";
-import { types } from "util";
-import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
-import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+import { create_list_value_validator } from "../../validate_option.js";
+import { types } from "node:util";
+import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config.js";
+import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 
 const { isRegExp } = types;
 

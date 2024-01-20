@@ -1,21 +1,23 @@
-import chalk from "chalk";
-import type { CharValue, Range } from "@linthtml/dom-utils/lib/dom_elements";
-import type Issue from "./issue";
+import chalkTemplate from "chalk-template";
+import type { CharValue, Range } from "@linthtml/dom-utils/dom_elements";
+import type Issue from "./issue.js";
 
 export const CORE_ERRORS: { [code: string]: (meta?: Record<string, unknown>) => string } = {
-  "01": (meta) => chalk`{red Error:} Cannot find a config file in the directory {underline ${meta?.config_path}}`,
-  "02": (meta) => chalk`{red Error:} Cannot find the config file {underline ${meta?.config_path}}`,
-  "03": (meta) => chalk`{red Error:} Cannot find module "${meta?.module_name}" to extends`,
+  "01": (meta) =>
+    chalkTemplate`{red Error:} Cannot find a config file in the directory {underline ${meta?.config_path}}`,
+  "02": (meta) => chalkTemplate`{red Error:} Cannot find the config file {underline ${meta?.config_path}}`,
+  "03": (meta) => chalkTemplate`{red Error:} Cannot find module "${meta?.module_name}" to extends`,
   "04": (meta) =>
-    chalk`{red Error:} Failed to load parser "${meta?.module_name}". Cannot find module "${meta?.module_name}"`,
-  "05": (meta) => chalk`{red Error:} Cannot find plugin "${meta?.module_name}", make sure it's installed locally.`,
+    chalkTemplate`{red Error:} Failed to load parser "${meta?.module_name}". Cannot find module "${meta?.module_name}"`,
+  "05": (meta) =>
+    chalkTemplate`{red Error:} Cannot find plugin "${meta?.module_name}", make sure it's installed locally.`,
   "06": (meta) =>
-    chalk`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta?.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
+    chalkTemplate`{red Error:} Plugins should expose rules having a property "name". The plugin "${meta?.plugin_name}" is not doing this, so it will not work. Please file an issue with the plugin.`,
   "07": (meta) =>
-    chalk`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+    chalkTemplate`{red Error:} Plugin rules have to be namespaced, i.e. only "plugin-namespace/plugin-rule-name" plugin rule names are supported. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
   "08": (meta) =>
-    chalk`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
-  "09": () => chalk`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
+    chalkTemplate`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
+  "09": () => chalkTemplate`{red Error:} Plugins should expose rules under the property "rules" and as an array.`
 } as const;
 
 // TODO: add the possibility to use chalk ?

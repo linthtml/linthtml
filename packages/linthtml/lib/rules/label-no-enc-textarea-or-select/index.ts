@@ -1,6 +1,6 @@
 import { is_tag_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
+import { Node } from "@linthtml/dom-utils/dom_elements";
 
 const RULE_NAME = "label-no-enc-textarea-or-select";
 

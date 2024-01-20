@@ -3,7 +3,7 @@ import {
   create_list_value_validator,
   create_number_validator,
   is_boolean
-} from "../validate_option";
+} from "../validate_option.js";
 
 describe("Rules config validators", () => {
   describe("String|Regexp validator", () => {

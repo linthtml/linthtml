@@ -1,4 +1,3 @@
-"use strict";
 import kebabCase from "lodash.kebabcase";
 import chalk from "chalk";
 import { EOL } from "os";

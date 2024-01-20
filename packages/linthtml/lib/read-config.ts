@@ -2,13 +2,13 @@ import path from "path";
 import fs from "fs";
 
 import { cosmiconfigSync } from "cosmiconfig";
-import { Config, CosmiconfigResult } from "cosmiconfig/dist/types";
+import { Config, CosmiconfigResult } from "cosmiconfig/dist/types.js";
 import globalModules from "global-modules";
 import resolveFrom from "resolve-from";
 
-import CustomError from "./utils/custom-errors";
-import Issue from "./issue";
-import { Node, Range } from "@linthtml/dom-utils/lib/dom_elements";
+import CustomError from "./utils/custom-errors.js";
+import Issue from "./issue.js";
+import { Node, Range } from "@linthtml/dom-utils/dom_elements";
 
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;

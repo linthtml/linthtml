@@ -2,7 +2,7 @@ import parse from "@linthtml/html-parser";
 import { extract_inline_config } from "../../inline_config";
 import Config from "../../config";
 import linthtml from "../../index";
-import type { LegacyRuleDefinition, RuleDefinition } from "../../read-config";
+import type { LegacyRuleDefinition, RuleDefinition } from "../../read-config.js";
 import path from "path";
 
 const fooRule: RuleDefinition = {
