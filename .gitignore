@@ -32,3 +32,6 @@ packages/*/tsconfig.tsbuildinfo
 ## Generated files for the documentation
 doc/docs/user-guide/rules/list/
 doc/docs/index.md
+
+
+.nx/cache
