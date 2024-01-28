@@ -6,7 +6,7 @@
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
   "license": "ISC",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "bin": {
     "linthtml": "bin/linthtml.js"
   },
@@ -20,8 +20,8 @@
   ],
   "typesVersions": {
     "*": {
-      "dist/index.d.ts": [
-        "dist/index.d.ts"
+      "dist/src/index.d.ts": [
+        "dist/src/index.d.ts"
       ],
       "*": [
         "dist/*"
@@ -30,16 +30,16 @@
   },
   "exports": {
     ".": [
-      "./dist/index.js"
+      "./dist/src/index.js"
     ],
     "./messages": [
-      "./dist/messages.js"
+      "./dist/src/messages.js"
     ],
     "./issue": [
-      "./dist/issue.js"
+      "./dist/src/issue.js"
     ],
     "./read-config": [
-      "./dist/read-config.js"
+      "./dist/src/read-config.js"
     ]
   },
   "repository": {
@@ -55,7 +55,6 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/cli": "^0.9.5",
     "@linthtml/dom-utils": "^0.9.5",
     "@linthtml/html-parser": "^0.9.5",
     "bulk-require": "1.0.1",
