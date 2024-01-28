@@ -1,0 +1,43 @@
+{
+  "name": "@linthtml/linthtml",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/linthtml/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "packages/linthtml/dist",
+        "tsConfig": "packages/linthtml/tsconfig.lib.json",
+        "packageJson": "packages/linthtml/package.json",
+        "main": "packages/linthtml/src/index.ts",
+        "assets": [
+          "packages/linthtml/*.md"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs linthtml {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "mocha --project ./tsconfig.test.json"
+      }
+    }
+  },
+  "tags": []
+}

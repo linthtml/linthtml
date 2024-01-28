@@ -1,0 +1,43 @@
+{
+  "name": "@linthtml/html-parser",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/html-parser/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "packages/html-parser/dist",
+        "tsConfig": "packages/html-parser/tsconfig.lib.json",
+        "packageJson": "packages/html-parser/package.json",
+        "main": "packages/html-parser/src/index.ts",
+        "assets": [
+          "packages/html-parser/*.md"
+        ]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs html-parser {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "mocha --project ./tsconfig.test.json"
+      }
+    }
+  },
+  "tags": []
+}
