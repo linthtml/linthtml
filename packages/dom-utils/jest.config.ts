@@ -5,12 +5,16 @@ export default {
   preset: "../../jest.preset.js",
 
   coverageDirectory: "../../coverage/dom-utils",
+  testEnvironment: "node",
   transform: {
     "^.+\\.[tj]s$": [
       "ts-jest",
       {
-        tsconfig: "<rootDir>/tsconfig.test.json"
+        tsconfig: "<rootDir>/tsconfig.spec.json",
+        useESM: true
       }
     ]
-  }
+  },
+  transformIgnorePatterns: ["node_modules"],
+  extensionsToTreatAsEsm: [".ts"]
 } satisfies JestConfigWithTsJest;

@@ -1,10 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
-    "rootDir": "lib"
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
   },
   "files": [],
-  "include": ["./lib/**/*.ts"],
-  "exclude": ["./lib/__tests__/**"]
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

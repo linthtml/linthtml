@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "paths": {
       "@linthtml/cli": ["packages/cli/lib/index.ts"],
-      "@linthtml/dom-utils": ["packages/dom-utils/lib/index.ts"],
+      "@linthtml/dom-utils": ["packages/dom-utils/src/index.ts"],
       "@linthtml/html-parser": ["packages/html-parser/src/index.ts"],
       "@linthtml/linthtml": ["packages/linthtml/lib/index.ts"]
     },
