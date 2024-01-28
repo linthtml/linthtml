@@ -55,7 +55,7 @@ function get_parser(config: LinterConfig): Promise<(html: string) => Document> {
   // TODO: Switch to import
   // Eslint Typescript recommend using import statement but import return a promise.
   /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-  return import("@linthtml/html-parser").then((parser) => parser.default);
+  return import("@linthtml/html-parser/src/index.js").then((parser) => parser.default);
 }
 
 export default class Linter {

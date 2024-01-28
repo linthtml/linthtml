@@ -1,4 +1,4 @@
-import parse from "@linthtml/html-parser";
+import parse from "@linthtml/html-parser/src/index.js";
 import Config from "./config.js";
 import InlineConfig from "./inline_config.js";
 import rules from "../rules/index.js";
