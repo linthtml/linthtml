@@ -5,8 +5,8 @@
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/cli#readme",
   "license": "ISC",
-  "exports": "./dist/index.js",
-  "types": "dist/index.d.ts",
+  "exports": "./dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib",

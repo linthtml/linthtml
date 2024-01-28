@@ -4,6 +4,6 @@ export default {
   // Specify "loader" for native ESM
   loader: "ts-node/esm",
   extensions: ["ts"],
-  spec: ["lib/__tests__/**/*.test.ts"],
+  spec: ["src/__tests__/**/*.test.ts"],
   bail: true
 };

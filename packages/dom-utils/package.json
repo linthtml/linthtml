@@ -8,10 +8,10 @@
   "type": "module",
   "exports": {
     ".": [
-      "./dist/index.js"
+      "./dist/src/index.js"
     ],
     "./dom_elements": [
-      "./dist/dom_elements.js"
+      "./dist/src/dom_elements.js"
     ]
   },
   "types": "dist/index.d.ts",

@@ -1,23 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./lib",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "declaration": true,
-    "target": "ES2020",
-    "lib": ["ES2020"]
+    "moduleResolution": "Bundler"
   },
+  "files": [],
+  "include": [],
   "references": [
     {
-      "path": "../html-parser"
+      "path": "./tsconfig.lib.json"
     },
     {
-      "path": "../dom-utils"
+      "path": "./tsconfig.spec.json"
     }
-  ],
-  "files": [],
-  "include": ["./lib/**/*.ts"],
-  "exclude": ["./lib/__tests__/**"]
+  ]
 }
