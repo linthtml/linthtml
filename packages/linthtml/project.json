@@ -1,7 +1,7 @@
 {
-  "name": "dom-utils",
+  "name": "linthtml",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/dom-utils/src",
+  "sourceRoot": "packages/linthtml/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -10,17 +10,17 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "packages/dom-utils/dist/dom-utils",
-        "tsConfig": "packages/dom-utils/tsconfig.lib.json",
-        "packageJson": "packages/dom-utils/package.json",
-        "main": "packages/dom-utils/src/index.ts",
+        "outputPath": "dist/linthtml",
+        "tsConfig": "packages/linthtml/tsconfig.lib.json",
+        "packageJson": "packages/linthtml/package.json",
+        "main": "packages/linthtml/src/index.ts",
         "assets": [
-          "packages/dom-utils/*.md"
+          "packages/linthtml/*.md"
         ]
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs dom-utils {args.ver} {args.tag}",
+      "command": "node tools/scripts/publish.mjs linthtml {args.ver} {args.tag}",
       "dependsOn": [
         "build"
       ]
@@ -37,7 +37,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "packages/dom-utils/jest.config.ts"
+        "jestConfig": "packages/linthtml/jest.config.ts"
       }
     }
   },

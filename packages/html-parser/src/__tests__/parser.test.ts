@@ -1,5 +1,5 @@
-import { Element } from "@linthtml/dom-utils/dom_elements";
 import parse from "..";
+import type { Element } from "@linthtml/dom-utils/dom_elements";
 
 describe("HTML Parser", () => {
   it("Tags positions are correct (nesting)", () => {

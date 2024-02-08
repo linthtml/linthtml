@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "composite": true,
     "target": "ES2020",
     "lib": ["ES2020"],
@@ -7,10 +8,10 @@
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
-      "@linthtml/cli": ["packages/cli/lib/index.ts"],
-      "@linthtml/dom-utils": ["packages/dom-utils/src/index.ts"],
-      "@linthtml/html-parser": ["packages/html-parser/src/index.ts"],
-      "@linthtml/linthtml": ["packages/linthtml/lib/index.ts"]
+      "@linthtml/cli": ["packages/cli/*"],
+      "@linthtml/dom-utils": ["packages/dom-utils/*"],
+      "@linthtml/html-parser": ["packages/html-parser"],
+      "@linthtml/linthtml": ["packages/linthtml/*"]
     },
     "allowJs": true,
     "declaration": true,

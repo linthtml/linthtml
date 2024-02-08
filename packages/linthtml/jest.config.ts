@@ -4,14 +4,11 @@ export default {
   displayName: "linthtml",
   preset: "../../jest.preset.js",
   testEnvironment: "node",
-  rootDir: "/home/benjaminj/Workspace/linthtml/linthtml/packages/linthtml",
-  roots: ["/home/benjaminj/Workspace/linthtml/linthtml/packages/linthtml"],
-
   transform: {
     "^.+\\.[tj]s$": [
       "ts-jest",
       {
-        tsconfig: "<rootDir>/tsconfig.json",
+        tsconfig: "<rootDir>/tsconfig.spec.json",
         useESM: true
       }
     ]
