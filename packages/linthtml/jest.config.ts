@@ -1,18 +1,22 @@
 import type { JestConfigWithTsJest } from "ts-jest";
-
+/* eslint-disable */
 export default {
-  displayName: "linthtml-core",
+  displayName: "linthtml",
   preset: "../../jest.preset.js",
+  testEnvironment: "node",
+  rootDir: "/home/benjaminj/Workspace/linthtml/linthtml/packages/linthtml",
+  roots: ["/home/benjaminj/Workspace/linthtml/linthtml/packages/linthtml"],
 
-  testMatch: ["**/lib/__tests__/**/*.test.ts", "**/lib/rules/**/__tests__/*.ts"],
-
-  coverageDirectory: "../../coverage/linthtml",
   transform: {
     "^.+\\.[tj]s$": [
       "ts-jest",
       {
-        tsconfig: "<rootDir>/tsconfig.test.json"
+        tsconfig: "<rootDir>/tsconfig.json",
+        useESM: true
       }
     ]
-  }
+  },
+  transformIgnorePatterns: ["node_modules"],
+  extensionsToTreatAsEsm: [".ts"],
+  coverageDirectory: "../coverage/linthtml"
 } satisfies JestConfigWithTsJest;

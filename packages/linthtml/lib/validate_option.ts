@@ -34,6 +34,7 @@ function list_value_error_message(value_list: string[]): string {
   return `Accepted value is ${list_copy[0]}`;
 }
 
+// @ts-expect-error Override not working since TS 5. Need to find a way to fix it
 export function create_list_value_validator(
   rule_name: string,
   values: string[],
