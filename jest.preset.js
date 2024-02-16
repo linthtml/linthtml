@@ -97,7 +97,8 @@ const config = {
     "@linthtml/dom-utils": [path.join(__dirname, "/packages/dom-utils/lib/index.ts")],
     "@linthtml/html-parser": [path.join(__dirname, "/packages/html-parser/lib/index.ts")],
     "@linthtml/cli": [path.join(__dirname, "/packages/cli/lib/index.ts")],
-    "@linthtml/linthtml": [path.join(__dirname, "/packages/linthtml/lib/index.ts")]
+    "@linthtml/linthtml": [path.join(__dirname, "/packages/linthtml/lib/index.ts")],
+    "^(\\.{1,2}/.*)\\.[jt]s$": "$1"
   },
   // modulePaths: [path.join(__dirname, ""],
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
