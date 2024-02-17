@@ -9,8 +9,13 @@ import resolveFrom from "resolve-from";
 import CustomError from "./utils/custom-errors.js";
 import Issue from "./issue.js";
 import { Node, Range } from "@linthtml/dom-utils/dom_elements";
+import { fileURLToPath } from "url";
 
 const IS_TEST = process.env.NODE_ENV === "test";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
 export type reportFunction = (data: {

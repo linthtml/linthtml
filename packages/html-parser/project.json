@@ -1,5 +1,5 @@
 {
-  "name": "html-parser",
+  "name": "@linthtml/html-parser",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/html-parser/src",
   "projectType": "library",
@@ -10,7 +10,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/html-parser",
+        "outputPath": "packages/html-parser/dist",
         "tsConfig": "packages/html-parser/tsconfig.lib.json",
         "packageJson": "packages/html-parser/package.json",
         "main": "packages/html-parser/src/index.ts",

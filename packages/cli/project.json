@@ -1,7 +1,7 @@
 {
-  "name": "@linthtml/linthtml",
+  "name": "@linthtml/cli",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/linthtml/src",
+  "sourceRoot": "packages/cli/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -10,17 +10,17 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "packages/linthtml/dist",
-        "tsConfig": "packages/linthtml/tsconfig.lib.json",
-        "packageJson": "packages/linthtml/package.json",
-        "main": "packages/linthtml/src/index.ts",
+        "outputPath": "packages/cli/dist",
+        "tsConfig": "packages/cli/tsconfig.lib.json",
+        "packageJson": "packages/cli/package.json",
+        "main": "packages/cli/src/index.ts",
         "assets": [
-          "packages/linthtml/*.md"
+          "packages/cli/*.md"
         ]
       }
     },
     "publish": {
-      "command": "node tools/scripts/publish.mjs linthtml {args.ver} {args.tag}",
+      "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
       "dependsOn": [
         "build"
       ]
@@ -37,7 +37,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "packages/linthtml/jest.config.ts"
+        "jestConfig": "packages/cli/jest.config.ts"
       }
     }
   },
