@@ -1,5 +1,4 @@
-// TODO: Remove .default after typescript migration
-import linthtml from "../index";
+import linthtml from "../index.js";
 import { expect } from "chai";
 import path from "path";
 import fs from "fs";

@@ -1,9 +1,9 @@
 import parse from "@linthtml/html-parser";
-import { extract_inline_config } from "../../inline_config";
+import { extract_inline_config } from "../../inline_config.js";
 import { expect } from "chai";
-import Config from "../../config";
-import linthtml from "../../index";
-import type { LegacyRuleDefinition, RuleDefinition } from "../../read-config.js";
+import Config from "../../config.js";
+import linthtml from "../../index.js";
+import type { LegacyRuleDefinition, RuleDefinition, reportFunction } from "../../read-config.js";
 import path from "path";
 
 const fooRule: RuleDefinition = {
