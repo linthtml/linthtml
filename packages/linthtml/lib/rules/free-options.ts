@@ -6,7 +6,7 @@
  * never called to contain them. It will be imported with the other
  * rules.
  */
-import { create_number_validator, create_string_or_regexp_validator } from "../validate_option";
+import { create_number_validator, create_string_or_regexp_validator } from "../validate_option.js";
 // TODO: can be removed?
 export default {
   name: "free-options",

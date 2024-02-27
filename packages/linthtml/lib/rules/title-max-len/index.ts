@@ -1,7 +1,7 @@
 import { is_tag_node, is_text_node } from "@linthtml/dom-utils";
-import { create_number_validator } from "../../validate_option";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
+import { create_number_validator } from "../../validate_option.js";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
+import { Node, Text } from "@linthtml/dom-utils/dom_elements";
 
 const RULE_NAME = "title-max-len";
 

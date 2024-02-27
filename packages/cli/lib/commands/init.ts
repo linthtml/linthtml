@@ -1,7 +1,7 @@
 import yaml from "js-yaml";
 import linthtml from "@linthtml/linthtml";
 import fs from "fs";
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import inquirer from "inquirer";
 
 import type { LegacyLinterConfig, LinterConfig } from "@linthtml/linthtml/read-config";
@@ -63,7 +63,7 @@ export default async function init_command(): Promise<void> {
     fs.writeFileSync(config_file.name, config_file.generate_content(linthtml.presets.default), "utf8");
   } else {
     fs.writeFileSync(config_file.name, config_file.generate_content(default_config), "utf8");
-    console.log(chalk`⚠️ {yellow The new format does not provide default configurations for rules}`);
+    console.log(chalkTemplate`⚠️ {yellow The new format does not provide default configurations for rules}`);
   }
-  console.log(chalk`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
+  console.log(chalkTemplate`Successfully created {blue ${config_file.name}} file in {underline ${process.cwd()}}`);
 }

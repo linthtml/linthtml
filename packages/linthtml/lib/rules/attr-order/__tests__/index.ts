@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import { LegacyLinterConfig, RuleConfig } from "../../../read-config";
-import linthtml from "../../../index";
-import { presets } from "../../../presets";
+import { LegacyLinterConfig, RuleConfig } from "../../../read-config.js";
+import linthtml from "../../../index.js";
+import { presets } from "../../../presets/index.js";
 
 describe("legacy linter | attr-order", function () {
   function createLinter(config: LegacyLinterConfig) {

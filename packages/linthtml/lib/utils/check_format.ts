@@ -1,4 +1,4 @@
-import { types } from "util";
+import { types } from "node:util";
 
 const { isRegExp } = types;
 

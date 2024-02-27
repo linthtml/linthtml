@@ -1,8 +1,8 @@
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 // @ts-ignore
 import Table from "table-layout";
 import { renderIssue } from "@linthtml/linthtml/messages";
-import { Report } from "./utils";
+import { Report } from "./utils.js";
 import type Issue from "@linthtml/linthtml/issue";
 
 function print_position({ position: { start } }: Issue, maxLine: number, maxColumn: number) {
@@ -21,12 +21,12 @@ function print_level({ severity }: { severity: string }) {
 }
 
 export default function print_file_report(report: Report) {
-  console.log(chalk`File: {underline ${report.fileName}}`);
+  console.log(chalkTemplate`File: {underline ${report.fileName}}`);
   if (report.config_path) {
-    console.log(chalk`{blue Config file: {white.underline ${report.config_path}}}`);
+    console.log(chalkTemplate`{blue Config file: {white.underline ${report.config_path}}}`);
   }
   if (report.preset) {
-    console.log(chalk`{blue Using preset: {white ${report.preset}}}`);
+    console.log(chalkTemplate`{blue Using preset: {white ${report.preset}}}`);
   }
   const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.line), -1).toString().length;
   const maxColumn = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.column), -1).toString().length;
@@ -42,10 +42,10 @@ export default function print_file_report(report: Report) {
     const positionTxt = print_position(issue, maxLine, maxColumn);
     const level = print_level(issue);
     return {
-      positions: chalk`{gray ${positionTxt}}`,
-      level: chalk`{${level}}`,
+      positions: chalkTemplate`{gray ${positionTxt}}`,
+      level: chalkTemplate`{${level}}`,
       msg,
-      rule: chalk`{gray ${issue.rule}}`
+      rule: chalkTemplate`{gray ${issue.rule}}`
     };
   });
 

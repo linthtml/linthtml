@@ -1,6 +1,6 @@
 import { is_text_node, has_parent_node, get_text_lines, TextLine } from "@linthtml/dom-utils";
-import { Node, Text } from "@linthtml/dom-utils/lib/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import { Node, Text } from "@linthtml/dom-utils/dom_elements";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "no-surrounding-whitespace";
 

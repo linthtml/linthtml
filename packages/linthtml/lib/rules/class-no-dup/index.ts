@@ -1,7 +1,7 @@
-import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/lib/dom_elements";
+import { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node, get_classes, has_attribute, get_attribute } from "@linthtml/dom-utils";
-import { types } from "util";
-import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config";
+import { types } from "node:util";
+import { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config.js";
 
 const { isRegExp } = types;
 

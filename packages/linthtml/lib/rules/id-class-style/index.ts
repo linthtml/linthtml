@@ -1,8 +1,8 @@
-import { ActiveRuleDefinition, reportFunction, RuleDefinition } from "../../read-config";
-import ClassStyleRule from "../class-style";
-import IdStyleRule from "../id-style";
-import { create_list_value_validator } from "../../validate_option";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import { ActiveRuleDefinition, reportFunction, RuleDefinition } from "../../read-config.js";
+import ClassStyleRule from "../class-style/index.js";
+import IdStyleRule from "../id-style/index.js";
+import { create_list_value_validator } from "../../validate_option.js";
+import { Node } from "@linthtml/dom-utils/dom_elements";
 
 // TODO: Deprecate this rule
 const RULE_NAME = "id-class-style";

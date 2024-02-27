@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import * as messages from "@linthtml/linthtml/messages";
 
 export type CliError = { code?: string; meta?: Record<string, unknown>; message: string; fileName: string };
@@ -9,5 +9,5 @@ export default function print_errors(error: CliError) {
     const error_message = messages[`${type as "CORE"}_ERRORS`][code];
     return console.log(error_message(error.meta));
   }
-  return console.log(chalk`{red ${error.message}}`);
+  return console.log(chalkTemplate`{red ${error.message}}`);
 }
