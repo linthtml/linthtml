@@ -1,6 +1,5 @@
 import { expect } from "chai";
-// TODO: Remove .default after typescript migration
-import Config from "../legacy/config";
+import Config from "../legacy/config.js";
 
 describe("Legacy Config", function () {
   beforeEach(function () {

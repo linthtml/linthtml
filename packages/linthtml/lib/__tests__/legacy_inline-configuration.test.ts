@@ -1,11 +1,10 @@
-import InlineConfig from "../legacy/inline_config";
-import Config from "../legacy/config";
+import InlineConfig from "../legacy/inline_config.js";
+import Config from "../legacy/config.js";
 import { expect } from "chai";
 
-// TODO: Remove .default after typescript migration
-import linthtml from "..";
-import { presets } from "../presets";
-import { LegacyLinterConfig } from "../read-config";
+import linthtml from "../index.js";
+import { presets } from "../presets/index.js";
+import { LegacyLinterConfig } from "../read-config.js";
 
 function createLinter(config: LegacyLinterConfig) {
   return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);

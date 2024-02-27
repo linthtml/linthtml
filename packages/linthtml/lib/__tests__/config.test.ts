@@ -1,8 +1,7 @@
 import { expect } from "chai";
-import Config from "../config";
-import type { LegacyRuleDefinition, RuleDefinition } from "../read-config";
-import rules from "../rules";
-// TODO: Remove .default after typescript migration
+import Config from "../config.js";
+import type { LegacyRuleDefinition, RuleDefinition } from "../read-config.js";
+import rules from "../rules/index.js";
 
 describe("Config", function () {
   // let config = new Config(rules);

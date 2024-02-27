@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
 import { Element } from "@linthtml/dom-utils/dom_elements";
-import parse from "..";
+import parse from "../index.js";
 
 describe("HTML Parser", function () {
   it("Tags positions are correct (nesting)", function () {

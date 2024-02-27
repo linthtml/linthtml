@@ -1,0 +1,11 @@
+{
+  "loader": "ts-node/esm",
+  "extensions": [
+    "ts"
+  ],
+  "spec": [
+    "lib/__tests__/**/*.test.ts",
+    "lib/rules/**/__tests__/*.ts"
+  ],
+  "bail": true
+}
