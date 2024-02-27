@@ -1,0 +1,26 @@
+Failed to start or connect to the Nx Daemon process.
+
+Messages from the log:
+[NX Daemon Server] - 2024-02-27T13:22:17.430Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.483Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.535Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.587Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.639Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.691Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.743Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.796Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.848Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.900Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:17.952Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.005Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.057Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.109Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.161Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.213Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.265Z - [WATCHER]: .nx/cache/d/daemon.log was modified
+[NX Daemon Server] - 2024-02-27T13:22:18.349Z - [WATCHER]: Unsubscribed from changes within: /home/benjaminj/Workspace/linthtml/linthtml
+[NX Daemon Server] - 2024-02-27T13:22:18.349Z - Server stopped because: "Lock file changed"
+
+
+
+More information: /home/benjaminj/Workspace/linthtml/linthtml/.nx/cache/d/daemon.log

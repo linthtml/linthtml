@@ -1,8 +1,9 @@
 import { expect } from "chai";
 import rewiremock from "rewiremock/node";
 import path from "path";
-import type { LinterConfig } from "../../read-config";
-import { config_from_path, find_local_config } from "../../read-config";
+import type { LinterConfig } from "../../read-config.js";
+import { config_from_path, find_local_config } from "../../read-config.js";
+import CustomError from "../../utils/custom-errors";
 
 describe("Get config from path", function () {
   it("Report an error if path provided does not exist", function () {

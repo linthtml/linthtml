@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import { Element } from "@linthtml/dom-utils/lib/dom_elements";
+import { Element } from "@linthtml/dom-utils/dom_elements";
 import parse from "..";
 
 describe("HTML Parser", function () {

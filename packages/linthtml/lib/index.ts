@@ -1,15 +1,15 @@
-import { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig } from "./read-config";
-import Linter from "./linter";
-import LegacyLinter from "./legacy/linter";
-import { presets } from "./presets";
-import rules from "./rules";
-import * as messages from "./messages";
+import { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig } from "./read-config.js";
+import Linter from "./linter.js";
+import LegacyLinter from "./legacy/linter.js";
+import { presets } from "./presets/index.js";
+import rules from "./rules/index.js";
+import * as messages from "./messages.js";
 
 import path from "path";
 import fs from "fs";
 import globby from "globby";
 import ignore from "ignore";
-import Issue from "./issue";
+import Issue from "./issue.js";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -70,6 +70,7 @@ function filter_ignored_files(file_paths: string[], ignore_pattern: string | str
     return file_paths;
   }
 
+  // @ts-ignore
   const ignorer = ignore().add(ignore_pattern);
   return ignorer.filter(file_paths);
 }
@@ -86,6 +87,7 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
   if (ignore_pattern.length === 0) {
     return false;
   }
+  // @ts-ignore
   const ignorer = ignore().add(ignore_pattern);
   return ignorer.ignores(file_path);
 }

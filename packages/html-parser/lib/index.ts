@@ -1,5 +1,5 @@
 import { Parser } from "htmlparser2";
-import DomBuilder from "./dom_builder";
+import DomBuilder from "./dom_builder.js";
 // TODO find a way to have /dom_elements
 import { Document } from "@linthtml/dom-utils";
 /**

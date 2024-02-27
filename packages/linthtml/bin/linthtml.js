@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-"use strict";
+import ClI from "@linthtml/cli";
+
 // TODO remove .default
-require("@linthtml/cli").default(process.argv.slice(2));
+ClI(process.argv.slice(2));

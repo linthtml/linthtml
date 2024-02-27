@@ -5,7 +5,7 @@
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/linthtml#readme",
   "license": "ISC",
-  "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "bin": {
     "linthtml": "bin/linthtml.js"
@@ -34,6 +34,12 @@
     ],
     "./messages": [
       "./dist/messages.js"
+    ],
+    "./issue": [
+      "./dist/issue.js"
+    ],
+    "./read-config": [
+      "./dist/read-config.js"
     ]
   },
   "repository": {
@@ -56,7 +62,7 @@
     "cosmiconfig": "7.0.0",
     "global-modules": "^2.0.0",
     "globby": "^11.0.2",
-    "ignore": "^5.1.4",
+    "ignore": "^5.2.4",
     "lodash.pull": "4.1.0",
     "resolve-from": "^5.0.0",
     "rewiremock": "^3.14.3"

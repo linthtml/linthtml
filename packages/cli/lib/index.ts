@@ -1,22 +1,22 @@
 /* eslint-disable no-console */
 import fs from "fs";
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import ora from "ora";
 import meow from "meow";
 
-import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils";
+import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils.js";
 
-import checkInvalidCLIOptions from "./check-invalid-cli-options";
-import print_file_report from "./print-file-report";
-import init_command from "./commands/init";
-import print_config_command from "./commands/print-config";
-import printErrors, { CliError } from "./print-errors";
+import checkInvalidCLIOptions from "./check-invalid-cli-options.js";
+import print_file_report from "./print-file-report.js";
+import init_command from "./commands/init.js";
+import print_config_command from "./commands/print-config.js";
+import printErrors, { CliError } from "./print-errors.js";
 
 import linthtml, { FileLinter } from "@linthtml/linthtml";
 import type Issue from "@linthtml/linthtml/issue";
 
 const cliOptions = {
-  help: chalk`
+  help: chalkTemplate`
     Usage: linthtml [options] file.html [glob] [dir]
 
     {cyan.underline Configuration:}
@@ -96,6 +96,7 @@ async function lint(input: string[], config_path: string) {
     files_linters = await linthtml.create_linters_for_files(input, config_path);
     searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
   } catch (error) {
+    console.error(error);
     searchSpinner.fail();
     printErrors(error as CliError);
     return exitProcess(EXIT_CODE_ERROR);
@@ -111,11 +112,11 @@ async function lint(input: string[], config_path: string) {
   } catch (error) {
     lintSpinner.fail();
     console.log();
-    console.log(chalk`An error occurred while analyzing {underline ${(error as CliError).fileName}}`);
+    console.log(chalkTemplate`An error occurred while analyzing {underline ${(error as CliError).fileName}}`);
     console.log();
     printErrors(error as CliError);
     // Needed after printErrors?
-    console.log(chalk`{red ${(error as CliError).message}}`);
+    console.log(chalkTemplate`{red ${(error as CliError).message}}`);
     return exitProcess(EXIT_CODE_ERROR);
   }
 
@@ -139,14 +140,14 @@ function printReports(reports: Report[]) {
 
     if (errorsCount > 0) {
       console.log(
-        chalk`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+        chalkTemplate`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
           errorsCount > 1 ? "errors" : "error"
         }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
       );
       return exitProcess(EXIT_CODE_ERROR);
     }
     console.log(
-      chalk`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+      chalkTemplate`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
         errorsCount > 1 ? "errors" : "error"
       }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
     );

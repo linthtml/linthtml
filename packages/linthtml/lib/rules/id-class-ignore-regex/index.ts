@@ -1,4 +1,4 @@
-import { create_string_or_regexp_validator } from "../../validate_option";
+import { create_string_or_regexp_validator } from "../../validate_option.js";
 
 // TODO: Deprecate this rule and instead add an ignore config to the "id-style" and "class-style" rules
 const RULE_NAME = "id-class-ignore-regex";

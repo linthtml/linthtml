@@ -1,7 +1,7 @@
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
+import { Node } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config";
-import { create_list_value_validator } from "../../validate_option";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
+import { create_list_value_validator } from "../../validate_option.js";
 
 const RULE_NAME = "attr-quote-style";
 
