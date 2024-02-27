@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import { is_labelable } from "..";
-import { NodeAttribute, Position, CharValue, Range, Element } from "../dom_elements";
+import { is_labelable } from "../index.js";
+import { NodeAttribute, Position, CharValue, Range, Element } from "../dom_elements.js";
 import { ElementType } from "domelementtype";
 
 function generate_node_attribute(name: string, value?: string) {

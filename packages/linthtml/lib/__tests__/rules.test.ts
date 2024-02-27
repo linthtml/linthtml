@@ -1,8 +1,7 @@
 import { expect } from "chai";
-import linthtml from "../index";
+import linthtml from "../index.js";
 
 describe("linthtml.rules", function () {
-  // TODO: Remove .default after typescript migration
   linthtml.rules.forEach(function (rule) {
     describe(rule.name, function () {
       it("should have a name", function () {
