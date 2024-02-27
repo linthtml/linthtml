@@ -1,5 +1,5 @@
-import { Node } from "./dom_elements";
-import { attribute_has_value, is_tag_node } from "./tags";
+import { Node } from "./dom_elements.js";
+import { attribute_has_value, is_tag_node } from "./tags.js";
 
 // these elements are *labelable elements* according to the HTML spec
 const LABELABLE_NODES = [

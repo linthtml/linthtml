@@ -1,5 +1,5 @@
-import { RuleDefinition } from "../../read-config";
-import { create_string_or_regexp_validator } from "../../validate_option";
+import { RuleDefinition } from "../../read-config.js";
+import { create_string_or_regexp_validator } from "../../validate_option.js";
 
 const RULE_NAME = "attr-name-ignore-regex";
 

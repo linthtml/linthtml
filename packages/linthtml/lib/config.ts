@@ -6,7 +6,7 @@ import {
   RuleConfig,
   RuleDefinition,
   LegacyRuleOption
-} from "./read-config";
+} from "./read-config.js";
 
 export class NonExistingRule extends Error {
   constructor(public rule_name: string) {

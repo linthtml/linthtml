@@ -1,4 +1,4 @@
-import { LegacyLinterConfig } from "../read-config";
+import { LegacyLinterConfig } from "../read-config.js";
 
 export default {
   "raw-ignore-regex": false,

@@ -1,4 +1,4 @@
-import { types } from "util";
+import { types } from "node:util";
 const { isRegExp } = types;
 
 // TODO: Send `rule_name` to the actual validation function?
@@ -34,6 +34,7 @@ function list_value_error_message(value_list: string[]): string {
   return `Accepted value is ${list_copy[0]}`;
 }
 
+// @ts-expect-error No working in TS 5 - TO FIX
 export function create_list_value_validator(
   rule_name: string,
   values: string[],

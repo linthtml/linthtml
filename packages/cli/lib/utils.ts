@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import type Issue from "@linthtml/linthtml/issue";
 
 const EXIT_CODE_ERROR = 1;
@@ -6,17 +6,19 @@ const EXIT_CODE_NORMAL = 0;
 
 function isBetaVersion() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { version } = require("../package.json");
-  const R_BETA = /-(?:beta|alpha)\.\d+$/;
-  return R_BETA.test(version);
+  // const { version } = require("../package.json");
+  // const R_BETA = /-(?:beta|alpha)\.\d+$/;
+  // return R_BETA.test(version);
+  // TODO: Fix
+  return false;
 }
 
 function displayBetaVersionMessage() {
   if (isBetaVersion() === true) {
     console.log("");
-    console.log(chalk`{yellow 🚧🚧 You"re using a beta version 🚧🚧}`);
+    console.log(chalkTemplate`{yellow 🚧🚧 You"re using a beta version 🚧🚧}`);
     console.log(
-      chalk`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`
+      chalkTemplate`{yellow You might experiences some issues, please report any issues at {white https://github.com/linthtml/linthtml/issues 🙏}}`
     );
   }
 }

@@ -1,6 +1,6 @@
 import { ElementType } from "domelementtype";
-import { types } from "util";
-import { CharValue, Element, Node, NodeAttribute, Comment, Text, ProcessingInstruction } from "./dom_elements";
+import { types } from "node:util";
+import { CharValue, Element, Node, NodeAttribute, Comment, Text, ProcessingInstruction } from "./dom_elements.js";
 
 const { isRegExp } = types;
 

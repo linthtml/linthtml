@@ -1,6 +1,6 @@
 import { is_tag_node } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/lib/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config";
+import { Node } from "@linthtml/dom-utils/dom_elements";
+import { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "attr-validate";
 

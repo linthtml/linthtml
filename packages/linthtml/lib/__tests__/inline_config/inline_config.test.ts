@@ -3,7 +3,7 @@ import { extract_inline_config } from "../../inline_config";
 import { expect } from "chai";
 import Config from "../../config";
 import linthtml from "../../index";
-import type { LegacyRuleDefinition, RuleDefinition, reportFunction } from "../../read-config";
+import type { LegacyRuleDefinition, RuleDefinition } from "../../read-config.js";
 import path from "path";
 
 const fooRule: RuleDefinition = {

@@ -1,14 +1,17 @@
 // Export an array of all rules.
-// @ts-ignore
-import bulk from "bulk-require";
-import { LegacyRuleDefinition } from "../read-config";
+import path from "path";
+import { fileURLToPath } from "url";
+import { LegacyRuleDefinition } from "../read-config.js";
+import globby from "globby";
 
-// All modules in this directory excluding this file
-// const rulesExport2: Record<string, {default: LegacyRuleDefinition}> = bulk(__dirname, "!(index.ts)");
-const rulesExport: Record<
-  string,
-  { default: LegacyRuleDefinition } & {
-    index: { default: LegacyRuleDefinition };
-  }
-> = bulk(__dirname, ["*/index.{ts,js}", "./dom.{ts,js}", "./free-options.{ts,js}"]);
-export default Object.values(rulesExport).map((rule) => rule?.index?.default ?? rule.default);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const rules_path = globby.sync(["*/index.{ts,js}", "./dom.{ts,js}", "./free-options.{ts,js}"], {
+  cwd: __dirname,
+  absolute: true
+});
+
+const rulesExport = await Promise.all(rules_path.map((path) => import(path)));
+
+export default Object.values(rulesExport).map((rule) => rule?.index?.default ?? rule.default) as LegacyRuleDefinition[];

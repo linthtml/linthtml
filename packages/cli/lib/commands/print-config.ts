@@ -1,10 +1,12 @@
-import chalk from "chalk";
-import { exitProcess, EXIT_CODE_ERROR } from "../utils";
+import { chalkTemplateStderr } from "chalk-template";
+import { exitProcess, EXIT_CODE_ERROR } from "../utils.js";
 import { find_local_config } from "@linthtml/linthtml";
 
 export default function print_config(path: string) {
   if (path === "") {
-    process.stderr.write(chalk`A file path must be provided when using the {blue.bold print-config} option.`);
+    process.stderr.write(
+      chalkTemplateStderr`A file path must be provided when using the {blue.bold print-config} option.`
+    );
     exitProcess(EXIT_CODE_ERROR);
   }
   const config = find_local_config(path);
@@ -12,6 +14,6 @@ export default function print_config(path: string) {
     process.stdout.write(JSON.stringify(config.config, null, "  "));
     exitProcess();
   }
-  process.stderr.write(chalk`{red.bold Couldn't file a config file to print}`);
+  process.stderr.write(chalkTemplateStderr`{red.bold Couldn't file a config file to print}`);
   exitProcess(EXIT_CODE_ERROR);
 }
