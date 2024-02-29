@@ -3,6 +3,10 @@ import { expect } from "chai";
 import path from "path";
 import type { LinterConfig } from "../../read-config.js";
 import { config_from_path, find_local_config } from "../../read-config.js";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe("Get config from path", function () {
   it("Report an error if path provided does not exist", function () {
@@ -34,7 +38,7 @@ describe("Get config from path", function () {
   });
 
   it("Return the config object from cosmiconfig if config file exist", function () {
-    const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.js");
+    const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.cjs");
     const config = config_from_path(config_path);
     expect(config).to.have.property("config");
     expect(config).to.have.property("filepath", config_path);
@@ -44,7 +48,7 @@ describe("Get config from path", function () {
     const config_path = path.join(__dirname, "fixtures");
     const config = config_from_path(config_path);
     expect(config).to.have.property("config");
-    expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.js"));
+    expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.cjs"));
   });
 });
 
@@ -59,23 +63,23 @@ describe("Find config file for a file path", function () {
     const config_path = path.join(__dirname, "fixtures");
     const config = find_local_config(config_path);
     expect(config).to.have.property("config");
-    expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.js"));
+    expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.cjs"));
   });
 
   it("Return the config object from cosmiconfig if there's a config file in parent folder", function () {
     const config_path = path.join(__dirname, "fixtures", "pages");
     const config = find_local_config(config_path);
     expect(config).to.have.property("config");
-    expect(config).to.have.property("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.js"));
+    expect(config).to.have.property("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.cjs"));
   });
 });
 
 describe("Load extends config", function () {
   it("Load and merge configs", function () {
-    const config_path = path.join(__dirname, "fixtures", "valid-extends.js");
+    const config_path = path.join(__dirname, "fixtures", "valid-extends.cjs");
     const { config } = config_from_path(config_path);
     expect(config).to.deep.equal({
-      extends: ["./config-attr-bans"],
+      extends: ["./config-attr-bans.cjs"],
       plugins: [],
       plugins_rules: {},
       ignoreFiles: [],
@@ -85,8 +89,8 @@ describe("Load extends config", function () {
     });
   });
 
-  it("Throw an error extended config does not exist", function () {
-    const config_path = path.join(__dirname, "fixtures", "valid-extends.js");
+  it("Throw an error if extended config does not exist", function () {
+    const config_path = path.join(__dirname, "fixtures", "invalid-extends.cjs");
 
     try {
       config_from_path(config_path);
@@ -100,10 +104,10 @@ describe("Load extends config", function () {
   });
 
   it("'extends' accept a string only", function () {
-    const config_path = path.join(__dirname, "fixtures", "valid-extends-string-only.js");
+    const config_path = path.join(__dirname, "fixtures", "valid-extends-string-only.cjs");
     const { config } = config_from_path(config_path);
     expect(config).to.deep.equal({
-      extends: "./config-attr-bans",
+      extends: "./config-attr-bans.cjs",
       plugins: [],
       plugins_rules: {},
       ignoreFiles: [],
@@ -114,10 +118,10 @@ describe("Load extends config", function () {
   });
 
   it("Rules settings from config file and extends are merged", function () {
-    const config_path = path.join(__dirname, "fixtures", "extends-merged-rules-settings.js");
+    const config_path = path.join(__dirname, "fixtures", "extends-merged-rules-settings.cjs");
     const { config } = config_from_path(config_path);
     expect(config).to.deep.equal({
-      extends: ["./config-attr-bans", "./config-tag-bans"],
+      extends: ["./config-attr-bans.cjs", "./config-tag-bans.cjs"],
       plugins: [],
       plugins_rules: {},
       ignoreFiles: [],
@@ -130,10 +134,10 @@ describe("Load extends config", function () {
   });
 
   it("Rule settings from config file overrides rule settings form extends", function () {
-    const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.js");
+    const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.cjs");
     const { config } = config_from_path(config_path);
     expect(config).to.deep.equal({
-      extends: ["./config-attr-bans", "./config-tag-bans"],
+      extends: ["./config-attr-bans.cjs", "./config-tag-bans.cjs"],
       plugins: [],
       plugins_rules: {},
       ignoreFiles: [],
@@ -149,9 +153,10 @@ describe("Load extends config", function () {
 
 describe("Load plugins", function () {
   it("Load and merge rules from plugins", function () {
-    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
-    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     const { config } = config_from_path(config_path);
+
     expect((config as LinterConfig).plugins).to.deep.equal([plugin_path]);
     expect((config as LinterConfig).plugins_rules).to.not.be.null;
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
@@ -243,7 +248,7 @@ describe("Load plugins", function () {
   //   rewiremock.disable();
   // });
   it("Throw an error when rule does not have a lint function", function () {
-    const config_path = path.join(__dirname, "fixtures", "invalid-config-plugin.js");
+    const config_path = path.join(__dirname, "fixtures", "invalid-config-plugin.cjs");
     try {
       config_from_path(config_path);
     } catch (error) {

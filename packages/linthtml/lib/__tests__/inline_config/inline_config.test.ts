@@ -5,6 +5,10 @@ import Config from "../../config.js";
 import linthtml from "../../index.js";
 import type { LegacyRuleDefinition, RuleDefinition, reportFunction } from "../../read-config.js";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const fooRule: RuleDefinition = {
   name: "foo",
@@ -607,7 +611,7 @@ describe("inline_config with linter", function () {
 
 describe("inline_config with linter + plugin rule", function () {
   it("rules from plugin can be configured using inline config", async function () {
-    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     const linter = linthtml.from_config_path(config_path);
     const html = ["Some text", "<!-- linthtml-configure my-plugin/rule=false -->", "<div></div>"].join("\n");
 
@@ -615,7 +619,7 @@ describe("inline_config with linter + plugin rule", function () {
     expect(issues).to.have.lengthOf(1); // One error for the text tag "Some text"
   });
   it("rules from plugin can be disabled using inline config", async function () {
-    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.js");
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     const linter = linthtml.from_config_path(config_path);
     const html = ["Some text", "<!-- linthtml-disable my-plugin/rule -->", "<div></div>"].join("\n");
 
