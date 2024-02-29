@@ -3,7 +3,7 @@
   "ts-node": {
     "ignore": [
       "(?:^|/)node_modules/",
-      "/fixtures/.*\\.js" // Force ts-node to ignore js fixture files during tests
+      "/fixtures/.*\\.c?js" // Force ts-node to ignore js fixture files during tests
     ]
   },
   "include": ["./lib/**/*.ts", "./lib/**/*.js"],

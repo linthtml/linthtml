@@ -4,6 +4,10 @@ import { presets } from "../../../presets/index.js";
 import { LegacyLinterConfig, RuleConfig } from "../../../read-config.js";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 describe('legacy linter | "indent-style" + "indent-width"', function () {
   function createLinter(config: LegacyLinterConfig) {
