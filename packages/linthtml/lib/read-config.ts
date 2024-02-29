@@ -9,6 +9,7 @@ import resolveFrom from "resolve-from";
 import CustomError from "./utils/custom-errors.js";
 import Issue from "./issue.js";
 import { Node, Range } from "@linthtml/dom-utils/dom_elements";
+import { createRequire } from "module";
 
 const IS_TEST = process.env.NODE_ENV === "test";
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
@@ -245,7 +246,9 @@ function load_plugin(plugin_name: string): PluginConfig | never {
     // TODO: Switch to import
     // Eslint Typescript recommend using import statement but import return a promise.
     /* eslint-disable-next-line @typescript-eslint/no-var-requires */
+    const require = createRequire(import.meta.url);
     const plugin_import = require(plugin_name);
+    // const plugin_import = await import(plugin_name);
     // Handle either ES6 or CommonJS modules
     return plugin_import.default || plugin_import;
   } catch (error) {
