@@ -78,7 +78,7 @@ const config = {
           {
             path: "packages/dom-utils",
             entry: {
-              index: "lib/index.ts"
+              index: "src/index.ts"
             }
           }
         ]
