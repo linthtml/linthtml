@@ -3,7 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-const path = require("path");
+// const path = require("path");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -69,21 +69,21 @@ const config = {
       }
     }),
   plugins: [
-    [
-      "docusaurus-plugin-typedoc-api",
-      {
-        projectRoot: path.join(__dirname, ".."),
-        // Monorepo
-        packages: [
-          {
-            path: "packages/dom-utils",
-            entry: {
-              index: "src/index.ts"
-            }
-          }
-        ]
-      }
-    ]
+    // [
+    //   "docusaurus-plugin-typedoc-api",
+    //   {
+    //     projectRoot: path.join(__dirname, ".."),
+    //     // Monorepo
+    //     packages: [
+    //       {
+    //         path: "packages/dom-utils",
+    //         entry: {
+    //           index: "src/index.ts"
+    //         }
+    //       }
+    //     ]
+    //   }
+    // ]
   ]
 };
 
