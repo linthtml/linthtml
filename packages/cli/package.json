@@ -24,7 +24,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "tsc --build"
+    "build": "nx run :build"
   },
   "dependencies": {
     "chalk": "^5.3.0",

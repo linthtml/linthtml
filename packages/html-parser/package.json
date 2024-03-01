@@ -21,8 +21,8 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha --project ./tsconfig.test.json",
-    "build": "tsc --build"
+    "test": "nx run :test",
+    "build": "nx run :build"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"

@@ -31,8 +31,8 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "mocha --project ./tsconfig.test.json",
-    "build": "tsc --build"
+    "test": "nx run :test",
+    "build": "nx run :build"
   },
   "dependencies": {
     "domelementtype": "^2.2.0",
