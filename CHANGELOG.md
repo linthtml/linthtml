@@ -371,7 +371,7 @@ For example the following code will report an error:
 <p>A simple text with whitespaces before</p>
 ```
 
-You can find more informations in the [rule doc](./lib/rules/no-surrounding-whitespace/README.md).
+You can find more informations in the [rule doc](./src/rules/no-surrounding-whitespace/README.md).
 
 #### Improve config file search
 
@@ -425,7 +425,7 @@ Create some utils functions to check rules config and have unified error message
 
 ### Features 🚀
 
-Added new rule `no-surrounding-whitespace` disallowing the presence of encapsulating whitespace, [see rule doc](./lib/rules/no-surrounding-whitespace/README.md).
+Added new rule `no-surrounding-whitespace` disallowing the presence of encapsulating whitespace, [see rule doc](./src/rules/no-surrounding-whitespace/README.md).
 
 ## v0.5.0-beta.3
 
@@ -467,7 +467,7 @@ All nodes now include a property `loc` containing start and end position (line/c
 
 ## Features 🚀
 
-Rule [`lang`](./lib/rules/lang/README.md) now support simplified Chinese and traditional Chinese.
+Rule [`lang`](./src/rules/lang/README.md) now support simplified Chinese and traditional Chinese.
 
 Use the following codes in your `linthtmlrc` file.
 
@@ -581,11 +581,11 @@ You can now set a rule as warnig in the config file (⚠️ only available with 
 
 Add new rules from htmllint v0.8.0
 
-- [link-min-length-4](./lib/rules/link-min-length-4)
-- [input-btn-req-value-or-title](./lib/rules/input-btn-req-value-or-title)
-- [button-req-content](./lib/rules/button-req-content)
-- [label-no-enc-textarea-or-select](./lib/rules/label-no-enc-textarea-or-select)
-- [fieldset-contains-legend](./lib/rules/fieldset-contains-legend)
+- [link-min-length-4](./src/rules/link-min-length-4)
+- [input-btn-req-value-or-title](./src/rules/input-btn-req-value-or-title)
+- [button-req-content](./src/rules/button-req-content)
+- [label-no-enc-textarea-or-select](./src/rules/label-no-enc-textarea-or-select)
+- [fieldset-contains-legend](./src/rules/fieldset-contains-legend)
 
 #### Beta version warning
 
@@ -673,7 +673,7 @@ _close #55_
 
 - [IMPROVEMENT] Throw an error for nonexisting rule and stop the cli.
 - [IMPROVEMENT] Throw an error for invalid rules config and stop the cli.
-- [IMPROVEMENT] Now `indent-style` and `indent-width` catch more errors than before. Checkout [rules](./lib/rules/indent-style/README.md) doc for more information about valid/invalid patterns.
+- [IMPROVEMENT] Now `indent-style` and `indent-width` catch more errors than before. Checkout [rules](./src/rules/indent-style/README.md) doc for more information about valid/invalid patterns.
 - [IMPROVEMENT] Rule `tag-req-attr`, report an error per missing attributs and list missing attributes in error messages.
 - [IMPROVEMENT] Rule `title-no-dup`, report an error per duplicated `<title>` tag.
 
