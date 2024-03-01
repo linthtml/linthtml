@@ -20,5 +20,5 @@ commit-msg:
 pre-push:
   commands:
     eslint:
-      glob: "*.js"
+      glob: "*.(t|j)s"
       run: eslint {staged_files}
