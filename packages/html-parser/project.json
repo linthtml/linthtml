@@ -39,6 +39,11 @@
       "options": {
         "cwd": "{projectRoot}",
         "command": "mocha --project ./tsconfig.test.json"
+      },
+      "configurations": {
+        "coverage": {
+          "command": "npx nyc nx run :test"
+        }
       }
     }
   },
