@@ -13,7 +13,7 @@
     "linter"
   ],
   "scripts": {
-    "clean": "lerna run clean; rm -rf packages/**/tsconfig.tsbuildinfo; rm -rf packages/**/dist",
+    "clean": "lerna run clean; rm -rf tmp; rm -rf packages/**/*.tsbuildinfo; rm -rf packages/**/dist",
     "lint": "eslint .",
     "coverage": "npx nyc --reporter=lcovonly --reporter=text npm test",
     "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",

@@ -4,8 +4,9 @@
     "outDir": "../dist/out-tsc",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
+    "types": ["node", "mocha"],
     "esModuleInterop": false
   },
-  "include": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.d.ts", "src/__tests__"]
+  "exclude": [],
+  "include": ["src/**/*.test.ts", "src/**/*.d.ts", "src/__tests__", "src/**/*.ts", "src/*.ts", "src/**/*.cjs"]
 }

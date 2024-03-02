@@ -1,6 +1,6 @@
 import { chalkTemplateStderr } from "chalk-template";
 import { exitProcess, EXIT_CODE_ERROR } from "../utils.js";
-import { find_local_config } from "@linthtml/linthtml";
+import { find_local_config } from "@linthtml/core";
 
 export default function print_config(path: string) {
   if (path === "") {
