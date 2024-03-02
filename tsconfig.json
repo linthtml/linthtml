@@ -3,7 +3,7 @@
   "references": [
     { "path": "./packages/linthtml" },
     { "path": "./packages/dom-utils" },
-    { "path": "./packages/cli" },
+    { "path": "./packages/core" },
     { "path": "./packages/html-parser" }
   ]
 }
