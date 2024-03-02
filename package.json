@@ -15,8 +15,7 @@
   "scripts": {
     "clean": "lerna run clean; rm -rf tmp; rm -rf packages/**/*.tsbuildinfo; rm -rf packages/**/dist",
     "lint": "eslint .",
-    "coverage": "npx nyc npm test",
-    "coverage:report": "npm run coverage && npx nyc report --reporter=text-lcov > /dev/null",
+    "coverage": "nx run-many -t test --configuration coverage",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md",
@@ -29,7 +28,6 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@nx/js": "17.2.8",
     "@nx/node": "^17.2.8",
     "@types/chai": "^4.3.12",
@@ -37,6 +35,7 @@
     "@types/node": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "c8": "^9.1.0",
     "chai": "^5.1.0",
     "commitizen": "^4.3.0",
     "conventional-changelog-cli": "2.1.1",
@@ -52,7 +51,6 @@
     "lerna": "^5.3.0",
     "mocha": "^10.3.0",
     "nx": "17.2.8",
-    "nyc": "^15.1.0",
     "prettier": "2.8.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

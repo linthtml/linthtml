@@ -42,7 +42,7 @@
       },
       "configurations": {
         "coverage": {
-          "command": "npx nyc nx run :test"
+          "command": "c8 --reporter lcov nx run :test"
         }
       }
     }
