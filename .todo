@@ -102,3 +102,8 @@ only affect configured rules (already defined before)
   </div>
   foo // not ignored
 </div>
+
+## Fix file coverage
+
+Current files coverage is not complete has coverage on depend projects is not generated.
+Check it works after nx migration
