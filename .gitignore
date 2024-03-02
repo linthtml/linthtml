@@ -19,8 +19,6 @@ npm-debug.log
 # mac
 .DS_Store
 
-\.nyc_output/
-
 \.vscode/
 
 # lerna packages
