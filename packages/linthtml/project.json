@@ -30,13 +30,6 @@
       "outputs": [
         "{options.outputFile}"
       ]
-    },
-    "test": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "{projectRoot}",
-        "command": "mocha --project ./tsconfig.test.json"
-      }
     }
   },
   "tags": []

@@ -1,151 +1,174 @@
-import { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig } from "./read-config.js";
-import Linter from "./linter.js";
-import LegacyLinter from "./legacy/linter.js";
-import { presets } from "./presets/index.js";
-import rules from "./rules/index.js";
-import * as messages from "./messages.js";
-
-import path from "path";
+/* eslint-disable no-console */
 import fs from "fs";
-import globby from "globby";
-import ignore from "ignore";
-import Issue from "./issue.js";
+import chalkTemplate from "chalk-template";
+import ora from "ora";
+import meow from "meow";
 
-const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
+import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils.js";
 
-export interface FileLinter {
-  file_path: string;
-  preset: string | undefined;
-  config_path: string | undefined;
-  linter: LegacyLinter;
-}
+import checkInvalidCLIOptions from "./check-invalid-cli-options.js";
+import print_file_report from "./print-file-report.js";
+import init_command from "./commands/init.js";
+import print_config_command from "./commands/print-config.js";
+import printErrors, { CliError } from "./print-errors.js";
 
-/**
- * The linthtml namespace.
- */
-const linthtml = function (html: string, config: LegacyLinterConfig | LinterConfig): Promise<Issue[]> {
-  if (config?.rules !== undefined) {
-    const linter = new Linter(config as LinterConfig);
-    return linter.lint(html);
-  }
-  const linter = new LegacyLinter(null, config as LegacyLinterConfig);
-  return linter.lint(html);
-};
+import linthtml, { FileLinter } from "@linthtml/core";
+import type Issue from "@linthtml/core/issue";
 
-function fromConfig(config: LinterConfig): Linter;
-function fromConfig(config: LegacyLinterConfig): LegacyLinter;
-function fromConfig(config: LegacyLinterConfig | LinterConfig): Linter | LegacyLinter {
-  if (config && config.rules !== undefined) {
-    return new Linter(config as LinterConfig);
-  }
-  return new LegacyLinter(null, config as LegacyLinterConfig);
-}
-linthtml.fromConfig = fromConfig;
+const cliOptions = {
+  help: chalkTemplate`
+    Usage: linthtml [options] file.html [glob] [dir]
 
-function get_files_to_lint(input: string[], config: LegacyLinterConfig | LinterConfig = {}): string[] {
-  const ignore_config = read_dot_ignore_file();
-  const ignoreFiles: string[] | undefined = config.ignoreFiles as string[] | undefined;
-  const ignore_patterns = ignore_config || ignoreFiles;
-  const file_paths = input.reduce(
-    (paths, pattern) => [...paths, ...get_files_from_glob(pattern, ignore_patterns)],
-    [] as string[]
-  );
-  return filter_ignored_files(file_paths, ignore_patterns);
-}
+    {cyan.underline Configuration:}
 
-function get_files_from_glob(glob_pattern: string, ignore_config: string | string[] | undefined): string[] {
-  const use_default_ignore = ignore_config === undefined && path.isAbsolute(glob_pattern) === false;
+      --config               Use this configuration, overriding .linthtmlrc config options if present
 
-  return globby.sync([glob_pattern, ...DEFAULT_EXCLUDED_FOLDERS], {
-    gitignore: use_default_ignore,
-    expandDirectories: {
-      files: ["**/*.html"],
-      extensions: ["html"]
+    {cyan.underline Output: }
+
+      --color, --no--color  Force enabling/disabling of color
+
+    {cyan.underline Miscellaneous:}
+
+      --init                          Generate a default configuration file
+      -h, --help                      Show help
+      -v, --version                   Output the version number
+      --print-config [path::String]   Print the configuration for the given file
+  `,
+  flags: {
+    config: {
+      type: "string",
+      alias: "c"
+    },
+    color: {
+      // no need to add `no-color` it"s automatic same for colorization too (no need to do anything)
+      type: "boolean",
+      default: true
+    },
+    printConfig: {
+      type: "string"
+    },
+    init: {
+      type: "boolean"
+    },
+    help: {
+      alias: "h",
+      type: "boolean"
+    },
+    version: {
+      alias: "v",
+      type: "boolean"
     }
-  });
-}
+  }
+} satisfies meow.Options<meow.AnyFlags>;
 
-function filter_ignored_files(file_paths: string[], ignore_pattern: string | string[] | undefined) {
-  if (ignore_pattern === undefined) {
-    return file_paths;
+export default function cli(argv: string[]) {
+  const cli = meow({ ...cliOptions, argv });
+  const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as meow.AnyFlags, cli.flags as meow.AnyFlags);
+  if (invalidOptionsMessage) {
+    process.stderr.write(invalidOptionsMessage);
+    return exitProcess();
   }
 
-  // @ts-ignore
-  const ignorer = ignore().add(ignore_pattern);
-  return ignorer.filter(file_paths);
+  // TODO: convert to command and throw deprecation warning for flag
+  // Add format flag (json, yaml, rc) to command
+  // Add legacy flag to command
+  if (cli.flags.init) {
+    return init_command().then(() => exitProcess());
+  }
+
+  if (cli.flags.printConfig !== undefined) {
+    // convert to command and throw deprecation warning for flag
+    return print_config_command(cli.flags.printConfig as string);
+  }
+
+  // use config_path if provided or search local config file
+
+  if (cli.flags.help || cli.flags.h || argv.length === 0) {
+    cli.showHelp();
+  }
+  return lint(cli.input, cli.flags.config as string);
 }
 
-function read_dot_ignore_file(): string | undefined {
-  const ignore_file_path = path.join(process.cwd(), ".linthtmlignore");
-  if (fs.existsSync(ignore_file_path)) {
-    return fs.readFileSync(ignore_file_path).toString();
+async function lint(input: string[], config_path: string) {
+  let files_linters = [];
+  const searchSpinner = ora("Searching for files").start();
+  try {
+    files_linters = await linthtml.create_linters_for_files(input, config_path);
+    searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
+  } catch (error) {
+    searchSpinner.fail();
+    printErrors(error as CliError);
+    return exitProcess(EXIT_CODE_ERROR);
   }
-  return undefined;
+
+  const lintSpinner = ora("Analyzing files");
+  try {
+    lintSpinner.start();
+    let reports: Report[] = await Promise.all(files_linters.map(lintFile));
+    reports = reports.filter((report) => report.issues.length > 0);
+    lintSpinner.succeed("Files analyzed");
+    printReports(reports);
+  } catch (error) {
+    lintSpinner.fail();
+    console.log();
+    console.log(chalkTemplate`An error occurred while analyzing {underline ${(error as CliError).fileName}}`);
+    console.log();
+    printErrors(error as CliError);
+    // Needed after printErrors?
+    console.log(chalkTemplate`{red ${(error as CliError).message}}`);
+    return exitProcess(EXIT_CODE_ERROR);
+  }
+
+  // TODO: Find why ts return "TS7030: Not all code paths return a value" without the return.
+  // eslint-disable-next-line no-useless-return
+  return;
 }
 
-function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
-  if (ignore_pattern.length === 0) {
-    return false;
+function printReports(reports: Report[]) {
+  console.log("");
+  reports.forEach(print_file_report);
+
+  if (reports.length > 0) {
+    const issues: Issue[] = reports
+      .filter((report) => report.issues.length > 0)
+      .reduce((acc: Issue[], { issues }) => [...acc, ...issues], []);
+
+    const errorsCount = issues.reduce((count, issue) => (issue.severity === "error" ? count + 1 : count), 0);
+    const warningCount = issues.reduce((count, issue) => (issue.severity === "warning" ? count + 1 : count), 0);
+    const problemsCount = errorsCount + warningCount;
+
+    if (errorsCount > 0) {
+      console.log(
+        chalkTemplate`{red ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+          errorsCount > 1 ? "errors" : "error"
+        }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
+      );
+      return exitProcess(EXIT_CODE_ERROR);
+    }
+    console.log(
+      chalkTemplate`{yellow ✖ ${problemsCount} ${problemsCount > 1 ? "problems" : "problem"} (${errorsCount} ${
+        errorsCount > 1 ? "errors" : "error"
+      }, ${warningCount} ${warningCount > 1 ? "warnings" : "warning"})}`
+    );
+  } else {
+    console.log("✨  There's no problem, good job 👏");
   }
-  // @ts-ignore
-  const ignorer = ignore().add(ignore_pattern);
-  return ignorer.ignores(file_path);
+  return exitProcess();
 }
 
-function create_file_linter(
-  file_path: string,
-  config: {
-    preset?: string;
-    filepath?: string;
-    config: LegacyLinterConfig | LinterConfig;
-  }
-): FileLinter {
-  return {
-    file_path,
-    preset: config.preset,
-    config_path: config.filepath,
-    linter: linthtml.fromConfig(config.config)
-  };
-}
-
-/**
- * Create a linter per each file found using the globs provided
- *
- * @param {string[]} globs - An array of globs
- * @param {string} [config_path] - Path the config file that will be use to create configure the linters
- */
-linthtml.create_linters_for_files = function (globs: string[], config_path?: string): FileLinter[] {
-  if (config_path) {
-    const config = config_from_path(config_path);
-    const files = get_files_to_lint(globs, config.config);
-    return files.map((file_path) => create_file_linter(file_path, config));
-  }
-  const files = get_files_to_lint(globs);
-  return files.reduce((files_to_lint, file_path) => {
-    // if no config, fallback to presets as before
-    const local_config = find_local_config(file_path) ?? {
-      config: presets.default as LinterConfig | LegacyLinterConfig,
-      preset: "default"
+// TODO improve
+async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> | never {
+  try {
+    const file_content = fs.readFileSync(file_path, "utf8");
+    const issues = await linter.lint(file_content);
+    return {
+      fileName: file_path,
+      issues,
+      config_path,
+      preset
     };
-
-    if (!should_ignore_file(file_path, local_config.config.ignoreFiles as string[])) {
-      return files_to_lint.concat(create_file_linter(file_path, local_config));
-    }
-    return files_to_lint;
-  }, [] as FileLinter[]);
-};
-
-linthtml.from_config_path = function (config_path: string): Linter | LegacyLinter {
-  const config = config_from_path(config_path);
-  return linthtml.fromConfig(config.config);
-};
-
-linthtml.Linter = Linter;
-linthtml.LegacyLinter = LegacyLinter;
-linthtml.rules = rules;
-linthtml.presets = presets;
-linthtml.messages = messages;
-
-export default linthtml;
-
-export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };
+  } catch (error) {
+    (error as CliError).fileName = file_path;
+    throw error;
+  }
+}

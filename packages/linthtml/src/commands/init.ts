@@ -1,10 +1,10 @@
 import yaml from "js-yaml";
-import linthtml from "@linthtml/linthtml";
+import linthtml from "@linthtml/core";
 import fs from "fs";
 import chalkTemplate from "chalk-template";
 import inquirer from "inquirer";
 
-import type { LegacyLinterConfig, LinterConfig } from "@linthtml/linthtml/read-config";
+import type { LegacyLinterConfig, LinterConfig } from "@linthtml/core/read-config";
 
 const default_config = {
   "text-ignore-regex": false,

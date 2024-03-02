@@ -1,5 +1,5 @@
 import chalkTemplate from "chalk-template";
-import * as messages from "@linthtml/linthtml/messages";
+import * as messages from "@linthtml/core/messages";
 
 export type CliError = { code?: string; meta?: Record<string, unknown>; message: string; fileName: string };
 

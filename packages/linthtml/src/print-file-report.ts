@@ -1,9 +1,9 @@
 import chalkTemplate from "chalk-template";
 // @ts-ignore
 import Table from "table-layout";
-import { renderIssue } from "@linthtml/linthtml/messages";
+import { renderIssue } from "@linthtml/core/messages";
 import { Report } from "./utils.js";
-import type Issue from "@linthtml/linthtml/issue";
+import type Issue from "@linthtml/core/issue";
 
 function print_position({ position: { start } }: Issue, maxLine: number, maxColumn: number) {
   const line = start.line.toString();

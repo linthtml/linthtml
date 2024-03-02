@@ -1,5 +1,5 @@
 import chalkTemplate from "chalk-template";
-import type Issue from "@linthtml/linthtml/issue";
+import type Issue from "@linthtml/core/issue";
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
