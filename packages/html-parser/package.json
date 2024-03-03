@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/html-parser",
-  "version": "0.9.5",
+  "version": "0.10.0-beta.1",
   "description": "LintHTML HTML parser",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/html-parser#readme",
@@ -28,7 +28,7 @@
     "url": "https://github.com/linthtml/linthtml/issues"
   },
   "dependencies": {
-    "@linthtml/dom-utils": "^0.9.5",
+    "@linthtml/dom-utils": "^0.10.0-beta.1",
     "domhandler": "^4.2.2",
     "htmlparser2": "^7.1.2"
   },
