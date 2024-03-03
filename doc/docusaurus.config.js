@@ -51,11 +51,11 @@ const config = {
             label: "Docs",
             position: "left"
           },
-          {
-            to: "api",
-            label: "API",
-            position: "left"
-          },
+          // {
+          //   to: "api",
+          //   label: "API",
+          //   position: "left"
+          // },
           {
             href: "https://github.com/linthtml/linthtml",
             label: "GitHub",
