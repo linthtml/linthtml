@@ -723,3 +723,24 @@ _close #55_
 * Correct gitkraken autoCrlf mess ([113ef60](https://github.com/linthtml/linthtml/commit/113ef60de66fdc0e338027e81edd75d459b4fb93))
 * run eslint --fix ([ce3800a](https://github.com/linthtml/linthtml/commit/ce3800aba1f8e93556b8a049937d9037bf62a995))
 
+#  (2024-03-03)
+
+
+### Bug Fixes
+
+* Add nx configuration for test:coverage ([3fcccd6](https://github.com/linthtml/linthtml/commit/3fcccd632c6f9a41d43f5e468f5187301840449d))
+* Clear lock file ([606496a](https://github.com/linthtml/linthtml/commit/606496ae84d9fc73e4bc936cc12f2e4a05f72caf))
+* Correct as much ts errors as possible ([b9abc1b](https://github.com/linthtml/linthtml/commit/b9abc1beb7471030ad76ecfd238fbbb4909cac7a))
+* Correct mocha spec config for linthtml package ([bdd597d](https://github.com/linthtml/linthtml/commit/bdd597df95458d66c13596817cfd509cde0fa0d3))
+* Correct some spelling error in cli messages ([bd59725](https://github.com/linthtml/linthtml/commit/bd59725bdbc9ffaa15e7bc833065f7eb595904eb))
+* correct test failling due to esm migration ([ce18d13](https://github.com/linthtml/linthtml/commit/ce18d1343867391dcf8064da3d6e4918072a3460))
+* correct test with mock import ([418a59d](https://github.com/linthtml/linthtml/commit/418a59d2c43acf6c4276948a8c2fa3b6003f60fe))
+* **linthtmt/linthtml:** Add missing dependency to @linthtml/core ([383a5c5](https://github.com/linthtml/linthtml/commit/383a5c53bb3d063ecc4b5c789964e566e3f74aaf))
+* remove extra 'Error :' ([7a42f9e](https://github.com/linthtml/linthtml/commit/7a42f9ece5c297945c48cd599ca12f9f43388efc))
+* remove ts compilation error ([d756dc0](https://github.com/linthtml/linthtml/commit/d756dc0d87d0f0899cebf932083ff0b6eeafb36b))
+* Update build and test scripts in packages ([967b000](https://github.com/linthtml/linthtml/commit/967b0003e9f02514068313a323342598c928b147))
+* Update path in docusaurus scripts and disable API page ([ffa9cfa](https://github.com/linthtml/linthtml/commit/ffa9cfaf0407bcdef8c658519485b6e6003092a0))
+* Update ts path in docusaurus config ([17021f7](https://github.com/linthtml/linthtml/commit/17021f7962345105257dcc7d00c06a5cbeececfe))
+
+
+
