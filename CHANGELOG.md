@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.9.5...v0.10.0-beta.1) (2024-03-03)
+
+* Packages have been converted to esm
+* Started migration to nx for handling building, testing and linting tasks.
+* Packages have been renamed to fix a circular reference when building the packages, [@linthtml/linthtml] is now [@linthtml/core] and [@linthtml/cli] is now [@linthtml/linthtml].  
+
 ## [0.9.5](https://github.com/linthtml/linthtml/compare/v0.9.4...v0.9.5) (2023-06-02)
 
 ### Bug Fixes
@@ -716,6 +722,4 @@ _close #55_
 * **cli:** Remove @lintmlt/linthtml peer deps ([1d5cb92](https://github.com/linthtml/linthtml/commit/1d5cb92c5f29afd9ddf7271e6450936917063147))
 * Correct gitkraken autoCrlf mess ([113ef60](https://github.com/linthtml/linthtml/commit/113ef60de66fdc0e338027e81edd75d459b4fb93))
 * run eslint --fix ([ce3800a](https://github.com/linthtml/linthtml/commit/ce3800aba1f8e93556b8a049937d9037bf62a995))
-
-
 
