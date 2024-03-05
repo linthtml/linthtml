@@ -9,7 +9,8 @@ LintHTML use [cosmiconfig](https://davidtheclark/cosmiconfig) to find and load y
 
 - a `linthtmlConfig` property in `package.json`
 - a `.linthtmlrc`, `.linthtmlrc.json` or `.linthtmlrc.yml` file
-- a `.linthtmlrc.js` file exporting a JS object
+- a `.linthtmlrc.{js|cjs|mjs|ts}` file exporting a JS object
+- a `linthtml.config.{js|cjs|mjs|ts}` files exporting a JS object
 
 You can use the `--config` option to manually target a config file.
 
