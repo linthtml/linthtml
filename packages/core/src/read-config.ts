@@ -166,7 +166,7 @@ function merge_configs(a: LinterConfig, b: Partial<LinterConfig>): LinterConfig 
  * @param {CosmiconfigResult} cosmiconfig_result
  * @return {CosmiconfigResult}
  */
-function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigResult | null {
+async function augment_config(cosmiconfig_result: CosmiconfigResult): Promise<ExtractConfigResult | null> {
   if (!cosmiconfig_result) {
     return null;
   }
@@ -182,11 +182,10 @@ function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigRes
     const normalized_extends = Array.isArray(config.extends) // throw an error if not string or array
       ? config.extends
       : [config.extends];
-
-    const extended_config = normalized_extends.reduce((extended_config, extends_path) => {
-      const configResult = load_extended_config(extends_path, config_dir);
-      return merge_configs(extended_config, configResult);
-    }, {} as LinterConfig);
+    const extended_configs = await Promise.all(
+      normalized_extends.map((extends_path) => load_extended_config(extends_path, config_dir))
+    );
+    const extended_config = extended_configs.reduce(merge_configs, {} as LinterConfig);
 
     result = {
       filepath: result.filepath,
@@ -207,12 +206,10 @@ function augment_config(cosmiconfig_result: CosmiconfigResult): ExtractConfigRes
  * @param {string} config_dir
  * @return {CosmiconfigResult}
  */
-function load_extended_config(extends_path: string, config_dir: string): LinterConfig {
+async function load_extended_config(extends_path: string, config_dir: string): Promise<LinterConfig> {
   const extendPath = get_module_path(config_dir, extends_path);
-  // create cosmiconfigSync only once ?
-  // TODO fix (use "linthtml" ?)
-  // @ts-ignore
-  const cosmiconfig_result = cosmiconfigSync(null, {
+  // @ts-expect-error TODO fix (use "linthtml" ?
+  const cosmiconfig_result = await cosmiconfig(null, {
     stopDir: STOP_DIR,
     transform: augment_config
   }).load(extendPath);
@@ -250,7 +247,6 @@ function load_plugin(plugin_name: string): PluginConfig | never {
   try {
     // TODO: Switch to import
     // Eslint Typescript recommend using import statement but import return a promise.
-    /* eslint-disable-next-line @typescript-eslint/no-var-requires */
     const require = createRequire(import.meta.url);
     const plugin_import = require(plugin_name);
     // const plugin_import = await import(plugin_name);
