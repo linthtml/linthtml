@@ -89,7 +89,6 @@ describe("link-rel-noopener", function () {
     const html = '<a href="https://site.com" target="_blank" rel="noopener">Site</a>';
 
     const issues = await linter.lint(html);
-    console.log(issues);
     expect(issues).to.have.lengthOf(0);
   });
 
