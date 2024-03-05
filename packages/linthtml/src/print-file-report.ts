@@ -49,6 +49,9 @@ export default function print_file_report(report: Report) {
     };
   });
 
-  const table = new Table(issues, { noTrim: true });
+  const table = new Table(issues, {
+    noTrim: true,
+    maxWidth: 250
+  });
   console.log(table.toString());
 }
