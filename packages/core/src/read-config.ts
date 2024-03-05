@@ -328,7 +328,6 @@ async function config_from_path(file_path: string): Promise<ExtractConfigResult 
 
     return add_plugins_rules(config);
   } catch (error) {
-    console.log(error);
     // let CustomError (like CORE-03) passthrough
     if (error instanceof CustomError) {
       throw error;
