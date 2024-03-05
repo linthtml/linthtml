@@ -18,7 +18,7 @@
     "coverage": "nx run-many -t test --configuration coverage",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a && git add CHANGELOG.md",
+    "version": "",
     "postinstall": "lerna bootstrap",
     "test": "nx run-many -t test",
     "build": "nx run-many -t build",
