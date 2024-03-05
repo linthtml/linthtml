@@ -118,10 +118,6 @@ async function lint(input: string[], config_path: string) {
     console.log(chalkTemplate`{red ${(error as CliError).message}}`);
     return exitProcess(EXIT_CODE_ERROR);
   }
-
-  // TODO: Find why ts return "TS7030: Not all code paths return a value" without the return.
-  // eslint-disable-next-line no-useless-return
-  return;
 }
 
 function printReports(reports: Report[]) {

@@ -16,10 +16,20 @@ const default_config = {
 } satisfies LinterConfig;
 
 const GENERATORS = {
-  JavaScript: {
-    name: ".linthtmlrc.js",
+  TS: {
+    name: ".linthtmlrc.ts",
+    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
+      `export default ${JSON.stringify(content, null, "\t")}`
+  },
+  CJS: {
+    name: ".linthtmlrc.cjs",
     generate_content: (content: LegacyLinterConfig | LinterConfig) =>
       `module.exports = ${JSON.stringify(content, null, "\t")}`
+  },
+  ESM: {
+    name: ".linthtmlrc.mjs",
+    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
+      `export default ${JSON.stringify(content, null, "\t")}`
   },
   JSON: {
     name: ".linthtmlrc.json",
@@ -32,13 +42,19 @@ const GENERATORS = {
 };
 
 export default async function init_command(): Promise<void> {
-  const response: { format: "JavaScript" | "YAML" | "JSON"; legacy: boolean } = await inquirer.prompt([
+  const response: { format: keyof typeof GENERATORS; legacy: boolean } = await inquirer.prompt([
     {
       type: "list",
       name: "format",
       message: "What format do you want your config file to be in?",
       default: "Javascript",
-      choices: ["JavaScript", "YAML", "JSON"]
+      choices: [
+        { name: "JavaScript (commonjs)", value: "CJS" },
+        { name: "Javascript (esm)", value: "ESM" },
+        { name: "Typescript", value: "TS" },
+        { name: "YAML", value: "YAML" },
+        { name: "JSON", value: "JSON" }
+      ]
     },
     {
       type: "list",
