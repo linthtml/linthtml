@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-import { cosmiconfigSync } from "cosmiconfig";
+import { cosmiconfig } from "cosmiconfig";
 import { Config, CosmiconfigResult } from "cosmiconfig/dist/types.js";
 import globalModules from "global-modules";
 import resolveFrom from "resolve-from";
@@ -306,13 +306,14 @@ function add_plugins_rules(cosmiconfig_result: {
   return cosmiconfig_result;
 }
 
-const explorer = cosmiconfigSync("linthtml", {
+const explorer = cosmiconfig("linthtml", {
   stopDir: STOP_DIR,
+  // searchStrategy: "global", // TODO: Add or remove when migrating to cosmiconfig v9
   packageProp: "linthtmlConfig",
   transform: augment_config
 });
 
-function config_from_path(file_path: string): ExtractConfigResult | never {
+async function config_from_path(file_path: string): Promise<ExtractConfigResult | never> {
   const config_path = path.resolve(process.cwd(), file_path);
   let isconfig_directory = false;
   try {
@@ -321,13 +322,9 @@ function config_from_path(file_path: string): ExtractConfigResult | never {
     if (isconfig_directory) {
       // stopDir: config_path needed?
       // create cosmiconfigSync only once ?
-      config = cosmiconfigSync("linthtml", {
-        stopDir: config_path,
-        packageProp: "linthtmlConfig",
-        transform: augment_config
-      }).search(config_path);
+      config = await explorer.search(config_path);
     } else {
-      config = explorer.load(config_path);
+      config = await explorer.load(config_path);
     }
     if (config === null) {
       throw new Error();
@@ -346,8 +343,8 @@ function config_from_path(file_path: string): ExtractConfigResult | never {
   }
 }
 
-function find_local_config(file_path: string): ExtractConfigResult | null | never {
-  const config = explorer.search(file_path);
+async function find_local_config(file_path: string): Promise<ExtractConfigResult | null> | never {
+  const config = await explorer.search(file_path);
   return config ? add_plugins_rules(config) : null;
 }
 
