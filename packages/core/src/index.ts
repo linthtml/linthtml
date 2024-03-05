@@ -114,16 +114,19 @@ function create_file_linter(
  * @param {string[]} globs - An array of globs
  * @param {string} [config_path] - Path the config file that will be use to create configure the linters
  */
-linthtml.create_linters_for_files = function (globs: string[], config_path?: string): FileLinter[] {
+linthtml.create_linters_for_files = async function (globs: string[], config_path?: string): Promise<FileLinter[]> {
   if (config_path) {
-    const config = config_from_path(config_path);
+    const config = await config_from_path(config_path);
     const files = get_files_to_lint(globs, config.config);
     return files.map((file_path) => create_file_linter(file_path, config));
   }
   const files = get_files_to_lint(globs);
-  return files.reduce((files_to_lint, file_path) => {
+  const files_config = await Promise.all(
+    files.map((file_path) => find_local_config(file_path).then((config) => ({ file_path, config })))
+  );
+  return files_config.reduce((files_to_lint, { file_path, config }) => {
     // if no config, fallback to presets as before
-    const local_config = find_local_config(file_path) ?? {
+    const local_config = config ?? {
       config: presets.default as LinterConfig | LegacyLinterConfig,
       preset: "default"
     };
@@ -135,8 +138,8 @@ linthtml.create_linters_for_files = function (globs: string[], config_path?: str
   }, [] as FileLinter[]);
 };
 
-linthtml.from_config_path = function (config_path: string): Linter | LegacyLinter {
-  const config = config_from_path(config_path);
+linthtml.from_config_path = async function (config_path: string): Promise<Linter | LegacyLinter> {
+  const config = await config_from_path(config_path);
   return linthtml.fromConfig(config.config);
 };
 
