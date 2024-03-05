@@ -612,7 +612,7 @@ describe("inline_config with linter", function () {
 describe("inline_config with linter + plugin rule", function () {
   it("rules from plugin can be configured using inline config", async function () {
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
-    const linter = linthtml.from_config_path(config_path);
+    const linter = await linthtml.from_config_path(config_path);
     const html = ["Some text", "<!-- linthtml-configure my-plugin/rule=false -->", "<div></div>"].join("\n");
 
     const issues = await linter.lint(html);
@@ -620,7 +620,7 @@ describe("inline_config with linter + plugin rule", function () {
   });
   it("rules from plugin can be disabled using inline config", async function () {
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
-    const linter = linthtml.from_config_path(config_path);
+    const linter = await linthtml.from_config_path(config_path);
     const html = ["Some text", "<!-- linthtml-disable my-plugin/rule -->", "<div></div>"].join("\n");
 
     const issues = await linter.lint(html);

@@ -10,9 +10,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 describe("Get config from path", function () {
-  it("Report an error if path provided does not exist", function () {
+  it("Report an error if path provided does not exist", async function () {
     try {
-      config_from_path("unknow_file");
+      await config_from_path("unknow_file");
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-02");
@@ -22,10 +22,10 @@ describe("Get config from path", function () {
     }
   });
 
-  it("Report an error when there's no config file in the folder provided", function () {
+  it("Report an error when there's no config file in the folder provided", async function () {
     let assertions_runned = false;
     try {
-      config_from_path(__dirname);
+      await config_from_path(__dirname);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-01");
@@ -38,16 +38,16 @@ describe("Get config from path", function () {
     expect(assertions_runned).to.be.true;
   });
 
-  it("Return the config object from cosmiconfig if config file exist", function () {
+  it("Return the config object from cosmiconfig if config file exist", async function () {
     const config_path = path.join(__dirname, "fixtures", ".linthtmlrc.cjs");
-    const config = config_from_path(config_path);
+    const config = await config_from_path(config_path);
     expect(config).to.have.property("config");
     expect(config).to.have.property("filepath", config_path);
   });
 
-  it("Return the config object from cosmiconfig if there's a config file in the folder provided", function () {
+  it("Return the config object from cosmiconfig if there's a config file in the folder provided", async function () {
     const config_path = path.join(__dirname, "fixtures");
-    const config = config_from_path(config_path);
+    const config = await config_from_path(config_path);
     expect(config).to.have.property("config");
     expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.cjs"));
   });
@@ -55,30 +55,30 @@ describe("Get config from path", function () {
 
 // Start by searching in the file folder, then search in the parent folder and the parent folder (...) until it reach the root directory
 describe("Find config file for a file path", function () {
-  it("Return not nothing if it cannot find a config file", function () {
-    const config = find_local_config(__dirname);
+  it("Return nothing if it cannot find a config file", async function () {
+    const config = await find_local_config(__dirname);
     expect(config).to.be.null;
   });
 
-  it("Return the config object from cosmiconfig if there's a config file in the file folder", function () {
+  it("Return the config object from cosmiconfig if there's a config file in the file folder", async function () {
     const config_path = path.join(__dirname, "fixtures");
-    const config = find_local_config(config_path);
+    const config = await find_local_config(config_path);
     expect(config).to.have.property("config");
     expect(config).to.have.property("filepath", path.join(config_path, ".linthtmlrc.cjs"));
   });
 
-  it("Return the config object from cosmiconfig if there's a config file in parent folder", function () {
+  it("Return the config object from cosmiconfig if there's a config file in parent folder", async function () {
     const config_path = path.join(__dirname, "fixtures", "pages");
-    const config = find_local_config(config_path);
+    const config = await find_local_config(config_path);
     expect(config).to.have.property("config");
     expect(config).to.have.property("filepath", path.join(__dirname, "fixtures", ".linthtmlrc.cjs"));
   });
 });
 
 describe("Load extends config", function () {
-  it("Load and merge configs", function () {
+  it("Load and merge configs", async function () {
     const config_path = path.join(__dirname, "fixtures", "valid-extends.cjs");
-    const { config } = config_from_path(config_path);
+    const { config } = await config_from_path(config_path);
     expect(config).to.deep.equal({
       extends: ["./config-attr-bans.cjs"],
       plugins: [],
@@ -90,11 +90,11 @@ describe("Load extends config", function () {
     });
   });
 
-  it("Throw an error if extended config does not exist", function () {
+  it("Throw an error if extended config does not exist", async function () {
     const config_path = path.join(__dirname, "fixtures", "invalid-extends.cjs");
 
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-03");
@@ -104,9 +104,9 @@ describe("Load extends config", function () {
     }
   });
 
-  it("'extends' accept a string only", function () {
+  it("'extends' accept a string only", async function () {
     const config_path = path.join(__dirname, "fixtures", "valid-extends-string-only.cjs");
-    const { config } = config_from_path(config_path);
+    const { config } = await config_from_path(config_path);
     expect(config).to.deep.equal({
       extends: "./config-attr-bans.cjs",
       plugins: [],
@@ -118,9 +118,9 @@ describe("Load extends config", function () {
     });
   });
 
-  it("Rules settings from config file and extends are merged", function () {
+  it("Rules settings from config file and extends are merged", async function () {
     const config_path = path.join(__dirname, "fixtures", "extends-merged-rules-settings.cjs");
-    const { config } = config_from_path(config_path);
+    const { config } = await config_from_path(config_path);
     expect(config).to.deep.equal({
       extends: ["./config-attr-bans.cjs", "./config-tag-bans.cjs"],
       plugins: [],
@@ -134,9 +134,9 @@ describe("Load extends config", function () {
     });
   });
 
-  it("Rule settings from config file overrides rule settings form extends", function () {
+  it("Rule settings from config file overrides rule settings form extends", async function () {
     const config_path = path.join(__dirname, "fixtures", "extends-with-overrides.cjs");
-    const { config } = config_from_path(config_path);
+    const { config } = await config_from_path(config_path);
     expect(config).to.deep.equal({
       extends: ["./config-attr-bans.cjs", "./config-tag-bans.cjs"],
       plugins: [],
@@ -153,17 +153,18 @@ describe("Load extends config", function () {
 });
 
 describe("Load plugins", function () {
-  it("Load and merge rules from plugins", function () {
+  it("Load and merge rules from plugins", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
-    const { config } = config_from_path(config_path);
+    const { config } = await config_from_path(config_path);
 
     expect((config as LinterConfig).plugins).to.deep.equal([plugin_path]);
     expect((config as LinterConfig).plugins_rules).to.not.be.null;
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"].lint).to.be.a("function");
   });
-  it("Throw an error when plugins rules property is not an array", function () {
+
+  it("Throw an error when plugins rules property is not an array", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
@@ -172,7 +173,7 @@ describe("Load plugins", function () {
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-09");
@@ -182,7 +183,8 @@ describe("Load plugins", function () {
     }
     rewiremock.disable();
   });
-  it("Throw an error when rule does not have a name", function () {
+
+  it("Throw an error when rule does not have a name", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
@@ -191,7 +193,7 @@ describe("Load plugins", function () {
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-06");
@@ -201,7 +203,8 @@ describe("Load plugins", function () {
     }
     rewiremock.disable();
   });
-  it("Throw an error when rule's name is not prefixed", function () {
+
+  it("Throw an error when rule's name is not prefixed", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
@@ -214,7 +217,7 @@ describe("Load plugins", function () {
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-07");
@@ -225,7 +228,8 @@ describe("Load plugins", function () {
     }
     rewiremock.disable();
   });
-  it("Throw an error when rule does not have a lint function", function () {
+
+  it("Throw an error when rule does not have a lint function", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     rewiremock.overrideEntryPoint(module);
     rewiremock(plugin_path).with({
@@ -238,7 +242,7 @@ describe("Load plugins", function () {
     rewiremock.enable();
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-08");
@@ -248,10 +252,11 @@ describe("Load plugins", function () {
     }
     rewiremock.disable();
   });
-  it("Throw an error when rule does not have a lint function", function () {
+
+  it("Throw an error when rule does not have a lint function", async function () {
     const config_path = path.join(__dirname, "fixtures", "invalid-config-plugin.cjs");
     try {
-      config_from_path(config_path);
+      await config_from_path(config_path);
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-05");
