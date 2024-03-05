@@ -71,7 +71,7 @@ export default class Linter {
       issues = issues.slice(0, this.config.maxerr);
     }
 
-    return Promise.resolve(issues);
+    return Promise.resolve({ dom, issues });
   }
 
   // Here ignore ts error as "dom" is special rule.

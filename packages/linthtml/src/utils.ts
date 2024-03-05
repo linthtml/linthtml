@@ -1,7 +1,7 @@
 import chalkTemplate from "chalk-template";
 import type Issue from "@linthtml/core/issue";
-
 import { createRequire } from "module";
+import type { Document } from "@linthtml/dom-utils";
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
@@ -32,6 +32,7 @@ function exitProcess(is_errored: typeof EXIT_CODE_ERROR | typeof EXIT_CODE_NORMA
 }
 
 type Report = {
+  dom: Document;
   fileName: string;
   issues: Issue[];
   config_path?: string;

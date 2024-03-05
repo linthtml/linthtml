@@ -12,6 +12,7 @@ import type { Ignore } from "ignore";
 import ignore from "ignore";
 import { EOL } from "os";
 import type Issue from "./issue.js";
+import type { Document } from "@linthtml/dom-utils";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -25,7 +26,10 @@ export interface FileLinter {
 /**
  * The linthtml namespace.
  */
-const linthtml = function (html: string, config: LegacyLinterConfig | LinterConfig): Promise<Issue[]> {
+const linthtml = function (
+  html: string,
+  config: LegacyLinterConfig | LinterConfig
+): Promise<{ dom: Document; issues: Issue[] }> {
   if (config?.rules !== undefined) {
     const linter = new Linter(config as LinterConfig);
     return linter.lint(html);
@@ -104,13 +108,14 @@ function create_file_linter(
     preset?: string;
     filepath?: string;
     config: LegacyLinterConfig | LinterConfig;
+    fix?: boolean;
   }
 ): FileLinter {
   return {
     file_path,
     preset: config.preset,
     config_path: config.filepath,
-    linter: linthtml.fromConfig(config.config)
+    linter: linthtml.fromConfig({ ...config.config, fix: config.fix })
   };
 }
 
@@ -120,11 +125,15 @@ function create_file_linter(
  * @param {string[]} globs - An array of globs
  * @param {string} [config_path] - Path the config file that will be use to create configure the linters
  */
-linthtml.create_linters_for_files = async function (globs: string[], config_path?: string): Promise<FileLinter[]> {
+linthtml.create_linters_for_files = async function (
+  globs: string[],
+  config_path?: string,
+  fix?: boolean
+): Promise<FileLinter[]> {
   if (config_path) {
     const config = await config_from_path(config_path);
     const files = get_files_to_lint(globs, config.config);
-    return files.map((file_path) => create_file_linter(file_path, config));
+    return files.map((file_path) => create_file_linter(file_path, { ...config, fix }));
   }
   const files = get_files_to_lint(globs);
   const files_config = await Promise.all(
@@ -138,15 +147,15 @@ linthtml.create_linters_for_files = async function (globs: string[], config_path
     };
 
     if (!should_ignore_file(file_path, local_config.config.ignoreFiles as string[])) {
-      return files_to_lint.concat(create_file_linter(file_path, local_config));
+      return files_to_lint.concat(create_file_linter(file_path, { ...local_config, fix }));
     }
     return files_to_lint;
   }, [] as FileLinter[]);
 };
 
-linthtml.from_config_path = async function (config_path: string): Promise<Linter | LegacyLinter> {
+linthtml.from_config_path = async function (config_path: string, fix: ?boolean): Promise<Linter | LegacyLinter> {
   const config = await config_from_path(config_path);
-  return linthtml.fromConfig(config.config);
+  return linthtml.fromConfig({ ...config.config, fix });
 };
 
 linthtml.Linter = Linter;

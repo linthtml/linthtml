@@ -2,13 +2,14 @@ import { Parser } from "htmlparser2";
 import DomBuilder from "./dom_builder.js";
 // TODO find a way to have /dom_elements
 import type { Document } from "@linthtml/dom-utils";
+import render from "dom-serializer";
 /**
  * Parse an HTML text and return an AST tree
  *
  * @param {string} htmlText
  * @returns {Node{}}
  */
-export default function parse(htmlText: string): Document {
+export function parse(htmlText: string): Document {
   const lineOffsets = [0];
 
   let match;
@@ -44,4 +45,8 @@ export default function parse(htmlText: string): Document {
     dom = domBuilder.root;
   }
   return dom;
+}
+
+export function render(root: Document) {
+  return render(root);
 }

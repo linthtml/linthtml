@@ -9,8 +9,7 @@ import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./r
 import { get_module_path } from "./read-config.js";
 import type { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
 
-type Parser = Promise<(html: string) => Document>;
-
+type Parser = Promise<{ parse: (html: string) => Document; render?: (root: Document) => string }>;
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column
@@ -45,29 +44,36 @@ function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig
   };
 }
 
-function get_parser(config: LinterConfig): Parser {
+function get_parser(config: LinterConfig): Promise<Parser> {
   if (config?.parser) {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
-      // eslint-disable-next-line  @typescript-eslint/no-unsafe-member-access
-      return import(parser_module).then((parser) => (parser.default ?? parser) as Parser);
+      // @ts-expect-error don't worry
+      return import(parser_module).then((parser) => ({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        parse: parser.default ?? parser
+      }));
     } catch (error) {
       // @ts-expect-error system error with meta object
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
-  // Eslint Typescript recommend using import statement but import return a promise.
   /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-  return import("@linthtml/html-parser").then((parser) => parser.default ?? parser);
+  // @ts-expect-error don't worry
+  return import("@linthtml/html-parser").then((parser) => ({
+    parse: parser.default ?? parser
+  }));
 }
 
 export default class Linter {
   private get_parse_fn: () => Parser;
+  private get_parse_fn: () => Promise<{ parse: (html: string) => Document; render?: (root: Document) => string }>;
 
   public config: Config;
 
   constructor(config: LinterConfig) {
+    // @ts-expect-error don't worry
     this.get_parse_fn = () => get_parser(config);
     // this.parse_fn = get_parser(config);
     this.config = new Config(rules, config);
@@ -76,10 +82,10 @@ export default class Linter {
   /**
    * Lints the HTML with the options supplied in the environments setup.
    */
-  async lint(html: string): Promise<Issue[]> {
+  async lint(html: string): Promise<{ content: string; issues: Issue[] }> {
     html = raw_ignore_regex(html, this.config.config);
-    const parse_fn = await this.get_parse_fn();
-    const dom = parse_fn(html);
+    const { parse, render } = await this.get_parse_fn();
+    const dom = parse(html);
     const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
       (name) => this.config.activated_rules[name]
     );
@@ -90,7 +96,7 @@ export default class Linter {
       issues = issues.slice(0, this.config.config.maxerr); // REMOVE: After v1.
     }
 
-    return Promise.resolve(issues);
+    return { content: render?.(dom) ?? html, issues };
   }
 
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {

@@ -58,6 +58,10 @@ const cliOptions = {
       alias: "h",
       type: "boolean"
     },
+    fix: {
+      alias: "f",
+      type: "boolean"
+    },
     version: {
       alias: "v",
       type: "boolean"
@@ -90,14 +94,14 @@ export function cli(argv: string[]) {
   if (cli.flags.help || cli.flags.h || argv.length === 0) {
     cli.showHelp();
   }
-  return lint(cli.input, cli.flags.config as string);
+  return lint(cli.input, cli.flags.config, cli.flags.fix);
 }
 
-async function lint(input: string[], config_path: string) {
+async function lint(input: string[], config_path: string | undefined, fix?: boolean) {
   let files_linters = [];
   const searchSpinner = ora("Searching for files").start();
   try {
-    files_linters = await linthtml.create_linters_for_files(input, config_path);
+    files_linters = await linthtml.create_linters_for_files(input, config_path, fix);
     searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
   } catch (error) {
     searchSpinner.fail();
@@ -109,6 +113,13 @@ async function lint(input: string[], config_path: string) {
   try {
     lintSpinner.start();
     let reports: Report[] = await Promise.all(files_linters.map(lintFile));
+    // if (fix) {
+    //   reports.forEach(({ fileName, dom }) => {
+    //     // @ts-expect-error Fix types
+    //     const html = render(dom);
+    //     fs.writeFileSync(`${fileName}.new`, html);
+    //   });
+    // }
     reports = reports.filter((report) => report.issues.length > 0);
     lintSpinner.succeed("Files analyzed");
     printReports(reports);
@@ -160,12 +171,13 @@ function printReports(reports: Report[]) {
 async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> | never {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
-    const issues = await linter.lint(file_content);
+    const { dom, issues } = await linter.lint(file_content);
     return {
       fileName: file_path,
       issues,
       config_path,
-      preset
+      preset,
+      dom
     };
   } catch (error) {
     (error as CliError).fileName = file_path;

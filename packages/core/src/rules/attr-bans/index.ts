@@ -47,9 +47,26 @@ function mut_config(options: Rule_Config): Array<string | RegExp> {
   return options;
 }
 
-function lint(node: Node, config: Rule_Config, { report }: { report: reportFunction }) {
+function lint(node: Node, config: Rule_Config, { report, fix }: { report: reportFunction; fix: boolean }) {
   if (is_tag_node(node)) {
     const banned_attrs = mut_config(config);
+    const should_fix = fix ?? true;
+
+    console.log(should_fix);
+    if (should_fix) {
+      const attributes = banned_attrs.reduce((attributes, attribute) => {
+        return attributes.filter((attr) => {
+          const attribute_name = attr.name.chars.toLowerCase();
+          if (isRegExp(attribute)) {
+            return attribute.test(attribute_name) === false;
+          }
+          return attribute_name !== attribute;
+        });
+      }, node.attributes);
+      console.log(attributes);
+      node.attributes = attributes;
+      return;
+    }
     banned_attrs.forEach((banned) => {
       const attributes = node.attributes.filter(({ name }) => {
         const attribute_name = name.chars.toLowerCase();
@@ -73,6 +90,7 @@ function lint(node: Node, config: Rule_Config, { report }: { report: reportFunct
   }
 }
 
+// @ts-expect-error
 export default {
   name: RULE_NAME,
   validateConfig,
