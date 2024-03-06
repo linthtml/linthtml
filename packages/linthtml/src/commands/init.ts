@@ -18,18 +18,38 @@ const default_config = {
 const GENERATORS = {
   TS: {
     name: ".linthtmlrc.ts",
-    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
-      `export default ${JSON.stringify(content, null, "\t")}`
+    generate_content: (content: LegacyLinterConfig | LinterConfig, isLegacyConfig = false) => {
+      const type_import = isLegacyConfig ? "LegacyConfig" : "Config";
+      return `import type { ${type_import} } from '@linthtml/linthtml';\n\nexport default ${JSON.stringify(
+        content,
+        null,
+        "\t"
+      )} satisfies ${type_import};`;
+    }
   },
   CJS: {
     name: ".linthtmlrc.cjs",
-    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
-      `module.exports = ${JSON.stringify(content, null, "\t")}`
+    generate_content: (content: LegacyLinterConfig | LinterConfig, isLegacyConfig = false) => {
+      const type_import = isLegacyConfig ? "LegacyConfig" : "Config";
+
+      return `/** @type {import('@linthtml/linthtml').${type_import}}*/\nmodule.exports = ${JSON.stringify(
+        content,
+        null,
+        "\t"
+      )}`;
+    }
   },
   ESM: {
     name: ".linthtmlrc.mjs",
-    generate_content: (content: LegacyLinterConfig | LinterConfig) =>
-      `export default ${JSON.stringify(content, null, "\t")}`
+    generate_content: (content: LegacyLinterConfig | LinterConfig, isLegacyConfig = false) => {
+      const type_import = isLegacyConfig ? "LegacyConfig" : "Config";
+
+      return `/** @type {import('@linthtml/linthtml').${type_import}}*/\nexport default ${JSON.stringify(
+        content,
+        null,
+        "\t"
+      )}`;
+    }
   },
   JSON: {
     name: ".linthtmlrc.json",
@@ -76,7 +96,7 @@ export default async function init_command(): Promise<void> {
   const config_file = GENERATORS[response.format];
   console.log();
   if (response.legacy) {
-    fs.writeFileSync(config_file.name, config_file.generate_content(linthtml.presets.default), "utf8");
+    fs.writeFileSync(config_file.name, config_file.generate_content(linthtml.presets.default, true), "utf8");
   } else {
     fs.writeFileSync(config_file.name, config_file.generate_content(default_config), "utf8");
     console.log(chalkTemplate`⚠️ {yellow The new format does not provide default configurations for rules}`);
