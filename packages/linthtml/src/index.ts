@@ -61,7 +61,7 @@ const cliOptions = {
   }
 } satisfies meow.Options<meow.AnyFlags>;
 
-export default function cli(argv: string[]) {
+export function cli(argv: string[]) {
   const cli = meow({ ...cliOptions, argv });
   const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as meow.AnyFlags, cli.flags as meow.AnyFlags);
   if (invalidOptionsMessage) {
@@ -82,7 +82,6 @@ export default function cli(argv: string[]) {
   }
 
   // use config_path if provided or search local config file
-
   if (cli.flags.help || cli.flags.h || argv.length === 0) {
     cli.showHelp();
   }
@@ -168,3 +167,6 @@ async function lintFile({ file_path, linter, config_path, preset }: FileLinter):
     throw error;
   }
 }
+
+// TODO: Temp solution until packages split is "fixed"
+export default linthtml;
