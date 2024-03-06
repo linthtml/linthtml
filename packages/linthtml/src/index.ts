@@ -13,6 +13,7 @@ import print_config_command from "./commands/print-config.js";
 import printErrors, { CliError } from "./print-errors.js";
 
 import linthtml, { FileLinter } from "@linthtml/core";
+import type { LinterConfig, LegacyLinterConfig } from "@linthtml/core";
 import type Issue from "@linthtml/core/issue";
 
 const cliOptions = {
@@ -170,3 +171,5 @@ async function lintFile({ file_path, linter, config_path, preset }: FileLinter):
 
 // TODO: Temp solution until packages split is "fixed"
 export default linthtml;
+export type Config = LinterConfig;
+export type LegacyConfig = LegacyLinterConfig;
