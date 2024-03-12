@@ -1,9 +1,9 @@
 import kebabCase from "lodash.kebabcase";
 import chalk from "chalk";
 import { EOL } from "os";
-import meow from "meow";
+import type { AnyFlags } from "meow";
 
-function buildAllowedOptions(allowedOptions: meow.AnyFlags) {
+function buildAllowedOptions(allowedOptions: AnyFlags) {
   let options = Object.keys(allowedOptions);
 
   options = options.reduce((opts, opt) => {
@@ -28,7 +28,7 @@ function buildMessageLine(invalid: string) {
   return `Invalid option ${chalk.red(cliOption(invalid))}.${EOL}`;
 }
 
-export default function checkInvalidCLIOptions(allowedOptions: meow.AnyFlags, inputOptions: meow.AnyFlags) {
+export default function checkInvalidCLIOptions(allowedOptions: AnyFlags, inputOptions: AnyFlags) {
   const allOptions = buildAllowedOptions(allowedOptions);
   return Object.keys(inputOptions)
     .filter((opt) => !allOptions.includes(opt))
