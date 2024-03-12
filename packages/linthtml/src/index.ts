@@ -2,7 +2,7 @@
 import fs from "fs";
 import chalkTemplate from "chalk-template";
 import ora from "ora";
-import meow from "meow";
+import meow, { AnyFlags, Options } from "meow";
 
 import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils.js";
 
@@ -59,12 +59,13 @@ const cliOptions = {
       alias: "v",
       type: "boolean"
     }
-  }
-} satisfies meow.Options<meow.AnyFlags>;
+  },
+  importMeta: import.meta
+} satisfies Options<AnyFlags>;
 
 export function cli(argv: string[]) {
   const cli = meow({ ...cliOptions, argv });
-  const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as meow.AnyFlags, cli.flags as meow.AnyFlags);
+  const invalidOptionsMessage = checkInvalidCLIOptions(cliOptions.flags as AnyFlags, cli.flags as AnyFlags);
   if (invalidOptionsMessage) {
     process.stderr.write(invalidOptionsMessage);
     return exitProcess();

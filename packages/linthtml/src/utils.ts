@@ -1,16 +1,14 @@
 import chalkTemplate from "chalk-template";
 import type Issue from "@linthtml/core/issue";
+import packageJSON from "../package.json" assert { type: "json" };
 
 const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
 
 function isBetaVersion() {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // const { version } = require("../package.json");
-  // const R_BETA = /-(?:beta|alpha)\.\d+$/;
-  // return R_BETA.test(version);
-  // TODO: Fix
-  return false;
+  const { version } = packageJSON;
+  const R_BETA = /-(?:beta|alpha)\.\d+$/;
+  return R_BETA.test(version);
 }
 
 function displayBetaVersionMessage() {
