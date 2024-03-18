@@ -252,7 +252,10 @@ function load_plugin(plugin_name: string): PluginConfig | never {
     // const plugin_import = await import(plugin_name);
     // Handle either ES6 or CommonJS modules
     return plugin_import.default || plugin_import;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.code === "ERR_REQUIRE_ESM") {
+      throw new CustomError("CORE-10", { module_name: plugin_name });
+    }
     throw new CustomError("CORE-05", { module_name: plugin_name });
   }
 }
