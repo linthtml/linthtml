@@ -7,7 +7,7 @@ import * as messages from "./messages.js";
 
 import path from "path";
 import fs from "fs";
-import globby from "globby";
+import { globbySync } from "globby";
 import ignore from "ignore";
 import Issue from "./issue.js";
 
@@ -56,7 +56,7 @@ function get_files_to_lint(input: string[], config: LegacyLinterConfig | LinterC
 function get_files_from_glob(glob_pattern: string, ignore_config: string | string[] | undefined): string[] {
   const use_default_ignore = ignore_config === undefined && path.isAbsolute(glob_pattern) === false;
 
-  return globby.sync([glob_pattern, ...DEFAULT_EXCLUDED_FOLDERS], {
+  return globbySync([glob_pattern, ...DEFAULT_EXCLUDED_FOLDERS], {
     gitignore: use_default_ignore,
     expandDirectories: {
       files: ["**/*.html"],
