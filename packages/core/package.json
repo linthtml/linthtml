@@ -57,7 +57,7 @@
     "bulk-require": "1.0.1",
     "cosmiconfig": "^8.0.0",
     "global-modules": "^2.0.0",
-    "globby": "^12.0.0",
+    "globby": "^13.0.0",
     "ignore": "^5.2.4",
     "lodash.pull": "4.1.0",
     "resolve-from": "^5.0.0",
