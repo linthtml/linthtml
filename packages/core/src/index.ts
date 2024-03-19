@@ -10,6 +10,7 @@ import fs from "fs";
 import { globbySync } from "globby";
 import ignore from "ignore";
 import Issue from "./issue.js";
+import { EOL } from "os";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -44,8 +45,8 @@ linthtml.fromConfig = fromConfig;
 
 function get_files_to_lint(input: string[], config: LegacyLinterConfig | LinterConfig = {}): string[] {
   const ignore_config = read_dot_ignore_file();
-  const ignoreFiles: string[] | undefined = config.ignoreFiles as string[] | undefined;
-  const ignore_patterns = ignore_config || ignoreFiles;
+  const ignore_files: string[] | undefined = config.ignoreFiles as string[] | undefined;
+  const ignore_patterns = ignore_config || ignore_files;
   const file_paths = input.reduce(
     (paths, pattern) => [...paths, ...get_files_from_glob(pattern, ignore_patterns)],
     [] as string[]
@@ -65,20 +66,23 @@ function get_files_from_glob(glob_pattern: string, ignore_config: string | strin
   });
 }
 
-function filter_ignored_files(file_paths: string[], ignore_pattern: string | string[] | undefined) {
+function filter_ignored_files(file_paths: string[], ignore_pattern?: string[]) {
   if (ignore_pattern === undefined) {
     return file_paths;
   }
 
-  // @ts-ignore
   const ignorer = ignore().add(ignore_pattern);
   return ignorer.filter(file_paths);
 }
 
-function read_dot_ignore_file(): string | undefined {
+function read_dot_ignore_file(): string[] | undefined {
   const ignore_file_path = path.join(process.cwd(), ".linthtmlignore");
   if (fs.existsSync(ignore_file_path)) {
-    return fs.readFileSync(ignore_file_path).toString();
+    return fs
+      .readFileSync(ignore_file_path)
+      .toString()
+      .split(EOL)
+      .filter((pattern) => pattern !== "");
   }
   return undefined;
 }
@@ -87,7 +91,6 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
   if (ignore_pattern.length === 0) {
     return false;
   }
-  // @ts-ignore
   const ignorer = ignore().add(ignore_pattern);
   return ignorer.ignores(file_path);
 }
