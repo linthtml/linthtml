@@ -226,7 +226,7 @@ describe("Config", function () {
       const rule_config = {
         "attr-bans": ["error"]
       } as const;
-      // @ts-ignore
+      // @ts-expect-error Testing config validation here
       expect(() => config.setRuleConfig(rule, rule_config)).to.not.throw();
     });
     describe("Rule validation", function () {
@@ -245,7 +245,7 @@ describe("Config", function () {
           lint() {},
           validateConfig(config) {
             expect(config).to.not.be.undefined;
-            // @ts-ignore
+            // @ts-expect-error Cannot infer rule config here
             expect(config.bar).to.equal("bar");
             done();
           }
@@ -270,7 +270,7 @@ describe("Config", function () {
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           configTransform(config) {
-            // @ts-ignore
+            // @ts-expect-error Cannot infer rule config here
             return config.bar;
           },
           validateConfig(config) {

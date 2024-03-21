@@ -12,7 +12,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
       return;
     }
     // node has a duplicate id
-    // @ts-ignore
+    // @ts-expect-error To remove once moved to visitor pattern
     const saved_id: CharValue = this.idMap.get(id.chars);
     if (saved_id) {
       report({
@@ -29,14 +29,14 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     }
     // if we haven't seen the id before, remember it
     // and pass the node
-    // @ts-ignore
+    // @ts-expect-error To remove once moved to visitor pattern
     this.idMap.set(id.chars, id);
   }
 }
 
 function end() {
   // wipe previous table
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   this.idMap = new Map<string, CharValue>();
   return [];
 }
@@ -45,6 +45,5 @@ export default {
   name: RULE_NAME,
   lint,
   end,
-  // @ts-ignore
-  idMap: new Map<string, CharValue>() // TODO: Convert rules to class to fix this issue?
+  idMap: new Map<string, CharValue>()
 } as RuleDefinition;

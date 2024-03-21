@@ -22,12 +22,11 @@ function is_whitespace(node: Node) {
 
 function lint(node: Node, mode: string, { report }: { report: reportFunction }) {
   // CHECK if parent if first child instead
-  // USE util function to check node type
-  // @ts-ignore
+  // @ts-expect-error USE parents and sibling instead
   if (this.passedFirst || is_comment_node(node) || is_whitespace(node)) {
     return;
   }
-  // @ts-ignore
+  // @ts-expect-error USE parents and sibling instead
   this.passedFirst = true;
 
   if (is_directive_node(node) && node.name.toUpperCase() === "!DOCTYPE") {
@@ -51,7 +50,7 @@ export default {
   lint,
   passedFirst: false,
   end() {
-    // @ts-ignore
+    // @ts-expect-error USE parents and sibling instead
     this.passedFirst = false;
     return [];
   }

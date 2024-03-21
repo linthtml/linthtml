@@ -43,7 +43,7 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
 }
 
 function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfig) {
-  // @ts-ignore
+  // @ts-expect-error Legacy, rules should not have a context object normally
   const subs = this.subscribers;
   /*
    * Reset our inline configuration object to be what opts is.
