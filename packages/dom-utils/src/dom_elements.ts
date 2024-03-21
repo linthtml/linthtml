@@ -3,7 +3,11 @@ import { ElementType } from "domelementtype";
 
 // TODO: Add new type or template for CharValue with non empty raw value (like attribute value)
 export class CharValue {
-  constructor(public chars: string, public loc: Range, public raw?: string) {
+  constructor(
+    public chars: string,
+    public loc: Range,
+    public raw?: string
+  ) {
     this.chars = chars;
     this.raw = raw;
     this.loc = loc;
@@ -28,14 +32,20 @@ export class NodeAttribute {
 }
 
 export class Range {
-  constructor(public start: Position, public end: Position) {
+  constructor(
+    public start: Position,
+    public end: Position
+  ) {
     this.start = start;
     this.end = end;
   }
 }
 
 export class Position {
-  constructor(public line: number, public column: number) {
+  constructor(
+    public line: number,
+    public column: number
+  ) {
     this.line = line;
     this.column = column;
   }
@@ -115,8 +125,8 @@ export class Element extends Node {
     type: ElementType.Tag | ElementType.Script | ElementType.Style = name === "script"
       ? ElementType.Script
       : name === "style"
-      ? ElementType.Style
-      : ElementType.Tag
+        ? ElementType.Style
+        : ElementType.Tag
   ) {
     super(type, children);
   }
