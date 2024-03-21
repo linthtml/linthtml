@@ -8,4 +8,4 @@ updates:
     groups:
       commitlint-deps:
         patterns:
-          - "@commilint*"
+          - "@commitlint*"
