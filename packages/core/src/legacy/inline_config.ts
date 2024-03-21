@@ -117,7 +117,7 @@ export default class InlineConfig {
       key_values.forEach((pair) => {
         // TODO More precise line/column numbers
         const r = this.parsePair(pair.name, pair.value, node.loc);
-        // @ts-ignore
+        // @ts-expect-error Weird legacy
         (r.code ? issues : settings).push(r);
       });
     } else {
@@ -165,7 +165,7 @@ export default class InlineConfig {
    */
   parsePair(name: string, value: string, pos: Range) {
     if (!name || !value || !name.length || !value.length) {
-      // @ts-ignore
+      // @ts-expect-error Error can accept extra args
       throw new Error("Cannot parse inline configuration.", { pos });
     }
 

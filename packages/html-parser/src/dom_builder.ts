@@ -33,7 +33,7 @@ export default class Handler extends DomHandler {
   }
 
   get _parser() {
-    // @ts-ignore
+    // @ts-expect-error Trick to avoid having to use ts-expect-error in many places
     return this.parser;
   }
 
@@ -96,7 +96,7 @@ export default class Handler extends DomHandler {
   }
 
   onopentag(name: string /* , attribs: { [key: string]: string } */): void {
-    // @ts-ignore
+    // @ts-expect-error This options is marked as private but still usage here
     const type = this.options.xmlMode ? ElementType.Tag : undefined;
     const node = new Element(name, this.attributes, undefined, type);
     this.addNode(node);

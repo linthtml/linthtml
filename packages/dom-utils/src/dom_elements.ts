@@ -70,7 +70,7 @@ function ExtendedNode<TBase extends Constructor>(
   prototype: MyExtendedNode;
 } & TBase {
   return class TExtractor extends Base {
-    // @ts-ignore
+    // @ts-expect-error Ignore
     private _loc: Range;
     get loc() {
       return this._loc;
@@ -80,7 +80,7 @@ function ExtendedNode<TBase extends Constructor>(
       this._loc = value;
     }
 
-    // @ts-ignore
+    // @ts-expect-error Ignore
     private _open: CharValue;
     get open() {
       return this._open;

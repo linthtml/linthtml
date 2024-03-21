@@ -19,7 +19,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   if (node.name === "label") {
     const for_attribute = attribute_value(node, "for");
     if (for_attribute) {
-      // @ts-ignore
+      // @ts-expect-error To remove once moved to visitor pattern
       this.labels[for_attribute.chars] = node;
     }
     return;
@@ -46,19 +46,19 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   }
 
   // check if the input has a label as a parent.
-  // TODO: check if
-  // @ts-ignore
-  for (let e = node; (e = e.parent); ) {
-    if (e.name === "label") {
+  let parent = node.parent as Element; // TODO: Fix typing for parent node
+  while (parent) {
+    if (parent.name === "label") {
       return;
     }
+    parent = parent.parent as Element;
   }
 
   // check if the input has a named label, by storing the values to
   // check at the end.
   const id = attribute_value(node, "id");
   if (id) {
-    // @ts-ignore
+    // @ts-expect-error To remove once moved to visitor pattern
     this.inputsInfo.push({
       id: id.chars,
       loc: node.open.loc
@@ -88,7 +88,7 @@ function end() {
       loc: Range;
     }[];
     labels: Record<string, Node>;
-    // @ts-ignore
+    // @ts-expect-error To remove once moved to visitor pattern
   } = this;
   inputsInfo.forEach(({ id, loc }) => {
     if (!labels[id]) {
@@ -105,9 +105,9 @@ function end() {
   });
 
   // wipe previous table
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   this.labels = {};
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   this.inputsInfo = [];
 
   return issues;
