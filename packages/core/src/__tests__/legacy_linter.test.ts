@@ -18,7 +18,7 @@ describe("LegacyLinter", function () {
     return new Linter(
       [
         dom,
-        // @ts-ignore
+        // @ts-expect-error Free option rules are weird legacy
         FreeOptionsRule
       ],
       ...config
@@ -86,7 +86,7 @@ describe("LegacyLinter", function () {
       const issue = { msg: "hit" };
       const linter = createLinter();
       linter.rules.addRule({
-        // @ts-ignore
+        // @ts-expect-error Weird legacy
         end() {
           return issue;
         }

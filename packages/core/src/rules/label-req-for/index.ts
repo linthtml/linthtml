@@ -57,14 +57,14 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     });
   }
 
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   if (!this.idmap) {
-    // @ts-ignore
+    // @ts-expect-error To remove once moved to visitor pattern
     this.idmap = buil_id_map(node);
   }
 
   const id = (attribute_value(node, "for") as CharValue).chars;
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   const fornodement = this.idmap.get(id);
 
   if (!fornodement) {
@@ -92,7 +92,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
 }
 
 function end() {
-  // @ts-ignore
+  // @ts-expect-error To remove once moved to visitor pattern
   this.idmap = null;
   return [];
 }
@@ -101,7 +101,5 @@ export default {
   name: RULE_NAME,
   lint,
   end,
-
-  // @ts-ignore
   idmap: null // needed?
 } as RuleDefinition;

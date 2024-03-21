@@ -1,5 +1,5 @@
 import chalkTemplate from "chalk-template";
-// @ts-ignore
+// @ts-expect-error No types available
 import Table from "table-layout";
 import { renderIssue } from "@linthtml/core/messages";
 import { Report } from "./utils.js";
