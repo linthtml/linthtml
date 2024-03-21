@@ -423,6 +423,6 @@ export function check_lang_attribute(lang_attribute: CharValue) {
   return check_lang_code(lang) && check_country_code(country)
     ? 0
     : check_lang_code(lang.toLowerCase()) && check_country_code(country.toUpperCase())
-    ? 2
-    : 1;
+      ? 2
+      : 1;
 }
