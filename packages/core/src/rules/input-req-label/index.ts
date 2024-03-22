@@ -51,7 +51,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     if (parent.name === "label") {
       return;
     }
-    parent = node.parent as Element;
+    parent = parent.parent as Element;
   }
 
   // check if the input has a named label, by storing the values to
