@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import linthtml from "../../index.js";
 import { presets } from "../../presets/index.js";
-import { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
+import type { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
 
 describe("legacy linter | id-no-dup", function () {
   function createLinter(config: LegacyLinterConfig) {
@@ -39,7 +39,7 @@ describe("legacy linter | id-no-dup", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>
@@ -101,7 +101,7 @@ describe("id-no-dup", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>

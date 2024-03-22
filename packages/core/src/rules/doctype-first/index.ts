@@ -1,6 +1,6 @@
-import { Node } from "@linthtml/dom-utils/dom_elements";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node, is_text_node, is_directive_node, is_comment_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "doctype-first";
 
@@ -23,10 +23,12 @@ function is_whitespace(node: Node) {
 function lint(node: Node, mode: string, { report }: { report: reportFunction }) {
   // CHECK if parent if first child instead
   // @ts-expect-error USE parents and sibling instead
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (this.passedFirst || is_comment_node(node) || is_whitespace(node)) {
     return;
   }
   // @ts-expect-error USE parents and sibling instead
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   this.passedFirst = true;
 
   if (is_directive_node(node) && node.name.toUpperCase() === "!DOCTYPE") {

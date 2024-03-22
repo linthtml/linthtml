@@ -1,6 +1,6 @@
-import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
+import type { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "attr-new-line";
 
@@ -18,7 +18,7 @@ function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunc
       position: attribute.loc,
       meta: {
         data: {
-          limit
+          limit: limit.toString()
         }
       }
     });
@@ -27,7 +27,7 @@ function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunc
     return;
   }
 
-  const attributes_lines = (node as Element).attributes.reduce((m, attribute) => {
+  const attributes_lines = node.attributes.reduce((m, attribute) => {
     const line = m.get(attribute.loc.start.line) || [];
     m.set(attribute.loc.start.line, line.concat([attribute]));
     if (attribute.loc.end.line !== attribute.loc.start.line) {

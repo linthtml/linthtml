@@ -1,12 +1,15 @@
 import Config from "./config.js";
-import { extract_inline_config, InlineConfig } from "./inline_config.js";
+import type { InlineConfig } from "./inline_config.js";
+import { extract_inline_config } from "./inline_config.js";
 import rules from "./rules/index.js";
 import Issue from "./issue.js";
 import CustomError from "./utils/custom-errors.js";
 
-import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config.js";
-import { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
-import { flatten } from "./utils/array.js";
+import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config.js";
+import { get_module_path } from "./read-config.js";
+import type { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
+
+type Parser = Promise<(html: string) => Document>;
 
 /**
  * Apply the raw-ignore-regex option.
@@ -19,7 +22,7 @@ function raw_ignore_regex(html: string, options: LegacyLinterConfig | LinterConf
     return html;
   }
   // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
-  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
+  return html.replace(new RegExp(ignore, "gm"), function (match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }
@@ -42,24 +45,25 @@ function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig
   };
 }
 
-function get_parser(config: LinterConfig): Promise<(html: string) => Document> {
+function get_parser(config: LinterConfig): Parser {
   if (config?.parser) {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
-      return import(parser_module).then((parser) => parser.default ?? parser);
+      // eslint-disable-next-line  @typescript-eslint/no-unsafe-member-access
+      return import(parser_module).then((parser) => (parser.default ?? parser) as Parser);
     } catch (error) {
       // @ts-expect-error system error with meta object
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
-  // TODO: Switch to import
   // Eslint Typescript recommend using import statement but import return a promise.
   /* eslint-disable-next-line @typescript-eslint/no-var-requires */
   return import("@linthtml/html-parser").then((parser) => parser.default ?? parser);
 }
 
 export default class Linter {
-  private get_parse_fn: () => Promise<(html: string) => Document>;
+  private get_parse_fn: () => Parser;
 
   public config: Config;
 
@@ -126,7 +130,7 @@ export default class Linter {
       inline_config = merge_inline_config(inline_config, extracted_inline_config);
       return getIssues(node, inline_config);
     });
-    return [...issues, ...flatten(rules_issues)];
+    return [...issues, ...rules_issues.flat()];
   }
 
   // TODO: Remove after v1

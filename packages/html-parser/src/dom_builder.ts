@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { DomHandler, ElementType } from "htmlparser2";
 // TODO: remove
+import type { Node } from "@linthtml/dom-utils";
 import {
   is_void_node,
   CharValue,
   Document,
   Element,
   NodeAttribute,
-  Node,
   Position,
   Range
   // TODO find a way to have /dom_elements

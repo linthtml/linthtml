@@ -23,91 +23,107 @@ export const CORE_ERRORS: { [code: string]: (meta?: Record<string, unknown>) => 
 } as const;
 
 // TODO: add the possibility to use chalk ?
-export const errors: {
-  [code: string]: (meta: Record<string, unknown>, position: Range) => string;
-} = {
+export const ISSUE_ERRORS = {
   E000: (/* data */) => "not a valid error code",
-  E001: (data) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
-  E002: ({ format, attribute }) => `The attribute "${attribute}" must be written using the format "${format}"`,
-  E003: (data) => `The attribute ${data.attribute} is duplicated`,
-  E004: ({ attribute }) => `The value of the attribute "${attribute}" contains unsafe characters`,
-  E005: (data) => `The attribute "${data.attribute}" is not ${data.format}`,
-  E006: ({ attribute }) => `The attribute "${attribute}" requires a value`,
+  E001: (data: { attribute: string }) => `The attribute "${data.attribute}" attribute is cannot be used as it's banned`,
+  E002: (data: { format: string; attribute: string }) =>
+    `The attribute "${data.attribute}" must be written using the format "${data.format}"`,
+  E003: (data: { attribute: string }) => `The attribute ${data.attribute} is duplicated`,
+  E004: (data: { attribute: string }) => `The value of the attribute "${data.attribute}" contains unsafe characters`,
+  E005: (data: { attribute: string; format: string }) => `The attribute "${data.attribute}" is not ${data.format}`,
+  E006: (data: { attribute: string }) => `The attribute "${data.attribute}" requires a value`,
   E007: (/* data */) => "The first element of the document should be <!DOCTYPE>",
   E008: (/* data */) => "The doctype must conform to the HTML5 standard",
-  E009: (data) => `Invalid href for link, only ${data.format} links are allowed`,
-  E010: ({ attribute, word }) =>
-    `The value of attribute "${attribute}" contains the word "${word}" which is not allowed`,
-  E011: (data) =>
+  E009: (data: { format: string }) => `Invalid href for link, only ${data.format} links are allowed`,
+  E010: (data: { attribute: string; word: string }) =>
+    `The value of attribute "${data.attribute}" contains the word "${data.word}" which is not allowed`,
+  E011: (data: { value: string; format: string; attribute: string }) =>
     `The value "${data.value}" of attribute "${data.attribute}" does not respect the format: ${data.format}`,
-  E012: (data) => `The id "${data.id}" is already used at L${data.line}:c${data.column}`,
+  E012: (data: { id: string; line: number; column: number }) =>
+    `The id "${data.id}" is already used at L${data.line}:c${data.column}`,
   E013: (/* data */) => 'The "alt" attribute must be set for <img> tag',
   E014: (/* data */) => 'The "src" attribute must be set for each <img> tag',
-  E015: (data) => `Line ending does not match format: ${data.format}`,
-  E016: (data) => `The tag <${data.tag}> is banned and should not be used`,
-  E017: (data) => `Invalid case for tag <${data.name}>, tag names must be written in lowercase`,
-  E018: (data) => `Void element should ${data.expect} close itself`,
+  E015: (data: { format: string }) => `Line ending does not match format: ${data.format}`,
+  E016: (data: { tag: string }) => `The tag <${data.tag}> is banned and should not be used`,
+  E017: (data: { name: string }) => `Invalid case for tag <${data.name}>, tag names must be written in lowercase`,
+  E018: (data: { expect: "always" | "never" }) => `Void element should ${data.expect} close itself`,
   E019: (/* data */) => 'The label has no attribute "for"',
   E020: (/* data */) => 'The Label does not have a "for" attribute or a labelable child',
-  E021: (data) =>
+  E021: (data: { id: string }) =>
     `There's no element with an id matching the one provided to the "for" attribute. Provided id is "${data.id}"`,
-  E022: (data) => `The element with the id "${data.id}" is not labelable`,
-  E023: (data) => `${data.part} contains ${data.desc}: ${data.chars}`,
-  E024: (data, { start }) => {
+  E022: (data: { id: string }) => `The element with the id "${data.id}" is not labelable`,
+  E023: (data: { part: string; desc: string; chars: string }) => `${data.part} contains ${data.desc}: ${data.chars}`,
+  E024: (
+    data: {
+      tagName: string;
+      expected_indentation: number;
+      expected_type: "spaces" | "tabs" | "mixed";
+      current_indentation: number;
+      current_type: "spaces" | "tabs" | "mixed";
+    },
+    { start }: Range
+  ) => {
     return `Incorrect indentation for \`${data.tagName}\` beginning at L${start.line}:C${start.column}. Expected indentation of ${data.expected_indentation} ${data.expected_type} but found ${data.current_indentation} ${data.current_type}.`;
   },
   E025: (/* data */) => '<HTML> tag should specify the language of the page using the "lang" attribute',
-  E026: (data) =>
+  E026: (data: { tabindex: number }) =>
     `The element has a tabindex of ${data.tabindex}, all focusable elements on a page must either have a negative number or 0 as tabindex`,
   E027: (/* data */) => "The <head> tag must contain a title",
-  E028: (data) => `The <head> tag can only contain one title: ${data.num} given`,
-  E029: (data) => `Title "${data.title}" exceeds maximum length of ${data.maxlength}`,
-  E030: ({ open }) =>
-    `Tag close does not match opened tag at C${(open as CharValue).loc.start.line}:L${
-      (open as CharValue).loc.start.column
-    }`,
+  E028: (data: { num: number }) => `The <head> tag can only contain one title: ${data.num} given`,
+  E029: (data: { title: string; max_length: number }) =>
+    `Title "${data.title}" exceeds maximum length of ${data.max_length}`,
+  E030: (data: { open: CharValue }) =>
+    `Tag close does not match opened tag at C${data.open.loc.start.line}:L${data.open.loc.start.column}`,
   E031: (/* data */) => "Table must have captions (<caption>) for accessibility",
   E032: (/* data */) => "Tag <figure> must contains a <figcaption> tag for accessibility",
-  E033: (data) => `Input with id "${data.idValue}" has no associated label`,
+  E033: (data: { idValue: string }) => `Input with id "${data.idValue}" has no associated label`,
   E034: (/* data */) => "Radio input must have an associated name",
   E035: (/* data */) => "Table must contains a header (<thead>) for accessibility",
-  E036: (data, { start }) => {
+  E036: (
+    data: { isClose: boolean; tagName: string; expected_indentation: number; current_indentation: number },
+    { start }: Range
+  ) => {
     const tag = data.isClose ? `<\\${data.tagName}>` : `<${data.tagName}>`;
     return `Incorrect indentation for \`${data.tagName}\` beginning at L${start.line}:C${start.column}. Expected \`${tag}\` to be at an indentation of ${data.expected_indentation} but was found at ${data.current_indentation}.`;
   },
-  E037: (data) => `Only ${data.limit} attributes per line are permitted`,
-  E038: (data) => `Value "${data.lang}" for attribute "lang" is not valid`,
-  E039: (data) => `Value "${data.lang}" for attribute "lang" is not properly capitalized`,
-  E040: (data) => `This line has a length of ${data.length}. Maximum allowed is ${data.maxlength}`,
-  E041: (data) => `The "class" attribute already contains "${data.classes}"`,
+  E037: (data: { limit: string }) => `Only ${data.limit} attributes per line are permitted`,
+  E038: (data: { lang: string }) => `Value "${data.lang}" for attribute "lang" is not valid`,
+  E039: (data: { lang: string }) => `Value "${data.lang}" for attribute "lang" is not properly capitalized`,
+  E040: (data: { length: number; maxlength: number }) =>
+    `This line has a length of ${data.length}. Maximum allowed is ${data.maxlength}`,
+  E041: (data: { classes: string }) => `The "class" attribute already contains "${data.classes}"`,
   E042: (/* data */) => "Tag is not closed",
-  E043: (data) => `Attribute "${data.attribute}" should come before "${data.previous}"`,
+  E043: (data: { attribute: string; previous: string }) =>
+    `Attribute "${data.attribute}" should come before "${data.previous}"`,
   E044: (/* data */) => "Only <head> and <body> may be children of <html>",
   E045: (/* data */) => "Tags in <html> may not be duplicated",
   E046: (/* data */) => "Tag <head> must come before <body> in <html>",
   E047: (/* data */) =>
     "The only tags allowed in the <head> are base, link, meta, noscript, script, style, template, and title",
   E049: (/* data */) => "The tag attributes are malformed",
-  E051: ({ name }) => `unrecognized rule name or preset \`${name}\` in linthtml-configure instruction`,
-  E052: ({ preset }) => `unrecognized preset name \`${preset}\` in linthtml-configure instruction `,
+  E051: (data: { name: string }) =>
+    `unrecognized rule name or preset \`${data.name}\` in linthtml-configure instruction`,
+  E052: (data: { preset: string }) => `unrecognized preset name \`${data.preset}\` in linthtml-configure instruction `,
   E055: (/* data */) => "Line contains trailing whitespace",
-  E056: (data) =>
+  E056: (data: { expectedMin: number; expectedMax: number; value: string }) =>
     `Expected from ${data.expectedMin} to ${data.expectedMax} levels of indentation. ${data.value} levels instead`,
-  E057: (data) => `Mandatory attribute "${data.attribute}" is missing in tag <${data.tag}>`,
+  E057: (data: { attribute: string; tag: string }) =>
+    `Mandatory attribute "${data.attribute}" is missing in tag <${data.tag}>`,
   E058: (/* data */) => 'Links should with `target="blank"` should define `rel="noopener"`',
-  E059: ({ content }) =>
-    `Link text should have at least 4 chars, current text "${content}" has a length of ${(content as string).length}`,
+  E059: (data: { content: string }) =>
+    `Link text should have at least 4 chars, current text "${data.content}" has a length of ${data.content.length}`,
   E060: (/* data */) => 'Input elements with type "button", "submit" and "reset" must have a value or title attribute.',
   E061: (/* data */) => "Each button element must have a text content.",
   E062: (/* data */) => "A <label> element should not encapsulate select and textarea elements.",
   E063: (/* data */) => "Each fieldset element should contain a legend element.",
-  E064: (data) => `Unexpected space ${data.is_before ? "before" : "after"} text.`,
+  E064: (data: { is_before: boolean }) => `Unexpected space ${data.is_before ? "before" : "after"} text.`,
 
-  INLINE_01: ({ instruction }) => `unrecognized linthtml instruction: \`linthtml-${instruction}\``,
-  INLINE_02: ({ rule_name }) => `unrecognized rule name \`${rule_name}\` in inline configuration`,
-  INLINE_03: ({ rule_configuration }) =>
-    `malformed linthtml-configure instruction: \`${rule_configuration}\` is not valid JSON global`,
-  INLINE_04: ({ rule_name, error }) => `linthtml-configure instruction for rule \`${rule_name}\` is not valid. ${error}`
+  INLINE_01: (data: { instruction: string }) => `unrecognized linthtml instruction: \`linthtml-${data.instruction}\``,
+  INLINE_02: (data: { rule_name: string }) => `unrecognized rule name \`${data.rule_name}\` in inline configuration`,
+  INLINE_03: (data: { rule_configuration: string }) =>
+    `malformed linthtml-configure instruction: \`${data.rule_configuration}\` is not valid JSON global`,
+  INLINE_04: (data: { rule_name: string; error: string }) =>
+    `linthtml-configure instruction for rule \`${data.rule_name}\` is not valid. ${data.error}`
 } as const;
 
 // Error code INLINE-xx
@@ -116,12 +132,13 @@ export const errors: {
 // };
 
 export function renderIssue(issue: Issue): string {
-  const format = errors[issue.code];
-
+  const format = ISSUE_ERRORS[issue.code as keyof typeof ISSUE_ERRORS];
+  // @ts-expect-error Type of data and format too complex
   return format ? format(issue.data, issue.position) : issue.message ?? "";
 }
 
 export function get_issue_message(issue: Issue) {
-  const generate_issue_message = errors[issue.code];
+  const generate_issue_message = ISSUE_ERRORS[issue.code as keyof typeof ISSUE_ERRORS];
+  // @ts-expect-error Type of data and format too complex
   return generate_issue_message(issue.data, issue.position);
 }

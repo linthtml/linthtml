@@ -1,6 +1,6 @@
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
+import type { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 
 const RULE_NAME = "attr-no-dup";
 

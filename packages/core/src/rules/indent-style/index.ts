@@ -1,6 +1,6 @@
 import { is_text_node, node_tag_name, has_parent_node, is_newline_only } from "@linthtml/dom-utils";
-import { CharValue, Node, Text } from "@linthtml/dom-utils/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { CharValue, Node, Text } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { create_list_value_validator } from "../../validate_option.js";
 
 const RULE_NAME = "indent-style";
@@ -60,7 +60,7 @@ function check_indent_width_close({ open, close }: Node) {
   return open.loc.start.column === close.loc.start.column;
 }
 
-function check_indent_style(node: Node, indent_style: unknown) {
+function check_indent_style(node: Node, indent_style: "spaces" | "tabs" | "mixed") {
   if (is_parent_open_close_same_line(node) || is_sibling_close_tag_same_line(node)) {
     return true;
   }
@@ -71,6 +71,7 @@ function check_indent_style(node: Node, indent_style: unknown) {
     if (indent === "") {
       return true;
     }
+
     switch (indent_style) {
       case "tabs":
         return /^[^ ]+/.test(indent);
@@ -99,7 +100,7 @@ function indent_style_used(node: Node) {
 
 function check_node_indent(
   node: Node,
-  indent: { width: false | number; style: false | "spaces" | "tabs" | "mixed" },
+  indent: { width: false | number; style: "spaces" | "tabs" | "mixed" },
   expected_indent_width: number,
   report: reportFunction
 ) {

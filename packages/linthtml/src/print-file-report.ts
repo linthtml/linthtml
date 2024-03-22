@@ -2,7 +2,7 @@ import chalkTemplate from "chalk-template";
 // @ts-expect-error No types available
 import Table from "table-layout";
 import { renderIssue } from "@linthtml/core/messages";
-import { Report } from "./utils.js";
+import type { Report } from "./utils.js";
 import type Issue from "@linthtml/core/issue";
 
 function print_position({ position: { start } }: Issue, maxLine: number, maxColumn: number) {
@@ -49,9 +49,12 @@ export default function print_file_report(report: Report) {
     };
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const table = new Table(issues, {
     noTrim: true,
     maxWidth: 250
   });
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   console.log(table.toString());
 }

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "raw-ignore-regex": false,
   "spec-char-escape": false,
   "text-ignore-regex": false,
@@ -19,11 +19,7 @@ module.exports = {
   "indent-style": "tabs",
   "indent-width": 4,
   "indent-width-cont": false,
-  "tag-bans": [
-    "style",
-    "b",
-    "i"
-  ],
+  "tag-bans": ["style", "b", "i"],
   "tag-close": true,
   "tag-name-lowercase": true,
   "tag-name-match": true,
@@ -34,10 +30,7 @@ module.exports = {
   "attr-name-ignore-regex": /^[0-9a-o]+$/,
   "attr-no-dup": true,
   "attr-no-unsafe-char": true,
-  "attr-order": [
-    "id",
-    "class"
-  ],
+  "attr-order": ["id", "class"],
   "attr-quote-style": "double",
   "attr-req-value": true,
   "attr-new-line": 1,
@@ -72,4 +65,4 @@ module.exports = {
   "table-req-caption": false,
   "table-req-header": false,
   "tag-req-attr": false
-};
+} as const;

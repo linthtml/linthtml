@@ -1,7 +1,7 @@
 import { parse_HTML_attributes } from "@linthtml/dom-utils";
 import Issue from "../issue.js";
-import Config from "./config.js";
-import { Comment, Range } from "@linthtml/dom-utils/dom_elements";
+import type Config from "./config.js";
+import type { Comment, Range } from "@linthtml/dom-utils/dom_elements";
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order
@@ -78,7 +78,7 @@ export default class InlineConfig {
       this.indexConfigs
         .slice(index + 1, newIndex + 1)
         .filter((x) => !!x)
-        .forEach(this.applyConfig, this);
+        .forEach(this.applyConfig.bind(this), this);
       index = newIndex;
     }
   }
@@ -205,7 +205,7 @@ export default class InlineConfig {
         });
       }
       try {
-        parsed = JSON.parse(value);
+        parsed = JSON.parse(value) as string | boolean | Array<unknown> | Record<string, unknown>;
       } catch (e) {
         if (!nameRegex.test(value)) {
           return new Issue("inline_config", pos, {

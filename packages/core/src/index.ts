@@ -8,9 +8,10 @@ import * as messages from "./messages.js";
 import path from "path";
 import fs from "fs";
 import { globbySync } from "globby";
+import type { Ignore } from "ignore";
 import ignore from "ignore";
-import Issue from "./issue.js";
 import { EOL } from "os";
+import type Issue from "./issue.js";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -71,7 +72,8 @@ function filter_ignored_files(file_paths: string[], ignore_pattern?: string[]) {
     return file_paths;
   }
 
-  const ignorer = ignore().add(ignore_pattern);
+  // Eslint not correctly getting types for ignorer here
+  const ignorer = (ignore() as Ignore).add(ignore_pattern);
   return ignorer.filter(file_paths);
 }
 
@@ -91,7 +93,8 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
   if (ignore_pattern.length === 0) {
     return false;
   }
-  const ignorer = ignore().add(ignore_pattern);
+  // Eslint not correctly getting types for ignorer here
+  const ignorer = (ignore() as Ignore).add(ignore_pattern);
   return ignorer.ignores(file_path);
 }
 

@@ -1,8 +1,8 @@
 import Issue from "../issue.js";
-import { Document, Node } from "@linthtml/dom-utils/dom_elements";
-import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config.js";
-import { LegacyLinterConfig, RuleDefinition } from "../read-config.js";
-import { flatten } from "../utils/array.js";
+import type { Document, Node } from "@linthtml/dom-utils/dom_elements";
+import type { InlineConfigIndex } from "../legacy/inline_config.js";
+import type InlineConfig from "../legacy/inline_config.js";
+import type { LegacyLinterConfig, RuleDefinition } from "../read-config.js";
 
 function apply_rules(rules: RuleDefinition[], element: Node, global_config: LegacyLinterConfig) {
   const issues: Issue[] = [];
@@ -13,14 +13,18 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (data: any) => {
       if (Array.isArray(data)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         issues.push(...data);
       } else {
+        /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
         const meta = {
           ...data.meta,
           code: data.code,
           message: data.message
         };
+        /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         issues.push(new Issue(rule.name, data.position, meta));
       }
     };
@@ -44,6 +48,7 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
 
 function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfig) {
   // @ts-expect-error Legacy, rules should not have a context object normally
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   const subs = this.subscribers;
   /*
    * Reset our inline configuration object to be what opts is.
@@ -55,7 +60,7 @@ function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfi
     // fast-forwards inlineConfig.current to whatever it should be at this index.
     inlineConfigs.getOptsAtIndex(element.startIndex as number);
 
-    let issues = apply_rules(subs, element, inlineConfigs.current);
+    let issues = apply_rules(subs as RuleDefinition[], element, inlineConfigs.current);
 
     if (element.children && element.children.length > 0) {
       element.children.forEach(function (child) {
@@ -66,7 +71,7 @@ function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfi
   };
 
   const issues = dom.children.length ? dom.children.map(getIssues) : [];
-  return flatten(issues);
+  return issues.flat();
 }
 
 export default {

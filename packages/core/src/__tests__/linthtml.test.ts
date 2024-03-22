@@ -28,9 +28,7 @@ describe("linthtml", function () {
     const filePath = path.join(__dirname, "fixtures", "sanity.html");
     const sanityHtml = fs.readFileSync(filePath, { encoding: "utf8" });
 
-    expect(function () {
-      linthtml(sanityHtml, {});
-    }).to.not.throw(Error);
+    expect(() => linthtml(sanityHtml, {})).to.not.throw(Error);
   });
 
   // describe("use", function() {

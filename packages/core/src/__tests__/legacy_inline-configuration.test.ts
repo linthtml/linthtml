@@ -4,7 +4,7 @@ import { expect } from "chai";
 
 import linthtml from "../index.js";
 import { presets } from "../presets/index.js";
-import { LegacyLinterConfig } from "../read-config.js";
+import type { LegacyLinterConfig } from "../read-config.js";
 
 function createLinter(config: LegacyLinterConfig) {
   return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);

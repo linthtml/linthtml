@@ -1,7 +1,7 @@
 import { types } from "node:util";
 import { is_tag_node, get_attribute } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
-import { Element, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 
 const { isRegExp } = types;
 
@@ -12,14 +12,13 @@ function validateConfig(options: unknown) {
     `Configuration for rule "${RULE_NAME}" is invalid: Expected (string|RegExp)[] got ${type}`;
   if (Array.isArray(options)) {
     options = options.map((option) => {
-      const type = typeof option;
-      if (type === "string") {
+      if (typeof option === "string") {
         return option.toLowerCase();
       }
       if (isRegExp(option)) {
         return option;
       }
-      throw new Error(typeError(`${type}[]`));
+      throw new Error(typeError(`${typeof option}[]`));
     });
     return options;
   }
@@ -46,7 +45,7 @@ function lint(node: Node, config: (string | RegExp)[], { report }: { report: rep
 
   // Improve algo
   const attributes: Record<string, NodeAttribute> = {};
-  (node as Element).attributes.forEach((attribute) => {
+  node.attributes.forEach((attribute) => {
     const name = attribute.name.chars.toLowerCase();
     if (attributes[name] === undefined) {
       attributes[name] = attribute;
@@ -69,7 +68,7 @@ function lint(node: Node, config: (string | RegExp)[], { report }: { report: rep
           // Check only fails if keys are not ordered by insertion
           /* istanbul ignore else */
         } else if (pos < prevpos) {
-          const attribute = get_attribute(node as Element, prevname) as NodeAttribute;
+          const attribute = get_attribute(node, prevname) as NodeAttribute;
           report({
             code: "E043",
             position: attribute.loc,
@@ -93,7 +92,7 @@ function lint(node: Node, config: (string | RegExp)[], { report }: { report: rep
         lastpos = pos;
         lastname = name;
       } else {
-        const attribute = get_attribute(node as Element, lastname) as NodeAttribute;
+        const attribute = get_attribute(node, lastname) as NodeAttribute;
         report({
           code: "E043",
           position: attribute.loc,

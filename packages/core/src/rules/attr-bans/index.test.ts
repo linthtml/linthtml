@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
+import type { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
 import linthtml from "../../index.js";
 import { presets } from "../../presets/index.js";
 
@@ -42,7 +42,7 @@ describe("legacy linter | attr-bans", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should throw an error for an invalid config", async function () {
+  it("Should throw an error for an invalid config", function () {
     const linter = createLinter({ "attr-bans": true });
     const html = '<button style="color: red;"></button>';
     expect(() => linter.lint(html)).to.throw(
@@ -113,7 +113,7 @@ describe("attr-bans", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Should throw an error for an invalid config", async function () {
+  it("Should throw an error for an invalid config", function () {
     const config = {
       "attr-bans": [true, true] as [boolean, boolean]
     };
