@@ -1,6 +1,6 @@
 import { is_text_node, node_tag_name, has_parent_node, is_newline_only } from "@linthtml/dom-utils";
-import { CharValue, Node, Text } from "@linthtml/dom-utils/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { CharValue, Node, Text } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { create_list_value_validator } from "../../validate_option.js";
 
 const RULE_NAME = "indent-style";

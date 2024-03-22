@@ -2,18 +2,21 @@
 import fs from "fs";
 import chalkTemplate from "chalk-template";
 import ora from "ora";
-import meow, { AnyFlags, Options } from "meow";
+import type { AnyFlags, Options } from "meow";
+import meow from "meow";
 
-import { Report, exitProcess, EXIT_CODE_ERROR } from "./utils.js";
+import type { Report } from "./utils.js";
+import { exitProcess, EXIT_CODE_ERROR } from "./utils.js";
 
 import checkInvalidCLIOptions from "./check-invalid-cli-options.js";
 import print_file_report from "./print-file-report.js";
 import init_command from "./commands/init.js";
 import print_config_command from "./commands/print-config.js";
-import printErrors, { CliError } from "./print-errors.js";
+import type { CliError } from "./print-errors.js";
+import printErrors from "./print-errors.js";
 
-import linthtml, { FileLinter } from "@linthtml/core";
-import type { LinterConfig, LegacyLinterConfig } from "@linthtml/core";
+import linthtml from "@linthtml/core";
+import type { LinterConfig, LegacyLinterConfig, FileLinter } from "@linthtml/core";
 import type Issue from "@linthtml/core/issue";
 
 const cliOptions = {
@@ -80,7 +83,7 @@ export function cli(argv: string[]) {
 
   if (cli.flags.printConfig !== undefined) {
     // convert to command and throw deprecation warning for flag
-    return print_config_command(cli.flags.printConfig as string);
+    return print_config_command(cli.flags.printConfig);
   }
 
   // use config_path if provided or search local config file

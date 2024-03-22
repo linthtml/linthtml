@@ -2,9 +2,9 @@ import parse from "@linthtml/html-parser";
 import Config from "./config.js";
 import InlineConfig from "./inline_config.js";
 import rules from "../rules/index.js";
-import { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config.js";
-import { Node, Document } from "@linthtml/dom-utils/dom_elements";
-import Issue from "../issue.js";
+import type { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config.js";
+import type { Node, Document } from "@linthtml/dom-utils/dom_elements";
+import type Issue from "../issue.js";
 import { is_comment_node } from "@linthtml/dom-utils";
 import { flatten } from "../utils/array.js";
 /**
@@ -17,7 +17,7 @@ function rawIgnoreRegex(html: string, opts: LegacyLinterConfig) {
   if (!ignore) {
     return html;
   }
-  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
+  return html.replace(new RegExp(ignore, "gm"), function (match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }

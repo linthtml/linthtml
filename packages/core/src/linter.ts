@@ -1,11 +1,13 @@
 import Config from "./config.js";
-import { extract_inline_config, InlineConfig } from "./inline_config.js";
+import type { InlineConfig } from "./inline_config.js";
+import { extract_inline_config } from "./inline_config.js";
 import rules from "./rules/index.js";
 import Issue from "./issue.js";
 import CustomError from "./utils/custom-errors.js";
 
-import { get_module_path, ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config.js";
-import { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
+import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config.js";
+import { get_module_path } from "./read-config.js";
+import type { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
 import { flatten } from "./utils/array.js";
 
 /**
@@ -19,7 +21,7 @@ function raw_ignore_regex(html: string, options: LegacyLinterConfig | LinterConf
     return html;
   }
   // TODO: Remove `as ...` after adding validation to `x-regex` property in config files
-  return html.replace(new RegExp(ignore as string | RegExp, "gm"), function (match) {
+  return html.replace(new RegExp(ignore, "gm"), function (match) {
     return match.replace(/[^\n\t\n\r]/g, "¤");
   });
 }

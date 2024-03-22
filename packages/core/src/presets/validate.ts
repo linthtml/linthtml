@@ -1,4 +1,4 @@
-import { LegacyLinterConfig } from "../read-config.js";
+import type { LegacyLinterConfig } from "../read-config.js";
 
 export default {
   "doctype-first": true,

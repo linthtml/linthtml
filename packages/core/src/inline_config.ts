@@ -1,9 +1,9 @@
 import { is_comment_node } from "@linthtml/dom-utils";
 import CustomError from "./utils/custom-errors.js";
-import { Comment, Node } from "@linthtml/dom-utils/dom_elements";
-import Config from "./config.js";
+import type { Comment, Node } from "@linthtml/dom-utils/dom_elements";
+import type Config from "./config.js";
 import type { NonExistingRule } from "./config.js";
-import { reportFunction } from "./read-config.js";
+import type { reportFunction } from "./read-config.js";
 // inline_config 0.2
 //
 // config "false", "off" disable rule

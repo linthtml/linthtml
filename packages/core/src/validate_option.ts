@@ -15,7 +15,7 @@ export function is_boolean(rule_name: string) {
 export function create_string_or_regexp_validator(rule_name: string, allow_empty_string = true) {
   return function (option: unknown): string | RegExp | never {
     if ((typeof option === "string" && (allow_empty_string || option !== "")) || isRegExp(option) === true) {
-      return option as string | RegExp;
+      return option;
     }
     if (!allow_empty_string && typeof option === "string") {
       throw new Error(`Configuration for rule "${rule_name}" is invalid: You provide an empty string value.`);

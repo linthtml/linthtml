@@ -1,6 +1,6 @@
 // TODO: Use custom one from dom_elements
-import { Text } from "domhandler";
-import { Node } from "./dom_elements.js";
+import type { Text } from "domhandler";
+import type { Node } from "./dom_elements.js";
 import { is_text_node } from "./tags.js";
 
 export interface TextLine {

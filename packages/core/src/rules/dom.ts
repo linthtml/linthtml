@@ -1,7 +1,8 @@
 import Issue from "../issue.js";
-import { Document, Node } from "@linthtml/dom-utils/dom_elements";
-import InlineConfig, { InlineConfigIndex } from "../legacy/inline_config.js";
-import { LegacyLinterConfig, RuleDefinition } from "../read-config.js";
+import type { Document, Node } from "@linthtml/dom-utils/dom_elements";
+import type { InlineConfigIndex } from "../legacy/inline_config.js";
+import type InlineConfig from "../legacy/inline_config.js";
+import type { LegacyLinterConfig, RuleDefinition } from "../read-config.js";
 import { flatten } from "../utils/array.js";
 
 function apply_rules(rules: RuleDefinition[], element: Node, global_config: LegacyLinterConfig) {

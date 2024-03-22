@@ -1,7 +1,7 @@
 import Issue from "../../issue.js";
 import { is_tag_node, attribute_value, attribute_has_value } from "@linthtml/dom-utils";
-import { Element, Node, Range } from "@linthtml/dom-utils/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { Element, Node, Range } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "input-req-label";
 

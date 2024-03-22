@@ -1,7 +1,7 @@
 import type { ActiveRuleDefinition, RuleDefinition, reportFunction } from "../../read-config.js";
 import { create_number_validator } from "../../validate_option.js";
 import IndentStyleRule from "../indent-style/index.js";
-import { Node } from "@linthtml/dom-utils/dom_elements";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
 
 const RULE_NAME = "indent-width";
 

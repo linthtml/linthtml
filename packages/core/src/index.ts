@@ -9,7 +9,7 @@ import path from "path";
 import fs from "fs";
 import { globbySync } from "globby";
 import ignore from "ignore";
-import Issue from "./issue.js";
+import type Issue from "./issue.js";
 import { EOL } from "os";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];

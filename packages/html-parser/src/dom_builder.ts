@@ -1,12 +1,12 @@
 import { DomHandler, ElementType } from "htmlparser2";
 // TODO: remove
+import type { Node } from "@linthtml/dom-utils";
 import {
   is_void_node,
   CharValue,
   Document,
   Element,
   NodeAttribute,
-  Node,
   Position,
   Range
   // TODO find a way to have /dom_elements

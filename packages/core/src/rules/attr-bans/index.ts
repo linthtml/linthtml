@@ -1,7 +1,7 @@
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { types } from "node:util";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/dom_elements";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
 
 const { isRegExp } = types;
 
