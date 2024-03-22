@@ -1,6 +1,6 @@
 import { is_tag_node, has_non_empty_attribute } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "img-req-src";
 

@@ -1,6 +1,6 @@
 import { is_directive_node } from "@linthtml/dom-utils";
-import { Node } from "@linthtml/dom-utils/dom_elements";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "doctype-html5";
 

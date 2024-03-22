@@ -3,7 +3,7 @@ import Linter from "../linter.js";
 import Config from "../config.js";
 // import rewiremock from "rewiremock";
 // import path from "path";
-import { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../read-config.js";
+import type { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../read-config.js";
 
 const foo: RuleDefinition = {
   name: "foo",

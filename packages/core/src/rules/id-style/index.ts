@@ -1,9 +1,9 @@
 import match_format from "../../utils/check_format.js";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { reportFunction, RuleDefinition } from "../../read-config.js";
+import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { create_list_value_validator } from "../../validate_option.js";
 import { types } from "node:util";
-import { Node } from "@linthtml/dom-utils/dom_elements";
+import type { Node } from "@linthtml/dom-utils/dom_elements";
 
 const { isRegExp } = types;
 

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import linthtml from "../../index.js";
 import { presets } from "../../presets/index.js";
-import { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
+import type { LegacyLinterConfig, RuleConfig } from "../../read-config.js";
 
 // TODO check issues positions
 describe("legacy linter | attr-new-line", function () {

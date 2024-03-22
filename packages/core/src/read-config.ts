@@ -2,13 +2,13 @@ import path from "path";
 import fs from "fs";
 
 import { cosmiconfig } from "cosmiconfig";
-import { Config, CosmiconfigResult } from "cosmiconfig/dist/types.js";
+import type { Config, CosmiconfigResult } from "cosmiconfig/dist/types.js";
 import globalModules from "global-modules";
 import resolveFrom from "resolve-from";
 
 import CustomError from "./utils/custom-errors.js";
-import Issue from "./issue.js";
-import { Node, Range } from "@linthtml/dom-utils/dom_elements";
+import type Issue from "./issue.js";
+import type { Node, Range } from "@linthtml/dom-utils/dom_elements";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 

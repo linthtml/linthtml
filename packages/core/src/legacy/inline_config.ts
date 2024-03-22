@@ -1,7 +1,7 @@
 import { parse_HTML_attributes } from "@linthtml/dom-utils";
 import Issue from "../issue.js";
-import Config from "./config.js";
-import { Comment, Range } from "@linthtml/dom-utils/dom_elements";
+import type Config from "./config.js";
+import type { Comment, Range } from "@linthtml/dom-utils/dom_elements";
 
 // Private vars,
 let index = 0; // index used for making sure configs are sent in order

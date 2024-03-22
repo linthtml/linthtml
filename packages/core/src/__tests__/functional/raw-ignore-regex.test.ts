@@ -1,7 +1,7 @@
 import linthtml from "../../index.js";
 import { presets } from "../../presets/index.js";
 import { expect } from "chai";
-import { LegacyLinterConfig } from "../../read-config.js";
+import type { LegacyLinterConfig } from "../../read-config.js";
 
 function createLinter(presets: LegacyLinterConfig, config: LegacyLinterConfig) {
   return new linthtml.LegacyLinter(linthtml.rules, presets, config);

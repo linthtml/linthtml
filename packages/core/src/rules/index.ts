@@ -1,7 +1,7 @@
 // Export an array of all rules.
 import path from "path";
 import { fileURLToPath } from "url";
-import { LegacyRuleDefinition } from "../read-config.js";
+import type { LegacyRuleDefinition } from "../read-config.js";
 import { globbySync } from "globby";
 
 const __filename = fileURLToPath(import.meta.url);
