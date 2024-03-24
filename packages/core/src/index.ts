@@ -8,9 +8,10 @@ import * as messages from "./messages.js";
 import path from "path";
 import fs from "fs";
 import { globbySync } from "globby";
+import type { Ignore } from "ignore";
 import ignore from "ignore";
-import type Issue from "./issue.js";
 import { EOL } from "os";
+import type Issue from "./issue.js";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -20,6 +21,15 @@ export interface FileLinter {
   config_path: string | undefined;
   linter: LegacyLinter;
 }
+
+const test = function (html: string, config: LegacyLinterConfig | LinterConfig) {
+  if (config?.rules !== undefined) {
+    const linter = new Linter(config as LinterConfig);
+    return linter.lint(html);
+  }
+  const linter = new LegacyLinter(null, config as LegacyLinterConfig);
+  return linter.lint(html);
+};
 
 /**
  * The linthtml namespace.
@@ -71,7 +81,8 @@ function filter_ignored_files(file_paths: string[], ignore_pattern?: string[]) {
     return file_paths;
   }
 
-  const ignorer = ignore().add(ignore_pattern);
+  // Eslint not correctly getting types for ignorer here
+  const ignorer = (ignore() as Ignore).add(ignore_pattern);
   return ignorer.filter(file_paths);
 }
 
@@ -91,7 +102,8 @@ function should_ignore_file(file_path: string, ignore_pattern: string[] = []) {
   if (ignore_pattern.length === 0) {
     return false;
   }
-  const ignorer = ignore().add(ignore_pattern);
+  // Eslint not correctly getting types for ignorer here
+  const ignorer = (ignore() as Ignore).add(ignore_pattern);
   return ignorer.ignores(file_path);
 }
 
@@ -154,4 +166,4 @@ linthtml.messages = messages;
 
 export default linthtml;
 
-export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };
+export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig, test };

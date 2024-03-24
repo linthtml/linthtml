@@ -1,4 +1,4 @@
-import type { Element, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
+import type { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 import { is_tag_node } from "@linthtml/dom-utils";
 import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
@@ -18,7 +18,7 @@ function lint(node: Node, limit: "+0" | number, { report }: { report: reportFunc
       position: attribute.loc,
       meta: {
         data: {
-          limit
+          limit: limit.toString()
         }
       }
     });

@@ -17,7 +17,7 @@ function validateConfig(config: unknown) {
         throw new Error(typeError(`${type}[]`));
       }
     });
-    return config;
+    return config as unknown[];
   }
   if (typeof config === "string" || isRegExp(config)) {
     return config;

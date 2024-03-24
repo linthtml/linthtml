@@ -34,17 +34,19 @@ function list_value_error_message(value_list: string[]): string {
   return `Accepted value is ${list_copy[0]}`;
 }
 
-// @ts-expect-error No working in TS 5 - TO FIX
+// @ts-expect-error No working in TS 5 - TO FIX (use Template type ?)
 export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg?: true
-): (option: unknown) => option is (string | RegExp) | never;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+): never | ((option: unknown) => option is string | RegExp | never);
 export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg: false
-): (option: unknown) => option is string | never;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+): never | ((option: unknown) => option is string | never);
 export function create_list_value_validator(rule_name: string, values: string[], allow_reg = true) {
   const type_error = (rule_name: string, option: unknown) =>
     `Configuration for rule "${rule_name}" is invalid: Expected string${

@@ -158,7 +158,7 @@ describe("legacy linter | id-class-no-ad", function () {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Rule should not fail if id or class attribute has no value", async function () {
+  it("Rule should not fail if id or class attribute has no value", function () {
     const linter = createLinter({ "id-class-no-ad": true });
     const html = `
       <div id class></div>
@@ -312,7 +312,7 @@ describe("id-class-no-ad", function () {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Rule should not fail if id or class attribute has no value", async function () {
+  it("Rule should not fail if id or class attribute has no value", function () {
     const linter = createLinter({ "id-class-no-ad": true });
     const html = `
       <div id class></div>

@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 
 import { cosmiconfig } from "cosmiconfig";
-import type { Config, CosmiconfigResult } from "cosmiconfig/dist/types.js";
+import type { CosmiconfigResult } from "cosmiconfig/dist/types.js";
 import globalModules from "global-modules";
 import resolveFrom from "resolve-from";
 
@@ -19,10 +19,18 @@ const __dirname = path.dirname(__filename);
 
 const STOP_DIR = IS_TEST ? path.resolve(__dirname, "..") : undefined;
 
+// WORKS But add complexity in inline_config
+// export type reportFunction = <CODE extends keyof typeof ISSUE_ERRORS>(data: {
+//   code: CODE;
+//   position: Range;
+//   meta?: { data: Parameters<(typeof ISSUE_ERRORS)[CODE]>[0] };
+//   message?: string;
+// }) => void;
+
 export type reportFunction = (data: {
   code: string;
   position: Range;
-  meta?: Record<string, unknown>;
+  meta?: { data: unknown };
   message?: string;
 }) => void;
 
@@ -56,8 +64,7 @@ export type ActiveRuleDefinition = RuleDefinition & {
 export type RuleSeverity = "warning" | "error";
 export type RuleActivation = boolean | RuleSeverity | "off";
 
-// TODO: Fix type (["error"] is reporting typescript error in tests)
-export type RuleConfig = RuleActivation | [RuleActivation] | [RuleActivation, unknown];
+export type RuleConfig = RuleActivation | readonly [RuleActivation] | readonly [RuleActivation, unknown];
 
 // TODO: Remove boolean type for x-regex config
 export type LinterConfig = {
@@ -88,13 +95,13 @@ export interface PluginConfig {
 export type LegacyRuleOption = Partial<RuleDefinition> & {
   name: string;
   active?: boolean;
-  rules: string[];
+  rules?: string[];
 };
 
 export type LegacyRuleDefinition = RuleDefinition & {
-  options: LegacyRuleOption[];
-  on: string;
-  subscribers: LegacyRuleDefinition[];
+  options?: LegacyRuleOption[];
+  on?: string;
+  subscribers?: LegacyRuleDefinition[];
 };
 
 export interface LegacyLinterConfig {
@@ -105,7 +112,7 @@ export interface LegacyLinterConfig {
   "id-class-ignore-regex"?: string | RegExp | false;
   "line-max-len-ignore-regex"?: string | RegExp | false;
 
-  [rule_name: string]: boolean | unknown;
+  [rule_name: string]: unknown;
 }
 
 export interface ExtractConfigResult {
@@ -172,7 +179,7 @@ async function augment_config(cosmiconfig_result: CosmiconfigResult): Promise<Ex
   }
 
   const config_dir = path.dirname(cosmiconfig_result.filepath || "");
-  const { ignoreFiles = [], ...config }: LinterConfig = cosmiconfig_result.config;
+  const { ignoreFiles = [], ...config } = cosmiconfig_result.config as LinterConfig;
   let result = {
     filepath: cosmiconfig_result.filepath,
     config
@@ -213,7 +220,7 @@ async function load_extended_config(extends_path: string, config_dir: string): P
     stopDir: STOP_DIR,
     transform: augment_config
   }).load(extendPath);
-  return cosmiconfig_result ? cosmiconfig_result.config : null;
+  return cosmiconfig_result ? (cosmiconfig_result.config as LinterConfig) : ({} as LinterConfig); // is {} possible?
 }
 
 /**
@@ -248,10 +255,10 @@ function load_plugin(plugin_name: string): PluginConfig | never {
     // TODO: Switch to import
     // Eslint Typescript recommend using import statement but import return a promise.
     const require = createRequire(import.meta.url);
-    const plugin_import = require(plugin_name);
+    const plugin_import = require(plugin_name) as { default: PluginConfig } | PluginConfig;
     // const plugin_import = await import(plugin_name);
     // Handle either ES6 or CommonJS modules
-    return plugin_import.default || plugin_import;
+    return (plugin_import as { default: PluginConfig }).default ?? (plugin_import as PluginConfig);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ERR_REQUIRE_ESM") {
       throw new CustomError("CORE-10", { module_name: plugin_name });
@@ -266,12 +273,12 @@ function load_plugin(plugin_name: string): PluginConfig | never {
  * @throws {CustomError}
  */
 function add_plugins_rules(cosmiconfig_result: {
-  config: Config;
+  config: LinterConfig;
   filepath: string;
   isEmpty?: boolean | undefined;
 }): ExtractConfigResult | never {
   if (cosmiconfig_result.config.plugins) {
-    const normalized_plugins: string[] = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
+    const normalized_plugins = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
       ? cosmiconfig_result.config.plugins
       : [cosmiconfig_result.config.plugins];
 
@@ -312,7 +319,7 @@ const explorer = cosmiconfig("linthtml", {
   transform: augment_config
 });
 
-async function config_from_path(file_path: string): Promise<ExtractConfigResult | never> {
+async function config_from_path(file_path: string): Promise<ExtractConfigResult> | never {
   const config_path = path.resolve(process.cwd(), file_path);
   let isconfig_directory = false;
   try {

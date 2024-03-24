@@ -22,51 +22,52 @@ describe("Config", function () {
   });
 
   describe("Rule activation", function () {
+    let config: Config;
     this.beforeEach(function () {
-      this.config = new Config(rules);
+      config = new Config(rules);
     });
     describe("Boolean config", function () {
       it('Should activate rule if "true" is provided', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": true
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
       it('Should not activate rule if "false" is provided', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": false
         };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.not.have.any.keys("attr-bans");
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.not.have.any.keys("attr-bans");
       });
     });
     describe("String config", function () {
       it('Should activate rule if "error" is provided', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": "error"
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
       it('Should activate rule if "warning" is provided', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": "warning"
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
       it('Should not activate rule if "off" is provided', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": "off"
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.not.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.not.have.any.keys("attr-bans");
       });
       it("Should report an error if an invalid string is provided to activate rule", function () {
         const config = new Config(rules);
@@ -107,57 +108,56 @@ describe("Config", function () {
         );
       });
       it('Should activate rule is first value of array is "true" (boolean)', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": [true]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
 
       it('Should not activate rule is first value of array is "false" (boolean)', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": [false]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.not.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.not.have.any.keys("attr-bans");
       });
 
       it('Should activate rule is first value of array is "error"', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": ["error"]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
 
       it('Should activate rule is first value of array is "warning"', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": ["warning"]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.have.any.keys("attr-bans");
       });
 
       it('Should not activate rule is first value of array is "off"', function () {
-        const rule = this.config.getRule("attr-bans");
+        const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": ["off"]
-        };
-        this.config.setRuleConfig(rule, rule_config);
-        expect(this.config.activated_rules).to.not.have.any.keys("attr-bans");
+        } as const;
+        config.setRuleConfig(rule, rule_config);
+        expect(config.activated_rules).to.not.have.any.keys("attr-bans");
       });
     });
 
     describe("Dummy configs", function () {
       // this.beforeEach(function() {
-      //   this.config = new Config(rules);
+      //   config = new Config(rules);
       // });
       it("Should report an error if the first value of the config array is an empty object", function () {
-        const config = new Config(rules);
         const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": []
@@ -168,7 +168,6 @@ describe("Config", function () {
         );
       });
       it("Should report an error if the first value of the config array is a number", function () {
-        const config = new Config(rules);
         const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": [1]
@@ -179,7 +178,6 @@ describe("Config", function () {
         );
       });
       it("Should report an error if a number is provided", function () {
-        const config = new Config(rules);
         const rule = config.getRule("attr-bans");
         const rule_config = {
           "attr-bans": 1
@@ -192,30 +190,30 @@ describe("Config", function () {
     });
 
     it("Should set rule severity to 'error' by default", function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": true
-      };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"].severity).to.equal("error");
+      } as const;
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"].severity).to.equal("error");
     });
 
     it("Should set rule severity to 'error' when specified", function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "error"
-      };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"].severity).to.equal("error");
+      } as const;
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"].severity).to.equal("error");
     });
 
     it("Should set rule severity to 'warning' when specified", function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "warning"
-      };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"].severity).to.equal("warning");
+      } as const;
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"].severity).to.equal("warning");
     });
   });
 
@@ -226,7 +224,6 @@ describe("Config", function () {
       const rule_config = {
         "attr-bans": ["error"]
       } as const;
-      // @ts-expect-error Testing config validation here
       expect(() => config.setRuleConfig(rule, rule_config)).to.not.throw();
     });
     describe("Rule validation", function () {
@@ -271,7 +268,7 @@ describe("Config", function () {
           lint() {},
           configTransform(config) {
             // @ts-expect-error Cannot infer rule config here
-            return config.bar;
+            return config.bar as unknown;
           },
           validateConfig(config) {
             expect(config).to.not.be.undefined;
@@ -288,32 +285,33 @@ describe("Config", function () {
   });
 
   describe("Rules severity", function () {
+    let config: Config;
     this.beforeEach(function () {
-      this.config = new Config(rules);
+      config = new Config(rules);
     });
     it('Rules severity should be set as "error" by default', function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": true
       };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"]).to.have.property("severity", "error");
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"]).to.have.property("severity", "error");
     });
     it('Rules severity should be set as "error" if "error" is provided', function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "error"
-      };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"]).to.have.property("severity", "error");
+      } as const;
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"]).to.have.property("severity", "error");
     });
     it('Rules severity should be set as "warning" if "warning" is provided', function () {
-      const rule = this.config.getRule("attr-bans");
+      const rule = config.getRule("attr-bans");
       const rule_config = {
         "attr-bans": "warning"
-      };
-      this.config.setRuleConfig(rule, rule_config);
-      expect(this.config.activated_rules["attr-bans"]).to.have.property("severity", "warning");
+      } as const;
+      config.setRuleConfig(rule, rule_config);
+      expect(config.activated_rules["attr-bans"]).to.have.property("severity", "warning");
     });
   });
 });

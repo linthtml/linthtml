@@ -49,9 +49,12 @@ export default function print_file_report(report: Report) {
     };
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const table = new Table(issues, {
     noTrim: true,
     maxWidth: 250
   });
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   console.log(table.toString());
 }

@@ -9,6 +9,7 @@ const foo: RuleDefinition = {
   name: "foo",
   lint(_node: unknown, _option: unknown, { report }) {
     return report({
+      // @ts-expect-error Custom code for testing
       code: "CUSTOM",
       position: {
         start: {
@@ -64,7 +65,7 @@ describe("Config", function () {
   //   });
   //   linter.lint("foo");
   // });
-  it("should report an error when provided with an unexisting parser", async function () {
+  it("should report an error when provided with an unexisting parser", function () {
     try {
       // eslint-disable-next-line no-new
       new Linter({

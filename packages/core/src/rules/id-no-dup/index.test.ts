@@ -39,7 +39,7 @@ describe("legacy linter | id-no-dup", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>
@@ -101,7 +101,7 @@ describe("id-no-dup", function () {
     expect(issues).to.have.lengthOf(2);
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({ "id-no-dup": true });
     const html = `
       <div id></div>

@@ -78,7 +78,7 @@ export default class InlineConfig {
       this.indexConfigs
         .slice(index + 1, newIndex + 1)
         .filter((x) => !!x)
-        .forEach(this.applyConfig, this);
+        .forEach(this.applyConfig.bind(this), this);
       index = newIndex;
     }
   }
@@ -205,7 +205,7 @@ export default class InlineConfig {
         });
       }
       try {
-        parsed = JSON.parse(value);
+        parsed = JSON.parse(value) as string | boolean | Array<unknown> | Record<string, unknown>;
       } catch (e) {
         if (!nameRegex.test(value)) {
           return new Issue("inline_config", pos, {

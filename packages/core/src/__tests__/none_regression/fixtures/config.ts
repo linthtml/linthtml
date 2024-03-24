@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "spec-char-escape": false,
   "attr-name-ignore-regex": /^[0-9a-o]+$/,
   rules: {
@@ -18,35 +18,17 @@ module.exports = {
         "width"
       ]
     ],
-    "attr-name-style": [
-      true,
-      "dash"
-    ],
-    "attr-new-line": [
-      true,
-      1
-    ],
+    "attr-name-style": [true, "dash"],
+    "attr-new-line": [true, 1],
     "attr-no-dup": true,
     "attr-no-unsafe-char": true,
-    "attr-order": [
-      true,
-      [
-        "id",
-        "class"
-      ]
-    ],
-    "attr-quote-style": [
-      true,
-      "double"
-    ],
+    "attr-order": [true, ["id", "class"]],
+    "attr-quote-style": [true, "double"],
     "attr-req-value": true,
     "attr-validate": true,
 
     "class-no-dup": true,
-    "class-style": [
-      true,
-      "lowercase"
-    ],
+    "class-style": [true, "lowercase"],
 
     "doctype-html5": true,
     "doctype-first": true,
@@ -55,67 +37,33 @@ module.exports = {
     "head-req-title": true,
     "html-req-lang": true,
     "html-valid-content-model": true,
-    "href-style": [
-      true,
-      "relative"
-    ],
+    "href-style": [true, "relative"],
 
     "id-class-no-ad": true,
-    "id-class-style": [
-      true,
-      "underscore"
-    ],
+    "id-class-style": [true, "underscore"],
     "id-no-dup": true,
-    "id-style": [
-      true,
-      "underscore"
-    ],
+    "id-style": [true, "underscore"],
     "img-req-alt": true,
     "img-req-src": true,
     "indent-delta": true,
-    "indent-style": [
-      true,
-      "tabs"
-    ],
-    "indent-width": [
-      true,
-      4
-    ],
+    "indent-style": [true, "tabs"],
+    "indent-width": [true, 4],
     "indent-width-cont": true,
 
     "label-req-for": true,
-    "lang-style": [
-      true,
-      "case"
-    ],
-    "line-end-style": [
-      true,
-      "lf"
-    ],
+    "lang-style": [true, "case"],
+    "line-end-style": [true, "lf"],
     "line-no-trailing-whitespace": true,
-    "line-max-len": [
-      true,
-      80
-    ],
+    "line-max-len": [true, 80],
     "link-req-noopener": true,
 
-    "tag-bans": [
-      true,
-      [
-        "style",
-        "b",
-        "i"
-      ]
-    ],
+    "tag-bans": [true, ["style", "b", "i"]],
     "tag-close": true,
     "tag-name-lowercase": true,
     "tag-name-match": true,
     "tag-self-close": true,
     "title-no-dup": true,
-    "title-max-len": [
-      true,
-      60
-    ],
+    "title-max-len": [true, 60],
     "fig-req-figcaption": false,
     "focusable-tabindex-style": false,
     "input-radio-req-name": true,
@@ -124,4 +72,4 @@ module.exports = {
     "table-req-header": false,
     "tag-req-attr": false
   }
-};
+} as const;

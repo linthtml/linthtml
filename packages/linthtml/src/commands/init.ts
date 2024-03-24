@@ -62,7 +62,10 @@ const GENERATORS = {
 };
 
 export default async function init_command(): Promise<void> {
-  const response: { format: keyof typeof GENERATORS; legacy: boolean } = await inquirer.prompt([
+  const response = await inquirer.prompt<{
+    format: keyof typeof GENERATORS;
+    legacy: boolean;
+  }>([
     {
       type: "list",
       name: "format",

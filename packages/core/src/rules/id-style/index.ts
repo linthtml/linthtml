@@ -38,7 +38,7 @@ function lint(
           meta: {
             data: {
               attribute: "id",
-              format,
+              format: format.toString(),
               value: id
             }
           }

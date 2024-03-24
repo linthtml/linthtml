@@ -32,7 +32,7 @@ function lint(
           position: name.loc,
           meta: {
             data: {
-              format,
+              format: format.toString(),
               attribute: name.chars
             }
           }

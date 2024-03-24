@@ -60,7 +60,7 @@ function check_indent_width_close({ open, close }: Node) {
   return open.loc.start.column === close.loc.start.column;
 }
 
-function check_indent_style(node: Node, indent_style: unknown) {
+function check_indent_style(node: Node, indent_style: "spaces" | "tabs" | "mixed") {
   if (is_parent_open_close_same_line(node) || is_sibling_close_tag_same_line(node)) {
     return true;
   }
@@ -71,6 +71,7 @@ function check_indent_style(node: Node, indent_style: unknown) {
     if (indent === "") {
       return true;
     }
+
     switch (indent_style) {
       case "tabs":
         return /^[^ ]+/.test(indent);
@@ -99,7 +100,7 @@ function indent_style_used(node: Node) {
 
 function check_node_indent(
   node: Node,
-  indent: { width: false | number; style: false | "spaces" | "tabs" | "mixed" },
+  indent: { width: false | number; style: "spaces" | "tabs" | "mixed" },
   expected_indent_width: number,
   report: reportFunction
 ) {

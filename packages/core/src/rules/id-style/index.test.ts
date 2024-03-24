@@ -137,7 +137,7 @@ describe("legacy linter | id-style", function () {
     );
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({ "id-style": "dash" });
     const html = `
       <div id></div>
@@ -293,7 +293,7 @@ describe("id-style", function () {
     });
   });
 
-  it("Rule should not fail if id attribute has no value", async function () {
+  it("Rule should not fail if id attribute has no value", function () {
     const linter = createLinter({
       "id-style": [true, "dash"]
     });

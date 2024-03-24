@@ -50,7 +50,7 @@ export default class Config {
     rule.subscribers = [];
     this.rulesMap[rule.name] = rule;
 
-    if (oldRule?.subscribers.length) {
+    if (oldRule?.subscribers?.length) {
       this.deactivateRule(oldRule);
       this.activateRule(rule);
       rule.subscribers = oldRule.subscribers;
@@ -179,7 +179,11 @@ export default class Config {
   setOptionObj(option: LegacyRuleOption, value: unknown) {
     const active = value !== false && value !== undefined;
     if (active !== option.active) {
-      this.onAllSubs(option, option.rules, (active ? this.addSubscriber : this.removeSubscriber).bind(this));
+      this.onAllSubs(
+        option,
+        option.rules ?? [],
+        active ? this.addSubscriber.bind(this) : this.removeSubscriber.bind(this)
+      );
       option.active = active;
     }
   }
@@ -197,27 +201,27 @@ export default class Config {
   }
 
   activateRule(rule: LegacyRuleDefinition) {
-    if (this.rulesMap[rule.on]) {
-      this.addSubscriber(this.rulesMap[rule.on], rule);
+    if (this.rulesMap[rule.on as string]) {
+      this.addSubscriber(this.rulesMap[rule.on as string], rule);
     }
   }
 
   addSubscriber(rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) {
-    if (!rule.subscribers.length) {
+    if (!rule.subscribers?.length) {
       this.activateRule(rule);
     }
-    rule.subscribers.push(sub as LegacyRuleDefinition);
+    rule.subscribers?.push(sub as LegacyRuleDefinition);
   }
 
   deactivateRule(rule: LegacyRuleDefinition) {
-    if (this.rulesMap[rule.on]) {
-      this.removeSubscriber(this.rulesMap[rule.on], rule);
+    if (this.rulesMap[rule.on as string]) {
+      this.removeSubscriber(this.rulesMap[rule.on as string], rule);
     }
   }
 
   removeSubscriber(rule: LegacyRuleDefinition, sub: LegacyRuleOption | LegacyRuleDefinition) {
     // I've try replacing pull with array.filter but it's not working
-    if (!pull(rule.subscribers, sub).length) {
+    if (!pull(rule.subscribers ?? [], sub).length) {
       this.deactivateRule(rule);
     }
   }
