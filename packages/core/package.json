@@ -60,13 +60,13 @@
     "globby": "^13.0.0",
     "ignore": "^5.2.4",
     "lodash.pull": "4.1.0",
-    "resolve-from": "^5.0.0",
-    "rewiremock": "^3.14.3"
+    "resolve-from": "^5.0.0"
   },
   "devDependencies": {
     "@types/global-modules": "^2.0.0",
     "@types/lodash.pull": "^4.1.6",
-    "@types/resolve-from": "^5.0.1"
+    "@types/resolve-from": "^5.0.1",
+    "rewiremock": "^3.14.3"
   },
   "publishConfig": {
     "access": "public"
