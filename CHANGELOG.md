@@ -702,3 +702,12 @@ _close #55_
 
 - Integrated command line tool
 - 55 [Rules](./docs/rules)
+# [](https://github.com/linthtml/linthtml/compare/v0.9.4...v) (2024-03-24)
+
+
+### Bug Fixes
+
+* Move rewiremock into devdeps ([0cf703b](https://github.com/linthtml/linthtml/commit/0cf703b7d6bb2c184233844ecda2e30eef00fd90))
+
+
+
