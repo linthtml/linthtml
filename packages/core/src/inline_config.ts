@@ -67,11 +67,11 @@ function extract_rule_config(text: string): { rule_name: string; rule_configurat
   });
 }
 
-function parse_config(rule_configuration: string): unknown | never {
+function parse_config(rule_configuration: string): boolean | string | Array<unknown> | Record<string, unknown> | never {
   const cleaned_rule_configuration = rule_configuration.replace(/^("|')/, "").replace(/("|')$/, "");
   try {
     // deal with boolean, array and object
-    return JSON.parse(cleaned_rule_configuration);
+    return JSON.parse(cleaned_rule_configuration) as boolean | string | Array<unknown> | Record<string, unknown>;
   } catch (error) {
     if (is_string_config(rule_configuration) === false) {
       throw new CustomError("INLINE_03", { rule_configuration });
@@ -82,7 +82,7 @@ function parse_config(rule_configuration: string): unknown | never {
 
 function generate_inline_instruction(
   rule_name: string,
-  rule_configuration: unknown,
+  rule_configuration: boolean | string | Array<unknown> | Record<string, unknown>,
   linter_config: Config
 ): InlineInstructionConfig {
   let rule;
@@ -97,7 +97,9 @@ function generate_inline_instruction(
     };
   }
   try {
-    rule_configuration = rule.configTransform ? rule.configTransform(rule_configuration) : rule_configuration;
+    rule_configuration = rule.configTransform
+      ? (rule.configTransform(rule_configuration) as string | Array<unknown> | Record<string, unknown>)
+      : rule_configuration;
     if (rule.validateConfig) {
       rule.validateConfig(rule_configuration);
     }

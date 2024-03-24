@@ -65,7 +65,8 @@ function extract_rule_config(config: RuleConfig, ruleName: string): unknown {
   if (Array.isArray(config) === false) {
     throw new InvalidRuleConfig(`Invalid Config for rule "${ruleName}"`); // todo: Create nice error
   }
-  const ruleConfig = config[1];
+  // isArray return "arr is any[]"
+  const ruleConfig = config[1] as unknown;
 
   return ruleConfig;
 }
@@ -73,7 +74,7 @@ function extract_rule_config(config: RuleConfig, ruleName: string): unknown {
 function generate_rules_from_options(rule: LegacyRuleDefinition): {
   [rule_name: string]: RuleDefinition;
 } {
-  return rule.options.reduce((rules: { [rule_name: string]: RuleDefinition }, option: LegacyRuleOption) => {
+  return (rule.options ?? []).reduce((rules: { [rule_name: string]: RuleDefinition }, option: LegacyRuleOption) => {
     if (option.name) {
       rules[option.name] = {
         name: option.name,

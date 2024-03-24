@@ -19,6 +19,7 @@ describe("linthtml.rules", function () {
       if (["dom"].indexOf(rule.name) === -1) {
         it("should subscribe to something", function () {
           expect(rule).to.have.property("on");
+          // @ts-expect-error Cannot be null because of previous assertion
           expect(rule.on.length > 0).to.equal(true);
         });
       }

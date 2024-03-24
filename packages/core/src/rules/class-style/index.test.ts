@@ -114,7 +114,7 @@ describe("legacy linter | class-style", function () {
     expect(issues).to.have.lengthOf(0);
   });
 
-  it("Rule should not fail if class attribute has no value", async function () {
+  it("Rule should not fail if class attribute has no value", function () {
     const linter = createLinter({ "class-style": "dash" });
     const html = `
       <div class></div>
@@ -307,7 +307,7 @@ describe("class-style", function () {
   //     .throw("Configuration for rule \"id-class-ignore-regex\" is invalid: You provide an empty string value");
   // });
 
-  it("Rule should not fail if class attribute has no value", async function () {
+  it("Rule should not fail if class attribute has no value", function () {
     const linter = createLinter({
       "class-style": [true, "dash"]
     });

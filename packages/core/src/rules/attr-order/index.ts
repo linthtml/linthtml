@@ -1,7 +1,7 @@
 import { types } from "node:util";
 import { is_tag_node, get_attribute } from "@linthtml/dom-utils";
 import type { reportFunction, RuleDefinition } from "../../read-config.js";
-import type { Element, Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
+import type { Node, NodeAttribute } from "@linthtml/dom-utils/dom_elements";
 
 const { isRegExp } = types;
 
@@ -12,14 +12,13 @@ function validateConfig(options: unknown) {
     `Configuration for rule "${RULE_NAME}" is invalid: Expected (string|RegExp)[] got ${type}`;
   if (Array.isArray(options)) {
     options = options.map((option) => {
-      const type = typeof option;
-      if (type === "string") {
+      if (typeof option === "string") {
         return option.toLowerCase();
       }
       if (isRegExp(option)) {
         return option;
       }
-      throw new Error(typeError(`${type}[]`));
+      throw new Error(typeError(`${typeof option}[]`));
     });
     return options;
   }

@@ -13,5 +13,5 @@ const rules_path = globbySync(["*/index.{ts,js}", "./dom.{ts,js}", "./free-optio
 });
 
 const rulesExport = await Promise.all(rules_path.map((path) => import(path)));
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
 export default Object.values(rulesExport).map((rule) => rule?.index?.default ?? rule.default) as LegacyRuleDefinition[];

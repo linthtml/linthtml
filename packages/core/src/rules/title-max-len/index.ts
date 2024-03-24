@@ -19,7 +19,7 @@ function lint(node: Node, max_length: number, { report }: { report: reportFuncti
         meta: {
           data: {
             title: text,
-            max_lengthgth: max_length
+            max_length
           }
         }
       });
