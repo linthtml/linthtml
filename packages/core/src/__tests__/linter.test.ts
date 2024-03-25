@@ -9,7 +9,6 @@ const foo: RuleDefinition = {
   name: "foo",
   lint(_node: unknown, _option: unknown, { report }) {
     return report({
-      // @ts-expect-error Custom code for testing
       code: "CUSTOM",
       position: {
         start: {
