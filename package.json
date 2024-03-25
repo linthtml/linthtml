@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "clean": "lerna run clean; rm -rf tmp; rm -rf packages/**/*.tsbuildinfo; rm -rf packages/**/dist",
-    "lint": "eslint .",
+    "lint": "nx run-many -t lint",
     "coverage": "nx run-many -t test --configuration coverage",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
