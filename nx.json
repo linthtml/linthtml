@@ -13,6 +13,9 @@
         "{workspaceRoot}/.eslintrc.json",
         "{workspaceRoot}/.eslintignore",
         "{workspaceRoot}/eslint.config.js"
+      ],
+      "dependsOn": [
+        "^build"
       ]
     },
     "test": {
