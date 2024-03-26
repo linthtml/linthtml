@@ -22,15 +22,6 @@ export interface FileLinter {
   linter: LegacyLinter;
 }
 
-const test = function (html: string, config: LegacyLinterConfig | LinterConfig) {
-  if (config?.rules !== undefined) {
-    const linter = new Linter(config as LinterConfig);
-    return linter.lint(html);
-  }
-  const linter = new LegacyLinter(null, config as LegacyLinterConfig);
-  return linter.lint(html);
-};
-
 /**
  * The linthtml namespace.
  */
@@ -166,4 +157,4 @@ linthtml.messages = messages;
 
 export default linthtml;
 
-export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig, test };
+export { config_from_path, find_local_config, LegacyLinterConfig, LinterConfig };
