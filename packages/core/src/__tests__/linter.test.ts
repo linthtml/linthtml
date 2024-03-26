@@ -1,9 +1,12 @@
 import { expect } from "chai";
 import Linter from "../linter.js";
 import Config from "../config.js";
-// import rewiremock from "rewiremock";
-// import path from "path";
+import path from "path";
 import type { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../read-config.js";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const foo: RuleDefinition = {
   name: "foo",
@@ -49,21 +52,20 @@ describe("Config", function () {
     expect(issues[0].severity).to.equal("warning");
   });
 
-  // it("A custom parser can be provided", async function (done) {
-  //   const config_path = path.join(__dirname, "fixtures", "custom-parser.js");
-  //   rewiremock.overrideEntryPoint(module);
-  //   rewiremock(config_path).with(function (html: string) {
-  //     expect(html).to.equal("foo");
-  //     rewiremock.disable();
-  //     done();
-  //     return [];
-  //   });
-  //   rewiremock.enable();
-  //   const linter = new Linter({
-  //     parser: config_path
-  //   });
-  //   linter.lint("foo");
-  // });
+  // Was not able to make rewiremock work here
+  it("A custom parser can be provided", async function () {
+    const config_path = path.join(__dirname, "fixtures", "custom-parser.cjs");
+
+    const linter = new Linter({
+      parser: config_path
+    });
+    try {
+      await linter.lint("foo");
+    } catch (error) {
+      expect((error as Error).toString()).to.equal('Error: Custom parser used for "foo"');
+    }
+  });
+
   it("should report an error when provided with an unexisting parser", function () {
     try {
       // eslint-disable-next-line no-new
