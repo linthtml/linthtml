@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "domelementtype": "^2.2.0",
-    "domhandler": "^4.2.2"
+    "domhandler": "^5.0.3"
   },
   "publishConfig": {
     "access": "public"
