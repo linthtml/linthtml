@@ -7,14 +7,42 @@
   "license": "ISC",
   "type": "module",
   "exports": {
-    ".": [
-      "./dist/src/index.js"
-    ],
-    "./dom_elements": [
-      "./dist/src/dom_elements.js"
-    ]
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js.cjs"
+    },
+    "./boolean_attrs": {
+      "types": "./dist/types/boolean_attrs.d.ts",
+      "import": "./dist/esm/boolean_attrs.js",
+      "require": "./dist/cjs/boolean_attrs.js.cjs"
+    },
+    "./dom_elements": {
+      "types": "./dist/types/dom_elements.d.ts",
+      "import": "./dist/esm/dom_elements.js",
+      "require": "./dist/cjs/dom_elements.js.cjs"
+    },
+    "./is_labelable": {
+      "types": "./dist/types/is_labelable.d.ts",
+      "import": "./dist/esm/is_labelable.js",
+      "require": "./dist/cjs/is_labelable.js.cjs"
+    },
+    "./is_void_node": {
+      "types": "./dist/types/is_void_node.d.ts",
+      "import": "./dist/esm/is_void_node.js",
+      "require": "./dist/cjs/is_void_node.js.cjs"
+    },
+    "./tags": {
+      "types": "./dist/types/tags.d.ts",
+      "import": "./dist/esm/tags.js",
+      "require": "./dist/cjs/tags.js.cjs"
+    },
+    "./text_node": {
+      "types": "./dist/types/text_node.d.ts",
+      "import": "./dist/esm/text_node.js",
+      "require": "./dist/cjs/text_node.js.cjs"
+    }
   },
-  "types": "dist/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

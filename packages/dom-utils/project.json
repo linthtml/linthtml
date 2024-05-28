@@ -5,18 +5,15 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "packages/dom-utils/dist",
-        "tsConfig": "packages/dom-utils/tsconfig.lib.json",
-        "packageJson": "packages/dom-utils/package.json",
-        "main": "packages/dom-utils/src/index.ts",
-        "assets": [
-          "packages/dom-utils/*.md"
-        ]
+        "cwd": "{projectRoot}",
+        "commands": [
+          "tsc --project tsconfig.lib.cjs.json",
+          "find ./dist/cjs -iname '*.js' -exec bash -c 'mv -- \"$1\" \"${1}.cjs\"' bash {} \\;",
+          "tsc --project tsconfig.lib.esm.json"
+        ],
+        "parallel": false
       }
     },
     "lint": {
