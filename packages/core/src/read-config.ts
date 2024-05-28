@@ -254,7 +254,7 @@ function load_plugin(plugin_name: string): PluginConfig | never {
   try {
     // TODO: Switch to import
     // Eslint Typescript recommend using import statement but import return a promise.
-    const require = createRequire(import.meta.url);
+    const require = createRequire(import.meta.url); // Cannot be used to import esm plugins
     const plugin_import = require(plugin_name) as { default: PluginConfig } | PluginConfig;
     // const plugin_import = await import(plugin_name);
     // Handle either ES6 or CommonJS modules
