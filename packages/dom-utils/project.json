@@ -10,8 +10,9 @@
         "cwd": "{projectRoot}",
         "commands": [
           "tsc --project tsconfig.lib.cjs.json",
-          "find ./dist/cjs -iname '*.js' -exec bash -c 'mv -- \"$1\" \"${1}.cjs\"' bash {} \\;",
-          "tsc --project tsconfig.lib.esm.json"
+          "find dist/cjs -iname '*.js' -exec bash -c 'mv -- \"$1\" \"${1}.cjs\"' bash {} \\;",
+          "tsc --project tsconfig.lib.esm.json",
+          "rm dist/*.tsbuildinfo"
         ],
         "parallel": false
       }
