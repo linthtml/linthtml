@@ -6,6 +6,7 @@ import type { LinterConfig } from "../../read-config.js";
 import { config_from_path, find_local_config } from "../../read-config.js";
 import { fileURLToPath } from "url";
 import module from "module";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -153,7 +154,7 @@ describe("Load extends config", function () {
 });
 
 describe("Load plugins", function () {
-  it("Load and merge rules from plugins", async function () {
+  it("Load and merge rules from CJS plugins", async function () {
     const plugin_path = path.join(__dirname, "fixtures", "plugin.cjs");
     const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.cjs");
     const { config } = await config_from_path(config_path);
@@ -162,6 +163,32 @@ describe("Load plugins", function () {
     expect((config as LinterConfig).plugins_rules).to.not.be.null;
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
     expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"].lint).to.be.a("function");
+  });
+
+  it("Load and merge rules from ESM plugins", async function () {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.mjs");
+    const config_path = path.join(__dirname, "fixtures", "valid-config-plugin.mjs");
+    const { config } = await config_from_path(config_path);
+
+    expect((config as LinterConfig).plugins).to.deep.equal([plugin_path]);
+    expect((config as LinterConfig).plugins_rules).to.not.be.null;
+    expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"]).to.have.property("name", "my-plugin/rule");
+    expect((config as LinterConfig).plugins_rules?.["my-plugin/rule"].lint).to.be.a("function");
+  });
+
+  it("Throw an error when importing CJS plugin with .js extension", async function () {
+    const plugin_path = path.join(__dirname, "fixtures", "plugin.js");
+    const config_path = path.join(__dirname, "fixtures", "config-invalid-cjs-plugin.mjs");
+    try {
+      await config_from_path(config_path);
+    } catch (error) {
+      expect(error).to.be.a("CustomError");
+      expect(error).to.have.property("code", "CORE-10");
+      expect(error).to.have.property("meta");
+      // @ts-expect-error Assertion before assert that meta exist
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(error.meta.module_name).to.eq(plugin_path);
+    }
   });
 
   it("Throw an error when plugins rules property is not an array", async function () {

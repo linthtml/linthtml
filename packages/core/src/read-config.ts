@@ -9,7 +9,6 @@ import resolveFrom from "resolve-from";
 import CustomError from "./utils/custom-errors.js";
 import type Issue from "./issue.js";
 import type { Node, Range } from "@linthtml/dom-utils/dom_elements";
-import { createRequire } from "module";
 import { fileURLToPath } from "url";
 
 const IS_TEST = process.env.NODE_ENV === "test";
@@ -250,21 +249,23 @@ function check_plugin_rule(rule_definition: { name?: string; lint?: unknown }, p
  * @returns {Object}
  * @throws {CustomError}
  */
-function load_plugin(plugin_name: string): PluginConfig | never {
-  try {
-    // TODO: Switch to import
-    // Eslint Typescript recommend using import statement but import return a promise.
-    const require = createRequire(import.meta.url); // Cannot be used to import esm plugins
-    const plugin_import = require(plugin_name) as { default: PluginConfig } | PluginConfig;
-    // const plugin_import = await import(plugin_name);
-    // Handle either ES6 or CommonJS modules
-    return (plugin_import as { default: PluginConfig }).default ?? (plugin_import as PluginConfig);
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ERR_REQUIRE_ESM") {
-      throw new CustomError("CORE-10", { module_name: plugin_name });
-    }
-    throw new CustomError("CORE-05", { module_name: plugin_name });
-  }
+function load_plugin(plugin_name: string): Promise<PluginConfig> | never {
+  return import(plugin_name)
+    .then((plugin_import) => {
+      return (plugin_import as { default: PluginConfig }).default ?? (plugin_import as PluginConfig);
+    })
+    .catch((error) => {
+      if (
+        (error as NodeJS.ErrnoException).code === "ERR_REQUIRE_ESM" ||
+        (error as NodeJS.ErrnoException).message.match("module is not defined in ES module scope")
+      ) {
+        throw new CustomError("CORE-10", {
+          module_name: plugin_name,
+          message: (error as NodeJS.ErrnoException).message
+        });
+      }
+      throw new CustomError("CORE-05", { module_name: plugin_name });
+    });
 }
 
 /**
@@ -272,19 +273,23 @@ function load_plugin(plugin_name: string): PluginConfig | never {
  * @returns {CosmiconfigResult}
  * @throws {CustomError}
  */
-function add_plugins_rules(cosmiconfig_result: {
+async function add_plugins_rules(cosmiconfig_result: {
   config: LinterConfig;
   filepath: string;
   isEmpty?: boolean | undefined;
-}): ExtractConfigResult | never {
+}): Promise<ExtractConfigResult> | never {
   if (cosmiconfig_result.config.plugins) {
     const normalized_plugins = Array.isArray(cosmiconfig_result.config.plugins) // throw an error if not string or array
       ? cosmiconfig_result.config.plugins
       : [cosmiconfig_result.config.plugins];
 
-    const plugins_rules: Record<string, RuleDefinition> = normalized_plugins.reduce(
-      (plugin_rules: Record<string, RuleDefinition>, plugin_name) => {
-        const { rules } = load_plugin(plugin_name);
+    const plugins = await Promise.all(
+      normalized_plugins.map((plugin_name) => load_plugin(plugin_name).then((pkg) => ({ plugin_name, pkg })))
+    );
+
+    const plugins_rules: Record<string, RuleDefinition> = plugins.reduce(
+      (plugin_rules: Record<string, RuleDefinition>, { plugin_name, pkg }) => {
+        const { rules } = pkg;
 
         if (rules && !Array.isArray(rules)) {
           throw new CustomError("CORE-09", { plugin_name });
