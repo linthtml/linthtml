@@ -1,5 +1,59 @@
 # Changelog
 
+## [0.10.0-beta.8](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.7...v0.10.0-beta.8) (2024-05-30)
+
+### Features 🚀
+
+* [@linthtml/core] Improve custom error message for ESM-CJS require error
+
+### Bug fixes
+
+* [@linthtml/dom-utils] Fix file require in CJS build
+
+## [0.10.0-beta.7](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.6...v0.10.0-beta.7) (2024-05-29)
+
+### Features 🚀
+
+* [@linthtml/dom-utils] Generate ESM and CJS files in build and add new atomic exports.
+
+### Bug fixes
+
+* [@linthtml/core] Fix import of ESM plugins
+
+## [0.10.0-beta.6](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.5...v0.10.0-beta.6) (2024-03-24)
+
+### Features 🚀
+
+* [@linthtml/core] Add custom error message for ESM-CJS require error
+
+### Bug fixes
+
+* [@linthtml/core] Correctly extract ignore patterns from .linthtmlignore file
+
+## [0.10.0-beta.5](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.4...v0.10.0-beta.5) (2024-03-06)
+
+### Features 🚀
+
+* [@linthtml/linthtml] Update config init output to include JSDOC or TS types
+
+## [0.10.0-beta.4](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.3...v0.10.0-beta.4) (2024-03-05)
+
+### Bug fixes
+
+* [@linthtml/linthtml] Don't use default export for CLI
+
+## [0.10.0-beta.3](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.2...v0.10.0-beta.3) (2024-03-05)
+
+### Features 🚀
+
+* [@linthtml/linthtml] Add CJS, ESM and TS output format for init command
+
+## [0.10.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.1...v0.10.0-beta.2) (2024-03-03)
+
+### Bug fixes
+
+* [@linthtml/linthtml] Add missing deps `@linthtml/core`
+
 ## [0.10.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.9.5...v0.10.0-beta.1) (2024-03-03)
 
 * Packages have been converted to esm
@@ -16,7 +70,7 @@
 
 ### Bug Fixes
 
-* [@linthtml/linhtml] Correct rule name extract in inline_config "parser" ([#493](https://github.com/linthtml/linthtml/pull/493))
+* [@linthtml/linthtml] Correct rule name extract in inline_config "parser" ([#493](https://github.com/linthtml/linthtml/pull/493))
 
 ## [0.9.3](https://github.com/linthtml/linthtml/compare/v0.9.3...v0.9.2) (2022-10-08)
 
