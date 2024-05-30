@@ -9,10 +9,8 @@
       "options": {
         "cwd": "{projectRoot}",
         "commands": [
-          "tsc --project tsconfig.lib.cjs.json",
-          "find dist/cjs -iname '*.js' -exec bash -c 'mv -- \"$1\" \"${1}.cjs\"' bash {} \\;",
-          "tsc --project tsconfig.lib.esm.json",
-          "rm dist/*.tsbuildinfo"
+          "rm -rf dist/ .rollup.cache tsconfig.lib.tsbuildinfo",
+          "rollup -c rollup.config.mjs"
         ],
         "parallel": false
       }

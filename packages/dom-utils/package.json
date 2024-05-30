@@ -8,39 +8,39 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./boolean_attrs": {
-      "types": "./dist/types/boolean_attrs.d.ts",
-      "import": "./dist/esm/boolean_attrs.js",
-      "require": "./dist/cjs/boolean_attrs.js.cjs"
+      "types": "./dist/boolean_attrs.d.ts",
+      "import": "./dist/boolean_attrs.js",
+      "require": "./dist/boolean_attrs.cjs"
     },
     "./dom_elements": {
-      "types": "./dist/types/dom_elements.d.ts",
-      "import": "./dist/esm/dom_elements.js",
-      "require": "./dist/cjs/dom_elements.js.cjs"
+      "types": "./dist/dom_elements.d.ts",
+      "import": "./dist/dom_elements.js",
+      "require": "./dist/dom_elements.cjs"
     },
     "./is_labelable": {
-      "types": "./dist/types/is_labelable.d.ts",
-      "import": "./dist/esm/is_labelable.js",
-      "require": "./dist/cjs/is_labelable.js.cjs"
+      "types": "./dist/is_labelable.d.ts",
+      "import": "./dist/is_labelable.js",
+      "require": "./dist/is_labelable.cjs"
     },
     "./is_void_node": {
-      "types": "./dist/types/is_void_node.d.ts",
-      "import": "./dist/esm/is_void_node.js",
-      "require": "./dist/cjs/is_void_node.js.cjs"
+      "types": "./dist/is_void_node.d.ts",
+      "import": "./dist/is_void_node.js",
+      "require": "./dist/is_void_node.cjs"
     },
     "./tags": {
-      "types": "./dist/types/tags.d.ts",
-      "import": "./dist/esm/tags.js",
-      "require": "./dist/cjs/tags.js.cjs"
+      "types": "./dist/tags.d.ts",
+      "import": "./dist/tags.js",
+      "require": "./dist/tags.cjs"
     },
     "./text_node": {
-      "types": "./dist/types/text_node.d.ts",
-      "import": "./dist/esm/text_node.js",
-      "require": "./dist/cjs/text_node.js.cjs"
+      "types": "./dist/text_node.d.ts",
+      "import": "./dist/text_node.js",
+      "require": "./dist/text_node.cjs"
     }
   },
   "directories": {
@@ -65,6 +65,12 @@
   "dependencies": {
     "domelementtype": "^2.2.0",
     "domhandler": "^4.2.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "4.18.0"
   },
   "publishConfig": {
     "access": "public"

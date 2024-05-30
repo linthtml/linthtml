@@ -1,0 +1,346 @@
+0 silly argv {
+0 silly argv   _: [ 'version' ],
+0 silly argv   'commit-hooks': false,
+0 silly argv   commitHooks: false,
+0 silly argv   push: false,
+0 silly argv   lernaVersion: '5.6.2',
+0 silly argv   '$0': 'node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v5.6.2
+2 verbose rootPath /home/benjaminj/Workspace/linthtml/linthtml
+3 info current version 0.10.0-beta.6
+4 silly isAnythingCommitted
+5 verbose isAnythingCommitted 1
+6 silly getCurrentBranch
+7 verbose currentBranch develop
+8 silly hasTags
+9 verbose hasTags true
+10 silly git-describe.sync "v0.10.0-beta.6-19-gf7a76b07" => {"lastTagName":"v0.10.0-beta.6","lastVersion":"v0.10.0-beta.6","refCount":"19","sha":"f7a76b07","isDirty":false}
+11 info Looking for changed packages since v0.10.0-beta.6
+12 silly checking diff packages/core
+13 silly found diff in packages/core/package.json
+13 silly found diff in packages/core/src/__tests__/config.test.ts
+13 silly found diff in packages/core/src/__tests__/config_reader/fixtures/config-invalid-cjs-plugin.mjs
+13 silly found diff in packages/core/src/__tests__/config_reader/fixtures/plugin.js
+13 silly found diff in packages/core/src/__tests__/config_reader/fixtures/plugin.mjs
+13 silly found diff in packages/core/src/__tests__/config_reader/fixtures/valid-config-plugin.mjs
+13 silly found diff in packages/core/src/__tests__/config_reader/index.test.ts
+13 silly found diff in packages/core/src/__tests__/fixtures/custom-parser.cjs
+13 silly found diff in packages/core/src/__tests__/functional/raw-ignore-regex.test.ts
+13 silly found diff in packages/core/src/__tests__/legacy_config.test.ts
+13 silly found diff in packages/core/src/__tests__/legacy_inline-configuration.test.ts
+13 silly found diff in packages/core/src/__tests__/legacy_linter.test.ts
+13 silly found diff in packages/core/src/__tests__/linter.test.ts
+13 silly found diff in packages/core/src/__tests__/linthtml.test.ts
+13 silly found diff in packages/core/src/__tests__/none_regression/fixtures/config.ts
+13 silly found diff in packages/core/src/__tests__/none_regression/fixtures/index.html
+13 silly found diff in packages/core/src/__tests__/none_regression/fixtures/legacy_config.ts
+13 silly found diff in packages/core/src/__tests__/none_regression/regression.test.ts
+13 silly found diff in packages/core/src/__tests__/none_regression/test.ts
+13 silly found diff in packages/core/src/__tests__/rules.test.ts
+13 silly found diff in packages/core/src/config.ts
+13 silly found diff in packages/core/src/index.ts
+13 silly found diff in packages/core/src/inline_config.ts
+13 silly found diff in packages/core/src/issue.ts
+13 silly found diff in packages/core/src/legacy/config.ts
+13 silly found diff in packages/core/src/legacy/inline_config.ts
+13 silly found diff in packages/core/src/legacy/linter.ts
+13 silly found diff in packages/core/src/linter.ts
+13 silly found diff in packages/core/src/messages.ts
+13 silly found diff in packages/core/src/presets/accessibility.ts
+13 silly found diff in packages/core/src/presets/default.ts
+13 silly found diff in packages/core/src/presets/index.ts
+13 silly found diff in packages/core/src/presets/validate.ts
+13 silly found diff in packages/core/src/read-config.ts
+13 silly found diff in packages/core/src/rules/attr-bans/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-bans/index.ts
+13 silly found diff in packages/core/src/rules/attr-name-ignore-regex/index.ts
+13 silly found diff in packages/core/src/rules/attr-name-style/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-name-style/index.ts
+13 silly found diff in packages/core/src/rules/attr-new-line/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-new-line/index.ts
+13 silly found diff in packages/core/src/rules/attr-no-dup/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-no-dup/index.ts
+13 silly found diff in packages/core/src/rules/attr-no-unsafe-char/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-no-unsafe-char/index.ts
+13 silly found diff in packages/core/src/rules/attr-order/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-order/index.ts
+13 silly found diff in packages/core/src/rules/attr-quote-style/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-quote-style/index.ts
+13 silly found diff in packages/core/src/rules/attr-req-value/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-req-value/index.ts
+13 silly found diff in packages/core/src/rules/attr-validate/index.test.ts
+13 silly found diff in packages/core/src/rules/attr-validate/index.ts
+13 silly found diff in packages/core/src/rules/button-req-content/index.test.ts
+13 silly found diff in packages/core/src/rules/button-req-content/index.ts
+13 silly found diff in packages/core/src/rules/class-no-dup/index.test.ts
+13 silly found diff in packages/core/src/rules/class-no-dup/index.ts
+13 silly found diff in packages/core/src/rules/class-style/index.test.ts
+13 silly found diff in packages/core/src/rules/class-style/index.ts
+13 silly found diff in packages/core/src/rules/doctype-first/index.test.ts
+13 silly found diff in packages/core/src/rules/doctype-first/index.ts
+13 silly found diff in packages/core/src/rules/doctype-html5/index.test.ts
+13 silly found diff in packages/core/src/rules/doctype-html5/index.ts
+13 silly found diff in packages/core/src/rules/dom.ts
+13 silly found diff in packages/core/src/rules/fieldset-contains-legend/index.test.ts
+13 silly found diff in packages/core/src/rules/fieldset-contains-legend/index.ts
+13 silly found diff in packages/core/src/rules/fig-req-figcaption/index.test.ts
+13 silly found diff in packages/core/src/rules/fig-req-figcaption/index.ts
+13 silly found diff in packages/core/src/rules/focusable-tabindex-style/index.test.ts
+13 silly found diff in packages/core/src/rules/focusable-tabindex-style/index.ts
+13 silly found diff in packages/core/src/rules/head-req-title/index.test.ts
+13 silly found diff in packages/core/src/rules/head-req-title/index.ts
+13 silly found diff in packages/core/src/rules/head-valid-content-model/index.test.ts
+13 silly found diff in packages/core/src/rules/head-valid-content-model/index.ts
+13 silly found diff in packages/core/src/rules/href-style/index.test.ts
+13 silly found diff in packages/core/src/rules/href-style/index.ts
+13 silly found diff in packages/core/src/rules/html-req-lang/index.test.ts
+13 silly found diff in packages/core/src/rules/html-req-lang/index.ts
+13 silly found diff in packages/core/src/rules/html-valid-content-model/index.test.ts
+13 silly found diff in packages/core/src/rules/html-valid-content-model/index.ts
+13 silly found diff in packages/core/src/rules/id-class-no-ad/index.test.ts
+13 silly found diff in packages/core/src/rules/id-class-no-ad/index.ts
+13 silly found diff in packages/core/src/rules/id-class-style/index.test.ts
+13 silly found diff in packages/core/src/rules/id-class-style/index.ts
+13 silly found diff in packages/core/src/rules/id-no-dup/index.test.ts
+13 silly found diff in packages/core/src/rules/id-no-dup/index.ts
+13 silly found diff in packages/core/src/rules/id-style/index.test.ts
+13 silly found diff in packages/core/src/rules/id-style/index.ts
+13 silly found diff in packages/core/src/rules/img-req-alt/index.test.ts
+13 silly found diff in packages/core/src/rules/img-req-alt/index.ts
+13 silly found diff in packages/core/src/rules/img-req-src/index.test.ts
+13 silly found diff in packages/core/src/rules/img-req-src/index.ts
+13 silly found diff in packages/core/src/rules/indent-style/index.test.ts
+13 silly found diff in packages/core/src/rules/indent-style/index.ts
+13 silly found diff in packages/core/src/rules/indent-width/index.test.ts
+13 silly found diff in packages/core/src/rules/indent-width/index.ts
+13 silly found diff in packages/core/src/rules/index.ts
+13 silly found diff in packages/core/src/rules/input-btn-req-value-or-title/index.test.ts
+13 silly found diff in packages/core/src/rules/input-btn-req-value-or-title/index.ts
+13 silly found diff in packages/core/src/rules/input-radio-req-name/index.test.ts
+13 silly found diff in packages/core/src/rules/input-radio-req-name/index.ts
+13 silly found diff in packages/core/src/rules/input-req-label/index.test.ts
+13 silly found diff in packages/core/src/rules/input-req-label/index.ts
+13 silly found diff in packages/core/src/rules/label-no-enc-textarea-or-select/index.test.ts
+13 silly found diff in packages/core/src/rules/label-no-enc-textarea-or-select/index.ts
+13 silly found diff in packages/core/src/rules/label-req-for/index.test.ts
+13 silly found diff in packages/core/src/rules/label-req-for/index.ts
+13 silly found diff in packages/core/src/rules/lang-style/index.test.ts
+13 silly found diff in packages/core/src/rules/lang-style/index.ts
+13 silly found diff in packages/core/src/rules/line-end-style/index.test.ts
+13 silly found diff in packages/core/src/rules/line-end-style/index.ts
+13 silly found diff in packages/core/src/rules/line-max-len/index.test.ts
+13 silly found diff in packages/core/src/rules/line-max-len/index.ts
+13 silly found diff in packages/core/src/rules/line-no-trailing-whitespace/index.test.ts
+13 silly found diff in packages/core/src/rules/line-no-trailing-whitespace/index.ts
+13 silly found diff in packages/core/src/rules/link-min-length-4/index.test.ts
+13 silly found diff in packages/core/src/rules/link-min-length-4/index.ts
+13 silly found diff in packages/core/src/rules/link-req-noopener/index.test.ts
+13 silly found diff in packages/core/src/rules/link-req-noopener/index.ts
+13 silly found diff in packages/core/src/rules/no-surrounding-whitespace/index.test.ts
+13 silly found diff in packages/core/src/rules/no-surrounding-whitespace/index.ts
+13 silly found diff in packages/core/src/rules/table-req-caption/index.test.ts
+13 silly found diff in packages/core/src/rules/table-req-caption/index.ts
+13 silly found diff in packages/core/src/rules/table-req-header/index.test.ts
+13 silly found diff in packages/core/src/rules/table-req-header/index.ts
+13 silly found diff in packages/core/src/rules/tag-bans/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-bans/index.ts
+13 silly found diff in packages/core/src/rules/tag-close/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-close/index.ts
+13 silly found diff in packages/core/src/rules/tag-name-lowercase/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-name-lowercase/index.ts
+13 silly found diff in packages/core/src/rules/tag-name-match/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-name-match/index.ts
+13 silly found diff in packages/core/src/rules/tag-req-attr/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-req-attr/index.ts
+13 silly found diff in packages/core/src/rules/tag-self-close/index.test.ts
+13 silly found diff in packages/core/src/rules/tag-self-close/index.ts
+13 silly found diff in packages/core/src/rules/title-max-len/index.test.ts
+13 silly found diff in packages/core/src/rules/title-max-len/index.ts
+13 silly found diff in packages/core/src/rules/title-no-dup/index.test.ts
+13 silly found diff in packages/core/src/rules/title-no-dup/index.ts
+13 silly found diff in packages/core/src/utils/array.ts
+13 silly found diff in packages/core/src/utils/custom-errors.ts
+13 silly found diff in packages/core/src/validate_option.ts
+13 silly found diff in packages/core/tsconfig.json
+14 verbose filtered diff [
+14 verbose filtered diff   'packages/core/package.json',
+14 verbose filtered diff   'packages/core/src/__tests__/config.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/config_reader/fixtures/config-invalid-cjs-plugin.mjs',
+14 verbose filtered diff   'packages/core/src/__tests__/config_reader/fixtures/plugin.js',
+14 verbose filtered diff   'packages/core/src/__tests__/config_reader/fixtures/plugin.mjs',
+14 verbose filtered diff   'packages/core/src/__tests__/config_reader/fixtures/valid-config-plugin.mjs',
+14 verbose filtered diff   'packages/core/src/__tests__/config_reader/index.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/fixtures/custom-parser.cjs',
+14 verbose filtered diff   'packages/core/src/__tests__/functional/raw-ignore-regex.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/legacy_config.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/legacy_inline-configuration.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/legacy_linter.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/linter.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/linthtml.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/none_regression/fixtures/config.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/none_regression/fixtures/index.html',
+14 verbose filtered diff   'packages/core/src/__tests__/none_regression/fixtures/legacy_config.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/none_regression/regression.test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/none_regression/test.ts',
+14 verbose filtered diff   'packages/core/src/__tests__/rules.test.ts',
+14 verbose filtered diff   'packages/core/src/config.ts',
+14 verbose filtered diff   'packages/core/src/index.ts',
+14 verbose filtered diff   'packages/core/src/inline_config.ts',
+14 verbose filtered diff   'packages/core/src/issue.ts',
+14 verbose filtered diff   'packages/core/src/legacy/config.ts',
+14 verbose filtered diff   'packages/core/src/legacy/inline_config.ts',
+14 verbose filtered diff   'packages/core/src/legacy/linter.ts',
+14 verbose filtered diff   'packages/core/src/linter.ts',
+14 verbose filtered diff   'packages/core/src/messages.ts',
+14 verbose filtered diff   'packages/core/src/presets/accessibility.ts',
+14 verbose filtered diff   'packages/core/src/presets/default.ts',
+14 verbose filtered diff   'packages/core/src/presets/index.ts',
+14 verbose filtered diff   'packages/core/src/presets/validate.ts',
+14 verbose filtered diff   'packages/core/src/read-config.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-bans/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-bans/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-name-ignore-regex/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-name-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-name-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-new-line/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-new-line/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-no-dup/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-no-dup/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-no-unsafe-char/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-no-unsafe-char/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-order/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-order/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-quote-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-quote-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-req-value/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-req-value/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-validate/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/attr-validate/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/button-req-content/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/button-req-content/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/class-no-dup/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/class-no-dup/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/class-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/class-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/doctype-first/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/doctype-first/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/doctype-html5/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/doctype-html5/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/dom.ts',
+14 verbose filtered diff   'packages/core/src/rules/fieldset-contains-legend/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/fieldset-contains-legend/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/fig-req-figcaption/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/fig-req-figcaption/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/focusable-tabindex-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/focusable-tabindex-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/head-req-title/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/head-req-title/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/head-valid-content-model/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/head-valid-content-model/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/href-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/href-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/html-req-lang/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/html-req-lang/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/html-valid-content-model/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/html-valid-content-model/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-class-no-ad/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-class-no-ad/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-class-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-class-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-no-dup/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-no-dup/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/id-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/img-req-alt/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/img-req-alt/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/img-req-src/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/img-req-src/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/indent-style/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/indent-style/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/indent-width/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/indent-width/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/input-btn-req-value-or-title/index.test.ts',
+14 verbose filtered diff   'packages/core/src/rules/input-btn-req-value-or-title/index.ts',
+14 verbose filtered diff   'packages/core/src/rules/input-radio-req-name/index.test.ts',
+14 verbose filtered diff   ... 45 more items
+14 verbose filtered diff ]
+15 silly checking diff packages/dom-utils
+16 silly found diff in packages/dom-utils/package.json
+16 silly found diff in packages/dom-utils/project.json
+16 silly found diff in packages/dom-utils/src/boolean_attrs.ts
+16 silly found diff in packages/dom-utils/src/check_lang_attribute.ts
+16 silly found diff in packages/dom-utils/src/dom_elements.ts
+16 silly found diff in packages/dom-utils/src/is_labelable.ts
+16 silly found diff in packages/dom-utils/src/is_void_node.ts
+16 silly found diff in packages/dom-utils/src/tags.ts
+16 silly found diff in packages/dom-utils/src/text_node.ts
+16 silly found diff in packages/dom-utils/tsconfig.json
+16 silly found diff in packages/dom-utils/tsconfig.lib.cjs.json
+16 silly found diff in packages/dom-utils/tsconfig.lib.esm.json
+17 verbose filtered diff [
+17 verbose filtered diff   'packages/dom-utils/package.json',
+17 verbose filtered diff   'packages/dom-utils/project.json',
+17 verbose filtered diff   'packages/dom-utils/src/boolean_attrs.ts',
+17 verbose filtered diff   'packages/dom-utils/src/check_lang_attribute.ts',
+17 verbose filtered diff   'packages/dom-utils/src/dom_elements.ts',
+17 verbose filtered diff   'packages/dom-utils/src/is_labelable.ts',
+17 verbose filtered diff   'packages/dom-utils/src/is_void_node.ts',
+17 verbose filtered diff   'packages/dom-utils/src/tags.ts',
+17 verbose filtered diff   'packages/dom-utils/src/text_node.ts',
+17 verbose filtered diff   'packages/dom-utils/tsconfig.json',
+17 verbose filtered diff   'packages/dom-utils/tsconfig.lib.cjs.json',
+17 verbose filtered diff   'packages/dom-utils/tsconfig.lib.esm.json'
+17 verbose filtered diff ]
+18 silly checking diff packages/html-parser
+19 silly found diff in packages/html-parser/src/__tests__/parser.test.ts
+19 silly found diff in packages/html-parser/src/dom_builder.ts
+19 silly found diff in packages/html-parser/tsconfig.json
+20 verbose filtered diff [
+20 verbose filtered diff   'packages/html-parser/src/__tests__/parser.test.ts',
+20 verbose filtered diff   'packages/html-parser/src/dom_builder.ts',
+20 verbose filtered diff   'packages/html-parser/tsconfig.json'
+20 verbose filtered diff ]
+21 silly checking diff packages/linthtml
+22 silly found diff in packages/linthtml/src/commands/init.ts
+22 silly found diff in packages/linthtml/src/index.ts
+22 silly found diff in packages/linthtml/src/print-file-report.ts
+22 silly found diff in packages/linthtml/src/utils.ts
+22 silly found diff in packages/linthtml/tsconfig.json
+23 verbose filtered diff [
+23 verbose filtered diff   'packages/linthtml/src/commands/init.ts',
+23 verbose filtered diff   'packages/linthtml/src/index.ts',
+23 verbose filtered diff   'packages/linthtml/src/print-file-report.ts',
+23 verbose filtered diff   'packages/linthtml/src/utils.ts',
+23 verbose filtered diff   'packages/linthtml/tsconfig.json'
+23 verbose filtered diff ]
+24 verbose updated @linthtml/core
+25 verbose updated @linthtml/dom-utils
+26 verbose updated @linthtml/html-parser
+27 verbose updated @linthtml/linthtml
+28 verbose git-describe undefined => "v0.10.0-beta.6-19-gf7a76b07"
+29 silly git-describe parsed => {"lastTagName":"v0.10.0-beta.6","lastVersion":"v0.10.0-beta.6","refCount":"19","sha":"f7a76b07","isDirty":false}
+30 info execute Skipping git push
+31 info execute Skipping releases
+32 silly lifecycle No script for "preversion" in "linthtml-monorepo", continuing
+33 silly lifecycle No script for "preversion" in "@linthtml/dom-utils", continuing
+34 verbose version @linthtml/dom-utils has no lockfile. Skipping lockfile update.
+35 silly lifecycle No script for "version" in "@linthtml/dom-utils", continuing
+36 silly lifecycle No script for "preversion" in "@linthtml/html-parser", continuing
+37 verbose version @linthtml/html-parser has no lockfile. Skipping lockfile update.
+38 silly lifecycle No script for "version" in "@linthtml/html-parser", continuing
+39 silly lifecycle No script for "preversion" in "@linthtml/core", continuing
+40 verbose version @linthtml/core has no lockfile. Skipping lockfile update.
+41 silly lifecycle No script for "version" in "@linthtml/core", continuing
+42 silly lifecycle No script for "preversion" in "@linthtml/linthtml", continuing
+43 verbose version @linthtml/linthtml has no lockfile. Skipping lockfile update.
+44 silly lifecycle No script for "version" in "@linthtml/linthtml", continuing
+45 verbose version Updating root package-lock.json
+46 silly lifecycle No script for "version" in "linthtml-monorepo", continuing
+47 error TypeError: resolvedPrettier.resolveConfig.sync is not a function
+47 error     at maybeFormatFile (/home/benjaminj/Workspace/linthtml/linthtml/node_modules/@lerna/version/lib/git-add.js:32:49)
+47 error     at gitAdd (/home/benjaminj/Workspace/linthtml/linthtml/node_modules/@lerna/version/lib/git-add.js:51:5)
+47 error     at /home/benjaminj/Workspace/linthtml/linthtml/node_modules/@lerna/version/index.js:648:32
+47 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
+47 error     at async Promise.all (index 0)

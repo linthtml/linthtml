@@ -25,7 +25,7 @@ npm-debug.log
 
 ## Typescript generated
 packages/*/dist/
-packages/*/tsconfig.tsbuildinfo
+packages/*/*.tsbuildinfo
 
 ## Generated files for the documentation
 doc/docs/user-guide/rules/list/
@@ -34,3 +34,4 @@ doc/docs/index.md
 
 .nx
 .eslintcache
+.rollup.cache
