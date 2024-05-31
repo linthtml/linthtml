@@ -1,6 +1,11 @@
 import { themes as prismThemes } from "prism-react-renderer";
-import type { Config } from "@docusaurus/types";
+import type { Config, PluginConfig } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const config: Config = {
   title: "LintHTML - HTML linter",
@@ -62,12 +67,11 @@ const config: Config = {
           label: "Docs",
           position: "left"
         },
-        // {
-        //   to: "api",
-        //   label: "API",
-        //   position: "left"
-        // },
-        // { to: "/blog", label: "Blog", position: "left" },
+        {
+          to: "api",
+          label: "API",
+          position: "left"
+        },
         {
           href: "https://github.com/linthtml/linthtml",
           label: "GitHub",
@@ -124,24 +128,27 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula
     }
-  } satisfies Preset.ThemeConfig
+  } satisfies Preset.ThemeConfig,
+
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc-api",
+      {
+        projectRoot: path.join(__dirname, ".."),
+        // Monorepo
+        packages: [
+          {
+            path: "packages/dom-utils",
+            entry: {
+              index: "src/index.ts"
+              // attr_parse: { path: "src/attr_parse.ts", label: "attr_parse" } // not Working, somehow it overrides the index
+              // TODO: Compare with https://github.com/milesj/boost/blob/master/website/docusaurus.config.js
+            }
+          }
+        ]
+      }
+    ]
+  ] satisfies PluginConfig[]
 };
 
 export default config;
-// plugins: [
-//   // [
-//   //   "docusaurus-plugin-typedoc-api",
-//   //   {
-//   //     projectRoot: path.join(__dirname, ".."),
-//   //     // Monorepo
-//   //     packages: [
-//   //       {
-//   //         path: "packages/dom-utils",
-//   //         entry: {
-//   //           index: "src/index.ts"
-//   //         }
-//   //       }
-//   //     ]
-//   //   }
-//   // ]
-// ]
