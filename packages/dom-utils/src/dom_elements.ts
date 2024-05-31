@@ -113,11 +113,6 @@ export class Node extends ExtendedNode(NodeWithChildren) {
  * An element within the DOM.
  */
 export class Element extends Node {
-  /**
-   * @param name Name of the tag, eg. `div`, `span`.
-   * @param attribs Object mapping attribute names to attribute values.
-   * @param children Children of the node.
-   */
   constructor(
     public name: string,
     public attributes: NodeAttribute[],
