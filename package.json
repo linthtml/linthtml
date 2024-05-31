@@ -75,7 +75,8 @@
   "author": "Benjamin JEGARD <kamikillerto@gmail.com>",
   "private": false,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "doc"
   ],
   "volta": {
     "node": "18.20.3",
