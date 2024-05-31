@@ -5,3 +5,5 @@ docs
 *.md
 packages/linthtml/src/rules/indent-width/fixtures/invalid.html
 packages/linthtml/src/rules/indent-width/fixtures/valid.html
+
+/.nx/cache

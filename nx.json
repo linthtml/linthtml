@@ -4,6 +4,10 @@
       "cache": true,
       "dependsOn": [
         "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
       ]
     },
     "lint": {
@@ -40,5 +44,15 @@
   },
   "installation": {
     "version": "17.2.8"
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [],
+    "production": [
+      "default"
+    ]
   }
 }
