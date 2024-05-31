@@ -60,6 +60,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "nx run :test",
+    "test:coverage": "nx run :test --configuration coverage",
     "build": "nx run :build"
   },
   "dependencies": {

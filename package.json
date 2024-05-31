@@ -14,13 +14,13 @@
   ],
   "scripts": {
     "clean": "lerna run clean; rm -rf tmp; rm -rf packages/**/*.tsbuildinfo; rm -rf packages/**/dist",
-    "lint": "nx run-many -t lint",
-    "coverage": "nx run-many -t test --configuration coverage",
+    "lint": "lerna run lint",
+    "coverage": "lerna run test:coverage",
     "commit": "npx git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r -a",
     "version": "",
-    "test": "nx run-many -t test",
-    "build": "nx run-many -t build",
+    "test": "lerna run test",
+    "build": "lerna run build",
     "prepublishOnly": "npm run clean; npm run build"
   },
   "license": "ISC",
