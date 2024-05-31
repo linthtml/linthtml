@@ -3,27 +3,47 @@ title:  Writing plugins
 sidebar_label:  Writing plugins
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
 # Add custom Rules using Plugins
 
 Each plugin is an npm module with a name.
-It's recommanded to use the format `linthtml-plugin-<plugin-name>`. You can also use scoped packages in the format of `@<scope>/linthtml-plugin-<plugin-name>` or even `@<scope>/linthtml-plugin`.
+It's recommended to use the format `linthtml-plugin-<plugin-name>`. You can also use scoped packages in the format of `@<scope>/linthtml-plugin-<plugin-name>` or even `@<scope>/linthtml-plugin`.
 
 ## Expose Rules in Plugins
 
 Plugins can expose additional rules for use in LintHTML. To do so, the plugin must export an array of rules objects under the property `rules`.
 Each rules should contains a property `name` matching the following pattern `<plugin-name>/<rule-id>`.
-For exemple:
+For example:
 
-```js
-module.exports = {
-  rules: [{
-    name: "a11y/heading-level",
-    lint(node, rule_config, { report }) {
-      // rule implementation ...
-    }
-  }]
-};
-```
+<Tabs>
+  <TabItem value="CJS" label="Plugin CJS format">
+    ```js
+    module.exports = {
+      rules: [{
+        name: "a11y/heading-level",
+        lint(node, rule_config, { report }) {
+          // rule implementation ...
+        }
+      }]
+    };
+    ```
+  </TabItem>
+  <TabItem value="ESM" label="Plugin ESM format">
+    ```js
+    exports default {
+      rules: [{
+        name: "a11y/heading-level",
+        lint(node, rule_config, { report }) {
+          // rule implementation ...
+        }
+      }]
+    };
+    ```
+  </TabItem>
+</Tabs>
 
 To use the rule in LintHTML, you would use same pattern (`<plugin-name>/<rule-id>`).
 So to activate/configure the rule `"a11y/heading-level"`, you would have to write the following in your LintHTML config file.

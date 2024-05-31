@@ -158,4 +158,4 @@ For example:
 }
 ```
 
-To learn more about Plugins and how to expose rules read the [Plugins documentation page](../developer-guide/plugins.md).
+To learn more about Plugins and how to expose rules read the [Plugins documentation page](../developer-guide/plugins.mdx).
