@@ -52,6 +52,9 @@ const BOOLEAN_ATTRIBUTES = [
   "visible"
 ];
 
+/**
+ * Check if the attribute does not accept or requires a value.
+ */
 function is_boolean_attribute(attribute: NodeAttribute) {
   return BOOLEAN_ATTRIBUTES.indexOf(attribute.name.chars.toLowerCase()) >= 0;
 }

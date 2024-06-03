@@ -21,9 +21,8 @@ function has_attribute(node: Element, attribute_name: string): boolean {
 }
 
 /**
- * Check whether the given tag has a non-empty attribute with the given
- * name. Count `""` as a non-empty attribute value only if optional
- * parameter allow_null is true
+ * Check whether the given tag has a non-empty attribute with the given name.
+ * Empty string (`""`) is accepted if optional parameter `allow_null` is true
  */
 function has_non_empty_attribute(node: Element, attribute_name: string, allow_null = false): boolean {
   const attribute = node.attributes.find(({ name }) => name.chars.toLowerCase() === attribute_name);
@@ -43,7 +42,7 @@ function get_attribute(node: Element, attribute_name: string): NodeAttribute | n
 }
 
 /**
- * Get the value of an attribute for a specified node element
+ * Get the value of an attribute for a node element
  */
 function attribute_value(node: Element, attribute_name: string): CharValue | null {
   const attribute = get_attribute(node, attribute_name);

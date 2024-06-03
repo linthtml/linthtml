@@ -3,6 +3,9 @@ title:  Writing custom parsers
 sidebar_label:  Writing custom parsers
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 If you want to use your own parser and provide additional capabilities for your rules, you can specify your own custom parser.
 The parser should expose, as default, a single function that take the source code as the first argument. <!-- , and an optional configuration object as the second argument (provided as parserOptions in a config file). -->
 The function should simply return an AST.
@@ -13,23 +16,40 @@ You can find an LintHTML parser project [here](https://github.com/linthtml/linth
 
 ```json
 {
-    "parser": "./path/to/awesome-custom-parser.js"
+    "parser": "./path/to/my-parser.js"
 }
 ```
 
-```js
-const myParser = require("customParser");
-// awesome-custom-parser.js
-module.exports = function(code) {
-    return myParser(code)
-};
-```
+<Tabs>
+  <TabItem value="CJS" label="Parser CJS format">
+    ```js
+    // my-parser.js
+    const myParser = require("customParser");
+    
+    module.exports = function(code) {
+        return myParser(code)
+    };
+    ```
+  </TabItem>
+  <TabItem value="ESM" label="Parser CJS format">
+    ```js
+    // my-parser.js
+    import myParser from "customParser";
+
+    export default function(code) {
+        return myParser(code)
+    };
+    ```
+  </TabItem>
+</Tabs>
 
 ## The AST specification
 
+_Please refer to the [API documentation](/api/class/Node) to know how to construct nodes matching the AST specification._
+
 ```ts
 interface Node {
- type: 'tag'|'text'|'directive'|'comment'|'root';
+ type: 'tag' | 'text' | 'directive' | 'comment' | 'root' | 'script' | 'style' | 'cdata' | 'doctype';
  
  name: string;
  data?: string // only 'text', 'directive' and 'comment' nodes

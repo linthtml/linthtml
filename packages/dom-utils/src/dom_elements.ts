@@ -2,6 +2,11 @@ import { NodeWithChildren } from "domhandler";
 import { ElementType } from "domelementtype";
 
 // TODO: Add new type or template for CharValue with non empty raw value (like attribute value)
+/**
+ * Low level object that contains a string and it's position in a document.
+ *
+ * Can be used to "describe" the key of an HTML attribute, the text corresponding to a tag opening tag (`<[span]`), the content of HTML attribute...
+ */
 export class CharValue {
   constructor(
     public chars: string,
@@ -14,6 +19,9 @@ export class CharValue {
   }
 }
 
+/**
+ * An HTML attribute with the name, equal and string value
+ */
 export class NodeAttribute {
   public type = "attribute";
   constructor(
@@ -31,6 +39,9 @@ export class NodeAttribute {
   }
 }
 
+/**
+ * Start and end positions of an element in a document
+ */
 export class Range {
   constructor(
     public start: Position,
@@ -41,6 +52,9 @@ export class Range {
   }
 }
 
+/**
+ * The position of element in a document
+ */
 export class Position {
   constructor(
     public line: number,
@@ -72,6 +86,9 @@ function ExtendedNode<TBase extends Constructor>(
   return class TExtractor extends Base {
     // @ts-expect-error Ignore
     private _loc: Range;
+    /**
+     * Node position in document
+     */
     get loc() {
       return this._loc;
     }
@@ -82,6 +99,9 @@ function ExtendedNode<TBase extends Constructor>(
 
     // @ts-expect-error Ignore
     private _open: CharValue;
+    /**
+     * Node open tag details
+     */
     get open() {
       return this._open;
     }
@@ -91,6 +111,10 @@ function ExtendedNode<TBase extends Constructor>(
     }
 
     private _close: CharValue | undefined = undefined;
+    /**
+     * Node close tag details.
+     * _Can be null for self closing tag_
+     */
     get close() {
       return this._close;
     }
@@ -101,9 +125,11 @@ function ExtendedNode<TBase extends Constructor>(
   };
 }
 
-// Keep in sync with domhandler types
-
-// Change NodeWithChildren type for children
+// TODO Keep in sync with domhandler types
+// TODO Change NodeWithChildren type for children
+/**
+ * The node element extends the one from Domhandler to add some extra properties ({@link https://domhandler.js.org/classes/Node.html})
+ */
 export class Node extends ExtendedNode(NodeWithChildren) {
   parent: NodeWithChildren | null = null;
   // eslint-disable-next-line no-use-before-define
@@ -160,7 +186,9 @@ export class Document extends Node {
 
   "x-mode"?: "no-quirks" | "quirks" | "limited-quirks";
 }
-
+/**
+ * The DataNode element extends the one from Domhandler to add some extra properties ({@link https://domhandler.js.org/classes/DataNode.html})
+ */
 export declare class DataNode extends Node {
   data: string;
   /**
@@ -173,11 +201,17 @@ export declare class DataNode extends Node {
   set nodeValue(data: string);
 }
 
+/**
+ * Text within the document.
+ * The Text element extends the one from Domhandler to add some extra properties ({@link https://domhandler.js.org/classes/Text.html})
+ */
 export declare class Text extends DataNode {
   constructor(data: string);
 }
 /**
  * Comments within the document.
+ *
+ * The Comment element extends the one from Domhandler to add some extra properties ({@link https://domhandler.js.org/classes/Comment.html})
  */
 export declare class Comment extends DataNode {
   constructor(data: string);
@@ -185,6 +219,8 @@ export declare class Comment extends DataNode {
 
 /**
  * Processing instructions, including doc types.
+ *
+ * The ProcessingInstruction element extends the one from Domhandler to add some extra properties ({@link https://domhandler.js.org/classes/ProcessingInstruction.html})
  */
 export declare class ProcessingInstruction extends DataNode {
   name: string;
