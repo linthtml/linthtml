@@ -125,7 +125,7 @@ Example of a configuration file in JSON format:
 By default, LintHTML uses [htmlparser2](https://github.com/fb55/htmlparser2) as its parser but with a custom AST format in output. You can optionally specify that a different parser should be used in your configuration file so long as the parser meets the following requirements:
 
 1. It must be a Node module, loadable from the config file where the parser is used. Usually, this means you should install the parser package separately using npm.
-2. It must conform to the parser [interface](../developer-guide/custom-parser.md).
+2. It must conform to the parser [interface](../developer-guide/custom-parser.mdx).
 
 To indicate the npm module to use as your parser, specify it using the `parser` option in your `.linthtmlrc` file.
 For example, the following specifies to use `linthtml-pug` parser:

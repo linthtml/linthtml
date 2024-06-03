@@ -21,11 +21,24 @@ For example:
 <Tabs>
   <TabItem value="CJS" label="Plugin CJS format">
     ```js
+    // The package `@linthtml/dom-utils` has some util functions
+    const { is_tag_node, node_tag_name } = require('@linthtml/dom-utils/tags');
+
     module.exports = {
       rules: [{
-        name: "a11y/heading-level",
+        name: "custom/no-center-tag",
         lint(node, rule_config, { report }) {
-          // rule implementation ...
+          if (!is_tag_node(node)) {
+            // Node is pure text, comment, CDATA, Doctype, directive or root tag
+            return;
+          }
+          // Node is a tag `span, div, button...`
+          if (node_tag_name(node, 'name')) {
+            report({
+              message: "Do not use deprecated center element, use CSS instead to center content",
+              position: node.loc
+            })
+          }
         }
       }]
     };
@@ -33,11 +46,24 @@ For example:
   </TabItem>
   <TabItem value="ESM" label="Plugin ESM format">
     ```js
+    // The package `@linthtml/dom-utils` has some util functions
+    import { is_tag_node, node_tag_name } from '@linthtml/dom-utils/tags';
+    
     exports default {
       rules: [{
-        name: "a11y/heading-level",
+        name: "custom/no-center-tag",
         lint(node, rule_config, { report }) {
-          // rule implementation ...
+          if (!is_tag_node(node)) {
+            // Node is pure text, comment, CDATA, Doctype, directive or root tag
+            return;
+          }
+          // Node is a tag `span, div, button...`
+          if (node_tag_name(node, 'name')) {
+            report({
+              message: "Do not use deprecated center element, use CSS instead to center content",
+              position: node.loc
+            })
+          }
         }
       }]
     };
@@ -46,12 +72,12 @@ For example:
 </Tabs>
 
 To use the rule in LintHTML, you would use same pattern (`<plugin-name>/<rule-id>`).
-So to activate/configure the rule `"a11y/heading-level"`, you would have to write the following in your LintHTML config file.
+So to activate/configure the rule `"custom/no-center-tag"`, you would have to write the following in your LintHTML config file.
 
 ```json
 {
     "rules": {
-        "a11y/heading-level": "error"
+        "custom/no-center-tag": "error"
     }
 }
 ```
@@ -60,10 +86,46 @@ So to activate/configure the rule `"a11y/heading-level"`, you would have to writ
 
 The source file for a rule exports an object with the following properties.
 
-* `name` (string) the rule name, this property will be used to print the rule name along side an reported issue.
-* `validateConfig` (function) this function is optional and will be used to validate the config provided to the rule in the config file.
-  This is usefull when you have a rule that only accept `numbers` or `strings` as config or if you want to limit the config possibility. For example the rule `indent-style` only accept `tabs`, `spaces` and `nonmixed` as config.
-* `lint` (function) this function will be called for every nodes in the abstract syntax tree (AST as defined [here](./custom-parser#the-ast-specification)) for the documents that are linted.
+* `name` (string): The rule name, this property will be used to print the rule name along side an reported issue.
+* `validateConfig` (function): This function is optional and will be used to validate the config provided to the rule in the config file.
+  This is usefull when you have a rule that only accept `numbers` or `strings` as config or if you want to limit the config possibility.
+
+  For example the rule `indent-style` only accept `tabs`, `spaces` and `nonmixed` as config.
+  ```js
+  const type_error = (option) =>
+    `Configuration for rule "indent-style" is invalid: Expected string${allow_reg ? " or RegExp" : ""} got ${typeof option}.`;
+
+  function list_value_error_message(value_list) {
+    const list_copy = [...value_list];
+    if (value_list.length > 1) {
+      const last_value = list_copy.pop();
+      return `Accepted values are ${list_copy.map((_) => `"${_}"`).join(", ")} and "${last_value}"`;
+    }
+    return `Accepted value is ${list_copy[0]}`;
+  }
+
+  return {
+    name: "indent-style",
+    validateConfig(config) {
+      const accepted_values = ["tabs", "spaces", "nonmixed"]
+      if (typeof option !== "string") {
+        throw new Error(type_error(option));
+      }
+
+      if (accepted_values.indexOf(option) === -1) {
+        throw new Error(
+          `Configuration for rule "indent-style" is invalid: "${option}" is not accepted. ${list_value_error_message(
+            accepted_values
+          )}.`
+        );
+      }
+    },
+    lint() {
+      //...
+    }
+  }
+  ```
+* `lint` (function): This function will be called for every nodes in the abstract syntax tree (AST as defined [here](./custom-parser#the-ast-specification)) for the documents that are linted.
   This function receive in input 3 parameters:
   
   * `node` ([node spec](./custom-parser#the-ast-specification) the node traversed).

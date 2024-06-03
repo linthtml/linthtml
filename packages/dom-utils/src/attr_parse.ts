@@ -6,11 +6,14 @@
  * 3: Everything after the name
  * 4: Text between matches 2 and 3
  * 5: Attribute value, including any quotation marks
- * /
+ */
 /* eslint-disable-next-line no-useless-escape */
 const attrRegex = /(\s*)([^ "'>=\^\/]+)((\s*=\s*)((?:"[^"]*")|(?:'[^']*')|(?:\S+)))?/g;
 
-/** @hidden */
+/**
+ * @deprecated
+ * @hidden
+ */
 export function parse_HTML_attributes(attributes: string) {
   const ret = [];
   let match;
