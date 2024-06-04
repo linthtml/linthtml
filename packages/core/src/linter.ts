@@ -49,10 +49,16 @@ function get_parser(config: LinterConfig): Promise<Parser> {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
       // @ts-expect-error don't worry
-      return import(parser_module).then((parser) => ({
+      return import(parser_module).then((module) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        parse: parser.default ?? parser
-      }));
+        const parser = module.default ?? module;
+        return {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          parse: module.default ?? parser,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          render: module.render
+        };
+      });
     } catch (error) {
       // @ts-expect-error system error with meta object
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
@@ -61,14 +67,19 @@ function get_parser(config: LinterConfig): Promise<Parser> {
   }
   /* eslint-disable-next-line @typescript-eslint/no-var-requires */
   // @ts-expect-error don't worry
-  return import("@linthtml/html-parser").then((parser) => ({
-    parse: parser.default ?? parser
-  }));
+  return import("@linthtml/html-parser").then((module) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const parser = module.default ?? module;
+    return {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      parse: parser.parse ?? parser,
+      render: module.render
+    };
+  });
 }
 
 export default class Linter {
   private get_parse_fn: () => Parser;
-  private get_parse_fn: () => Promise<{ parse: (html: string) => Document; render?: (root: Document) => string }>;
 
   public config: Config;
 

@@ -113,13 +113,11 @@ async function lint(input: string[], config_path: string | undefined, fix?: bool
   try {
     lintSpinner.start();
     let reports: Report[] = await Promise.all(files_linters.map(lintFile));
-    // if (fix) {
-    //   reports.forEach(({ fileName, dom }) => {
-    //     // @ts-expect-error Fix types
-    //     const html = render(dom);
-    //     fs.writeFileSync(`${fileName}.new`, html);
-    //   });
-    // }
+    if (fix) {
+      reports.forEach(({ fileName, content }) => {
+        fs.writeFileSync(`${fileName}.new`, content);
+      });
+    }
     reports = reports.filter((report) => report.issues.length > 0);
     lintSpinner.succeed("Files analyzed");
     printReports(reports);
@@ -171,13 +169,13 @@ function printReports(reports: Report[]) {
 async function lintFile({ file_path, linter, config_path, preset }: FileLinter): Promise<Report> | never {
   try {
     const file_content = fs.readFileSync(file_path, "utf8");
-    const { dom, issues } = await linter.lint(file_content);
+    const { content, issues } = await linter.lint(file_content);
     return {
       fileName: file_path,
       issues,
       config_path,
       preset,
-      dom
+      content
     };
   } catch (error) {
     (error as CliError).fileName = file_path;

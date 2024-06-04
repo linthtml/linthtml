@@ -141,7 +141,7 @@ export default class Config {
     this.getAllRules().forEach(function (rule) {
       rule.subscribers = [];
     });
-
+    console.log(this.options);
     Object.values(this.options).forEach(function (o) {
       o.active = false;
     });

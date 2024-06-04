@@ -143,6 +143,17 @@ export class Element extends Node {
   "x-attribsNamespace"?: Record<string, string>;
   "x-attribsPrefix"?: Record<string, string>;
 
+  // So dom-serializer can render attributes
+  get attribs() {
+    return this.attributes.reduce(
+      (attributes, attribute) => {
+        attributes[attribute.name.chars] = attribute.value?.chars;
+        return attributes;
+      },
+      {} as Record<string, string | undefined>
+    );
+  }
+
   // TODO: Bring back namespace and prefix?
   // get attributes(): NodeAttribute[] {
   // return this._attributes;

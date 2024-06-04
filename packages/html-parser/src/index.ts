@@ -2,7 +2,9 @@ import { Parser } from "htmlparser2";
 import DomBuilder from "./dom_builder.js";
 // TODO find a way to have /dom_elements
 import type { Document } from "@linthtml/dom-utils";
-import render from "dom-serializer";
+// import { default as domRender } from "./dom_render.js";
+// eslint-disable-next-line import/no-named-default
+import { default as domRender } from "dom-serializer";
 /**
  * Parse an HTML text and return an AST tree
  *
@@ -48,5 +50,7 @@ export function parse(htmlText: string): Document {
 }
 
 export function render(root: Document) {
-  return render(root);
+  // TOFIX Does not respect indent, new line for attributes...
+  // @ts-expect-error Don't worry
+  return domRender(root);
 }

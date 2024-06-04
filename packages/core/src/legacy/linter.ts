@@ -1,4 +1,4 @@
-import parse from "@linthtml/html-parser";
+import { parse, render } from "@linthtml/html-parser";
 import Config from "./config.js";
 import InlineConfig from "./inline_config.js";
 import rules from "../rules/index.js";
@@ -35,6 +35,7 @@ export default class Linter {
       {}
     );
     delete config.ignoreFiles;
+    delete config.fix;
     this.config = config;
     _rules = _rules || rules;
     this.rules = new Config(_rules);
@@ -71,7 +72,7 @@ export default class Linter {
       issues = issues.slice(0, this.config.maxerr);
     }
 
-    return Promise.resolve({ dom, issues });
+    return Promise.resolve({ content: render(dom), issues });
   }
 
   // Here ignore ts error as "dom" is special rule.

@@ -12,7 +12,6 @@ import type { Ignore } from "ignore";
 import ignore from "ignore";
 import { EOL } from "os";
 import type Issue from "./issue.js";
-import type { Document } from "@linthtml/dom-utils";
 
 const DEFAULT_EXCLUDED_FOLDERS = ["!node_modules/"];
 
@@ -29,7 +28,7 @@ export interface FileLinter {
 const linthtml = function (
   html: string,
   config: LegacyLinterConfig | LinterConfig
-): Promise<{ dom: Document; issues: Issue[] }> {
+): Promise<{ content: string; issues: Issue[] }> {
   if (config?.rules !== undefined) {
     const linter = new Linter(config as LinterConfig);
     return linter.lint(html);
@@ -153,7 +152,7 @@ linthtml.create_linters_for_files = async function (
   }, [] as FileLinter[]);
 };
 
-linthtml.from_config_path = async function (config_path: string, fix: ?boolean): Promise<Linter | LegacyLinter> {
+linthtml.from_config_path = async function (config_path: string, fix?: boolean): Promise<Linter | LegacyLinter> {
   const config = await config_from_path(config_path);
   return linthtml.fromConfig({ ...config.config, fix });
 };
