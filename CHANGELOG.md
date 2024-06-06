@@ -1,5 +1,13 @@
 # Changelog
 
+# Changelog
+
+## [0.10.0-beta.8](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.8...v0.10.0-beta.9) (2024-06-06)
+
+### Features 🚀
+
+* [@linthtml/cli] With package.json import not working in nodejs 22
+
 ## [0.10.0-beta.8](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.7...v0.10.0-beta.8) (2024-05-30)
 
 ### Features 🚀

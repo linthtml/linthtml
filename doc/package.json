@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/doc",
-  "version": "0.0.0",
+  "version": "0.10.0-beta.9",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -27,10 +27,10 @@
     "@docusaurus/module-type-aliases": "3.3.2",
     "@docusaurus/tsconfig": "3.3.2",
     "@docusaurus/types": "3.3.2",
-    "typescript": "~5.2.2",
     "docusaurus-plugin-typedoc-api": "^4.2.0",
     "glob": "^10.4.1",
     "remark": "^15.0.1",
+    "typescript": "~5.2.2",
     "unist-util-visit": "^5.0.0"
   },
   "browserslist": {
