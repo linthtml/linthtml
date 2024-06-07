@@ -123,7 +123,10 @@ export const ISSUE_ERRORS = {
   INLINE_03: (data: { rule_configuration: string }) =>
     `malformed linthtml-configure instruction: \`${data.rule_configuration}\` is not valid JSON global`,
   INLINE_04: (data: { rule_name: string; error: string }) =>
-    `linthtml-configure instruction for rule \`${data.rule_name}\` is not valid. ${data.error}`
+    `linthtml-configure instruction for rule \`${data.rule_name}\` is not valid. ${data.error}`,
+
+  DEPRECATED_RULE: (data: { rule_name: string; hint?: string }) =>
+    `Rule "${data.rule_name}" is deprecated.${data.hint ? ` ${data.hint}` : ""}`
 } as const;
 
 // Error code INLINE-xx

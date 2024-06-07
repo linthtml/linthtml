@@ -3,11 +3,12 @@ import chalkTemplate from "chalk-template";
 import Table from "table-layout";
 import { renderIssue } from "@linthtml/core/messages";
 import type { Report } from "./utils.js";
+import type { Position } from "@linthtml/dom-utils";
 import type Issue from "@linthtml/core/issue";
 
-function print_position({ position: { start } }: Issue, maxLine: number, maxColumn: number) {
-  const line = start.line.toString();
-  const column = start.column.toString();
+function print_position(start: Position | undefined, maxLine: number, maxColumn: number) {
+  const line = start?.line.toString() ?? "-";
+  const column = start?.column.toString() ?? "-";
   return `${line.padStart(maxLine, " ")}:${column.padEnd(maxColumn, " ")}`;
 }
 
@@ -28,8 +29,10 @@ export default function print_file_report(report: Report) {
   if (report.preset) {
     console.log(chalkTemplate`{blue Using preset: {white ${report.preset}}}`);
   }
-  const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.line), -1).toString().length;
-  const maxColumn = report.issues.reduce((max, cv) => Math.max(max, cv.position.start.column), -1).toString().length;
+  const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position?.start?.line || 1), -1).toString().length;
+  const maxColumn = report.issues
+    .reduce((max, cv) => Math.max(max, cv.position?.start?.column || 1), -1)
+    .toString().length;
 
   type CliIssue = {
     positions: string;
@@ -39,7 +42,7 @@ export default function print_file_report(report: Report) {
   };
   const issues: CliIssue[] = report.issues.map((issue: Issue) => {
     const msg = renderIssue(issue);
-    const positionTxt = print_position(issue, maxLine, maxColumn);
+    const positionTxt = print_position(issue.position?.start, maxLine, maxColumn);
     const level = print_level(issue);
     return {
       positions: chalkTemplate`{gray ${positionTxt}}`,
