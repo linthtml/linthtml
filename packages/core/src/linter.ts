@@ -2,12 +2,12 @@ import Config from "./config.js";
 import type { InlineConfig } from "./inline_config.js";
 import { extract_inline_config } from "./inline_config.js";
 import rules from "./rules/index.js";
-import Issue from "./issue.js";
+import Issue, { ISSUE_SEVERITY } from "./issue.js";
 import CustomError from "./utils/custom-errors.js";
 
 import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./read-config.js";
 import { get_module_path } from "./read-config.js";
-import type { Document, Node, Range } from "@linthtml/dom-utils/dom_elements";
+import type { Range, Document, Node } from "@linthtml/dom-utils/dom_elements";
 
 type Parser = Promise<(html: string) => Document>;
 
@@ -83,14 +83,31 @@ export default class Linter {
     const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
       (name) => this.config.activated_rules[name]
     );
-    const domIssues = this.lint_DOM(activated_rules, dom);
-    let issues: Issue[] = [...domIssues, ...this.reset_rules()];
+    const rules_deprecated_issues = this.report_deprecated_rules(activated_rules);
+    const dom_issues = this.lint_DOM(activated_rules, dom);
+    let issues: Issue[] = [...rules_deprecated_issues, ...dom_issues, ...this.reset_rules()];
 
     if (this.config.config.maxerr) {
       issues = issues.slice(0, this.config.config.maxerr); // REMOVE: After v1.
     }
 
     return Promise.resolve(issues);
+  }
+
+  private report_deprecated_rules(activated_rules: ActiveRuleDefinition[]): Issue[] {
+    return activated_rules
+      .filter(({ deprecated }) => deprecated)
+      .map(
+        (rule) =>
+          new Issue("", null, {
+            code: "DEPRECATED_RULE",
+            severity: ISSUE_SEVERITY.WARNING,
+            data: {
+              rule_name: rule.name,
+              hint: rule.deprecation_hint
+            }
+          })
+      );
   }
 
   private lint_DOM(rules: ActiveRuleDefinition[], dom: Document): Issue[] {
