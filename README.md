@@ -82,7 +82,7 @@ Instructions have different effects:
 #### Configure instruction
 
 Multiple rules can be set in a single inline configuration comment.
-Values must be surrounded with double/single quotes if they contain spaces, and must be either a valid value for the rule (encoded in pretty-much-JSON) or the string `$previous` (which is a special value that recalls the former value of the rule for your convenience).
+Values must be surrounded with double/single quotes if they contain spaces, and must be either a valid value for the rule (encoded in pretty-much-JSON).
 
 Some examples:
 
@@ -114,7 +114,7 @@ _⚠️ you can only turn on rules that have been deactivated by an inline confi
 _We recommend using the enable/disable instructions instead 😉_
 
 * restore the previous value of the `tag-bans` rule
-_⚠️ works only with the legacy config at the moment_
+_⚠️ works only with the legacy config_
 
 ```html
 <!-- linthtml-configure tag-bans="$previous" -->
