@@ -1,3 +1,8 @@
+---
+title: Migration guide
+sidebar_label: Migration guide
+---
+
 # Migration guide
 
 - [Migrate from HTMLLint](#htmllint-migration)
