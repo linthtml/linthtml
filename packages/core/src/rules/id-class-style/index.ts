@@ -38,6 +38,8 @@ function lint(
 
 export default {
   name: RULE_NAME,
+  deprecated: true,
+  deprecation_hint: 'Use the rules "id-style" and "class-style" instead.',
   validateConfig: create_list_value_validator(RULE_NAME, ["lowercase", "underscore", "dash", "camel", "bem"]),
   lint
 } as RuleDefinition;
