@@ -5,7 +5,7 @@ It's a setting that will be used by real rules to ignore some HTML ids and CSS c
 
 There're two ways to set a value for this config:
 
-1. If you use the legacy config format(inherited for HTMLLint), this setting will be configured alongside rules.
+1. If you use the legacy config format(inherited from HTMLLint), this setting will be configured alongside rules.
 
   ```json
   {
