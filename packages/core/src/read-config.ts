@@ -37,6 +37,8 @@ export type reportFunction = (data: {
 // TODO: RuleDefinition<ConfigType> ?
 export interface RuleDefinition {
   name: string;
+  deprecated?: boolean;
+  deprecation_hint?: string;
   lint: (
     node: Node,
     rule_config: unknown,
