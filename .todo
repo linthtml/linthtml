@@ -18,7 +18,7 @@
 - [ ] rename rule `link-min-length-4` in `link-min-length` and add a length option
 - [ ] `raw-ignore-text` Find a better solution than the current one
 - [ ] Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
-      This funciton should be changed for a validation function that raise errors if config is not valid
+      This function should be changed for a validation function that raise errors if config is not valid
 - [✔️] No rules by default
 - [ ] Tests should assert issues too (code, position...)
 - [✔️] move rules tests in the rule folder
@@ -33,10 +33,10 @@
 ## deprecate rules
 
 - [ ] input-radio-req-name can be merged with input-req-name (don't exist yet)
-- [ ] indent-delta don't understand this rule
+- [x] indent-delta don't understand this rule
 - [ ] raw-ignore-regex it's no really a rule (maybe a options for the linter, but i'm not sure we should keep this option)
 - [ ] maxerr convert in max maxWarn instead ?
-- [ ] id-class-style
+- [x] id-class-style
 - [ ] attr-new-line: Get rid of "0+"
 
 ## Fix rules naming convention
