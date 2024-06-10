@@ -15,10 +15,10 @@ export default {
     "style",
     "width"
   ],
-  "indent-delta": false,
+  "indent-delta": true,
   "indent-style": "tabs",
   "indent-width": 4,
-  "indent-width-cont": false,
+  "indent-width-cont": true,
   "tag-bans": ["style", "b", "i"],
   "tag-close": true,
   "tag-name-lowercase": true,

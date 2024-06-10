@@ -101,7 +101,11 @@ describe("legacy linter | class-style", function () {
     });
     const html = '<div class="FOO bar-foo"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).to.have.lengthOf(3); // 1 for rule deprecation and 2 for rule issue
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
+    expect(issues[1].code).to.equal("E011");
+    expect(issues[1].code).to.equal("E011");
   });
 
   it("Should not fallback to `id-class-style` if `class-style` is set to `none`", async function () {
@@ -111,7 +115,9 @@ describe("legacy linter | class-style", function () {
     });
     const html = '<div class="FOO bar-foo"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   it("Rule should not fail if class attribute has no value", function () {
@@ -283,7 +289,11 @@ describe("class-style", function () {
     });
     const html = '<div class="FOO bar-foo"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(2);
+    expect(issues).to.have.lengthOf(3); // 1 for rule deprecation and 2 for rules issues
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
+    expect(issues[1].code).to.equal("E011");
+    expect(issues[1].code).to.equal("E011");
   });
 
   it("Should not fallback to `id-class-style` if `class-style` is set to `none`", async function () {
@@ -293,7 +303,9 @@ describe("class-style", function () {
     });
     const html = '<div class="FOO bar-foo"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1); // For rule deprecation
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   // Not a rule for the new linter
