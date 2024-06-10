@@ -4,7 +4,7 @@ import InlineConfig from "./inline_config.js";
 import rules from "../rules/index.js";
 import type { LegacyLinterConfig, LegacyRuleDefinition } from "../read-config.js";
 import type { Node, Document } from "@linthtml/dom-utils/dom_elements";
-import type Issue from "../issue.js";
+import Issue, { ISSUE_SEVERITY } from "../issue.js";
 import { is_comment_node } from "@linthtml/dom-utils";
 /**
  * Apply the raw-ignore-regex option.
@@ -59,6 +59,7 @@ export default class Linter {
     html = rawIgnoreRegex(html, this.config);
 
     const dom = parse(html);
+    issues = issues.concat(this.reportDeprecatedRules());
     issues = issues.concat(this.setupInlineConfigs(dom));
 
     try {
@@ -72,6 +73,25 @@ export default class Linter {
     }
 
     return Promise.resolve(issues);
+  }
+
+  reportDeprecatedRules() {
+    return (
+      this.rules
+        .getRule("dom")
+        .subscribers?.filter(({ deprecated }) => deprecated)
+        .map(
+          (rule) =>
+            new Issue("", null, {
+              code: "DEPRECATED_RULE",
+              severity: ISSUE_SEVERITY.WARNING,
+              data: {
+                rule_name: rule.name,
+                hint: rule.deprecation_hint
+              }
+            })
+        ) ?? []
+    );
   }
 
   // Here ignore ts error as "dom" is special rule.
