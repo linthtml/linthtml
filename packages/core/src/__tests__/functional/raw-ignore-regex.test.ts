@@ -36,17 +36,18 @@ describe("raw-ignore-regex", function () {
   });
 
   it("should not cause any error with text", async function () {
-    const linter = createLinter(presets.default, {
+    const linter = createLinter(presets.none, {
       "raw-ignore-regex": /{{.*}}/
     });
     const html = ["<p>", "\t{{ .aVariable }}", "</p>"].join("\n");
 
     const issues = await linter.lint(html);
+
     expect(issues).to.have.lengthOf(0);
   });
 
   it("should not cause any error inside attributes work across line break", async function () {
-    const linter = createLinter(presets.default, {
+    const linter = createLinter(presets.none, {
       "raw-ignore-regex": /{{.*}}/
     });
     const html = '<p class="a {{ if $bar "bar" . }} c {{else}} b{{ /if }}">foo</p>';
@@ -55,7 +56,7 @@ describe("raw-ignore-regex", function () {
   });
 
   it("should not cause any error inside on multiline", async function () {
-    const linter = createLinter(presets.default, {
+    const linter = createLinter(presets.none, {
       "raw-ignore-regex": /{{(.*[\n\r].*)+}}/
     });
     const html = ["<p>", "\t{{ ", "\t .aVariable", "\t }}", "</p>"].join("\n");

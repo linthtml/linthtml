@@ -80,4 +80,18 @@ describe("Config", function () {
       });
     }
   });
+
+  it("should report a issue of type warning for rules flagged as deprecated", async function () {
+    const rule_config: Record<string, RuleConfig> = {
+      foo: "error"
+    };
+    const linter = new Linter({});
+    linter.config = new Config([{ ...foo, deprecated: true } as LegacyRuleDefinition], {
+      rules: rule_config
+    });
+
+    const issues = await linter.lint("<div></div>");
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
+  });
 });

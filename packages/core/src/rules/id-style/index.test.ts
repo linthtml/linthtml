@@ -112,7 +112,11 @@ describe("legacy linter | id-style", function () {
     });
     const html = '<div id="FOO"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues).to.have.lengthOf(2); // 1 for rule deprecation and 1 for rule issue
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
+    expect(issues[1].code).to.equal("E011");
+    expect(issues[1].code).to.equal("E011");
   });
 
   it("Should not fallback to `id-class-style` if `id-style` is set to `none`", async function () {
@@ -122,7 +126,9 @@ describe("legacy linter | id-style", function () {
     });
     const html = '<div id="FOO"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   it("Should throw an error if `id-class-ignore-regex` is empty", function () {
@@ -311,7 +317,11 @@ describe("id-style", function () {
     });
     const html = '<div id="FOO"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues).to.have.lengthOf(2); // 1 for rule deprecation and 1 for rule issue
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
+    expect(issues[1].code).to.equal("E011");
+    expect(issues[1].code).to.equal("E011");
   });
 
   it("Should not fallback to `id-class-style` if `id-style` is set to `none`", async function () {
@@ -321,7 +331,9 @@ describe("id-style", function () {
     });
     const html = '<div id="FOO"></div>';
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].severity).to.equal("warning");
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   it("should throw an error if rule config is empty", function () {

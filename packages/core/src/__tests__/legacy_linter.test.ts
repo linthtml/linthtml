@@ -55,8 +55,8 @@ describe("LegacyLinter", function () {
       const linter = createLinter();
       linter.rules.addRule(rule);
       const issues = await linter.lint("f\nfff");
-      expect(issues[0].position.start.line).to.be.eql(2);
-      expect(issues[0].position.start.column).to.be.eql(3);
+      expect(issues[0].position?.start.line).to.be.eql(2);
+      expect(issues[0].position?.start.column).to.be.eql(3);
     });
 
     it("should not truncate output if maxerr is not provided", async function () {
