@@ -48,6 +48,7 @@
 
 ## Correct rules
 
+- [ ] `raw-ignore-regex` tests are not really testing anything
 - [ ] `button-req-content` should check for aria-labelledby too
 - [ ] Rename `input-btn-req-value-or-title` (message from axe "Input buttons must have discernible text")
 - [ ] Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
