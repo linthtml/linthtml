@@ -110,8 +110,8 @@ export const ISSUE_ERRORS = {
   E057: (data: { attribute: string; tag: string }) =>
     `Mandatory attribute "${data.attribute}" is missing in tag <${data.tag}>`,
   E058: (/* data */) => 'Links should with `target="blank"` should define `rel="noopener"`',
-  E059: (data: { content: string }) =>
-    `Link text should have at least 4 chars, current text "${data.content}" has a length of ${data.content.length}`,
+  E059: (data: { content: string; min_length: number }) =>
+    `Link text should have at least ${data.min_length} chars, current text "${data.content}" has a length of ${data.content.length}`,
   E060: (/* data */) => 'Input elements with type "button", "submit" and "reset" must have a value or title attribute.',
   E061: (/* data */) => "Each button element must have a text content.",
   E062: (/* data */) => "A <label> element should not encapsulate select and textarea elements.",

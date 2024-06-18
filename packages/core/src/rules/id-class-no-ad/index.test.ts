@@ -14,7 +14,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "ad"', async function () {
@@ -22,7 +23,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "ad"', async function () {
@@ -33,7 +35,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "ad"', async function () {
@@ -44,7 +47,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it("Should not report any error for adjacent world", async function () {
@@ -54,7 +58,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -64,7 +69,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "social"', async function () {
@@ -72,7 +78,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "social"', async function () {
@@ -83,7 +90,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "social"', async function () {
@@ -94,7 +102,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it("Should not report any error for adjacent world", async function () {
@@ -104,7 +113,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -114,7 +124,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "banner"', async function () {
@@ -122,7 +133,8 @@ describe("legacy linter | id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "banner"', async function () {
@@ -133,7 +145,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "banner"', async function () {
@@ -144,7 +157,8 @@ describe("legacy linter | id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -155,7 +169,8 @@ describe("legacy linter | id-class-no-ad", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   it("Rule should not fail if id or class attribute has no value", function () {
@@ -178,7 +193,8 @@ describe("id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "ad"', async function () {
@@ -186,7 +202,8 @@ describe("id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "ad"', async function () {
@@ -197,7 +214,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "ad"', async function () {
@@ -208,7 +226,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -218,7 +237,8 @@ describe("id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "social"', async function () {
@@ -226,7 +246,8 @@ describe("id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "social"', async function () {
@@ -237,7 +258,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "social"', async function () {
@@ -248,7 +270,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it("Should not report any error for adjacent world", async function () {
@@ -258,7 +281,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -268,7 +292,8 @@ describe("id-class-no-ad", function () {
       const html = '<div class="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should not report any error for "id" attributes not containing "banner"', async function () {
@@ -276,7 +301,8 @@ describe("id-class-no-ad", function () {
       const html = '<div id="foo">Foo</div>';
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "class" attributes containing "banner"', async function () {
@@ -287,7 +313,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
 
     it('Should report an error for "id" attributes containing "banner"', async function () {
@@ -298,7 +325,8 @@ describe("id-class-no-ad", function () {
       `;
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(2);
+      expect(issues).to.have.lengthOf(3);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
     });
   });
 
@@ -309,7 +337,8 @@ describe("id-class-no-ad", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues).to.have.lengthOf(1);
+    expect(issues[0].code).to.equal("DEPRECATED_RULE");
   });
 
   it("Rule should not fail if id or class attribute has no value", function () {
