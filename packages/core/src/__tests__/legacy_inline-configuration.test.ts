@@ -184,8 +184,9 @@ describe("inline-configuration", function () {
       ].join("");
 
       const issues = await linter.lint(html);
-      expect(issues).to.have.lengthOf(0);
-      // Should report 7 errors normaly
+      expect(issues).to.have.lengthOf(1);
+      expect(issues[0].code).to.equal("DEPRECATED_RULE");
+      // Should report 1 + 7 errors normally (1 for deprecation)
     });
   });
 

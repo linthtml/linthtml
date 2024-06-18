@@ -1,6 +1,6 @@
 # id-class-no-ad
 
-If set, values for the `id` and `class` attributes may not use the word "ad", "banner", or "social".
+If set, values for the `id` and `class` attributes may not use the words "ad", "banner", or "social".
 This rule only bans those words when not adjacent to other alphanumeric characters. Thus words like "gradient" are still allowed.
 
 The following patterns are considered violations:
