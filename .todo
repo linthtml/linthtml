@@ -59,10 +59,10 @@
 - [ ] merge `doctype-first` and `doctype-html5` (html5 should be an option (should be be default too ?))
 - [ ] `doctype-first` `smart` should be an option. `smart` should not report if doctype + html + head not present ?
 - [ ] `doctype-first` should return an error if first element is plain text (plain text is in fact a textNode)
-- [ ] `fig-req-figcaption`report error when figcaption is empty
+- [ ] `fig-req-figcaption` report error when figcaption is empty
 - [ ] `focusable-tab-index-style` rename the rule
-- [ ] `id-class-no-ad` deprecate this one ? Why not allow `ad`, `social`... in id or class ? (Can be replaced by a rule that ban word in attributes (using a regexp))
-- [ ] `attr-new-line` value of 0 should not allow one attribut per line. Config should only accept >=1 ?
+- [x] `id-class-no-ad` deprecate this one ? Why not allow `ad`, `social`... in id or class ? (Can be replaced by a rule that ban word in attributes (using a regexp))
+- [ ] `attr-new-line` value of 0 should not allow one attribute per line. Config should only accept >=1 ?
 
 ## Improve inline config
 
