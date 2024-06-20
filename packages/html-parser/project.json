@@ -32,7 +32,7 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "{projectRoot}",
-        "command": "mocha --project ./tsconfig.test.json"
+        "command": "mocha --project ./tsconfig.spec.json"
       },
       "configurations": {
         "coverage": {
