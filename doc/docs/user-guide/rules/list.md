@@ -63,3 +63,4 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [text-ignore-regex](./list/text-ignore-regex.md)                             |                                                                                   |
 | [title-max-len](./list/title-max-len.md)                                     | Fix a maximum length an the `<title>` content                                     |
 | [title-no-dup](./list/title-no-dup.md)                                       | Disallow the presence of multiple `<title>`                                       |
+| [no-inline-style](./list/no-inline-style.md)                                 | Forbid the use of the `style` attribute                                           |
