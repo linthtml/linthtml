@@ -13,3 +13,6 @@ updates:
       commitlint-deps:
         patterns:
           - "@commitlint*"
+      docusaurus-deps:
+        patterns:
+          - "@docusaurus*"
