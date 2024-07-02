@@ -3,8 +3,8 @@
 The following table contains the list of all rules available in Link HTML.
 To learn more about how activate or configure rules, have a look to this [documentation page](../configuration.md).
 
-| Rule name                                                                            | Description                                                                       |
-| :------------------------------------------------------------------------------------| :-------------------------------------------------------------------------        |
+| Rule name                                                                    | Description                                                                       |
+| :----------------------------------------------------------------------------| :-------------------------------------------------------------------------------  |
 | [attr-bans](./list/attr-bans.md)                                             | Specify a list of disallowed HTML attributes                                      |
 | [attr-name-style](./list/attr-name-style.md)                                 | Enforce naming conventions for HTML tag name                                      |
 | [attr-name-ignore-regex](./list/attr-name-ignore-regex.md)                   |                                                                                   |
@@ -29,8 +29,8 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [html-req-lang](./list/html-req-lang.md)                                     | Enforce the presence of the `lang` attribute on any `<html>` tag                  |
 | [html-valid-content-model](./list/html-valid-content-model.md)               |                                                                                   |
 | [id-class-ignore-regex](./list/id-class-ignore-regex.md)                     |                                                                                   |
-| [id-class-no-ad](./list/id-class-no-ad.md)                                   |                                                                                   |
-| [id-class-style](./list/id-class-style.md)                                   | Enforce naming convention for HTML ids and CSS classes                            |
+| [id-class-no-ad](./list/id-class-no-ad.md) _deprecated_                      |                                                                                   |
+| [id-class-style](./list/id-class-style.md)  _deprecated_                     | Enforce naming convention for HTML ids and CSS classes                            |
 | [id-no-dup](./list/id-no-dup.md)                                             | Disallow duplications of HTML ids within the same document                        |
 | [id-style](./list/id-style.md)                                               | Enforce naming convention for HTML ids                                            |
 | [img-req-alt](./list/img-req-alt.md)                                         | Enforce the presence of a none empty `alt` attribute on `<img>`                   |
@@ -49,7 +49,7 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [line-max-len](./list/line-max-len.md)                                       | Limit the length of a line                                                        |
 | [line-max-len-ignore-regex](./list/line-max-len-ignore-regex.md)             |                                                                                   |
 | [line-no-trailing-whitespace](./list/line-no-trailing-whitespace.md)         | Disallow trailing whitespace at the end of lines                                  |
-| [link-min-length-4](./list/link-min-length-4.md)                             | Disallow link text with less than 4 chars                                         |
+| [link-min-length-4](./list/link-min-length-4.md)  _deprecated_               | Disallow link text with less than 4 chars                                         |
 | [link-req-noopener](./list/link-req-noopener.md)                             | Enforce the presence of `rel="noopener"` or `rel="noreferrer"` attribute on `<a>` |
 | [spec-char-escape](./list/spec-char-escape.md)                               |                                                                                   |
 | [table-req-caption](./list/table-req-caption.md)                             | Enforce the presence of `<caption>` inside `<table>`                              |
@@ -61,5 +61,5 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [tag-req-attr](./list/tag-req-attr.md)                                       | Define a list of attributes that must be present on an HTML tag                   |
 | [tag-self-close](./list/tag-self-close.md)                                   | Define whether or not a self-close tag should end with `/>`                       |
 | [text-ignore-regex](./list/text-ignore-regex.md)                             |                                                                                   |
-| [title-max-len](./list/title-max-len.md)                                     | Fix a maximum lenght an the `<title>` content                                     |
+| [title-max-len](./list/title-max-len.md)                                     | Fix a maximum length an the `<title>` content                                     |
 | [title-no-dup](./list/title-no-dup.md)                                       | Disallow the presence of multiple `<title>`                                       |
