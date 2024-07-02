@@ -2,7 +2,12 @@
 
 # Changelog
 
-## [0.10.0-beta.8](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.8...v0.10.0-beta.9) (2024-06-06)
+## [0.10.0-beta.10](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.9...v0.10.0-beta.10) (2024-07-02)
+
+* [@linthtml/core] Add two new rules `no-inline-style` and `link-label-min-length`.
+* [@linthtml/core] Deprecated rules `id-class-style`, `id-class-no-ad`, `ìndent-delta`, `indent-width-cont` and `link-min-length-4`
+
+## [0.10.0-beta.9](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.8...v0.10.0-beta.9) (2024-06-06)
 
 ### Features 🚀
 
