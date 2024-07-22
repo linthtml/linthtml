@@ -28,7 +28,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@nx/js": "17.2.8",
-    "@nx/node": "^17.2.8",
+    "@nx/node": "^19.5.1",
     "@types/chai": "^4.3.12",
     "@types/mocha": "^10.0.6",
     "@types/node": "^16.9.1",
