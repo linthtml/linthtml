@@ -1,6 +1,6 @@
 {
   "name": "@linthtml/dom-utils",
-  "version": "0.10.0-beta.10",
+  "version": "0.10.0",
   "description": "Utilities for LintHTML plugins.",
   "author": "BenjaminJ <kamikillerto@gmail.com>",
   "homepage": "https://github.com/linthtml/linthtml/tree/main/packages/dom-utils#readme",
