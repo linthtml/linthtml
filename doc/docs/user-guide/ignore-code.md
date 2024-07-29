@@ -56,4 +56,4 @@ The patterns in your `.linthtmlignore` file must match [`.gitignore` syntax](htt
 
 LintHTML looks for a `.linthtmlignore` file in `process.cwd()`.
 
-_Alternatively, you can add an [`ignoreFiles` property](./configuration.md#ignorefiles) within your configuration object._
+_Alternatively, you can add an [`ignoreFiles` property](./configuration.md#exclude-files-from-linting) within your configuration object._
