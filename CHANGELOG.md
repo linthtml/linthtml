@@ -1,6 +1,27 @@
 # Changelog
 
-# Changelog
+## [0.10.0](https://github.com/linthtml/linthtml/compare/v0.9.6...v0.10.0) (2024-07-29)
+
+### Breaking 💥
+
+* Drop support for node 14 and node 16.
+* Rename packages to fix circular reference when building the packages, [@linthtml/linthtml] is now [@linthtml/core] and [@linthtml/cli] is now [@linthtml/linthtml].
+
+### Features 🚀
+
+* Add two new rules `no-inline-style` and `link-label-min-length`.
+* Deprecated rules `id-class-style`, `id-class-no-ad`, `ìndent-delta`, `indent-width-cont` and `link-min-length-4`.
+* Packages have been converted to esm.
+* [@linthtml/dom-utils] Generate ESM and CJS files in build and add new atomic exports.
+* [@linthtml/linthtml] Add CJS, ESM and TS output format for init command with types or JSDoc comments.
+
+### Refactor 🧰
+
+* Use nx instead of lerna as task runner
+
+### Bug fixes
+
+* [@linthtml/core] Correctly extract ignore patterns from .linthtmlignore file
 
 ## [0.10.0-beta.10](https://github.com/linthtml/linthtml/compare/v0.10.0-beta.9...v0.10.0-beta.10) (2024-07-02)
 
