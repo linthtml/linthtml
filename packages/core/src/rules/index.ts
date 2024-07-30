@@ -1,6 +1,6 @@
 // Export an array of all rules.
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import type { LegacyRuleDefinition } from "../read-config.js";
 import { globbySync } from "globby";
 
@@ -12,6 +12,6 @@ const rules_path = globbySync(["*/index.{ts,js}", "./dom.{ts,js}", "./free-optio
   absolute: true
 });
 
-const rulesExport = await Promise.all(rules_path.map((path) => import(path)));
+const rulesExport = await Promise.all(rules_path.map((path) => import(pathToFileURL(path).toString())));
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
 export default Object.values(rulesExport).map((rule) => rule?.index?.default ?? rule.default) as LegacyRuleDefinition[];
