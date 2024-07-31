@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.0](https://github.com/linthtml/linthtml/compare/v0.10.0...v0.10.1) (2024-07-31)
+
+### Bug fixes
+
+* [@linthtml/core] Correctly load internal rules on windows
+
 ## [0.10.0](https://github.com/linthtml/linthtml/compare/v0.9.6...v0.10.0) (2024-07-29)
 
 ### Breaking 💥
