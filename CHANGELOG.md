@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.10.0](https://github.com/linthtml/linthtml/compare/v0.10.0...v0.10.1) (2024-07-31)
+## [0.10.1](https://github.com/linthtml/linthtml/compare/v0.10.0...v0.10.1) (2024-07-31)
 
 ### Bug fixes
 
