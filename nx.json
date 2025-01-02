@@ -1,6 +1,10 @@
 {
   "targetDefaults": {
-    "build": { "cache": true, "dependsOn": ["^build"], "inputs": ["production", "^production"] },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
     "lint": {
       "cache": true,
       "inputs": [
@@ -11,14 +15,34 @@
       ],
       "dependsOn": ["^build"]
     },
-    "test": { "cache": true, "configurations": { "ci": { "ci": true, "codeCoverage": true } } }
+    "test": {
+      "cache": true,
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
   },
   "targets": {
     "local-registry": {
       "executor": "@nx/js:verdaccio",
-      "options": { "port": 4873, "config": ".verdaccio/config.yml", "storage": "tmp/local-registry/storage" }
+      "options": {
+        "port": 4873,
+        "config": ".verdaccio/config.yml",
+        "storage": "tmp/local-registry/storage"
+      }
     }
   },
-  "installation": { "version": "20.3.0" },
-  "namedInputs": { "default": ["{projectRoot}/**/*", "sharedGlobals"], "sharedGlobals": [], "production": ["default"] }
+  "installation": {
+    "version": "20.3.0"
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": ["default"]
+  },
+  "useInferencePlugins": false,
+  "useLegacyCache": true
 }
