@@ -23,7 +23,10 @@
       "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
-      ]
+      ],
+      "options": {
+        "eslintConfig": "{workspaceRoot}/eslint.config.cjs"
+      }
     },
     "test": {
       "dependsOn": [
