@@ -77,7 +77,7 @@ module.exports = [
 
       parserOptions: {
         project: ["./tsconfig.eslint.json", "./packages/*/tsconfig.json"],
-        tsconfigRootDir: "/home/benjaminj/Workspace/linthtml/linthtml"
+        tsconfigRootDir: __dirname
       }
     },
 
