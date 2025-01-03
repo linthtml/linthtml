@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
       - run: npm ci
       - run: npm run lint
 
@@ -24,12 +24,12 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ["16", "18", "20"]
+        node-version: ["18", "20", "22", "latest"]
         os: [macos-latest, ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
         with:
           node-version: ${{ matrix.node-version }}
           npm-version: "9"
