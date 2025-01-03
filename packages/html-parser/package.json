@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@linthtml/dom-utils": "^0.10.0",
-    "domhandler": "^4.2.2",
-    "htmlparser2": "^7.1.2"
+    "domhandler": "^5.0.3",
+    "htmlparser2": "^8.0.2"
   },
   "publishConfig": {
     "access": "public"

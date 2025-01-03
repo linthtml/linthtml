@@ -64,8 +64,8 @@
     "build": "nx run :build"
   },
   "dependencies": {
-    "domelementtype": "^2.2.0",
-    "domhandler": "^4.2.2"
+    "domelementtype": "^2.3.0",
+    "domhandler": "^5.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.8",
