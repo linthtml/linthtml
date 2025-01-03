@@ -72,7 +72,6 @@ function is_tag_node(node: Node): node is Element {
  * Check if a node is a Text node
  */
 function is_text_node(node: Node): node is Text {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.type === ElementType.Text;
 }
 
@@ -80,12 +79,10 @@ function is_text_node(node: Node): node is Text {
  * Check if a node is a Comment node (`<!-- a comment -->`)
  */
 function is_comment_node(node: Node): node is Comment {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.type === ElementType.Comment;
 }
 
 function is_directive_node(node: Node): node is ProcessingInstruction {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return node.type === ElementType.Directive;
 }
 
@@ -103,10 +100,8 @@ function get_classes(class_attribute: NodeAttribute): string[] {
  */
 function node_tag_name(node: Node): string {
   switch (node.type) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     case ElementType.Text:
       return "Text Node"; // get text node content but truncate ?
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     case ElementType.Comment:
       return "Comment";
     default:
@@ -120,7 +115,6 @@ function node_tag_name(node: Node): string {
  */
 function has_parent_node(node: Node): node is Node & { parent: Node } {
   // root node is not a "normal" node
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return !!node.parent && node.parent.type !== ElementType.Root;
 }
 
