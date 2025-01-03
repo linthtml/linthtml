@@ -76,6 +76,7 @@ interface MyExtendedNode {
   close: CharValue | undefined;
 }
 /** @hidden */
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 function ExtendedNode<TBase extends Constructor>(
   Base: TBase
 ): {
@@ -132,7 +133,6 @@ function ExtendedNode<TBase extends Constructor>(
  */
 export class Node extends ExtendedNode(NodeWithChildren) {
   parent: NodeWithChildren | null = null;
-  // eslint-disable-next-line no-use-before-define
   children: Node[] = []; // {Node[]}
 }
 /**

@@ -3,6 +3,7 @@ const typescriptEslint = require("@typescript-eslint/eslint-plugin");
 const tsParser = require("@typescript-eslint/parser");
 const js = require("@eslint/js");
 const { FlatCompat } = require("@eslint/eslintrc");
+const neostandard = require("neostandard");
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -20,7 +21,14 @@ module.exports = [
       "packages/dom-utils/rollup.config.mjs"
     ]
   },
-  ...compat.extends("eslint:recommended", "standard"),
+  ...neostandard({
+    globals: {
+      ...globals.node
+    },
+    noStyle: true,
+    ts: true
+  }),
+  ...compat.extends("eslint:recommended"),
   {
     languageOptions: {
       globals: {
