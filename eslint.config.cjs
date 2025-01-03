@@ -1,17 +1,10 @@
 const globals = require("globals");
-const typescriptEslint = require("@typescript-eslint/eslint-plugin");
-const tsParser = require("@typescript-eslint/parser");
-const js = require("@eslint/js");
-const { FlatCompat } = require("@eslint/eslintrc");
 const neostandard = require("neostandard");
+const eslint = require("@eslint/js");
+const tseslint = require("typescript-eslint");
+const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-});
-
-module.exports = [
+module.exports = tseslint.config([
   {
     ignores: [
       "**/fixtures/",
@@ -25,56 +18,33 @@ module.exports = [
     globals: {
       ...globals.node
     },
-    noStyle: true,
     ts: true
   }),
-  ...compat.extends("eslint:recommended"),
+  eslint.configs.recommended,
+
+  tseslint.configs.recommended,
+  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       globals: {
-        ...globals.node,
         beforeEach: true,
         describe: true,
         it: true
-      },
-
-      ecmaVersion: 2020,
-      sourceType: "commonjs"
+      }
     },
 
     rules: {
       camelcase: "off",
-      quotes: ["error", "double"],
-      semi: ["error", "always"],
+      "@stylistic/quotes": "off",
+      "@stylistic/semi": "off",
       "array-element-newline": ["error", "consistent"],
-      "no-var": "error",
       "newline-per-chained-call": "error",
-      "space-before-function-paren": ["error", "never"],
+      "@stylistic/space-before-function-paren": "off",
       "linebreak-style": ["error", "unix"]
     }
   },
-  ...compat
-    .extends("plugin:@typescript-eslint/recommended-type-checked", "plugin:prettier/recommended")
-    .map((config) => ({
-      ...config,
-      files: ["**/*.ts"]
-    })),
   {
-    files: ["**/*.ts"],
-
-    plugins: {
-      "@typescript-eslint": typescriptEslint
-    },
-
     languageOptions: {
-      globals: {
-        ...globals.node
-      },
-
-      parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: "commonjs",
-
       parserOptions: {
         project: ["./tsconfig.eslint.json", "./packages/*/tsconfig.json"],
         tsconfigRootDir: __dirname
@@ -104,4 +74,4 @@ module.exports = [
       "@typescript-eslint/no-unused-expressions": "off"
     }
   }
-];
+]);

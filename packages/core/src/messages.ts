@@ -18,6 +18,7 @@ export const CORE_ERRORS: { [code: string]: (meta?: Record<string, unknown>) => 
   "08": (meta) =>
     chalkTemplate`{red Error:} Plugin rules needs to define a "lint" function. The plugin rule "${meta?.rule_name}" from plugin "${meta?.plugin_name}" does not do this, so will not work. Please file an issue with the plugin.`,
   "09": () => chalkTemplate`{red Error:} Plugins should expose rules under the property "rules" and as an array.`,
+  // eslint-disable-next-line @stylistic/quote-props
   "10": (meta) =>
     chalkTemplate`{red Error:}  Cannot resolve plugin ${meta?.module_name}. NodeJS reported the following error.\n${meta?.message}`
 } as const;
