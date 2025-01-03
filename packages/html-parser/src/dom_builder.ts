@@ -1,6 +1,9 @@
 import { DomHandler, ElementType } from "htmlparser2";
-// TODO: remove
-import type { Node } from "@linthtml/dom-utils";
+import type {
+  ChildNode,
+  ParentNode
+  // TODO find a way to have /dom_elements
+} from "@linthtml/dom-utils";
 import {
   is_void_node,
   CharValue,
@@ -13,10 +16,13 @@ import {
 } from "@linthtml/dom-utils";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
-  public dom: Node[] = [];
+  // @ts-expect-error Will work
+  public dom: ChildNode[] = [];
   /** The root element for the DOM */
+  // @ts-expect-error Will work
   public root = new Document(this.dom);
-  public tagStack: Node[];
+  // @ts-expect-error Will work
+  public tagStack: ParentNode[];
 
   private attributes: NodeAttribute[];
   private lineOffsets: number[];
@@ -133,7 +139,9 @@ export default class Handler extends DomHandler {
     super.onclosetag();
   }
 
-  addNode(node: Node) {
+  // @ts-expect-error Will work
+  addNode(node: ChildNode) {
+    // @ts-expect-error Will work
     super.addNode(node);
     node.loc = {
       start: this._indexToPosition(node.startIndex as number),
