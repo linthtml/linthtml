@@ -238,7 +238,6 @@ describe("Config", function () {
         } as const;
         const foo: RuleDefinition = {
           name: "foo",
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           validateConfig(config) {
             expect(config).to.not.be.undefined;
@@ -264,7 +263,6 @@ describe("Config", function () {
         } as const;
         const foo: RuleDefinition = {
           name: "foo",
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           configTransform(config) {
             // @ts-expect-error Cannot infer rule config here

@@ -6,6 +6,5 @@ const RULE_NAME = "id-class-ignore-regex";
 export default {
   name: RULE_NAME,
   validateConfig: create_string_or_regexp_validator(RULE_NAME, false),
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   lint() {}
 };

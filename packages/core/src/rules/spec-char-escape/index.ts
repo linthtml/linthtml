@@ -2,7 +2,6 @@ const RULE_NAME = "spec-char-escape";
 
 export default {
   name: RULE_NAME,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   lint() {}
   // filter: ["text", "tag"],
 };

@@ -1,5 +1,3 @@
-/* eslint-disable array-element-newline */
-
 import type { CharValue } from "./dom_elements.js";
 
 // List of ISO 639-1 language codes
