@@ -12,7 +12,6 @@ const __dirname = path.dirname(__filename);
 
 const fooRule: RuleDefinition = {
   name: "foo",
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   lint() {}
 };
 
@@ -171,7 +170,6 @@ describe("inline_config extraction", function () {
         fooRule as LegacyRuleDefinition,
         {
           name: "bar",
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           options: [],
           on: "",
@@ -323,7 +321,6 @@ describe("inline_config extraction", function () {
       it("report an error if configuration does not pass rule validation", function (done) {
         const foo: RuleDefinition = {
           name: "foo",
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
           lint() {},
           validateConfig() {
             throw Error("not valid");
@@ -399,7 +396,6 @@ describe("inline_config extraction", function () {
           fooRule as LegacyRuleDefinition,
           {
             name: "bar",
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             lint() {},
             options: [],
             on: "",
@@ -428,7 +424,6 @@ describe("inline_config extraction", function () {
             fooRule as LegacyRuleDefinition,
             {
               name: "bar",
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
               lint() {},
               options: [],
               on: "",

@@ -206,7 +206,7 @@ export default class InlineConfig {
       }
       try {
         parsed = JSON.parse(value) as string | boolean | Array<unknown> | Record<string, unknown>;
-      } catch (e) {
+      } catch (_e) {
         if (!nameRegex.test(value)) {
           return new Issue("inline_config", pos, {
             code: "INLINE_03",

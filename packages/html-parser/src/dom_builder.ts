@@ -27,7 +27,6 @@ export default class Handler extends DomHandler {
   private lineOffsets: number[];
 
   constructor(lineOffsets: number[]) {
-    /* eslint-disable @typescript-eslint/no-empty-function */
     super(() => {}, {
       withStartIndices: true,
       withEndIndices: true

@@ -72,7 +72,7 @@ function parse_config(rule_configuration: string): boolean | string | Array<unkn
   try {
     // deal with boolean, array and object
     return JSON.parse(cleaned_rule_configuration) as boolean | string | Array<unknown> | Record<string, unknown>;
-  } catch (error) {
+  } catch (_error) {
     if (is_string_config(rule_configuration) === false) {
       throw new CustomError("INLINE_03", { rule_configuration });
     }

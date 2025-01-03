@@ -66,7 +66,7 @@ export class Position {
 }
 
 // TODO: Fix type
-/* eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 type ExtendedNode<T> = new () => T;
