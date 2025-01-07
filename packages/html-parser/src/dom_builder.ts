@@ -58,9 +58,7 @@ export default class Handler extends DomHandler {
     let value: CharValue | null = null;
     const start: number = this._parser.startIndex; // Use this.startIndex instead (since htmlparser 7.1?)
     let end = this._parser.endIndex;
-    if (/\s|\n/.test(this.buffer[end]) === false) {
-      end++;
-    }
+
     const namePosition = {
       start: this._indexToPosition(start),
       end: this._indexToPosition(start + name.length)
