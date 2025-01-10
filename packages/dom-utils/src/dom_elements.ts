@@ -64,26 +64,6 @@ export class Position {
   }
 }
 
-interface SourceCodeLocation {
-  /** One-based line index of the first character. */
-  startLine: number;
-  /** One-based column index of the first character. */
-  startCol: number;
-  /** Zero-based first character index. */
-  startOffset: number;
-  /** One-based line index of the last character. */
-  endLine: number;
-  /** One-based column index of the last character. Points directly *after* the last character. */
-  endCol: number;
-  /** Zero-based last character index. Points directly *after* the last character. */
-  endOffset: number;
-}
-
-interface TagSourceCodeLocation extends SourceCodeLocation {
-  startTag?: SourceCodeLocation;
-  endTag?: SourceCodeLocation;
-}
-
 /**
  * A node that can have children.
  */
@@ -127,13 +107,6 @@ export abstract class Node {
 
   /** The end index of the node. Requires `withEndIndices` on the handler to be `true. */
   endIndex: number | null = null;
-
-  /**
-   * `parse5` source code location info.
-   *
-   * Available if parsing with parse5 and location info is enabled.
-   */
-  sourceCodeLocation?: SourceCodeLocation | null;
 
   // Read-only aliases
 
@@ -203,32 +176,6 @@ export abstract class Node {
 
   set loc(value) {
     this._loc = value;
-  }
-
-  // @ts-expect-error Ignore
-  private _open: CharValue;
-  /**
-   * Node open tag details
-   */
-  get open() {
-    return this._open;
-  }
-
-  set open(value) {
-    this._open = value;
-  }
-
-  private _close: CharValue | undefined = undefined;
-  /**
-   * Node close tag details.
-   * _Can be null for self closing tag_
-   */
-  get close() {
-    return this._close;
-  }
-
-  set close(value) {
-    this._close = value;
   }
 }
 
@@ -336,6 +283,32 @@ export abstract class NodeWithChildren extends Node {
   set childNodes(children: ChildNode[]) {
     this.children = children;
   }
+
+  // @ts-expect-error Ignore
+  private _open: CharValue;
+  /**
+   * Node open tag details
+   */
+  get open() {
+    return this._open;
+  }
+
+  set open(value) {
+    this._open = value;
+  }
+
+  private _close: CharValue | undefined = undefined;
+  /**
+   * Node close tag details.
+   * _Can be null for self closing tag_
+   */
+  get close() {
+    return this._close;
+  }
+
+  set close(value) {
+    this._close = value;
+  }
 }
 
 /**
@@ -388,13 +361,6 @@ export class Element extends NodeWithChildren {
   get nodeType(): 1 {
     return 1;
   }
-
-  /**
-   * `parse5` source code location info, with start & end tags.
-   *
-   * Available if parsing with parse5 and location info is enabled.
-   */
-  sourceCodeLocation?: TagSourceCodeLocation | null;
 
   // DOM Level 1 aliases
 
