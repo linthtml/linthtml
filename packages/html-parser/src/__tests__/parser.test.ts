@@ -1,12 +1,14 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import type { Element } from "@linthtml/dom-utils/dom_elements";
 import parse from "../index.js";
+import type { Element } from "@linthtml/dom-utils";
 
 describe("HTML Parser", function () {
   it("Tags positions are correct (nesting)", function () {
     const { children } = parse(["<body>", '  <div a="jofwei">', "    TextTextText", "  </div>", "</body>"].join("\n"));
-    expect(children[0].open.loc).to.deep.equal({
+    const body = children[0] as Element;
+
+    expect(body.open.loc).to.deep.equal({
       start: {
         line: 1,
         column: 1
@@ -16,7 +18,7 @@ describe("HTML Parser", function () {
         column: 7
       }
     });
-    expect(children[0]?.close?.loc).to.deep.equal({
+    expect(body.close?.loc).to.deep.equal({
       start: {
         line: 5,
         column: 1
@@ -26,7 +28,8 @@ describe("HTML Parser", function () {
         column: 8
       }
     });
-    expect(children[0].children[1].open.loc).to.deep.equal({
+    const div = body.children[1] as Element;
+    expect(div.open.loc).to.deep.equal({
       start: {
         line: 2,
         column: 3
@@ -36,7 +39,7 @@ describe("HTML Parser", function () {
         column: 19
       }
     });
-    expect(children[0]?.children[1]?.close?.loc).to.deep.equal({
+    expect(div.close?.loc).to.deep.equal({
       start: {
         line: 4,
         column: 3
@@ -128,7 +131,7 @@ describe("HTML Parser", function () {
     const { children } = parse(
       ["<body>", '  <div class="hello" id="identityDiv" class="goodbye">', "  </div>", "</body>"].join("\n")
     );
-    const div = <Element>children[0].children[1];
+    const div = children[0].children[1] as Element;
 
     expect(div.attributes).to.have.lengthOf(3);
     const [class_1, id, class_2] = div.attributes;
@@ -282,7 +285,7 @@ describe("HTML Parser", function () {
     const { children } = parse(
       ["<body>", "  <div", '    class="hello"', '    id="identityDiv"', "  >", "  </div>", "</body>"].join("\n")
     );
-    const div = <Element>children[0].children[1];
+    const div = children[0].children[1] as Element;
 
     expect(div.attributes).to.have.lengthOf(2);
     const [_class, id] = div.attributes;
@@ -368,7 +371,7 @@ describe("HTML Parser", function () {
     const { children } = parse(
       ["<body>", "  <div", '    class="hello', '      identityDiv"', "  >", "  </div>", "</body>"].join("\n")
     );
-    const div = <Element>children[0].children[1];
+    const div = children[0].children[1] as Element;
 
     expect(div.attributes).to.have.lengthOf(1);
     const [_class] = div.attributes;
