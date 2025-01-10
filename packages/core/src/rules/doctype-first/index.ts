@@ -23,12 +23,10 @@ function is_whitespace(node: Node) {
 function lint(node: Node, mode: string, { report }: { report: reportFunction }) {
   // CHECK if parent if first child instead
   // @ts-expect-error USE parents and sibling instead
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   if (this.passedFirst || is_comment_node(node) || is_whitespace(node)) {
     return;
   }
   // @ts-expect-error USE parents and sibling instead
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   this.passedFirst = true;
 
   if (is_directive_node(node) && node.name.toUpperCase() === "!DOCTYPE") {
@@ -42,7 +40,7 @@ function lint(node: Node, mode: string, { report }: { report: reportFunction }) 
 
   report({
     code: "E007",
-    position: node.open ? node.open.loc : node.loc
+    position: is_tag_node(node) ? node.open.loc : node.loc
   });
 }
 

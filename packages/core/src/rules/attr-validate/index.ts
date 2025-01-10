@@ -1,10 +1,10 @@
 import { is_tag_node } from "@linthtml/dom-utils";
-import type { Node } from "@linthtml/dom-utils/dom_elements";
+import type { Element, Node } from "@linthtml/dom-utils/dom_elements";
 import type { reportFunction, RuleDefinition } from "../../read-config.js";
 
 const RULE_NAME = "attr-validate";
 
-function get_open_raw({ open }: Node) {
+function get_open_raw({ open }: Element) {
   const open_raw = open.raw as string;
   return open_raw
     .replace(/^</, "")

@@ -1,5 +1,5 @@
 import { is_text_node, node_tag_name, has_parent_node, is_newline_only } from "@linthtml/dom-utils";
-import type { CharValue, Node, Text } from "@linthtml/dom-utils/dom_elements";
+import type { CharValue, Element, Node, Text } from "@linthtml/dom-utils/dom_elements";
 import type { reportFunction, RuleDefinition } from "../../read-config.js";
 import { create_list_value_validator } from "../../validate_option.js";
 
@@ -28,8 +28,8 @@ function is_sibling_close_tag_same_line(node: Node) {
 function is_parent_open_close_same_line(node: Node) {
   return (
     has_parent_node(node) &&
-    (node.parent as Node).open.loc.end.line === node.loc.start.line &&
-    (node.parent as Node).loc.end.line === node.loc.end.line
+    (node.parent as Element).open.loc.end.line === node.loc.start.line &&
+    (node.parent as Element).loc.end.line === node.loc.end.line
   );
 }
 
@@ -40,7 +40,7 @@ function is_parent_open_close_same_line(node: Node) {
  * If alone on line and indent width not correct => report
  * If alone on line and indent width  correct => do not report
  */
-function check_indent_width(node: Node, expectedIndentWidth: number) {
+function check_indent_width(node: Element, expectedIndentWidth: number) {
   if (is_parent_open_close_same_line(node)) {
     return true;
   }
@@ -50,7 +50,7 @@ function check_indent_width(node: Node, expectedIndentWidth: number) {
   return node.loc.start.column - 1 === expectedIndentWidth;
 }
 
-function check_indent_width_close({ open, close }: Node) {
+function check_indent_width_close({ open, close }: Element) {
   if (close === undefined) {
     return true;
   }
@@ -99,7 +99,7 @@ function indent_style_used(node: Node) {
 }
 
 function check_node_indent(
-  node: Node,
+  node: Element,
   indent: { width: false | number; style: "spaces" | "tabs" | "mixed" },
   expected_indent_width: number,
   report: reportFunction
@@ -176,7 +176,7 @@ function lint(
   const style = (global_config["indent-style"] as false | "spaces" | "tabs" | "mixed") || "spaces"; // TODO: Get rid of false
   const width = (global_config["indent-width"] as false | number) || false; // TODO: Add default value?
 
-  check_node_indent(node, { style, width }, (width as number) * level, report);
+  check_node_indent(node as Element, { style, width }, (width as number) * level, report);
 }
 
 export default {
