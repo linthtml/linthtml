@@ -28,6 +28,10 @@ export default function print_file_report(report: Report) {
   }
   if (report.preset) {
     console.log(chalkTemplate`{blue Using preset: {white ${report.preset}}}`);
+    console.log(chalkTemplate`{yellow Legacy presets are deprecated and will be removed soon.}`);
+    console.log(
+      chalkTemplate`{yellow Either create a config file and extends the shared {bold "@linthtml/linthtml-config-recommended"} config or use '--disable-preset-fallback' option to disable preset fallback }`
+    );
   }
   const maxLine = report.issues.reduce((max, cv) => Math.max(max, cv.position?.start?.line || 1), -1).toString().length;
   const maxColumn = report.issues
