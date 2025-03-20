@@ -27,7 +27,7 @@ The following patterns are considered violations:
 <!DOCTYPE html>
 ```
 
-The following patterns are not considerd violations:
+The following patterns are not considered violations:
 
 ```html
 <!DOCTYPE html>

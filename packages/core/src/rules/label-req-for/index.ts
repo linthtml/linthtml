@@ -44,6 +44,7 @@ function has_valid_child(nodement: Node) {
   return nodement.children.some(is_labelable);
 }
 
+// Ignore element with label as parent?
 // TODO: Cleanup rule code
 function lint(node: Node, _config: unknown, { report }: { report: reportFunction }) {
   if (!is_tag_node(node) || node.name !== "label") {

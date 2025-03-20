@@ -1,6 +1,6 @@
 # link-min-length-4
 
-A rule from WCAG http://oaa-accessibility.org/wcag20/rule/38/.
+A rule inspired by [WCAG Technique G91: Providing link text that describes the purpose of a link](https://www.w3.org/WAI/WCAG22/Techniques/general/G91.html)
 Report errors if link's text content is less than 4 characters long.
 
 The following patterns are considered violations:

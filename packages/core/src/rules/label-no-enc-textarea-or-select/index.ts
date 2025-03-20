@@ -25,5 +25,6 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
 
 export default {
   name: RULE_NAME,
+  deprecated: true,
   lint
 } as RuleDefinition;

@@ -1,6 +1,6 @@
 # button-req-content
 
-See WCAG rule [78](http://oaa-accessibility.org/wcag20/rule/78/): Each `button` element must contain content.
+See [WCAG Success Criteria \[WCAG 2.1 (A)\]](https://www.w3.org/TR/WCAG22/#name-role-value): Each `button` element must contain content.
 
 The following patterns are considered violations:
 

@@ -1,6 +1,6 @@
 # fieldset-contains-legend
 
-WCAG rule [73](http://oaa-accessibility.org/wcag20/rule/73/): Each `fieldset` element should contain a `legend` element.
+See [WCAG technique H71](https://www.w3.org/TR/WCAG20-TECHS/H71.html): Each `fieldset` element should contain a `legend` element.
 
 The following patterns are considered violations:
 
