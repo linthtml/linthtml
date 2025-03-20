@@ -20,7 +20,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <textarea> inside a <label>", async function () {
@@ -32,7 +32,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <select> inside a <label> (deep nesting)", async function () {
@@ -52,7 +52,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function () {
@@ -68,7 +68,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function () {
@@ -83,7 +83,7 @@ describe("legacy linter | label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(0);
   });
 });
 
@@ -104,7 +104,7 @@ describe("label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <textarea> inside a <label>", async function () {
@@ -116,7 +116,7 @@ describe("label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <select> inside a <label> (deep nesting)", async function () {
@@ -136,7 +136,7 @@ describe("label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report an error when there's a <textarea> inside a <label> (deep nesting)", async function () {
@@ -152,7 +152,7 @@ describe("label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(1);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(1);
   });
 
   it("Report nothing when the <select> or the <textarea> in not inside the <label>", async function () {
@@ -167,6 +167,6 @@ describe("label-no-enc-textarea-or-select", function () {
     `;
 
     const issues = await linter.lint(html);
-    expect(issues).to.have.lengthOf(0);
+    expect(issues.filter((issue) => issue.code !== "DEPRECATED_RULE")).to.have.lengthOf(0);
   });
 });
