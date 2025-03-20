@@ -120,22 +120,33 @@ function create_file_linter(
  * @param {string[]} globs - An array of globs
  * @param {string} [config_path] - Path the config file that will be use to create configure the linters
  */
-linthtml.create_linters_for_files = async function (globs: string[], config_path?: string): Promise<FileLinter[]> {
+linthtml.create_linters_for_files = async function (
+  globs: string[],
+  config_path?: string,
+  without_legacy_fallback = true
+): Promise<FileLinter[]> {
   if (config_path) {
     const config = await config_from_path(config_path);
     const files = get_files_to_lint(globs, config.config);
     return files.map((file_path) => create_file_linter(file_path, config));
   }
+
   const files = get_files_to_lint(globs);
   const files_config = await Promise.all(
     files.map((file_path) => find_local_config(file_path).then((config) => ({ file_path, config })))
   );
+
   return files_config.reduce((files_to_lint, { file_path, config }) => {
+    const fallback_config = without_legacy_fallback
+      ? {
+          config: { rules: {} } as LinterConfig
+        }
+      : {
+          config: presets.default as LinterConfig | LegacyLinterConfig,
+          preset: "default"
+        };
     // if no config, fallback to presets as before
-    const local_config = config ?? {
-      config: presets.default as LinterConfig | LegacyLinterConfig,
-      preset: "default"
-    };
+    const local_config = config ?? fallback_config;
 
     if (!should_ignore_file(file_path, local_config.config.ignoreFiles as string[])) {
       return files_to_lint.concat(create_file_linter(file_path, local_config));

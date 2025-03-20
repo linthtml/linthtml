@@ -34,6 +34,7 @@ const cliOptions = {
     {cyan.underline Miscellaneous:}
 
       --init                          Generate a default configuration file
+      --disable-preset-fallback       Prevent fallback to legacy linter with preset when no config file
       -h, --help                      Show help
       -v, --version                   Output the version number
       --print-config [path::String]   Print the configuration for the given file
@@ -52,6 +53,9 @@ const cliOptions = {
       type: "string"
     },
     init: {
+      type: "boolean"
+    },
+    disablePresetFallback: {
       type: "boolean"
     },
     help: {
@@ -90,14 +94,14 @@ export function cli(argv: string[]) {
   if (cli.flags.help || cli.flags.h || argv.length === 0) {
     cli.showHelp();
   }
-  return lint(cli.input, cli.flags.config as string);
+  return lint(cli.input, cli.flags.config, cli.flags.disablePresetFallback);
 }
 
-async function lint(input: string[], config_path: string) {
+async function lint(input: string[], config_path?: string, without_legacy_fallback?: boolean) {
   let files_linters = [];
   const searchSpinner = ora("Searching for files").start();
   try {
-    files_linters = await linthtml.create_linters_for_files(input, config_path);
+    files_linters = await linthtml.create_linters_for_files(input, config_path, without_legacy_fallback);
     searchSpinner.succeed(`Found ${files_linters.length} files`); // deal with 0
   } catch (error) {
     searchSpinner.fail();
