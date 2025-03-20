@@ -21,7 +21,12 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
       if (!node.parent || (node.parent as Element).name !== "figure") {
         report({
           code: "E032",
-          position: node.open.loc
+          position: node.open.loc,
+          meta: {
+            data: {
+              hasMissingParent: true
+            }
+          }
         });
       }
     }
