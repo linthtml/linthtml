@@ -76,7 +76,10 @@ export const ISSUE_ERRORS = {
   E030: (data: { open: CharValue }) =>
     `Tag close does not match opened tag at C${data.open.loc.start.line}:L${data.open.loc.start.column}`,
   E031: (/* data */) => "Table must have captions (<caption>) for accessibility",
-  E032: (/* data */) => "Tag <figure> must contains a <figcaption> tag for accessibility",
+  E032: (data: { hasMissingParent: boolean }) =>
+    data?.hasMissingParent
+      ? "Tag <figcaption> must be contained in a <figure> tag for accessibility"
+      : "Tag <figure> must contains a <figcaption> tag for accessibility",
   E033: (data: { idValue: string }) => `Input with id "${data.idValue}" has no associated label`,
   E034: (/* data */) => "Radio input must have an associated name",
   E035: (/* data */) => "Table must contains a header (<thead>) for accessibility",
