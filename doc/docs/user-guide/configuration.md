@@ -142,6 +142,10 @@ Here's a list of parser that are compatible with LintHTML:
 
 - `@linthtml/linthtml-pug` - A wrapper around the [PUG](https://pugjs.org/) parser that makes it compatible with LintHTML.
 
+#### Parser ignore text
+
+There's a setting `raw-ignore-regex` that can be used to "hide" some content (text, tags...) to the parser so it does try to parse it.
+
 ### Using plugins
 
 It's possible to extends the capabilities of LintHTML by providing more rules using Plugins.

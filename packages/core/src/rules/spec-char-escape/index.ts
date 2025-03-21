@@ -1,10 +1,13 @@
+import type { RuleDefinition } from "../../read-config.js";
+
 const RULE_NAME = "spec-char-escape";
 
 export default {
   name: RULE_NAME,
+  deprecate: true,
+  deprecation_hint: "This rule does nothing",
   lint() {}
-  // filter: ["text", "tag"],
-};
+} as RuleDefinition;
 
 // var regex = /[^\\](&[^a-zA-Z0-9#;]*;)|([&<>])|(&[a-zA-Z0-9#]*[^a-zA-Z0-9#;])/gm;
 // const regex = /\\[^a-zA-Z0-9\-_ \n\r\s\\]/g;
