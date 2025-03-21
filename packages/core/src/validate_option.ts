@@ -1,6 +1,8 @@
 import { types } from "node:util";
 const { isRegExp } = types;
 
+// TODO: Use generic for functions?
+
 // TODO: Send `rule_name` to the actual validation function?
 // TODO: Create error code for messages
 export function is_boolean(rule_name: string) {
