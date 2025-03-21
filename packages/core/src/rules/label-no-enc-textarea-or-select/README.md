@@ -1,5 +1,7 @@
 # label-no-enc-textarea-or-select
 
+_This rule is deprecated and will be removed in LintHTML v1_
+
 The label element should not encapsulate select and textarea elements.
 
 The following patterns are considered violations:

@@ -2,6 +2,5 @@
 
 ⚠ This rule does nothing. ⚠
 
-The rule was not working properly and lack documentation so the rule has been "removed".
-This rule has been inherited form HTMLLint but not removed to stay compatible (config).
-The rule still exist to avoid reporting errors during config parsing but does nothing and return no errors.
+This rule was inherited from HTMLLint, but it never worked properly and lacked documentations so the rule has been "removed".
+To stay compatible with HTMLLint until LintHTML v1, this rule can still be configured but will not report any errors.
