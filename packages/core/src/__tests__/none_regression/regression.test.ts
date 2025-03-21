@@ -17,10 +17,17 @@ describe("None regression", function () {
     const new_linter_issues = await linthtml(html, new_config);
     const legacy_linter_issues = await linthtml(html, legacy_config);
 
-    expect(legacy_linter_issues.length).to.equal(new_linter_issues.length);
+    const a = new_linter_issues
+      .filter((_) => _.code !== "DEPRECATED_RULE")
+      .map((_) => parseInt(_.code.replace("E", ""), 10))
+      .sort();
+    const b = legacy_linter_issues
+      .filter((_) => _.code !== "DEPRECATED_RULE")
+      .map((_) => parseInt(_.code.replace("E", ""), 10))
+      .sort();
+
+    expect(a.length).to.equal(b.length);
     // expect(legacy_linter).to.deep.equal(new_linter); // Different order ><
-    const a = new_linter_issues.map((_) => parseInt(_.code.replace("E", ""), 10)).sort();
-    const b = legacy_linter_issues.map((_) => parseInt(_.code.replace("E", ""), 10)).sort();
     expect(a).to.deep.equal(b);
   });
 });

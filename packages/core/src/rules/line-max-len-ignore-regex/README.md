@@ -1,8 +1,6 @@
 # line-max-len-ignore-regex
 
-⚠ This is not a rule.
-
-It's a setting that will be used the rule [line-max-len](../line-max-len/README.md) to ignore some lines.
+⚠ This is not a rule. It's a setting that was use by the rule [line-max-len](../line-max-len/README.md) to ignore some lines. But it's no longer used
 
 A string giving a regular expression, a RegExp object, or `false`. If set, lines with names matching the given regular expression are ignored for the `line-length` rule. For example, lines with long `href` attributes can be excluded with regex `href`.
 
