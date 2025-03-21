@@ -7,7 +7,7 @@ The configuration that you have in your `.linthtmlrc` file is an important part 
 
 ## Creating a Shareable Config
 
-Shareable configs are simply npm packages that export a configuration object. To start, [create a Node.js module](https://docs.npmjs.com/getting-started/creating-node-modules) like you normally would.
+Shareable configs are simply npm packages exporting a LintHTML configuration object. To create one, start by [creating a Node.js module](https://docs.npmjs.com/getting-started/creating-node-modules) like you normally would.
 
 Create a new `index.js` file and export an object containing your settings:
 
@@ -23,9 +23,11 @@ Since `index.js` is just JavaScript, you can optionally read these settings from
 
 ## Publishing a Shareable Config
 
-Once your shareable config is ready, you can [publish to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages) to share with others. We recommend using the `linthtml` and `linthtml-config` keywords so others can easily find your module.
+Once your shareable config is ready, you can [publish it to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages) to share with others. We recommend adding the `linthtml` and `linthtml-config` [keywords](https://docs.npmjs.com/cli/v11/configuring-npm/package-json#keywords) in the module `package.json` file so others can easily find it on [npmjs.com](https://www.npmjs.com/).
 
-You should declare your dependency on LintHTML in `package.json` using the [peerDependencies](https://docs.npmjs.com/files/package.json#peerdependencies) field. <!-- The recommended way to declare a dependency for future proof compatibility is with the ">=" range syntax, using the lowest required LintHTML version. For example: -->
+You should declare your dependency on LintHTML in `package.json` using the [peerDependencies](https://docs.npmjs.com/files/package.json#peerdependencies) field. The recommended way to declare a dependency for future proof compatibility is with the ">=" range syntax, using the lowest required LintHTML version.
+
+For example:
 
 ```json
 "peerDependencies": {
@@ -33,8 +35,7 @@ You should declare your dependency on LintHTML in `package.json` using the [peer
 }
 ```
 
-<!-- 
-If your shareable config depends on a plugin, you should also specify it as a `peerDependency` (plugins will be loaded relative to the end user's project, so the end user is required to install the plugins they need). However, if your shareable config depends on a third-party parser or another shareable config, you can specify these packages as `dependencies`. -->
+If your shareable config depends on a plugin, you should also specify it as a `peerDependency` (plugins will be loaded relative to the end user's project, so the end user is required to install the plugins they need). However, if your shareable config depends on a third-party parser or another shareable config, you can specify these packages as `dependencies`.
 
 You can also test your shareable config on your computer before publishing by linking your module globally. Type:
 
@@ -48,8 +49,6 @@ Then, in your project that wants to use your shareable config, type:
 npm link my-linthtml-config
 ```
 
-Be sure to replace `my-linthtml-config` with the actual name of your module.
-
 ## Using a Shareable Config
 
 Shareable configs are designed to work with the `extends` feature of `.linthtmlrc` files. Instead of using a file path for the value of `extends`, use your module name. For example:
@@ -60,7 +59,7 @@ Shareable configs are designed to work with the `extends` feature of `.linthtmlr
 }
 ```
 
-_LintHTML has a shared config you can use, [linthtml-config-recommended](https://github.com/linthtml/linthtml-config-recommended)_
+_LintHTML has a recommended configuration you can used by installing the shared config [linthtml-config-recommended](https://github.com/linthtml/linthtml-config-recommended)_
 
 ### npm scoped modules
 
@@ -72,7 +71,37 @@ npm [scoped modules](https://docs.npmjs.com/misc/scope) are also supported.
 }
 ```
 
-You can override settings from the shareable config by adding them directly into your `.linthtmlrc` file.
+### Overriding shareable config
+
+You can override settings from the shareable config by simplify adding the settings key and value into your `.linthtmlrc` file.
+For example, here is a shareable config defining with some rules setting:
+
+```js
+// my-linthtml-config
+
+module.exports = {
+  rules: {
+    'indent-style': [true, 'space'],
+    'indent-width': [true, 4]
+  }
+}
+```
+
+I can override those default rules setting by redefining them in my own config file.
+
+```ts
+// local .linthtmlrc.ts
+
+import type { Config } from '@linthtml/linthtml';
+
+export default {
+  extends: "my-linthtml-config",
+  rules: {
+    'indent-style': [true, "tab"],
+    'indent-width': [true, 2]
+    }
+} satisfies Config;
+```
 
 ## Sharing Multiple Configs
 

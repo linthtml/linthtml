@@ -1,6 +1,7 @@
 # LintHTML
 
 [![npm version](https://img.shields.io/npm/v/@linthtml/linthtml.svg?style=flat-square)](https://npmjs.org/package/@linthtml/linthtml)
+[![npm beta version](https://img.shields.io/npm/v/%40linthtml%2Flinthtml/beta?style=flat-square)](https://npmjs.org/package/@linthtml/linthtml)
 [![license](https://img.shields.io/npm/l/@linthtml/linthtml.svg?style=flat-square)](https://npmjs.org/package/@linthtml/linthtml)
 [![codebeat badge](https://codebeat.co/badges/b16712c0-c863-4fda-8ea2-75dacd0faf1a)](https://codebeat.co/projects/github-com-linthtml-linthtml-develop)
 [![Coverage Status](https://coveralls.io/repos/github/linthtml/linthtml/badge.svg?branch=develop)](https://coveralls.io/github/linthtml/linthtml?branch=develop)
@@ -126,8 +127,10 @@ It's worth noting that inline configurations only affect the file they're on, so
 
 Apart from the built-in CLI, you might want to use some of the following tools to integrate LintHTML in different scenarios:
 
-* [`vscode-linthtml`](https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-linthtml): an extension for the VSCode IDE
-* [`gulp-linthtml`](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML
+* [vscode-linthtml](https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-linthtml): an extension for the VSCode IDE
+* [@linthtml/gulp-linthtml](https://github.com/linthtml/gulp-linthtml): a gulp interface for LintHTML
+* [@linthtml/linthtml-pug](https://github.com/linthtml/linthtml-pug): PUG parser to lint pug files with LintHTML
+* [@linthtml/linthtml-config-recommended](https://github.com/linthtml/linthtml-config-recommended): Recommended shareable config for linthtml
 
 🚧 Coming soon:
 
@@ -141,3 +144,4 @@ Contributions are welcome, please make sure to use the proper GitHub tag on your
 * `cli`: anything related to LintHTML's CLI
 * `rule`: anything related to the rules (bugs, improvements, docs, new rules...)
 * `core`: anything related to LintHTML's core (file parsing, plugin system...)
+* `doc`: anything related to LintHTML's documentation
