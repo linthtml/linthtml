@@ -55,7 +55,7 @@ function lint(
 
 function validateConfig(config: RULE_CONFIG) {
   if (is_extended_config(config)) {
-    const keys = [...Object.keys(config)];
+    const keys = Object.keys(config);
 
     const invalid_key = keys.find((key) => !["format", "ignore"].includes(key));
 
