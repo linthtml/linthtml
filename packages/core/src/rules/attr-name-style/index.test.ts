@@ -55,7 +55,7 @@ describe("legacy linter | attr-name-style", function () {
     const linter = createLinter({ "attr-name-style": ["camel"] });
     const html = '<button style="color: red;"></button>';
     expect(() => linter.lint(html)).to.throw(
-      'Configuration for rule "attr-name-style" is invalid: Expected string or RegExp got object'
+      'Configuration for rule "attr-name-style" is invalid: Expected string or RegExp got array'
     );
   });
 
@@ -71,7 +71,7 @@ describe("legacy linter | attr-name-style", function () {
     const linter = createLinter({ "attr-name-style": { format: ["camel"] } });
     const html = '<button style="color: red;"></button>';
     expect(() => linter.lint(html)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: Setting "format" is not valid: Expected string or RegExp got object'
+      'Object configuration for rule "attr-name-style" is invalid: Setting "format" is not valid: Expected string or RegExp got array'
     );
   });
 
@@ -241,7 +241,7 @@ describe("attr-name-style", function () {
       "attr-name-style": [true, ["camel"]] as [boolean, unknown]
     };
     expect(() => createLinter(config)).to.throw(
-      'Configuration for rule "attr-name-style" is invalid: Expected string or RegExp got object'
+      'Configuration for rule "attr-name-style" is invalid: Expected string or RegExp got array'
     );
   });
 
@@ -257,7 +257,7 @@ describe("attr-name-style", function () {
     const config = { "attr-name-style": [true, { format: ["camel"] }] } satisfies Record<string, RuleConfig>;
 
     expect(() => createLinter(config)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: Setting "format" is not valid: Expected string or RegExp got object'
+      'Object configuration for rule "attr-name-style" is invalid: Setting "format" is not valid: Expected string or RegExp got array'
     );
   });
 
