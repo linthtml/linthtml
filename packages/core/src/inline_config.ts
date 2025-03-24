@@ -101,7 +101,7 @@ function generate_inline_instruction(
       ? (rule.configTransform(rule_configuration) as string | Array<unknown> | Record<string, unknown>)
       : rule_configuration;
     if (rule.validateConfig) {
-      rule.validateConfig(rule_configuration);
+      rule.validateConfig(rule_configuration, false);
     }
     return {
       config: rule_configuration
