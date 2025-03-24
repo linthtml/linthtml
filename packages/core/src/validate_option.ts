@@ -3,12 +3,40 @@ const { isRegExp } = types;
 
 // TODO: Use generic for functions?
 
+export function get_config_type(config: unknown) {
+  if (config === null) {
+    return "null";
+  }
+
+  const type = typeof config;
+
+  if (type !== "object") {
+    return type;
+  }
+
+  if (Array.isArray(config)) {
+    return "array";
+  }
+
+  if (isRegExp(config)) {
+    return "regexp";
+  }
+
+  return type;
+}
+
+export function is_object(config: unknown): config is Record<string, unknown> {
+  return get_config_type(config) === "object";
+}
+
 // TODO: Send `rule_name` to the actual validation function?
 // TODO: Create error code for messages
 export function is_boolean(rule_name: string) {
   return function (option: unknown): boolean | never {
     if (typeof option !== "boolean") {
-      throw new Error(`Configuration for rule "${rule_name}" is invalid: Expected boolean got ${typeof option}.`);
+      throw new Error(
+        `Configuration for rule "${rule_name}" is invalid: Expected boolean got ${get_config_type(option)}.`
+      );
     }
     return option;
   };
@@ -23,7 +51,7 @@ export function create_string_or_regexp_validator(rule_name: string, allow_empty
       throw new Error(`Configuration for rule "${rule_name}" is invalid: You provide an empty string value.`);
     }
     throw new Error(
-      `Configuration for rule "${rule_name}" is invalid: Expected string or RegExp got ${typeof option}.`
+      `Configuration for rule "${rule_name}" is invalid: Expected string or RegExp got ${get_config_type(option)}.`
     );
   };
 }
@@ -53,7 +81,7 @@ export function create_list_value_validator(rule_name: string, values: string[],
   const type_error = (rule_name: string, option: unknown) =>
     `Configuration for rule "${rule_name}" is invalid: Expected string${
       allow_reg ? " or RegExp" : ""
-    } got ${typeof option}.`;
+    } got ${get_config_type(option)}.`;
   if (Array.isArray(values) === false || values.some((_) => typeof _ !== "string")) {
     throw new Error("You must provide a array of string"); // CORE error message?
   }
@@ -78,11 +106,33 @@ export function create_list_value_validator(rule_name: string, values: string[],
 export function create_number_validator(rule_name: string, allow_neg = true) {
   return function (option: unknown): number | never {
     if (typeof option !== "number") {
-      throw new Error(`Configuration for rule "${rule_name}" is invalid: Expected number got ${typeof option}.`);
+      throw new Error(
+        `Configuration for rule "${rule_name}" is invalid: Expected number got ${get_config_type(option)}.`
+      );
     }
     if (allow_neg === false && option < 0) {
       throw new Error(`Configuration for rule "${rule_name}" is invalid: Only positive indent value are allowed.`);
     }
+    return option;
+  };
+}
+
+export function create_object_validator(rule_name: string, object_keys: string[]) {
+  return function (option: unknown): Record<string, unknown> | never {
+    if (!is_object(option)) {
+      throw new Error(
+        `Configuration for rule "${rule_name}" is invalid: Expected object got ${get_config_type(option)}.`
+      );
+    }
+
+    const invalid_key = Object.keys(option).find((key) => !["format", "ignore"].includes(key));
+
+    if (invalid_key) {
+      throw new Error(
+        `Object configuration for rule "${rule_name}" is invalid: key "${invalid_key}" is not accepted, only "${object_keys.join('", "')}" ${object_keys.length > 1 ? "are" : "is"}.`
+      );
+    }
+
     return option;
   };
 }

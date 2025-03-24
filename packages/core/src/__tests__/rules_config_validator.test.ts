@@ -3,6 +3,7 @@ import {
   create_string_or_regexp_validator,
   create_list_value_validator,
   create_number_validator,
+  create_object_validator,
   is_boolean
 } from "../validate_option.js";
 
@@ -12,11 +13,19 @@ describe("Rules config validators", function () {
       const fn = create_string_or_regexp_validator("foo");
       expect(fn).to.be.an.instanceOf(Function);
     });
-    [1, () => {}, [], {}, null, undefined, true].forEach((_) => {
+    [
+      { config: 1, expected_type: "number" },
+      { config: () => {}, expected_type: "function" },
+      { config: [], expected_type: "array" },
+      { config: {}, expected_type: "object" },
+      { config: null, expected_type: "null" },
+      { config: undefined, expected_type: "undefined" },
+      { config: true, expected_type: "boolean" }
+    ].forEach(({ config, expected_type }) => {
       it("validation fn throw an error if a string or a regexp is not provided in input", function () {
         const fn = create_string_or_regexp_validator("foo");
-        expect(() => fn(_)).to.throw(
-          `Configuration for rule "foo" is invalid: Expected string or RegExp got ${typeof _}.`
+        expect(() => fn(config)).to.throw(
+          `Configuration for rule "foo" is invalid: Expected string or RegExp got ${expected_type}.`
         );
       });
     });
@@ -45,10 +54,21 @@ describe("Rules config validators", function () {
       const fn = create_number_validator("foo");
       expect(fn).to.be.an.instanceOf(Function);
     });
-    ["foo", /a/, () => {}, [], {}, null, undefined, true].forEach((_) => {
+    [
+      { config: "foo", expected_type: "string" },
+      { config: /a/, expected_type: "regexp" },
+      { config: () => {}, expected_type: "function" },
+      { config: [], expected_type: "array" },
+      { config: {}, expected_type: "object" },
+      { config: null, expected_type: "null" },
+      { config: undefined, expected_type: "undefined" },
+      { config: true, expected_type: "boolean" }
+    ].forEach(({ config, expected_type }) => {
       it("validation fn throw an error if a number is not provided in input", function () {
         const fn = create_number_validator("foo");
-        expect(() => fn(_)).to.throw(`Configuration for rule "foo" is invalid: Expected number got ${typeof _}.`);
+        expect(() => fn(config)).to.throw(
+          `Configuration for rule "foo" is invalid: Expected number got ${expected_type}.`
+        );
       });
     });
 
@@ -85,7 +105,15 @@ describe("Rules config validators", function () {
       const fn = create_list_value_validator("foo", []);
       expect(fn).to.be.an.instanceOf(Function);
     });
-    [1, () => {}, [], {}, null, undefined, true].forEach((_) => {
+    [
+      { config: 1, expected_type: "number" },
+      { config: () => {}, expected_type: "function" },
+      { config: [], expected_type: "array" },
+      { config: {}, expected_type: "object" },
+      { config: null, expected_type: "null" },
+      { config: undefined, expected_type: "undefined" },
+      { config: true, expected_type: "boolean" }
+    ].forEach((_) => {
       it("validation fn throw an error if a string or a regexp is not provided in input", function () {
         const fn = create_list_value_validator("foo", []);
         expect(() => fn(_)).to.throw(
@@ -117,15 +145,24 @@ describe("Rules config validators", function () {
 
     it("can create a validator that does not allow regexp", function () {
       const fn = create_list_value_validator("foo", [], false);
-      expect(() => fn(/a/)).to.throw('Configuration for rule "foo" is invalid: Expected string got object.');
+      expect(() => fn(/a/)).to.throw('Configuration for rule "foo" is invalid: Expected string got regexp.');
     });
   });
 
   describe("Boolean validator", function () {
-    [1, () => {}, [], {}, null, undefined, "", /a/].forEach((_) => {
+    [
+      { config: 1, expected_type: "number" },
+      { config: () => {}, expected_type: "function" },
+      { config: [], expected_type: "array" },
+      { config: {}, expected_type: "object" },
+      { config: null, expected_type: "null" },
+      { config: undefined, expected_type: "undefined" },
+      { config: "", expected_type: "string" },
+      { config: /a/, expected_type: "regexp" }
+    ].forEach(({ config, expected_type }) => {
       it("validation fn throw an error if a boolean is not provided in input", function () {
-        expect(() => is_boolean("foo")(_)).to.throw(
-          `Configuration for rule "foo" is invalid: Expected boolean got ${typeof _}.`
+        expect(() => is_boolean("foo")(config)).to.throw(
+          `Configuration for rule "foo" is invalid: Expected boolean got ${expected_type}.`
         );
       });
     });
@@ -134,5 +171,30 @@ describe("Rules config validators", function () {
       const input = true;
       expect(is_boolean("foo")(input)).to.equal(input);
     });
+  });
+
+  describe("Object validator", function () {
+    [
+      { config: 1, expected_type: "number" },
+      { config: true, expected_type: "boolean" },
+      { config: [], expected_type: "array" },
+      { config: () => {}, expected_type: "function" },
+      { config: null, expected_type: "null" },
+      { config: undefined, expected_type: "undefined" },
+      { config: "", expected_type: "string" },
+      { config: /a/, expected_type: "regexp" }
+    ].forEach(({ config, expected_type }) => {
+      it("validation fn throw an error if an object is not provided in input", function () {
+        expect(() => create_object_validator("foo", [])(config)).to.throw(
+          `Configuration for rule "foo" is invalid: Expected object got ${expected_type}.`
+        );
+      });
+    });
+  });
+
+  it("Should throw an error if provided object contain other keys than 'required' ones", function () {
+    expect(() => create_object_validator("foo", ["fizz"])({ foo: "bar" })).to.throw(
+      `Object configuration for rule "foo" is invalid: key "foo" is not accepted, only "fizz" is.`
+    );
   });
 });
