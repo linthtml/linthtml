@@ -160,7 +160,7 @@ export default class Config {
       if (rule_config !== null && rule_config !== undefined) {
         rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
         if (rule.validateConfig) {
-          rule.validateConfig(rule_config);
+          rule.validateConfig(rule_config, false);
         }
       }
       this.activated_rules[rule.name] = {
