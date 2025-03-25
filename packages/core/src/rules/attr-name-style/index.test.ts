@@ -63,7 +63,7 @@ describe("legacy linter | attr-name-style", function () {
     const linter = createLinter({ "attr-name-style": { foo: "camel" } });
     const html = '<button style="color: red;"></button>';
     expect(() => linter.lint(html)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only keys "format" and "ignore" are.'
+      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
     );
   });
 
@@ -103,7 +103,7 @@ describe("legacy linter | attr-name-style", function () {
     const linter = createLinter({ "attr-name-style": { foo: "camel" } });
     const html = '<button style="color: red;"></button>';
     expect(() => linter.lint(html)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only keys "format" and "ignore" are.'
+      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
     );
   });
 
@@ -249,7 +249,7 @@ describe("attr-name-style", function () {
     const config = { "attr-name-style": [true, { foo: "camel" }] } satisfies Record<string, RuleConfig>;
 
     expect(() => createLinter(config)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only keys "format" and "ignore" are.'
+      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
     );
   });
 
@@ -289,7 +289,7 @@ describe("attr-name-style", function () {
     const config = { "attr-name-style": [true, { foo: "camel" }] } satisfies Record<string, RuleConfig>;
 
     expect(() => createLinter(config)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only keys "format" and "ignore" are.'
+      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
     );
   });
 

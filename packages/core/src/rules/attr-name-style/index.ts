@@ -1,6 +1,10 @@
 import match_format from "../../utils/check_format.js";
 import { is_tag_node } from "@linthtml/dom-utils";
-import { create_list_value_validator, create_string_or_regexp_validator } from "../../validate_option.js";
+import {
+  create_list_value_validator,
+  create_object_validator,
+  create_string_or_regexp_validator
+} from "../../validate_option.js";
 import { types } from "node:util";
 import type { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config.js";
 import type { Node } from "@linthtml/dom-utils/dom_elements";
@@ -55,15 +59,7 @@ function lint(
 
 function validateConfig(config: RULE_CONFIG) {
   if (is_extended_config(config)) {
-    const keys = Object.keys(config);
-
-    const invalid_key = keys.find((key) => !["format", "ignore"].includes(key));
-
-    if (invalid_key) {
-      throw new Error(
-        `Object configuration for rule "${RULE_NAME}" is invalid: key "${invalid_key}" is not accepted, only keys "format" and "ignore" are.`
-      );
-    }
+    create_object_validator(RULE_NAME, ["format", "ignore"])(config);
 
     if (!config.format) {
       throw new Error(`Object configuration for rule "${RULE_NAME}" is invalid: Setting "format" is missing`);
