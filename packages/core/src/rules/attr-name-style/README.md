@@ -6,7 +6,7 @@ If set, HTML attributes names must conform to the given format.
 
 The rule accept the following as rule options.
 
-* A validation regexp:
+* A validation regexp **_deprecated_**
 
 ```js
 module.exports = {
@@ -16,23 +16,21 @@ module.exports = {
 };
 ```
 
-* A string value form the following list value [`camel`,`regexp`,`lowercase`,`dash`] 
+* A string value form the following list value [`camel`,`regexp`,`lowercase`,`dash`] **_deprecated_**
 
 ```json
 {
   "rules": {
-    "attr-name-style": [true, "dash"],
-  },
-};
+    "attr-name-style": [true, "dash"]
+  }
+}
 ```
 
 * An config object
 
 ```ts
 "attr-name-style": [true, {
-  // Format to use to validate attribute name
   format: "camel" | "regexp" | "lowercase" | "dash" | RegExp;
-  // String or regexp use to ignore attribute names
   ignore?: string | RegExp
 }],
 ```
