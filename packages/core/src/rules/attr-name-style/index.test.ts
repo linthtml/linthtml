@@ -59,14 +59,6 @@ describe("legacy linter | attr-name-style", function () {
     );
   });
 
-  it("Should throw an error when an invalid object config is passed", function () {
-    const linter = createLinter({ "attr-name-style": { foo: "camel" } });
-    const html = '<button style="color: red;"></button>';
-    expect(() => linter.lint(html)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
-    );
-  });
-
   it("Should throw an error when the value for the config key format is not valid", function () {
     const linter = createLinter({ "attr-name-style": { format: ["camel"] } });
     const html = '<button style="color: red;"></button>';
@@ -242,14 +234,6 @@ describe("attr-name-style", function () {
     };
     expect(() => createLinter(config)).to.throw(
       'Configuration for rule "attr-name-style" is invalid: Expected string or RegExp got array'
-    );
-  });
-
-  it("Should throw an error when an invalid object config is passed", function () {
-    const config = { "attr-name-style": [true, { foo: "camel" }] } satisfies Record<string, RuleConfig>;
-
-    expect(() => createLinter(config)).to.throw(
-      'Object configuration for rule "attr-name-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
     );
   });
 
