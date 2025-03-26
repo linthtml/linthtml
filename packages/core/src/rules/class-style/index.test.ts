@@ -7,6 +7,83 @@ describe("legacy linter | class-style", function () {
   function createLinter(config: LegacyLinterConfig) {
     return new linthtml.LegacyLinter(linthtml.rules, presets.none, config);
   }
+
+  it("Should throw an error if `id-class-ignore-regex` is empty", function () {
+    const linter = createLinter({
+      "class-style": "dash",
+      "id-class-ignore-regex": ""
+    });
+    const html = '<div class="bar-2"></div>';
+
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "id-class-ignore-regex" is invalid: You provide an empty string value'
+    );
+  });
+
+  it("Should throw an error for invalid config (wrong type)", function () {
+    const linter = createLinter({ "class-style": 1 });
+    const html = '<div class="bar-2"></div>';
+
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "class-style" is invalid: Expected string or RegExp got number'
+    );
+  });
+
+  it("Should throw an error for invalid config (invalid string value)", function () {
+    const linter = createLinter({ "class-style": "foo" });
+    const html = '<div class="bar-2"></div>';
+
+    expect(() => linter.lint(html)).to.throw(
+      'Configuration for rule "class-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
+    );
+  });
+
+  it("should throw an error if object config as invalid key", function () {
+    const linter = createLinter({ "class-style": { foo: "" } });
+
+    expect(() => linter.lint("")).to.throw(
+      'Object configuration for rule "class-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
+    );
+  });
+
+  it("Should throw an error when the value for the config key format is not valid", function () {
+    const linter = createLinter({ "class-style": { format: ["camel"] } });
+
+    expect(() => linter.lint("")).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is not valid: Expected string or RegExp got array'
+    );
+  });
+
+  it("Should throw an error when the value for the config key ignore is not valid", function () {
+    const linter = createLinter({ "class-style": { format: "camel", ignore: 1 } });
+
+    expect(() => linter.lint("")).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "ignore" is not valid: Expected string or RegExp got number'
+    );
+  });
+
+  it("Should throw an error when the key 'format' is missing in the config object", function () {
+    const linter = createLinter({ "class-style": { ignore: "" } });
+
+    expect(() => linter.lint("")).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is missing'
+    );
+  });
+
+  it("Should throw an error when an invalid format is passed within the object config", function () {
+    const linter = createLinter({ "class-style": { format: "foo" } });
+
+    expect(() => linter.lint("")).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is not valid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
+    );
+  });
+
+  it("Should not throw an error when a valid config object is provided", function () {
+    const linter = createLinter({ "class-style": { format: "camel" } });
+
+    expect(() => linter.lint("")).to.not.throw();
+  });
+
   it("Should not report any error for correctly formatted class", async function () {
     const linter = createLinter({ "class-style": "lowercase" });
     const html = '<div class="foo"></div>';
@@ -16,7 +93,7 @@ describe("legacy linter | class-style", function () {
 
   describe("'lowercase' format", function () {
     it("Should not report an error for classes with valid format", async function () {
-      const linter = createLinter({ "class-style": "lowercase" });
+      const linter = createLinter({ "class-style": { format: "lowercase" } });
       const html = '<div class="foo"></div>';
       const issues = await linter.lint(html);
       expect(issues).to.have.lengthOf(0);
@@ -128,42 +205,79 @@ describe("legacy linter | class-style", function () {
 
     expect(() => linter.lint(html)).to.not.throw();
   });
-
-  it("Should throw an error if `id-class-ignore-regex` is empty", function () {
-    const linter = createLinter({
-      "class-style": "dash",
-      "id-class-ignore-regex": ""
-    });
-    const html = '<div class="bar-2"></div>';
-
-    expect(() => linter.lint(html)).to.throw(
-      'Configuration for rule "id-class-ignore-regex" is invalid: You provide an empty string value'
-    );
-  });
-
-  it("Should throw an error for invalid config (wrong type)", function () {
-    const linter = createLinter({ "class-style": 1 });
-    const html = '<div class="bar-2"></div>';
-
-    expect(() => linter.lint(html)).to.throw(
-      'Configuration for rule "class-style" is invalid: Expected string or RegExp got number'
-    );
-  });
-
-  it("Should throw an error for invalid config (invalid string value)", function () {
-    const linter = createLinter({ "class-style": "foo" });
-    const html = '<div class="bar-2"></div>';
-
-    expect(() => linter.lint(html)).to.throw(
-      'Configuration for rule "class-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
-    );
-  });
 });
 
 describe("class-style", function () {
   function createLinter(rules: { [rule_name: string]: RuleConfig }) {
     return linthtml.fromConfig({ rules });
   }
+
+  it("Should throw an error for invalid config (wrong type)", function () {
+    const config = {
+      "class-style": [true, 1] as [boolean, unknown]
+    };
+
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "class-style" is invalid: Expected string or RegExp got number'
+    );
+  });
+
+  it("Should throw an error for invalid config (invalid string value)", function () {
+    const config = {
+      "class-style": [true, "foo"] as [boolean, unknown]
+    };
+
+    expect(() => createLinter(config)).to.throw(
+      'Configuration for rule "class-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
+    );
+  });
+
+  it("should throw an error if object config as invalid key", function () {
+    const config = { "class-style": [true, { foo: "" }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.throw(
+      'Object configuration for rule "class-style" is invalid: key "foo" is not accepted, only "format", "ignore" are.'
+    );
+  });
+
+  it("Should throw an error when the value for the config key format is not valid", function () {
+    const config = { "class-style": [true, { format: ["camel"] }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is not valid: Expected string or RegExp got array'
+    );
+  });
+
+  it("Should throw an error when the value for the config key ignore is not valid", function () {
+    const config = { "class-style": [true, { format: "camel", ignore: 1 }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "ignore" is not valid: Expected string or RegExp got number'
+    );
+  });
+
+  it("Should throw an error when the key 'format' is missing in the config object", function () {
+    const config = { "class-style": [true, { ignore: "" }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is missing'
+    );
+  });
+
+  it("Should throw an error when an invalid format is passed within the object config", function () {
+    const config = { "class-style": [true, { format: "foo" }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.throw(
+      'Object configuration for rule "class-style" is invalid: Setting "format" is not valid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
+    );
+  });
+
+  it("Should not throw an error when a valid config object is provided", function () {
+    const config = { "class-style": [true, { format: "camel" }] } satisfies Record<string, RuleConfig>;
+
+    expect(() => createLinter(config)).to.not.throw();
+  });
+
   it("Should not report any error for correctly formatted class", async function () {
     const linter = createLinter({
       "class-style": [true, "lowercase"]
@@ -328,25 +442,5 @@ describe("class-style", function () {
     `;
 
     expect(() => linter.lint(html)).to.not.throw();
-  });
-
-  it("Should throw an error for invalid config (wrong type)", function () {
-    const config = {
-      "class-style": [true, 1] as [boolean, unknown]
-    };
-
-    expect(() => createLinter(config)).to.throw(
-      'Configuration for rule "class-style" is invalid: Expected string or RegExp got number'
-    );
-  });
-
-  it("Should throw an error for invalid config (invalid string value)", function () {
-    const config = {
-      "class-style": [true, "foo"] as [boolean, unknown]
-    };
-
-    expect(() => createLinter(config)).to.throw(
-      'Configuration for rule "class-style" is invalid: "foo" is not accepted. Accepted values are "none", "lowercase", "underscore", "dash", "camel" and "bem".'
-    );
   });
 });
