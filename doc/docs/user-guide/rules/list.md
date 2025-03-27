@@ -6,7 +6,7 @@ To learn more about how activate or configure rules, have a look to this [docume
 | Rule name                                                                                 | Description                                                                       |
 | :-----------------------------------------------------------------------------------------| :-------------------------------------------------------------------------------  |
 | [attr-bans](./list/attr-bans.md)                                                          | Specify a list of disallowed HTML attributes                                      |
-| [attr-name-style](./list/attr-name-style.md)                                              | Enforce naming conventions for HTML tag name                                      |
+| [attr-name-style](./list/attr-name-style.md)                                              | Enforce naming conventions for HTML attributes name                               |
 | [attr-name-ignore-regex](./list/attr-name-ignore-regex.md) _deprecated_                   |                                                                                   |
 | [attr-new-line](./list/attr-new-line.md)                                                  | Specify the numbers of HTML attributes allowed on one line                        |
 | [attr-no-dup](./list/attr-no-dup.md)                                                      | Disallow duplications of HTML attributes within the same tag                      |
