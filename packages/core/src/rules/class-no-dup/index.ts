@@ -2,7 +2,11 @@ import type { CharValue, Node, NodeAttribute } from "@linthtml/dom-utils/dom_ele
 import { is_tag_node, get_classes, has_attribute, get_attribute } from "@linthtml/dom-utils";
 import { types } from "node:util";
 import type { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config.js";
-import { create_object_validator, create_string_or_regexp_validator } from "../../validate_option.js";
+import {
+  create_object_validator,
+  create_string_or_regexp_validator,
+  run_validation_for_option_key
+} from "../../validate_option.js";
 
 const { isRegExp } = types;
 
@@ -55,14 +59,7 @@ export default {
     create_object_validator(RULE_NAME, ["ignore"])(config);
 
     if (config.ignore) {
-      try {
-        create_string_or_regexp_validator(RULE_NAME)(config.ignore);
-      } catch (error) {
-        const error_message = (error as Error).message
-          .replace("Configuration for", "Object configuration for")
-          .replace(":", ': Setting "ignore" is not valid:');
-        throw error_message;
-      }
+      run_validation_for_option_key(create_string_or_regexp_validator(RULE_NAME), "ignore")(config);
     }
   },
   lint

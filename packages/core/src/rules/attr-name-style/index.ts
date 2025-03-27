@@ -3,7 +3,8 @@ import { is_tag_node } from "@linthtml/dom-utils";
 import {
   create_list_value_validator,
   create_object_validator,
-  create_string_or_regexp_validator
+  create_string_or_regexp_validator,
+  run_validation_for_option_key
 } from "../../validate_option.js";
 import { types } from "node:util";
 import type { LegacyLinterConfig, reportFunction, RuleDefinition } from "../../read-config.js";
@@ -65,24 +66,13 @@ function validateConfig(config: RULE_CONFIG) {
       throw new Error(`Object configuration for rule "${RULE_NAME}" is invalid: Setting "format" is missing`);
     }
 
-    try {
-      create_list_value_validator(RULE_NAME, ["lowercase", "underscore", "dash", "camel", "bem"], true)(config.format);
-    } catch (error) {
-      const error_message = (error as Error).message
-        .replace("Configuration for", "Object configuration for")
-        .replace(":", ': Setting "format" is not valid:');
-      throw error_message;
-    }
+    run_validation_for_option_key(
+      create_list_value_validator(RULE_NAME, ["lowercase", "underscore", "dash", "camel", "bem"], true),
+      "format"
+    )(config);
 
     if (config.ignore) {
-      try {
-        create_string_or_regexp_validator(RULE_NAME)(config.ignore);
-      } catch (error) {
-        const error_message = (error as Error).message
-          .replace("Configuration for", "Object configuration for")
-          .replace(":", ': Setting "ignore" is not valid:');
-        throw error_message;
-      }
+      run_validation_for_option_key(create_string_or_regexp_validator(RULE_NAME), "ignore")(config);
     }
 
     return config;
