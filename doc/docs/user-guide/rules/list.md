@@ -49,6 +49,7 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [line-max-len](./list/line-max-len.md)                                                    | Limit the length of a line                                                        |
 | [line-max-len-ignore-regex](./list/line-max-len-ignore-regex.md) _deprecated_             |                                                                                   |
 | [line-no-trailing-whitespace](./list/line-no-trailing-whitespace.md)                      | Disallow trailing whitespace at the end of lines                                  |
+| [link-label-min-length](./list/link-label-min-length.md)                                  | Enforce a minimum length for a link text                                          |
 | [link-min-length-4](./list/link-min-length-4.md)  _deprecated_                            | Disallow link text with less than 4 chars                                         |
 | [link-req-noopener](./list/link-req-noopener.md)                                          | Enforce the presence of `rel="noopener"` or `rel="noreferrer"` attribute on `<a>` |
 | [spec-char-escape](./list/spec-char-escape.md)                                            |                                                                                   |
