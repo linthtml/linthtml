@@ -1,5 +1,59 @@
 # Changelog
 
+## [0.11.0-beta.2](https://github.com/linthtml/linthtml/compare/v0.11.0-beta.1...v0.11.0-beta.2) (2025-03-27)
+
+### Features 🚀
+
+* [@linthtml/core] Deprecated following rules `attr-name-ignore-regex`,`id-class-ignore-regex`, `line-max-len-ignore-regex`, `spec-char-escape`, and `text-ignore-regex`.
+_ℹ️ Deprecation messages will only be shown when using legacy config format. In the new config format these are not rule but settings and they are also deprecated._
+* [@linthtml/core] Update rule `attr-name-style` to allow the following object config
+
+  ```ts
+  "attr-name-style": ["error", {
+    format: "camel" | "regexp" | "lowercase" | "dash" | RegExp;
+    ignore?: string | RegExp // A string or regexp pattern use to ignore some attributes
+  }],
+  ```
+
+* [@linthtml/core] Update rule `class-no-dup` to allow the following object config
+
+  ```ts
+  "class-no-dup": ["error", {
+    ignore?: string | RegExp // A string or regexp pattern use to ignore some classnames
+  }],
+  ```
+
+* [@linthtml/core] Update rule `class-style` to allow the following object config
+
+  ```ts
+  "class-style": [true, {
+    format: "lowercase" | "underscore" | "dash" | "camel" | "bem" | "none" | RegExp;
+    ignore?: string | RegExp // A string or regexp pattern use to ignore some classnames
+  }],
+  ```
+
+* [@linthtml/core] Update rule `id-style` to allow the following object config
+
+  ```ts
+  "id-style": [true, {
+    format: "lowercase" | "underscore" | "dash" | "camel" | "bem" | "none" | RegExp;
+    ignore?: string | RegExp // A string or regexp pattern use to ignore some ids
+  }],
+  ```
+
+## [0.11.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.10.1...v0.11.0-beta.1) (2025-03-20)
+
+### Features 🚀
+
+* [@linthtml/html-parser] Update htmlparser2 to latest version
+* [@linthtml/linthtml] Deprecate fallback to htmllint presets when no config file is found. A warning message will now be displayed in the report with instruction on how to remove the warning.
+* [@linthtml/linthtml] Add a new CLI option `--disable-preset-fallback` that will disable the htmllint preset fallback when no config file is found
+
+### Bug fixes
+
+* [@linthtml/core] Fix error message for `fig-req-figcaption` when `figcaption` has no parent tag `figure`
+* [@linthtml/core] Fix broken documentation links in rule description pages
+
 ## [0.10.1](https://github.com/linthtml/linthtml/compare/v0.10.0...v0.10.1) (2024-07-31)
 
 ### Bug fixes
