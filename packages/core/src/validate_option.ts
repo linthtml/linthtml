@@ -136,3 +136,19 @@ export function create_object_validator(rule_name: string, object_keys: string[]
     return option;
   };
 }
+
+export function run_validation_for_option_key(
+  validation_fn: <T>(option: T, is_legacy?: boolean) => void | never,
+  key: string
+) {
+  return function (option: Record<string, unknown>) {
+    try {
+      validation_fn(option[key]);
+    } catch (error) {
+      const error_message = (error as Error).message
+        .replace("Configuration for", "Object configuration for")
+        .replace(":", `: Setting "${key}" is not valid:`);
+      throw error_message;
+    }
+  };
+}
