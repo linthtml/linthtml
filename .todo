@@ -5,30 +5,31 @@
 
 ## refactor
 
-- [✔️] [0.5.0][inline-config] Remove `preset=`, `${preset}`
+- [x] [0.5.0][inline-config] Remove `preset=`, `${preset}`
 - [ ] [0.5.0][inline-config] Remove `$previous`
-- [✔️] [0.5.0] Remove speudo `line` rule
-- [✔️] [0.5.0?] Activate rule using string "on"
+- [x] [0.5.0] Remove pseudo `line` rule
+- [x] [0.5.0?] Activate rule using string "on"
 - [ ] [0.5.0] Improve inline_config extraction
   - (rule1 rule2=config) (extract rule1 and rule2)
   - (rule1= rule2=config) (extract rule1 and rule2)
   - (rule1=config rule1) (extract rule1 and rule2)
     Use parser ?
 - [ ] add a rule to enforce href on links
-- [ ] rename rule `link-min-length-4` in `link-min-length` and add a length option
+- [x] rename rule `link-min-length-4` in `link-min-length` and add a length option
 - [ ] `raw-ignore-text` Find a better solution than the current one
 - [ ] Get rid of the process function in rules. Config send to rules should be the same as the one defined in the config file
       This function should be changed for a validation function that raise errors if config is not valid
-- [✔️] No rules by default
+- [x] No rules by default
 - [ ] Tests should assert issues too (code, position...)
-- [✔️] move rules tests in the rule folder
+- [x] move rules tests in the rule folder
 
 ## New rules
 
 - [ ] no-script-head -> Forbid the use of `script` tag in the head tag
 - [ ] no-style-tag -> Forbid the use of `style` tag
 - [ ] no-inline-javascript -> Forbid the use of JS code inside a tag attribute
-- [ ] no-inline-style -> forbid the use `style` attribute on tag
+- [x] no-inline-style -> forbid the use `style` attribute on tag
+- [ ] no-deprecated-lang ? -> Use https://www.npmjs.com/package/language-tags to lint deprecated value for lang attribute
 
 ## deprecate rules
 
@@ -51,9 +52,9 @@
 - [ ] `raw-ignore-regex` tests are not really testing anything
 - [ ] `button-req-content` should check for aria-labelledby too
 - [ ] Rename `input-btn-req-value-or-title` (message from axe "Input buttons must have discernible text")
-- [ ] Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
-- [ ] `attr-req-value` should report an error for empty values (`''` or `""`). Can be an option like `strict`
-- [ ] `attr-req-value` should permit to whitelist attributes that can have no value (default should be boolean attributes like `disable`)
+- [x] Merge `attr-name-style` and `attr-name-ignore-regex` (this one should be an option of the first)
+- [x] `attr-req-value` should report an error for empty values (`''` or `""`). Can be an option like `strict`
+- [ ] `attr-req-value` should permit to allowlist attributes that can have no value (default should be boolean attributes like `disable`)
 - [ ] `attr-validate` should not accept `\b` `\t` in attributes's value
 - [ ] `class-style` get rid of `bem` format ? Tests seems not valid and it's hard to tel what's BEM or not
 - [ ] merge `doctype-first` and `doctype-html5` (html5 should be an option (should be be default too ?))
@@ -63,16 +64,16 @@
 - [ ] `focusable-tab-index-style` rename the rule
 - [x] `id-class-no-ad` deprecate this one ? Why not allow `ad`, `social`... in id or class ? (Can be replaced by a rule that ban word in attributes (using a regexp))
 - [ ] `attr-new-line` value of 0 should not allow one attribute per line. Config should only accept >=1 ?
+- [ ] `attr-new-line` limit value should only be used for line with tag, other lines should not contains more than 1 attr
+- [ ] `lang-style` use https://www.npmjs.com/package/language-tags to get latest tags list
+- [ ] `line-end-style` Remove options "windows" and "unix"
 
 ## Improve inline config
 
-- [✔️] The `preset` thing is totally overkill, hard to understand >< and not documented very well.
+- [x] The `preset` thing is totally overkill, hard to understand >< and not documented very well.
 - [ ] The `$previous` thing is totally overkill and hard to understand >< , Maybe we can keep this one).
-- [✔️] Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
-
-`linthtml-configure` should accept only one rule, something like
-
-`linthtml-configure [rule] [value]`
+- [x] Add `.linthtml-disable ?[rules]` and `.linthtml-enable ?[rules]`
+- [x] `linthtml-configure` should accept only one rule, something like `linthtml-configure [rule] [value]`
 
 ## Coming "soon"
 
@@ -83,9 +84,8 @@
 - [✔️] Improved config file. The current config file format is not good and should be improved. (Should definitively looks like [eslint](https://eslint.org), [stylelint](http://stylelint.io/), [tslint](https://palantir.github.io/tslint/)...) (planned for the version 0.3.0)
 - [ ] Rules naming guideline (like the one from [stylelint](https://stylelint.io/user-guide/about-rules/))
 - [✔️] Warning level for rules.
-- [ ] Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
+- [x] Plugins (there's already a plugins system inherited from HtmlLint but it's not documented and tested so 🤫)
 - [ ] Man pages for the cli ? (https://docs.npmjs.com/cli/v7/configuring-npm/package-json#directoriesman)
-- [ ] More to come 🤷‍♀️
 
 ## inline config
 
