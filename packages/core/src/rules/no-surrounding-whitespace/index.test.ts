@@ -91,7 +91,7 @@ describe("legacy linter | no-surrounding-whitespace", function () {
     });
   });
 
-  it("Should no report an error", async function () {
+  it("Should not report an error", async function () {
     const linter = createLinter({ "no-surrounding-whitespace": true });
     const html = ["<div>", "  <p>Lorem ipsum</p>", "</div>"].join("\n");
 
@@ -187,7 +187,7 @@ describe("no-surrounding-whitespace", function () {
     });
   });
 
-  it("Should no report an error", async function () {
+  it("Should not report an error", async function () {
     const linter = createLinter({ "no-surrounding-whitespace": true });
     const html = ["<div>", "  <p>Lorem ipsum</p>", "</div>"].join("\n");
 
