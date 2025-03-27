@@ -5,7 +5,9 @@
 ### Features 🚀
 
 * [@linthtml/core] Deprecated following rules `attr-name-ignore-regex`,`id-class-ignore-regex`, `line-max-len-ignore-regex`, `spec-char-escape`, and `text-ignore-regex`.
-_ℹ️ Deprecation messages will only be shown when using legacy config format. In the new config format these are not rule but settings and they are also deprecated._
+
+_ℹ️ Deprecation messages will only be shown when using legacy config format. In the new config format these are not rules but settings and they are also deprecated._
+
 * [@linthtml/core] Update rule `attr-name-style` to allow the following object config
 
   ```ts
