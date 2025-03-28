@@ -91,7 +91,14 @@ export const ISSUE_ERRORS = {
     return `Incorrect indentation for \`${data.tagName}\` beginning at L${start.line}:C${start.column}. Expected \`${tag}\` to be at an indentation of ${data.expected_indentation} but was found at ${data.current_indentation}.`;
   },
   E037: (data: { limit: string }) => `Only ${data.limit} attributes per line are permitted`,
-  E038: (data: { lang: string }) => `Value "${data.lang}" for attribute "lang" is not valid`,
+  E038: (
+    data:
+      | { lang: string; isDeprecated: false; preferred?: string }
+      | { lang: string; isDeprecated: true; preferred: string }
+  ) =>
+    data.isDeprecated
+      ? `Value "${data.lang}" for attribute "lang" is deprecated, use "${data.preferred}" instead.`
+      : `Value "${data.lang}" for attribute "lang" is not valid`,
   E039: (data: { lang: string }) => `Value "${data.lang}" for attribute "lang" is not properly capitalized`,
   E040: (data: { length: number; maxlength: number }) =>
     `This line has a length of ${data.length}. Maximum allowed is ${data.maxlength}`,

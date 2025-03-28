@@ -1,6 +1,7 @@
 import type { reportFunction, RuleDefinition } from "../../read-config.js";
-import { check_lang_attribute, is_tag_node, attribute_value, has_non_empty_attribute } from "@linthtml/dom-utils";
+import { is_tag_node, attribute_value, has_non_empty_attribute } from "@linthtml/dom-utils";
 import type { CharValue, Node } from "@linthtml/dom-utils/dom_elements";
+import tags from "language-tags";
 
 const RULE_NAME = "lang-style";
 
@@ -25,19 +26,24 @@ function lint(node: Node, lang_case: string, { report }: { report: reportFunctio
       return;
     }
 
-    const valid = check_lang_attribute(lang); // WHAT???
-    if (valid === 1) {
+    const tag = tags(lang.chars);
+
+    if (!tag.valid()) {
+      const isDeprecated = tag.deprecated() !== undefined;
       report({
         code: "E038",
         position: lang.loc,
         meta: {
           data: {
-            lang: lang.chars
+            lang: lang.chars,
+            isDeprecated,
+            preferred: isDeprecated && tag.preferred().format()
           }
         }
       });
     }
-    if (lang_case === "case" && valid === 2) {
+
+    if (lang_case === "case" && tag.format() !== lang.chars) {
       report({
         code: "E039",
         position: lang.loc,
