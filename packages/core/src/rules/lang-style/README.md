@@ -4,8 +4,12 @@ If set, the lang tag must have a valid form (`xx-YY`, where `xx` is a valid lang
 
 Given:
 
-```
-  "lang-style": [true, "xx"]
+```json
+{
+  "rules": {
+    "lang-style": "error"
+  }
+}
 ```
 
 The following patterns are considered violations:
