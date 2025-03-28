@@ -139,6 +139,7 @@ describe("lang-style", function () {
 
     const issues = await linter.lint(html);
     expect(issues).to.have.lengthOf(1);
+    expect(issues[0].code).to.equal("E039");
   });
 
   it("Should not report any for correct case lang", async function () {
