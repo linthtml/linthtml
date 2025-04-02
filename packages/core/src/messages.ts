@@ -128,7 +128,7 @@ export const ISSUE_ERRORS = {
   E062: (/* data */) => "A <label> element should not encapsulate select and textarea elements.",
   E063: (/* data */) => "Each fieldset element should contain a legend element.",
   E064: (data: { is_before: boolean }) => `Unexpected space ${data.is_before ? "before" : "after"} text.`,
-  E065: (/* data */) => "something something",
+  E065: (/* data */) => "Elements cannot have inline styles",
 
   INLINE_01: (data: { instruction: string }) => `unrecognized linthtml instruction: \`linthtml-${data.instruction}\``,
   INLINE_02: (data: { rule_name: string }) => `unrecognized rule name \`${data.rule_name}\` in inline configuration`,

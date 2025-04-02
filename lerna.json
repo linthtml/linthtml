@@ -1,6 +1,9 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema-json",
-  "packages": ["packages/*", "doc"],
+  "packages": [
+    "packages/*",
+    "doc"
+  ],
   "version": "0.11.0-beta.2",
   "command": {
     "bootstrap": {

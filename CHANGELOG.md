@@ -43,7 +43,7 @@ _ℹ️ Deprecation messages will only be shown when using legacy config format.
   }],
   ```
 
-## [0.11.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.10.1...v0.11.0-beta.1) (2025-03-20)
+## [0.11.0-beta.1](https://github.com/linthtml/linthtml/compare/v0.10.2...v0.11.0-beta.1) (2025-03-20)
 
 ### Features 🚀
 
@@ -55,6 +55,12 @@ _ℹ️ Deprecation messages will only be shown when using legacy config format.
 
 * [@linthtml/core] Fix error message for `fig-req-figcaption` when `figcaption` has no parent tag `figure`
 * [@linthtml/core] Fix broken documentation links in rule description pages
+
+## [0.10.2](https://github.com/linthtml/linthtml/compare/v0.10.1...v0.10.2) (2025-04-02)
+
+### Bug fixes
+
+* [@linthtml/core] Correct error message for `no-inline-style` rule
 
 ## [0.10.1](https://github.com/linthtml/linthtml/compare/v0.10.0...v0.10.1) (2024-07-31)
 
