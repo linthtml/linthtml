@@ -125,7 +125,7 @@ export function create_object_validator(rule_name: string, object_keys: string[]
       );
     }
 
-    const invalid_key = Object.keys(option).find((key) => !["format", "ignore"].includes(key));
+    const invalid_key = Object.keys(option).find((key) => !object_keys.includes(key));
 
     if (invalid_key) {
       throw new Error(
