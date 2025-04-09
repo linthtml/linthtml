@@ -157,8 +157,8 @@ export default class Config {
   setRuleConfig(rule: RuleDefinition, rules_config: Record<string, RuleConfig>): void | never {
     if (should_active_rule(rules_config[rule.name], rule.name)) {
       let rule_config = extract_rule_config(rules_config[rule.name], rule.name);
+      rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
       if (rule_config !== null && rule_config !== undefined) {
-        rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
         if (rule.validateConfig) {
           rule.validateConfig(rule_config, false);
         }
@@ -178,11 +178,11 @@ export default class Config {
       const rule = this.getRule(rule_name);
       const newConfig = (config.rules as Record<string, RuleConfig>)[rule_name];
       let rule_config = extract_rule_config(newConfig, rule_name);
+      rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
       if (rule_config === null) {
         rule_config = newConfig;
-      } else {
-        rule_config = rule.configTransform ? rule.configTransform(rule_config) : rule_config;
       }
+
       o[rule_name] = rule_config;
     });
     o.maxerr = config.maxerr;
