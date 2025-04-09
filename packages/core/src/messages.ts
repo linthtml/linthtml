@@ -129,6 +129,10 @@ export const ISSUE_ERRORS = {
   E063: (/* data */) => "Each fieldset element should contain a legend element.",
   E064: (data: { is_before: boolean }) => `Unexpected space ${data.is_before ? "before" : "after"} text.`,
   E065: (/* data */) => "Elements cannot have inline styles",
+  E066: (data: { tag: string }) =>
+    `Use of presentation role on <${data.tag}> detected. Semantic elements should not be used for presentation.`,
+  E067: (data: { tag: string; role: string }) =>
+    `Use of invalid role "${data.role}" on <${data.tag}> detected. Please refer here: https://www.w3.org/WAI/PF/aria/roles#widget_roles for valid list of roles that can be assigned.`,
 
   INLINE_01: (data: { instruction: string }) => `unrecognized linthtml instruction: \`linthtml-${data.instruction}\``,
   INLINE_02: (data: { rule_name: string }) => `unrecognized rule name \`${data.rule_name}\` in inline configuration`,
