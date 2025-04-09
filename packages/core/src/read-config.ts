@@ -52,7 +52,7 @@ export interface RuleDefinition {
   // TODO: Why <T> ? T should be on RuleDefinition
   validateConfig?: <T>(option: T, is_legacy?: boolean) => void | never;
 
-  configTransform?: (option: unknown) => unknown; // remove for v1
+  configTransform?: (option: unknown, is_legacy?: boolean) => unknown; // remove for v1
   filter?: string[]; // remove for v1
   end?: (opts?: unknown) => Issue[]; // remove for v1
 }

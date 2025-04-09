@@ -36,7 +36,7 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
     };
   }, {});
   rules.forEach((rule) => {
-    const rule_config = global_config[rule.name];
+    const rule_config = rule.configTransform?.(global_config[rule.name], true) ?? global_config[rule.name];
     rule.lint(element, rule_config, {
       report: report(rule),
       rules: activated_rules,

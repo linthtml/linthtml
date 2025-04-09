@@ -70,6 +70,7 @@ export default class Config {
       this.addOption({
         name: rule.name,
         rules: [rule.name],
+        configTransform: rule.configTransform,
         validateConfig: rule.validateConfig || is_boolean(rule.name)
       });
     }
@@ -166,11 +167,12 @@ export default class Config {
    */
   setOption(optionName: string, value: unknown) {
     const rule = this.options[optionName];
+    const option_value = rule.configTransform?.(value, true) || value;
     if (value !== false) {
-      rule.validateConfig?.(value);
+      rule.validateConfig?.(option_value);
     }
-    this.setOptionObj(rule, value);
-    return value;
+    this.setOptionObj(rule, option_value);
+    return option_value;
   }
 
   /**

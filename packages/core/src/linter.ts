@@ -168,7 +168,7 @@ export default class Linter {
       return issues;
     }
 
-    const rule_config = inline_config[rule.name]?.config ?? this.config.legacy_config[rule.name];
+    const rule_config = inline_config[rule.name]?.config || rule.config || this.config.legacy_config[rule.name]; // Get rid of legacy_config after v1
 
     const global_config = inline_config[rule.name]?.config
       ? {
