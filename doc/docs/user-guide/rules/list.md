@@ -52,6 +52,8 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [link-label-min-length](./list/link-label-min-length.md)                                  | Enforce a minimum length for a link text                                          |
 | [link-min-length-4](./list/link-min-length-4.md)  _deprecated_                            | Disallow link text with less than 4 chars                                         |
 | [link-req-noopener](./list/link-req-noopener.md)                                          | Enforce the presence of `rel="noopener"` or `rel="noreferrer"` attribute on `<a>` |
+| [no-inline-style](./list/no-inline-style.md)                                              | Forbid the use of the `style` attribute                                           |
+| [no-invalid-role](./list/no-invalid-role.md)                                               | Forbid the use of invalid html role                                               |
 | [spec-char-escape](./list/spec-char-escape.md)                                            |                                                                                   |
 | [table-req-caption](./list/table-req-caption.md)                                          | Enforce the presence of `<caption>` inside `<table>`                              |
 | [table-req-header](./list/table-req-header.md)                                            | Enforce the presence of `<thead>` inside `<table>`                                |
@@ -64,4 +66,3 @@ To learn more about how activate or configure rules, have a look to this [docume
 | [text-ignore-regex](./list/text-ignore-regex.md) _deprecated_                             |                                                                                   |
 | [title-max-len](./list/title-max-len.md)                                                  | Fix a maximum length an the `<title>` content                                     |
 | [title-no-dup](./list/title-no-dup.md)                                                    | Disallow the presence of multiple `<title>`                                       |
-| [no-inline-style](./list/no-inline-style.md)                                              | Forbid the use of the `style` attribute                                           |
