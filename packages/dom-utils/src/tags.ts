@@ -1,6 +1,7 @@
 import { ElementType } from "domelementtype";
 import { types } from "node:util";
 import type { CharValue, Element, Node, NodeAttribute, Comment, Text, ProcessingInstruction } from "./dom_elements.js";
+import Elements from "./data/elements-list.js";
 
 const { isRegExp } = types;
 
@@ -118,6 +119,12 @@ function has_parent_node(node: Node): node is Node & { parent: Node } {
   return !!node.parent && node.parent.type !== ElementType.Root;
 }
 
+function is_tag_deprecated(node: Node) {
+  const element = Elements.find((e) => e.name === node_tag_name(node));
+
+  return element?.status.deprecated ?? false;
+}
+
 export {
   has_non_empty_attribute,
   attribute_value,
@@ -126,6 +133,7 @@ export {
   is_comment_node,
   is_directive_node,
   is_self_closing,
+  is_tag_deprecated,
   get_attribute,
   has_attribute,
   attribute_has_value,
