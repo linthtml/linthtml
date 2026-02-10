@@ -106,14 +106,14 @@ export default class Handler extends DomHandler {
     this.tagStack.push(node);
 
     const name_index = this._parser.startIndex + 1;
-    node.open = {
-      chars: this.buffer.slice(name_index, name_index + name.length),
-      raw: this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1),
-      loc: {
+    node.open = new CharValue(
+      this.buffer.slice(name_index, name_index + name.length),
+      {
         start: this._indexToPosition(this._parser.startIndex),
         end: this._indexToPosition(this._parser.endIndex + 1)
-      }
-    };
+      },
+      this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1)
+    );
 
     this.attributes = [];
   }
