@@ -35,3 +35,5 @@ doc/docs/index.md
 .nx
 .eslintcache
 .rollup.cache
+
+AGENTS.md
