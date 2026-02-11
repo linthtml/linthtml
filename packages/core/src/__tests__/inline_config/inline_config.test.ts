@@ -1,4 +1,4 @@
-import parse from "@linthtml/html-parser";
+import { parse } from "@linthtml/html-parser";
 import { extract_inline_config } from "../../inline_config.js";
 import { expect } from "chai";
 import Config from "../../config.js";

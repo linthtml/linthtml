@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@linthtml/dom-utils": "^0.11.0-beta.1",
+    "domelementtype": "^2.3.0",
     "domhandler": "^5.0.3",
     "htmlparser2": "^10.0.0"
   },

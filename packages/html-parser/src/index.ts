@@ -8,7 +8,7 @@ import type { Document } from "@linthtml/dom-utils";
  * @param {string} htmlText
  * @returns {Node{}}
  */
-export default function parse(htmlText: string): Document {
+export function parse(htmlText: string): Document {
   const lineOffsets = [0];
 
   let match;
@@ -45,3 +45,5 @@ export default function parse(htmlText: string): Document {
   }
   return dom;
 }
+
+export { render } from "./render.js";
