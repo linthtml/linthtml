@@ -9,8 +9,7 @@ import type { ActiveRuleDefinition, LegacyLinterConfig, LinterConfig } from "./r
 import { get_module_path } from "./read-config.js";
 import type { Range, Document, Node } from "@linthtml/dom-utils/dom_elements";
 
-type Parser = Promise<(html: string) => Document>;
-
+type Parser = Promise<{ parse: (html: string) => Document; render?: (root: Document) => string }>;
 /**
  * Apply the raw-ignore-regex option.
  * Return the modified html, and a function that recovers line/column
@@ -45,21 +44,38 @@ function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig
   };
 }
 
-function get_parser(config: LinterConfig): Parser {
+function get_parser(config: LinterConfig): Promise<Parser> {
   if (config?.parser) {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
-      // eslint-disable-next-line  @typescript-eslint/no-unsafe-member-access
-      return import(parser_module).then((parser) => (parser.default ?? parser) as Parser);
+      // @ts-expect-error don't worry
+      return import(parser_module).then((module) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        const parser = module.default ?? module;
+        return {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          parse: module.default ?? parser,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          render: module.render
+        };
+      });
     } catch (error) {
       // @ts-expect-error system error with meta object
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
-  // Eslint Typescript recommend using import statement but import return a promise.
   /* eslint-disable-next-line @typescript-eslint/no-var-requires */
-  return import("@linthtml/html-parser").then((parser) => parser.default ?? parser);
+  // @ts-expect-error don't worry
+  return import("@linthtml/html-parser").then((module) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const parser = module.default ?? module;
+    return {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      parse: parser.parse ?? parser,
+      render: module.render
+    };
+  });
 }
 
 export default class Linter {
@@ -68,6 +84,7 @@ export default class Linter {
   public config: Config;
 
   constructor(config: LinterConfig) {
+    // @ts-expect-error don't worry
     this.get_parse_fn = () => get_parser(config);
     // this.parse_fn = get_parser(config);
     this.config = new Config(rules, config);
@@ -78,8 +95,8 @@ export default class Linter {
    */
   async lint(html: string): Promise<Issue[]> {
     html = raw_ignore_regex(html, this.config.config);
-    const parse_fn = await this.get_parse_fn();
-    const dom = parse_fn(html);
+    const { parse } = await this.get_parse_fn();
+    const dom = parse(html);
     const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
       (name) => this.config.activated_rules[name]
     );
