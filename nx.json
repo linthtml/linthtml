@@ -25,6 +25,9 @@
     },
     "test": {
       "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
       "configurations": {
         "ci": {
           "ci": true,
