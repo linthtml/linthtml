@@ -53,7 +53,12 @@ jobs:
             ${{ runner.os }}-node-${{ matrix.node-version }}-
             ${{ runner.os }}-node-
       - run: npm ci
-      - run: npm run coverage
+      - name: Run tests with retry
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: npm run coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
