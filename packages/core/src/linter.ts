@@ -45,33 +45,28 @@ function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig
 }
 
 function get_parser(config: LinterConfig): Promise<Parser> {
+  // eslint-disable-next-line no-debugger
   if (config?.parser) {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);
       // @ts-expect-error don't worry
       return import(parser_module).then((module) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         const parser = module.default ?? module;
         return {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          parse: module.default ?? parser,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          render: module.render
+          parse: parser.parse ?? parser,
+          render: module.render // Should this fails if no render function or should the lint function return an error ?
         };
       });
     } catch (error) {
       // @ts-expect-error system error with meta object
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       throw new CustomError("CORE-04", { module_name: error.meta.module_name });
     }
   }
-  /* eslint-disable-next-line @typescript-eslint/no-var-requires */
+
   // @ts-expect-error don't worry
   return import("@linthtml/html-parser").then((module) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const parser = module.default ?? module;
     return {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       parse: parser.parse ?? parser,
       render: module.render
     };
