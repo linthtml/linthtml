@@ -4,6 +4,10 @@ export const ISSUE_SEVERITY = {
   ERROR: "error",
   WARNING: "warning"
 };
+export type Fix = {
+  text: string;
+  loc: Range;
+};
 
 export default class Issue {
   code: string;
@@ -12,6 +16,8 @@ export default class Issue {
   message: string;
   data: Record<string, unknown> = {};
   severity: (typeof ISSUE_SEVERITY)[keyof typeof ISSUE_SEVERITY] = ISSUE_SEVERITY.ERROR;
+  fixable?: boolean;
+  fix?: Fix;
 
   // TODO: CHECK why options.rule (legacy, need to be removed)
   constructor(
