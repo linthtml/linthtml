@@ -89,8 +89,14 @@ export default class Linter {
    * Lints the HTML with the options supplied in the environments setup.
    */
   async lint(html: string): Promise<Issue[]> {
+    const { issues } = await this.lint_with_fix(html, false);
+
+    return issues;
+  }
+
+  async lint_with_fix(html: string, _should_fix = false) {
     html = raw_ignore_regex(html, this.config.config);
-    const { parse } = await this.get_parse_fn();
+    const { parse, render } = await this.get_parse_fn();
     const dom = parse(html);
     const activated_rules: ActiveRuleDefinition[] = Object.keys(this.config.activated_rules).map(
       (name) => this.config.activated_rules[name]
@@ -100,10 +106,11 @@ export default class Linter {
     let issues: Issue[] = [...rules_deprecated_issues, ...dom_issues, ...this.reset_rules()];
 
     if (this.config.config.maxerr) {
-      issues = issues.slice(0, this.config.config.maxerr); // REMOVE: After v1.
+      issues = issues.slice(0, this.config.config.maxerr);
     }
 
-    return Promise.resolve(issues);
+    const content = render ? render(dom) : html;
+    return { content, issues };
   }
 
   private report_deprecated_rules(activated_rules: ActiveRuleDefinition[]): Issue[] {

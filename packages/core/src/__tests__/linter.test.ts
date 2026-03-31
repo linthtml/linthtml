@@ -4,6 +4,7 @@ import Config from "../config.js";
 import path from "path";
 import type { LegacyRuleDefinition, RuleConfig, RuleDefinition } from "../read-config.js";
 import { fileURLToPath } from "url";
+import linthtml from "../index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -93,5 +94,45 @@ describe("Config", function () {
     const issues = await linter.lint("<div></div>");
     expect(issues[0].severity).to.equal("warning");
     expect(issues[0].code).to.equal("DEPRECATED_RULE");
+  });
+});
+
+describe("lint_with_fix - regeneration only", () => {
+  it("returns regenerated HTML content", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {}
+    });
+    const html = '<div align="center">text</div>';
+    const { content, issues } = await linter.lint_with_fix(html);
+
+    expect(content).to.equal(html); // Zero-diff regeneration
+    expect(issues).to.have.length(0);
+  });
+
+  it("returns issues with content", async () => {
+    const linter = linthtml.fromConfig({
+      rules: { "attr-bans": [true, "align"] }
+    });
+    const html = '<div align="center">text</div>';
+    const { content, issues } = await linter.lint_with_fix(html);
+
+    expect(content).to.equal(html); // Content still regenerated
+    expect(issues).to.have.length(1);
+    expect(issues[0].code).to.equal("E001");
+  });
+
+  it("preserves formatting in regenerated content", async () => {
+    const linter = linthtml.fromConfig({
+      rules: {}
+    });
+    const html = `<div
+  class="test"
+  id="foo"
+>
+  text
+</div>`;
+    const { content } = await linter.lint_with_fix(html);
+
+    expect(content).to.equal(html); // Exact formatting preserved
   });
 });
