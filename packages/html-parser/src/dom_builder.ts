@@ -5,14 +5,12 @@ import type {
   // TODO find a way to have /dom_elements
 } from "@linthtml/dom-utils";
 import {
-  is_void_node,
   CharValue,
   Document,
   Element,
   NodeAttribute,
   Position,
   Range
-  // TODO find a way to have /dom_elements
 } from "@linthtml/dom-utils";
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
@@ -120,19 +118,19 @@ export default class Handler extends DomHandler {
 
   onclosetag() {
     const node = this.tagStack[this.tagStack.length - 1];
-    // fail
-    // console.log(node)
-    if (node && !is_void_node(node as Element)) {
+    if (node) {
       const raw = this.buffer.slice(this._parser.startIndex, this._parser.endIndex + 1);
-      node.close = {
-        raw,
-        chars: raw.replace(/(<|>|\/)/g, ""),
-        loc: {
-          start: this._indexToPosition(this._parser.startIndex),
-          end: this._indexToPosition(this._parser.endIndex + 1)
-        }
-      };
-      node.loc.end = node.close.loc.end;
+      if (raw.startsWith("</")) {
+        node.close = {
+          raw,
+          chars: raw.replace(/(<|>|\/)/g, ""),
+          loc: {
+            start: this._indexToPosition(this._parser.startIndex),
+            end: this._indexToPosition(this._parser.endIndex + 1)
+          }
+        };
+        node.loc.end = node.close.loc.end;
+      }
     }
     super.onclosetag();
   }
