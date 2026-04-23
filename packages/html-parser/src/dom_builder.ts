@@ -4,14 +4,8 @@ import type {
   ParentNode
   // TODO find a way to have /dom_elements
 } from "@linthtml/dom-utils";
-import {
-  CharValue,
-  Document,
-  Element,
-  NodeAttribute,
-  Position,
-  Range
-} from "@linthtml/dom-utils";
+import { CharValue, Document, Element, NodeAttribute, Position, Range } from "@linthtml/dom-utils";
+
 export default class Handler extends DomHandler {
   /** The elements of the DOM */
   // @ts-expect-error Will work
