@@ -64,7 +64,7 @@ function render_element(element: Element): string {
     return openTag;
   }
 
-  const closeTag = element.close?.raw ?? `</${element.name}>`;
+  const closeTag = element.close?.raw ?? "";
 
   return `${openTag}${children}${closeTag}`;
 }
