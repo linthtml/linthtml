@@ -13,12 +13,12 @@ const __dirname = path.dirname(__filename);
 describe("Get config from path", function () {
   it("Report an error if path provided does not exist", async function () {
     try {
-      await config_from_path("unknow_file");
+      await config_from_path("unknown_file");
     } catch (error) {
       expect(error).to.be.a("CustomError");
       expect(error).to.have.property("code", "CORE-02");
       expect(error).to.have.deep.property("meta", {
-        config_path: path.join(process.cwd(), "unknow_file")
+        config_path: path.join(process.cwd(), "unknown_file")
       });
     }
   });
