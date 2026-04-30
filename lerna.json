@@ -14,7 +14,7 @@
     },
     "publish": {
       "fromPackage": true,
-      "message": "Release %s",
+      "message": "chore(release): Release %s",
       "noPush": true
     }
   }
