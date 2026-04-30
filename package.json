@@ -56,7 +56,7 @@
     "typescript-eslint": "^8.13.0"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "contributors": [
     "Benjamin JEGARD <kamikillerto@gmail.com> (https://github.com/KamiKillertO)"
