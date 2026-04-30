@@ -73,5 +73,12 @@ module.exports = tseslint.config([
     rules: {
       "@typescript-eslint/no-unused-expressions": "off"
     }
+  },
+  {
+    files: ["eslint.config.cjs", "commitlint.config.js", "mocharc.base.js"],
+    extends: [tseslint.configs.disableTypeChecked],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off"
+    }
   }
 ]);
