@@ -18,7 +18,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: volta-cli/action@v4
+      - uses: jdx/mise-action@v4
+        # with:
+        # log_level: debug # [default: info] log level
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
