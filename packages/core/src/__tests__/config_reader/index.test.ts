@@ -187,7 +187,7 @@ describe("Load plugins", function () {
       expect(error).to.have.property("code", "CORE-10");
       expect(error).to.have.property("meta");
       // @ts-expect-error Assertion before assert that meta exist
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
       expect(error.meta.module_name).to.eq(plugin_path);
     }
   });

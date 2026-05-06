@@ -7,7 +7,6 @@ const EXIT_CODE_ERROR = 1;
 const EXIT_CODE_NORMAL = 0;
 
 function isBetaVersion() {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const packageJSON = createRequire(import.meta.url)("../package.json"); // Use this instead of import from to remove json import warning
 
   const { version } = packageJSON as { version: string };

@@ -13,18 +13,14 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (data: any) => {
       if (Array.isArray(data)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         issues.push(...data);
       } else {
-        /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
         const meta = {
           ...data.meta,
           code: data.code,
           message: data.message
         };
-        /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         issues.push(new Issue(rule.name, data.position, meta));
       }
     };
@@ -48,7 +44,7 @@ function apply_rules(rules: RuleDefinition[], element: Node, global_config: Lega
 
 function lint(dom: Document, opts: InlineConfigIndex, inlineConfigs: InlineConfig) {
   // @ts-expect-error Legacy, rules should not have a context object normally
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+
   const subs = this.subscribers;
   /*
    * Reset our inline configuration object to be what opts is.

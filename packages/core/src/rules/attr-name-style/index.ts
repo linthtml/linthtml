@@ -31,7 +31,7 @@ function lint(
   if (is_tag_node(node)) {
     const format = is_extended_config(config) ? config.format : config;
     const ignore = is_extended_config(config)
-      ? config.ignore ?? global_config["attr-name-ignore-regex"]
+      ? (config.ignore ?? global_config["attr-name-ignore-regex"])
       : global_config["attr-name-ignore-regex"];
 
     // TODO: Remove after `raw-ignore-text` refacto

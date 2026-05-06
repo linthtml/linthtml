@@ -59,16 +59,16 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   }
 
   // @ts-expect-error To remove once moved to visitor pattern
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
   if (!this.idmap) {
     // @ts-expect-error To remove once moved to visitor pattern
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
     this.idmap = buil_id_map(node);
   }
 
   const id = (attribute_value(node, "for") as CharValue).chars;
   // @ts-expect-error To remove once moved to visitor pattern
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
   const fornodement = this.idmap.get(id) as Node;
 
   if (!fornodement) {
@@ -97,7 +97,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
 
 function end() {
   // @ts-expect-error To remove once moved to visitor pattern
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
   this.idmap = null;
   return [];
 }

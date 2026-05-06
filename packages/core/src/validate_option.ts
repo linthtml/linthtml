@@ -69,13 +69,11 @@ export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg?: true
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 ): never | ((option: unknown) => option is string | RegExp | never);
 export function create_list_value_validator(
   rule_name: string,
   values: string[],
   allow_reg: false
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 ): never | ((option: unknown) => option is string | never);
 export function create_list_value_validator(rule_name: string, values: string[], allow_reg = true) {
   const type_error = (rule_name: string, option: unknown) =>

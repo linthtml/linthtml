@@ -45,7 +45,6 @@ function merge_inline_config(base_config: InlineConfig, new_config: InlineConfig
 }
 
 function get_parser(config: LinterConfig): Promise<Parser> {
-  // eslint-disable-next-line no-debugger
   if (config?.parser) {
     try {
       const parser_module = get_module_path(process.cwd(), config.parser);

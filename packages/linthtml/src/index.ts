@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import fs from "fs";
 import chalkTemplate from "chalk-template";
 import ora from "ora";

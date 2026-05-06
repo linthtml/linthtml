@@ -44,7 +44,7 @@ export interface RuleDefinition {
     rule_config: unknown,
     obj: {
       report: reportFunction;
-      // eslint-disable-next-line no-use-before-define
+
       rules: Record<string, ActiveRuleDefinition>;
       global_config: Record<string, unknown>;
     }

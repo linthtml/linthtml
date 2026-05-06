@@ -20,7 +20,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
     const for_attribute = attribute_value(node, "for");
     if (for_attribute) {
       // @ts-expect-error To remove once moved to visitor pattern
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
       this.labels[for_attribute.chars] = node;
     }
     return;
@@ -60,7 +60,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
   const id = attribute_value(node, "id");
   if (id) {
     // @ts-expect-error To remove once moved to visitor pattern
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     this.inputsInfo.push({
       id: id.chars,
       loc: node.open.loc
@@ -81,7 +81,7 @@ function lint(node: Node, _config: unknown, { report }: { report: reportFunction
 // REMOVE
 function end() {
   const issues: Issue[] = [];
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   const {
     inputsInfo,
     labels
@@ -109,10 +109,10 @@ function end() {
 
   // wipe previous table
   // @ts-expect-error To remove once moved to visitor pattern
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
   this.labels = {};
   // @ts-expect-error To remove once moved to visitor pattern
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
   this.inputsInfo = [];
 
   return issues;

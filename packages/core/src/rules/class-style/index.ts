@@ -46,7 +46,7 @@ function lint(
 
   if (is_tag_node(node) && has_non_empty_attribute(node, "class")) {
     const ignore = is_extended_config(config)
-      ? config.ignore ?? global_config["id-class-ignore-regex"]
+      ? (config.ignore ?? global_config["id-class-ignore-regex"])
       : global_config["id-class-ignore-regex"];
 
     // const format = options[this.name] || options["id-class-style"];
