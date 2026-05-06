@@ -9,7 +9,11 @@ async function getConfig() {
   return {
     rules: {
       "subject-case": [0, "always", "sentence-case"],
-      "scope-enum": async (ctx) => [2, "always", ["deps", "release", "ci", "doc", ...(await getProjects(ctx))]]
+      "scope-enum": async (ctx) => [
+        2,
+        "always",
+        ["deps", "build-deps", "release", "ci", "doc", ...(await getProjects(ctx))]
+      ]
     }
   };
 }
