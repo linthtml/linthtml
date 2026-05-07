@@ -45,6 +45,5 @@
     "sharedGlobals": [],
     "production": ["default", "!{projectRoot}/eslint.config.cjs"]
   },
-  "useInferencePlugins": false,
-  "useLegacyCache": true
+  "useInferencePlugins": false
 }

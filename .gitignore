@@ -37,3 +37,5 @@ doc/docs/index.md
 .rollup.cache
 
 AGENTS.md
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
