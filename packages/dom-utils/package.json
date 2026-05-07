@@ -59,9 +59,9 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "nx run :test",
-    "test:coverage": "nx run :test --configuration coverage",
-    "build": "nx run :build"
+    "test": "nx run test",
+    "test:coverage": "nx run test --configuration coverage",
+    "build": "nx run build"
   },
   "dependencies": {
     "domelementtype": "^2.3.0",

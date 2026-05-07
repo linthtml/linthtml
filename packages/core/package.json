@@ -45,9 +45,9 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "nx run :test",
-    "test:coverage": "nx run :test --configuration coverage",
-    "build": "nx run :build"
+    "test": "nx run test",
+    "test:coverage": "nx run test --configuration coverage",
+    "build": "nx run build"
   },
   "bugs": {
     "url": "https://github.com/linthtml/linthtml/issues"

@@ -28,7 +28,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "nx run :build"
+    "build": "nx run build"
   },
   "dependencies": {
     "@linthtml/core": "^0.11.0-beta.2",
