@@ -30,7 +30,7 @@
     "@commitlint/config-nx-scopes": "^20.5.0",
     "@eslint/eslintrc": "^2.1.1",
     "@eslint/js": "~8.57.0",
-    "@nx/js": "21.6.9",
+    "@nx/js": "22.7.1",
     "@nx/node": "21.6.9",
     "@types/chai": "^5.0.1",
     "@types/mocha": "^10.0.6",
