@@ -39,7 +39,7 @@
       },
       "configurations": {
         "coverage": {
-          "command": "c8 --reporter lcov nx run :test"
+          "command": "c8 --reporter lcov nx run test"
         }
       }
     }
