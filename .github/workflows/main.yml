@@ -80,6 +80,6 @@ jobs:
           fail_ci_if_error: false
           verbose: true
 
-      # # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/ci/features/self-healing-ci
-      # - run: npx nx fix-ci
-      #   if: always()
+      # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/ci/features/self-healing-ci
+      - run: npx nx fix-ci
+        if: always()
