@@ -71,7 +71,8 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npx nx affected -t test:coverage
+          command: npm run coverage
+          # command: npx nx affected -base=develop -t test:coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
