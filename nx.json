@@ -2,8 +2,13 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "lint": {
       "cache": true,
@@ -14,11 +19,15 @@
         "{workspaceRoot}/eslint.config.js",
         "{workspaceRoot}/eslint.config.cjs"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "test": {
       "cache": true,
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "configurations": {
         "ci": {
           "ci": true,
@@ -41,10 +50,17 @@
     "version": "22.7.1"
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "sharedGlobals": [],
-    "production": ["default", "!{projectRoot}/eslint.config.cjs"]
+    "production": [
+      "default",
+      "!{projectRoot}/eslint.config.cjs"
+    ]
   },
   "useInferencePlugins": false,
-  "nxCloudId": "6a019b8f63386c502194c447"
+  "nxCloudId": "6a019b8f63386c502194c447",
+  "analytics": false
 }
