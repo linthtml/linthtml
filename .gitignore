@@ -39,3 +39,5 @@ doc/docs/index.md
 AGENTS.md
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+.claude/worktrees
