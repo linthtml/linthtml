@@ -25,9 +25,9 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@commitlint/config-nx-scopes": "^20.5.0",
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/config-nx-scopes": "^21.0.1",
     "@eslint/eslintrc": "^2.1.1",
     "@eslint/js": "~8.57.0",
     "@nx/js": "22.7.1",
