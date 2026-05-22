@@ -41,7 +41,7 @@ const cliOptions = {
   flags: {
     config: {
       type: "string",
-      alias: "c"
+      shortFlag: "c"
     },
     color: {
       // no need to add `no-color` it"s automatic same for colorization too (no need to do anything)
@@ -58,11 +58,11 @@ const cliOptions = {
       type: "boolean"
     },
     help: {
-      alias: "h",
+      shortFlag: "h",
       type: "boolean"
     },
     version: {
-      alias: "v",
+      shortFlag: "v",
       type: "boolean"
     }
   },
