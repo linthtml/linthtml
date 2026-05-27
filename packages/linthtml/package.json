@@ -40,7 +40,7 @@
     "lodash.kebabcase": "^4.1.1",
     "meow": "^14.1.0",
     "ora": "^5.3.0",
-    "table-layout": "^3.0.2"
+    "table-layout": "^4.1.1"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7",
