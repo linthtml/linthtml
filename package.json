@@ -43,7 +43,7 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.1",
-    "lefthook": "^1.4.9",
+    "lefthook": "^2.1.8",
     "lerna": "^8.1.9",
     "mocha": "^11.1.0",
     "neostandard": "^0.13.0",
